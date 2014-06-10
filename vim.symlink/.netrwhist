@@ -1,9 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/leo/Sites/todaemforma'
-let g:netrw_dirhist_2='/Users/leo/Sites/todaemforma/wp-content'
-let g:netrw_dirhist_3='/Users/leo/Sites/todaemforma/wp-content/plugins'
-let g:netrw_dirhist_4='/Users/leo/Sites/todaemforma/wp-content/plugins/woocommerce'
-let g:netrw_dirhist_5='/Users/leo/Sites/todaemforma/wp-content/plugins/woocommerce/includes'
-let g:netrw_dirhist_6='/Users/leo/Sites/todaemforma'
-let g:netrw_dirhist_7='/Users/leo/Sites/todaemforma/config'
