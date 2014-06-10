@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>action</key>
+	<false/>
+	<key>background</key>
+	<false/>
+	<key>category</key>
+	<string>APPLESCRIPTS</string>
+	<key>command</key>
+	<string>(* This is an unofficial manager for Caffeine (http://lightheadsw.com/caffeine/) created by Sebastian of Zibity. It is an easy way to toggle Caffeine on and off.
+	Usage: "caff"
+
+If you have any questions or suggestions, please send me a message via my website: http://www.zibity.com
+
+If you want more cool Alfred extensions like these, take a look at http://www.zibity.com/alfred.html for all of my other extensions.
+
+If you like this extension, please consider donating to support the continued development of things like this: http://donate.zibity.com
+
+
+*)--- SCRIPT BEGINS HERE ---try	tell application "Caffeine"		if active is false then			turn on			tell application "Growl" to notify with name "Extension Output" title "Caffeine has been activated." description "Caffeine Manager has activated Caffeine." application name "Alfred" identifier "caff" icon of application "Caffeine"		else			turn off			tell application "Growl" to notify with name "Extension Output" title "Caffeine has been deactivated." description "Caffeine Manager has deactivated Caffeine." application name "Alfred" identifier "caff" icon of application "Caffeine"		end if	end tellend try</string>
+	<key>keyword</key>
+	<string>caff</string>
+	<key>subtitle</key>
+	<string>Action me turn Caffeine on or off.</string>
+	<key>title</key>
+	<string>Toggle Caffeine On or Off</string>
+</dict>
+</plist>

@@ -1,0 +1,27 @@
+if has("gui_macvim")
+  macmenu &File.New\ Tab key=<D-T>
+
+  "set guifont=Panic\ Sans:h18
+  "set guifont=Menlo:h20
+  set guifont=Ubuntu\ Mono:h20
+  set transparency=1
+  set macmeta
+  set guioptions=aAce
+
+  " hlsearch underline
+  highlight Search guibg=black guifg=yellow gui=underline
+
+  " Cursor
+  set guicursor=n-v-c-i:block-Cursor
+  set guicursor+=n-v-c-i:blinkon0
+  set guicursor+=i:ver100-iCursor
+
+  set lines=40
+  set columns=80
+
+  " Autosave on focus lost
+  autocmd FocusLost * silent! wa
+  let g:auto_save = 0
+
+endif
+

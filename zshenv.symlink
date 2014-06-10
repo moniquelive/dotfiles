@@ -1,0 +1,86 @@
+# Customize to your needs...
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+export SENCHA_CMD="${HOME}/bin/Sencha/Cmd/3.1.2.342"
+
+export PATH="${HOME}/.rvm/bin:\
+/usr/local/rvm/bin:\
+${HOME}/bin:\
+/usr/local/bin:\
+/usr/local/share/npm/bin:\
+/usr/local/sbin:\
+/bin:\
+/sbin:\
+/usr/bin:\
+/usr/sbin:\
+/usr/X11/bin:\
+${SENCHA_CMD}"
+
+export AWS_ACCESS_KEY_ID="AKIAI67RPPW2FQKARCLA"
+export AWS_SECRET_ACCESS_KEY="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"
+
+if [[ -s "/usr/local/bin/brew" ]]; then
+  brew_prefix=$(brew --prefix)
+  python_prefix=$(brew --prefix python)
+  #coreutils_prefix=$(brew --prefix coreutils)
+  #npm_prefix=$(brew --prefix npm)
+  #php_prefix=$(brew --prefix josegonzalez/php/php55)
+
+  export MANPATH="${brew_prefix}/opt/coreutils/libexec/gnuman:${MANPATH}"
+  export PYTHONPATH=".:${brew_prefix}/lib/python2.7/site-packages:${PYTHONPATH}"
+
+  export PATH="\
+${python_prefix}/bin:\
+${brew_prefix}/opt/node/bin:\
+${brew_prefix}/opt/coreutils/bin:\
+${brew_prefix}/opt/coreutils/libexec/gnubin:\
+${brew_prefix}/opt/php55/bin:\
+${PATH}"
+fi
+
+export LESSCHARSET=utf-8
+export EDITOR=/usr/local/bin/vim
+export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
+export DOCKER_HOST=tcp://localhost:4243
+
+alias ri='ri -Tf ansi'
+alias rm='rm -I'
+alias tis='tig status'
+alias listen='lsof -i -P | grep LISTEN'
+alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
+alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
+alias t='tmux -2u $*'
+alias tree='tree -SA'
+alias gd="git difftool --no-prompt --tool=mvimdiff"
+alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+#alias vim="mvim -v"
+alias gs='git status -sb'
+
+setopt numericglobsort
+setopt braceccl
+#setopt noclobber
+setopt extendedglob
+setopt HIST_IGNORE_SPACE
+skip_global_compinit=1
+
+# search on zshall man page
+zman() {
+  PAGER="less -g -s '+/^       "$1"'" man zshall
+}
+
+# save dirstack between sessions
+DIRSTACKSIZE=9
+DIRSTACKFILE=~/.zdirs
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
+#chpwd() {
+#  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+#}
+
+# last lines pls
+[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"
+[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
+

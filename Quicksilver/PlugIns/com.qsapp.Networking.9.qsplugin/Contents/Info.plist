@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13A603</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Networking</string>
+	<key>CFBundleExecutable</key>
+	<string>Networking Plugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.qsapp.Networking</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Networking Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.2.0</string>
+	<key>CFBundleVersion</key>
+	<string>9</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>5A2053</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>13A595</string>
+	<key>DTSDKName</key>
+	<string>macosx10.9</string>
+	<key>DTXcode</key>
+	<string>0501</string>
+	<key>DTXcodeBuild</key>
+	<string>5A2053</string>
+	<key>QSActions</key>
+	<dict>
+		<key>QSAirPortDisassociate</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>actionSelector</key>
+			<string>disassociateAirPort</string>
+			<key>directTypes</key>
+			<array>
+				<string>QSAirPortItemType</string>
+			</array>
+			<key>icon</key>
+			<string>GenericNetworkIcon</string>
+			<key>name</key>
+			<string>Disconnect Current Network</string>
+			<key>precedence</key>
+			<integer>1</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>QSAirPortNetworkNewConnection</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>actionSelector</key>
+			<string>connectNewNetwork:</string>
+			<key>directTypes</key>
+			<array>
+				<string>QSWirelessNetworkType</string>
+			</array>
+			<key>icon</key>
+			<string>GenericNetworkIcon</string>
+			<key>name</key>
+			<string>Connect to Network (via Menubar)</string>
+			<key>precedence</key>
+			<integer>3</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>QSAirPortNetworkSelectAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>actionSelector</key>
+			<string>selectNetwork:</string>
+			<key>directTypes</key>
+			<array>
+				<string>QSWirelessNetworkType</string>
+			</array>
+			<key>icon</key>
+			<string>GenericNetworkIcon</string>
+			<key>name</key>
+			<string>Connect to Network</string>
+			<key>precedence</key>
+			<integer>3</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>QSAirPortPowerDisable</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>actionSelector</key>
+			<string>disableAirPort</string>
+			<key>directTypes</key>
+			<array>
+				<string>QSAirPortItemType</string>
+			</array>
+			<key>icon</key>
+			<string>Power</string>
+			<key>name</key>
+			<string>Power Off Wireless Interface</string>
+			<key>precedence</key>
+			<integer>3</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>QSAirPortPowerEnable</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>actionSelector</key>
+			<string>enableAirPort</string>
+			<key>directTypes</key>
+			<array>
+				<string>QSAirPortItemType</string>
+			</array>
+			<key>icon</key>
+			<string>Power</string>
+			<key>name</key>
+			<string>Power On Wireless Interface</string>
+			<key>precedence</key>
+			<integer>3</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>QSAirPortPowerToggle</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>actionSelector</key>
+			<string>toggleAirPort</string>
+			<key>directTypes</key>
+			<array>
+				<string>QSAirPortItemType</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>icon</key>
+			<string>Power</string>
+			<key>name</key>
+			<string>Toggle Wireless Interface Power</string>
+			<key>precedence</key>
+			<integer>2</integer>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+		<key>QSNetworkLocationSelectAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSNetworkLocationActionProvider</string>
+			<key>actionSelector</key>
+			<string>selectNetwork:</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.networklocation</string>
+			</array>
+			<key>icon</key>
+			<string>GenericNetworkIcon</string>
+			<key>name</key>
+			<string>Switch to Location</string>
+			<key>precedence</key>
+			<integer>2</integer>
+		</dict>
+	</dict>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Rob McBroom</string>
+		<key>categories</key>
+		<array>
+			<string>System</string>
+		</array>
+		<key>description</key>
+		<string>Manage wireless connections, locations, and get information</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2&gt;Quicksilver Networking&lt;/h2&gt;
+&lt;h3&gt;Catalog&lt;/h3&gt;
+&lt;h4&gt;Presets&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Network Locations - Adds any netowrk locations you've configured in System Preferences to the catalog. (Disabled by default)&lt;/li&gt;
+&lt;li&gt;Wireless Interface - A virtual entry that represents your Wi-Fi connection. Use this to turn the interface on and off, or to view available networks by hitting → or /. (For 10.6 users, this will appear in the catalog under the name "AirPort".)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Proxy Objects&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;IP Address - The IP address(es) currently assigned to your computer.&lt;/li&gt;
+&lt;li&gt;External IP Address - The IP address remote sites will see when you connect to them.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Actions&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Switch to Location - when a network location is selected in the first pane, this will allow you to set it as the active location.&lt;/li&gt;
+&lt;li&gt;Turn Wi-Fi On - Enable power for the wireless interface. This action is only available when power is off. (The action is named "Turn AirPort On" for 10.6 users.)&lt;/li&gt;
+&lt;li&gt;Turn Wi-Fi Off - Disable power for the wireless interface. This action is only available when power is on. (The action is named "Turn AirPort Off" for 10.6 users.)&lt;/li&gt;
+&lt;li&gt;Toggle Wi-Fi Power - Toggle power for the wireless interface. Useful for creating triggers. (The action is named "Toggle AirPort Off" for 10.6 users.)&lt;/li&gt;
+&lt;li&gt;Disconnect Current Network - Disassociate from the current wireless network, but keep power for the interface on.&lt;/li&gt;
+&lt;li&gt;Connect to Network - Connect to the selected wireless network. This is only available for unsecured networks and secured networks for which you have credentials stored in your keychain.&lt;/li&gt;
+&lt;li&gt;Connect to Network (via Menubar) - For secured networks that can't be automatically joined, this action will attempt to click through the menu bar to select the network for you, which should result in you being prompted for credentials.&lt;/li&gt;
+&lt;/ul&gt;</string>
+		<key>icon</key>
+		<string>GenericNetworkIcon</string>
+		<key>recommended</key>
+		<true/>
+	</dict>
+	<key>QSPresetAdditions</key>
+	<array>
+		<dict>
+			<key>ID</key>
+			<string>QSPresetNetworkingGroup</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetAirPortModule</string>
+					<key>enabled</key>
+					<true/>
+					<key>icon</key>
+					<string>com.apple.airport.airportutility</string>
+					<key>name</key>
+					<string>Wireless Interface</string>
+					<key>source</key>
+					<string>QSAirPortNetworkObjectSource</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetNetworkLocations</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>GenericNetworkIcon</string>
+					<key>name</key>
+					<string>Network Locations</string>
+					<key>source</key>
+					<string>QSNetworkLocationObjectSource</string>
+				</dict>
+			</array>
+			<key>icon</key>
+			<string>GenericNetworkIcon</string>
+			<key>name</key>
+			<string>Networking</string>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+		</dict>
+	</array>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSActionProviders</key>
+		<dict>
+			<key>QSAirPortNetworkActionProvider</key>
+			<string>QSAirPortNetworkActionProvider</string>
+			<key>QSNetworkLocationActionProvider</key>
+			<string>QSNetworkLocationActionProvider</string>
+			<key>QSNetworkingActionProvider</key>
+			<string>QSNetworkingActionProvider</string>
+		</dict>
+		<key>QSApplicationActionsTemplate</key>
+		<dict>
+			<key>com.domain.application</key>
+			<dict>
+				<key>NetworkingExampleCommand</key>
+				<dict>
+					<key>actionClass</key>
+					<string>QSNetworkingActionProvider</string>
+					<key>command</key>
+					<string>NetworkingExampleCommand</string>
+					<key>name</key>
+					<string>Application Action Example</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>QSBundleChildHandlers</key>
+		<dict>
+			<key>QSNetworkingType</key>
+			<string>QSNetworkingSource</string>
+		</dict>
+		<key>QSBundleChildHandlersTemplate</key>
+		<dict>
+			<key>com.domain.application</key>
+			<string>QSNetworkingSource</string>
+		</dict>
+		<key>QSCommandsTemplate</key>
+		<dict>
+			<key>NetworkingExampleCommand</key>
+			<dict>
+				<key>command</key>
+				<dict>
+					<key>actionID</key>
+					<string>QSObjCSendMessageAction</string>
+					<key>directArchive</key>
+					<dict>
+						<key>data</key>
+						<dict>
+							<key>qs.action</key>
+							<dict>
+								<key>actionClass</key>
+								<string>QSNetworkingActionProvider</string>
+								<key>actionSelector</key>
+								<string>someSelector</string>
+								<key>icon</key>
+								<string>defaultAction</string>
+								<key>name</key>
+								<string>Do Something</string>
+							</dict>
+						</dict>
+					</dict>
+					<key>directID</key>
+					<string>NetworkingInternalCommand</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>QSObjectHandlers</key>
+		<dict>
+			<key>QSAirPortItemType</key>
+			<string>QSAirPortNetworkObjectSource</string>
+			<key>QSNetworkingType</key>
+			<string>QSNetworkingSource</string>
+			<key>qs.networklocation</key>
+			<string>QSNetworkLocationObjectSource</string>
+		</dict>
+		<key>QSObjectSources</key>
+		<dict>
+			<key>QSAirPortNetworkObjectSource</key>
+			<string>QSAirPortNetworkObjectSource</string>
+			<key>QSNetworkLocationObjectSource</key>
+			<string>QSNetworkLocationObjectSource</string>
+			<key>QSNetworkingSource</key>
+			<string>QSNetworkingSource</string>
+		</dict>
+		<key>QSPreferencePanesTemplate</key>
+		<dict>
+			<key>NetworkingPrefPaneTemplate</key>
+			<dict>
+				<key>class</key>
+				<string>NetworkingPrefPane</string>
+				<key>description</key>
+				<string>Preferences</string>
+				<key>icon</key>
+				<string>KEXT</string>
+				<key>name</key>
+				<string>Networking</string>
+			</dict>
+		</dict>
+		<key>QSProxies</key>
+		<dict>
+			<key>QSNetworkExternalIPProxy</key>
+			<dict>
+				<key>icon</key>
+				<string>GenericNetworkIcon</string>
+				<key>name</key>
+				<string>External IP Address</string>
+				<key>providerClass</key>
+				<string>QSNetworkingSource</string>
+				<key>types</key>
+				<array>
+					<string>NSStringPboardType</string>
+				</array>
+			</dict>
+			<key>QSNetworkIPAddressProxy</key>
+			<dict>
+				<key>icon</key>
+				<string>GenericNetworkIcon</string>
+				<key>name</key>
+				<string>IP Address</string>
+				<key>providerClass</key>
+				<string>QSNetworkingSource</string>
+				<key>types</key>
+				<array>
+					<string>NSStringPboardType</string>
+				</array>
+			</dict>
+		</dict>
+		<key>QSTriggerEventsTemplate</key>
+		<dict>
+			<key>NetworkingSomeEvent</key>
+			<dict>
+				<key>icon</key>
+				<string>KEXT</string>
+				<key>name</key>
+				<string>Do something in response to this event</string>
+				<key>provider</key>
+				<string>QSNetworkingSource</string>
+			</dict>
+		</dict>
+		<key>QSTriggerSetsTemplates</key>
+		<dict>
+			<key>NetworkingTriggers</key>
+			<dict>
+				<key>icon</key>
+				<string>KEXT</string>
+				<key>name</key>
+				<string>Networking</string>
+			</dict>
+		</dict>
+		<key>QSTypeDefinitions</key>
+		<dict>
+			<key>QSWirelessNetworkType</key>
+			<dict>
+				<key>icon</key>
+				<string>com.apple.airport.airportutility</string>
+				<key>name</key>
+				<string>AirPort Networks</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>obsoletes</key>
+		<array>
+			<string>com.blacktree.Quicksilver.QSAirPortPlugIn</string>
+			<string>com.blacktree.Quicksilver.QSNetworkLocationPlugIn</string>
+		</array>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+	<key>QSTriggerAdditionsTemplate</key>
+	<array>
+		<dict>
+			<key>ID</key>
+			<string>NetworkingTrigger</string>
+			<key>command</key>
+			<string>NetworkingExampleCommand</string>
+			<key>defaults</key>
+			<dict>
+				<key>characters</key>
+				<string>x</string>
+				<key>keyCode</key>
+				<integer>124</integer>
+				<key>modifiers</key>
+				<integer>9961768</integer>
+				<key>type</key>
+				<string>QSHotKeyTrigger</string>
+			</dict>
+			<key>name</key>
+			<string>Example Trigger</string>
+			<key>set</key>
+			<string>Networking</string>
+		</dict>
+	</array>
+</dict>
+</plist>

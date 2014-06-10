@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>action</key>
+	<false/>
+	<key>category</key>
+	<string>SCRIPTS</string>
+	<key>command</key>
+	<string>#Based on this Mac OS X Hint:
+#http://hints.macworld.com/article.php?story=20110511111211385
+#Modified for input of multiple commands to seperate .PS files
+
+COMMANDS="{query}"
+for f in $COMMANDS
+do
+    ps=`mktemp -t $f`.ps
+	man -t $f &gt; "$ps"
+	open "$ps"
+done</string>
+	<key>escapequery</key>
+	<false/>
+	<key>escapequerybackquotes</key>
+	<false/>
+	<key>escapequerybrackets</key>
+	<false/>
+	<key>escapequeryquotes</key>
+	<true/>
+	<key>escapequerysemicolons</key>
+	<false/>
+	<key>growloutput</key>
+	<false/>
+	<key>growloutputsticky</key>
+	<false/>
+	<key>keyword</key>
+	<string>man</string>
+	<key>logging</key>
+	<false/>
+	<key>silent</key>
+	<true/>
+	<key>subtitle</key>
+	<string>Preview fromatted manpages in Preview.app</string>
+	<key>title</key>
+	<string>Preview manpage</string>
+</dict>
+</plist>

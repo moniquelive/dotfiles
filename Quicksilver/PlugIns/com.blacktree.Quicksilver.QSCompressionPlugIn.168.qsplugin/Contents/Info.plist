@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13C1021</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>File Compression Plugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSCompressionPlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>File Compression Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.7.2</string>
+	<key>CFBundleVersion</key>
+	<string>168</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>5A2034a</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>13A595</string>
+	<key>DTSDKName</key>
+	<string>macosx10.9</string>
+	<key>DTXcode</key>
+	<string>0501</string>
+	<key>DTXcodeBuild</key>
+	<string>5A2034a</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2004, Blacktree, Inc.</string>
+	<key>QSActions</key>
+	<dict>
+		<key>QSFileCompressAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSCompressionActionProvider</string>
+			<key>actionSelector</key>
+			<string>compressFile:</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>icon</key>
+			<string>com.apple.archiveutility</string>
+			<key>name</key>
+			<string>Compress</string>
+		</dict>
+		<key>QSFileCompressUsingAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSCompressionActionProvider</string>
+			<key>actionSelector</key>
+			<string>compressFile:withFormat:</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>displaysResult</key>
+			<integer>1</integer>
+			<key>icon</key>
+			<string>com.apple.archiveutility</string>
+			<key>name</key>
+			<string>Compress Using...</string>
+		</dict>
+		<key>QSFileDecompressAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSCompressionActionProvider</string>
+			<key>actionSelector</key>
+			<string>decompressFile:</string>
+			<key>directFileTypes</key>
+			<array>
+				<string>zip</string>
+				<string>cpio</string>
+				<string>cpgz</string>
+				<string>tgz</string>
+				<string>tbz</string>
+				<string>tbz2</string>
+				<string>gz</string>
+				<string>7z</string>
+			</array>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>com.apple.archiveutility</string>
+			<key>name</key>
+			<string>Decompress</string>
+			<key>rankModification</key>
+			<real>4</real>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>QSDefaults</key>
+	<dict>
+		<key>QSCompressionDefaultType</key>
+		<string>zip</string>
+	</dict>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Patrick Robertson, Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Files</string>
+			<string>Utility</string>
+		</array>
+		<key>description</key>
+		<string>File Compress/Decompress Actions</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The File Compression Plugin allows compression and decompression of files using Apple's Archive Utility application. In addition, it supports &lt;code&gt;7z&lt;/code&gt; files using &lt;a href="http://p7zip.sourceforge.net/"&gt;p7zip&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Actions&lt;/h2&gt;
+&lt;dl&gt;
+&lt;dt&gt;Compress&lt;/dt&gt;
+&lt;dd&gt;Compresses the object(s) in the first pane using the default compression type (see 'Preferences' section below)&lt;/dd&gt;
+&lt;dt&gt;Compress Using…&lt;/dt&gt;
+&lt;dd&gt;Allows the object(s) in the first pane to be compressed using one of: &lt;code&gt;zip&lt;/code&gt;, &lt;code&gt;tbz2&lt;/code&gt;&lt;sup id="fnref:1"&gt;&lt;a href="#fn:1" rel="footnote"&gt;1&lt;/a&gt;&lt;/sup&gt;, &lt;code&gt;tgz&lt;/code&gt;, &lt;code&gt;cpio&lt;/code&gt;, &lt;code&gt;cpgz&lt;/code&gt;, &lt;code&gt;7z&lt;/code&gt;&lt;/dd&gt;
+&lt;dt&gt;Decompress&lt;/dt&gt;
+&lt;dd&gt;Decompress files using Archive Utility or &lt;code&gt;p7zip&lt;/code&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h2&gt;Preferences&lt;/h2&gt;
+&lt;p&gt;The plugin adds a preference pane to Quicksilver, allowing you to:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Choose whether to compress files to a temporary location first&lt;/li&gt;
+&lt;li&gt;Choose the default compression type to use for the 'Compress' action&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Trigger Events&lt;/h2&gt;
+&lt;p&gt;Event Triggers can be run based on two events in this plugin: Compress and Decompress. For both actions, the "Event Trigger Object" will refer to the archive file.&lt;/p&gt;
+&lt;h2&gt;Decompressing Multiple Times&lt;/h2&gt;
+&lt;p&gt;If you decompress multiple times into the same folder, Archive Utility will rename files at the top-level to avoid a conflict. By contrast, &lt;code&gt;p7zip&lt;/code&gt; will rename files &lt;em&gt;within nested folders&lt;/em&gt;, so do not be surprised if decompressing multiple times does not produce separate copies of a decompressed folder.&lt;/p&gt;
+&lt;div class="footnote"&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id="fn:1"&gt;
+&lt;p&gt;The &lt;code&gt;tbz2&lt;/code&gt; extension is used as opposed to &lt;code&gt;tbz&lt;/code&gt;, since this is the OS-preferred extension.&amp;#160;&lt;a href="#fnref:1" rev="footnote" title="Jump back to footnote 1 in the text"&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;</string>
+		<key>icon</key>
+		<string>com.apple.archiveutility</string>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSActionProviders</key>
+		<dict>
+			<key>QSCompressionActionProvider</key>
+			<string>QSCompressionActionProvider</string>
+		</dict>
+		<key>QSFileCompressors</key>
+		<dict>
+			<key>7z</key>
+			<dict>
+				<key>class</key>
+				<string>QSCompressionActionProvider</string>
+				<key>extension</key>
+				<string>7z</string>
+				<key>icon</key>
+				<string>bah-7z</string>
+				<key>selector</key>
+				<string>p7zipCompress:destination:</string>
+			</dict>
+			<key>cpgz</key>
+			<dict>
+				<key>class</key>
+				<string>QSCompressionActionProvider</string>
+				<key>extension</key>
+				<string>cpgz</string>
+				<key>icon</key>
+				<string>bah-cpgz</string>
+				<key>selector</key>
+				<string>cpgzCompress:destination:</string>
+			</dict>
+			<key>cpio</key>
+			<dict>
+				<key>class</key>
+				<string>QSCompressionActionProvider</string>
+				<key>extension</key>
+				<string>cpio</string>
+				<key>icon</key>
+				<string>bah-cpio</string>
+				<key>selector</key>
+				<string>cpioCompress:destination:</string>
+			</dict>
+			<key>tbz2</key>
+			<dict>
+				<key>class</key>
+				<string>QSCompressionActionProvider</string>
+				<key>extension</key>
+				<string>tbz2</string>
+				<key>icon</key>
+				<string>bah-tbz2</string>
+				<key>selector</key>
+				<string>tbzCompress:destination:</string>
+			</dict>
+			<key>tgz</key>
+			<dict>
+				<key>class</key>
+				<string>QSCompressionActionProvider</string>
+				<key>extension</key>
+				<string>tgz</string>
+				<key>icon</key>
+				<string>bah-tgz</string>
+				<key>selector</key>
+				<string>tgzCompress:destination:</string>
+			</dict>
+			<key>zip</key>
+			<dict>
+				<key>class</key>
+				<string>QSCompressionActionProvider</string>
+				<key>extension</key>
+				<string>zip</string>
+				<key>icon</key>
+				<string>bah-zip</string>
+				<key>selector</key>
+				<string>zipCompress:destination:</string>
+			</dict>
+		</dict>
+		<key>QSPreferencePanes</key>
+		<dict>
+			<key>QSCompressionPrefPane</key>
+			<dict>
+				<key>class</key>
+				<string>QSPreferencePane</string>
+				<key>description</key>
+				<string>Destination and Format Options</string>
+				<key>icon</key>
+				<string>com.apple.archiveutility</string>
+				<key>name</key>
+				<string>Compression</string>
+				<key>nibBundle</key>
+				<string>com.blacktree.Quicksilver.QSCompressionPlugIn</string>
+				<key>nibName</key>
+				<string>QSCompressionPrefPane</string>
+			</dict>
+		</dict>
+		<key>QSTriggerEvents</key>
+		<dict>
+			<key>QSFileCompressComplete</key>
+			<dict>
+				<key>allowMatching</key>
+				<true/>
+				<key>icon</key>
+				<string>com.apple.archiveutility</string>
+				<key>name</key>
+				<string>File(s) Compressed ☿</string>
+				<key>provider</key>
+				<string>QSCompressionActionProvider</string>
+				<key>type</key>
+				<string>File Compression</string>
+			</dict>
+			<key>QSFileDecompressComplete</key>
+			<dict>
+				<key>allowMatching</key>
+				<true/>
+				<key>icon</key>
+				<string>com.apple.archiveutility</string>
+				<key>name</key>
+				<string>Archive Decompressed ☿</string>
+				<key>provider</key>
+				<string>QSCompressionActionProvider</string>
+				<key>type</key>
+				<string>File Compression</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+</dict>
+</plist>

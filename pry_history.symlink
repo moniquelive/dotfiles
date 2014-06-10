@@ -1,0 +1,220 @@
+User.first.gender
+User.first
+url
+page
+form
+page.forms
+page.forms.length
+page.forms.first
+form
+form.fields
+agent
+ls agent
+agent.request_headers
+resultado.xquery('//div[contains(@class,"ContentTable")]')
+ls resultado
+resultado.class
+resultado.content.class
+resultado.body.class
+resultado.response.class
+resultado/('//div[contains(@class,"ContentTable")]')
+r=_
+r.class
+r.lengt
+r.length
+r.first
+r.first.class
+r.first.length
+r
+r.length
+r
+require 'nokogiri'
+Nokogiri::HTML
+ls Nokogiri::HTML
+ls Nokogiri::HTML.parse('result.txt')
+Nokogiri::HTML.parse('result.txt')
+Nokogiri::HTML('result.txt')
+Nokogiri::HTML(open('result.txt'))
+r
+r.length
+r.class
+r.first.class
+a = [1,2,3]
+x,y,z = a
+x
+y
+z
+a
+x,y,z,w = a
+w
+a
+a.to_h
+{}.keys = a
+ls a
+a.rassoc
+a.assoc
+a.class
+a
+? a.shelljoin
+a.shelljoin
+ls a
+ARGV
+ARGV.class
+a.slice
+a.slice 1
+a
+a.to_a
+a.to_ary
+? a.to_ary
+show-source a.to_ary
+ls a
+a.zip(a)
+Hash.new(*a.zip(a))
+Hash.new( *a.zip(a) )
+Hash[*a.zip(a)]
+Hash[*a.zip(a).flatten]
+'1,2,3,4'.split
+'1,2,3,4'.split(,)
+'1,2,3,4'.split(',')
+'1,2,3,4'.split!(',')
+x='1,2,3,4'
+x.split!(',')
+x
+{}.tap { |h| h[:a] = 3 }
+i
+line
+line.length
+table.length
+r[i]
+r[i].text
+r[i].text[/\w+-\d+/]
+abort
+paradas
+abort
+anac_info
+anac_info.strip
+abort
+anac_info[/([A-Za-z0-9:; ]+\|)/]
+anac_info[/([A-Za-z0-9:; ]+\|)/,1]
+anac_info[/([A-Za-z0-9:; ]+\|)/,2]
+(line/'//span[contains(@class,"anacInformation")]')
+abort
+a = []
+a << [1,2,3]
+taxas
+taxas.length
+taxas['value']
+taxas['value'][/(\|.+?(\d{2}/\d{2}/\d{4} \d{2}:\d{2}).+(\d{2}/\d{2}/\d{4} \d{2}:\d{2})~)/]
+taxas['value'][/(\|.+?(\d\d/\d\d/\d\d\d\d \d\d:\d\d).+(\d\d/\d\d/\d\d\d\d \d\d:\d\d)~)/]
+taxas['value'][/(|.+?(\d\d/\d\d/\d\d\d\d \d\d:\d\d).+(\d\d/\d\d/\d\d\d\d \d\d:\d\d)~)/]
+taxas['value'][%r{(\|.+?(\d\d/\d\d/\d\d\d\d \d\d:\d\d).+(\d\d/\d\d/\d\d\d\d \d\d:\d\d)~)}]
+taxas['value'][%r{(\|.+?(\d\d/\d\d/\d\d\d\d \d\d:\d\d).+(\d\d/\d\d/\d\d\d\d \d\d:\d\d)~)},1]
+taxas['value'][%r{(\|.+?(\d\d/\d\d/\d\d\d\d \d\d:\d\d).+(\d\d/\d\d/\d\d\d\d \d\d:\d\d)~)},2]
+taxas['value'][%r{(\|.+?(\d\d/\d\d/\d\d\d\d \d\d:\d\d).+(\d\d/\d\d/\d\d\d\d \d\d:\d\d)~)},3]
+taxas['value'][%r{(\|([A-Za-z0-9]+)~([0-9]+)~)},1]
+taxas['value'][%r{(\|([A-Za-z0-9]+)~([0-9]+)~)},2]
+taxas['value'][%r{(\|([A-Za-z0-9]+)~([0-9]+)~)},3]
+taxas['value'][%r{(\|([A-Za-z0-9]+)~([0-9]+)~)},4]
+taxas['value'][%r{(\|([A-Za-z0-9]+)~([0-9]+)~)}]
+taxas['value'][%r{(\|([A-Za-z0-9]+)~([0-9]+)~)},0]
+abort
+caller.class
+caller
+User
+require 'rails/console/app'
+extend Rails::ConsoleMethods
+User
+Rails
+Rails.env
+ls Rails
+User
+show-models
+show-model User
+a = 1
+b = 1
+c = 2
+a == b == 1
+a === b
+a === b === 1
+resultado/'table'
+(resultado/'table').length
+(resultado/'table')[0].text
+(resultado/'table')[0].html
+ls (resultado/'table')[0]
+(resultado/'table')[0].to_html
+(resultado/'table')[0].to_html.grep 'flight_direct'
+(resultado/'table')[0].to_html.match 'flight_direct'
+(resultado/'table')[0].to_html.match /flight_direct/
+(resultado/'table')[0].to_html =~ /flight_direct/
+(resultado/'table')[1].to_html =~ /flight_direct/
+(resultado/'table').map{|e| e.to_html =~ /flight_direct/}
+(resultado/'table').map{|e| e.to_html =~ /list_flight_direct/}
+(resultado/'table').map{|e| e.to_html =~ /list_flight_connection/}
+(resultado/'table').map{|e| e.to_html =~ /list_flight_stop_over/}
+(resultado/'table').map{|e| e.to_html =~ /outbound.*list_flight_direct/}
+(resultado/'table').map{|e| e.to_html =~ /outbound.*list_flight_connection/}
+(resultado/'table').map{|e| e.to_html =~ /outbound.*list_flight_stop_over/}
+(resultado/'table').map{|e| e.to_html =~ /inbound.*list_flight_direct/}
+tr
+abort
+a = [:a,:b,:c,:d]
+a.each { |e| puts e }
+a.each_with_index { |e,y| puts e }
+a.each_with_index { |e,y| puts y }
+tr[:class]
+abort
+@voos
+abort
+@voos.length
+voos.length
+voos
+abort
+voos.length
+voos
+abort
+voos
+abort
+voos
+voos.last
+voos
+require 'activesuport/all'
+require 'activesupport/all'
+.head tam_cyber.rb
+require 'active_support/all'
+show-source Object.presence
+show-source Object.present?
+show-source Object.blank?
+'leo'
+u'leo'
+'leo'
+require 'mysql'
+show-source Mysql.new
+?? Mysql.new
+? Mysql.new
+3.in([1,2,3])
+3.in?([1,2,3])
+[1,2,3].contains?(3)
+[1,2,3].contains(3)
+[1,2,3].contain(3)
+[1,2,3].contain?(3)
+ls []
+? [].member?
+? [].include?
+skip_these_classes = %w{
+          stopDuration flightNextSegment
+          totalDurationRow flightNextSegment
+        }
+skip_these_classes = %q{
+          stopDuration flightNextSegment
+          totalDurationRow flightNextSegment
+        }
+'3.4'.to_i
+'3.4'.to_f
+nil.tap {|me| me = 3; 4}
+0.tap {|me| me = 3; 4}
+[].tap {|me| me = 3; 4}
+[].tap {|me| me = 3; 4};
+[].tap {|me| me = 3; 4}
+{}.tap {|me| me = 3; 4}
+{}.tap {|me| me[:a] = 3; 4}
+[].tap {|me| me<< 3; 4}.first

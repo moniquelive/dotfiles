@@ -1,0 +1,119 @@
+#----------------------------------------------------- tips from tmux book ---
+set -sg escape-time 1                       # shorten commands delay
+set -g repeat-time 1000                     # increase repeat time for repeatable cmds
+set -g base-index 1                         # counting windows from 1
+set -g pane-base-index 1                    # counting panes from 1
+set -g default-terminal "screen-256color"   # 256 color terminal
+set -g history-limit 5000                   # increase history limit
+set -g renumber-windows on
+setw -g utf8 on
+setw -g aggressive-resize on
+
+# MOUSE & CLIPBOARD
+set -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+set -g set-clipboard on
+
+#----------------------------------------------------------- reload config ---
+bind r source-file ~/.tmux.conf \; display "Reloaded!"
+bind C-r source-file ~/.tmux.conf \; display "Reloaded!"
+
+#-------------------------------------------------- a bit more like screen ---
+set -g prefix C-a
+bind C-a send-prefix
+unbind l
+
+#---------------------------------------------------- more intutive splits ---
+unbind '"'
+unbind %
+bind | split-window -h
+bind - split-window -v
+
+#----------------------------------------------------------------- VI mode ---
+setw -g mode-keys vi
+setw -g status-keys vi
+
+#---------------------------------------------------- moving between panes ---
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+#-------------------------------------------------- moving between windows ---
+bind -r C-h select-window -t :-
+bind -r C-l select-window -t :+
+
+#---------------------------------------------------------- resizing panes ---
+bind -r H resize-pane -L 5
+bind -r J resize-pane -D 5
+bind -r K resize-pane -U 5
+bind -r L resize-pane -R 5
+
+#------------------------------------------------------------- color theme ---
+# status line
+set -g status-fg "#aaaaaa"
+set -g status-bg "#000000"
+
+# windows on status line
+setw -g window-status-fg "#666666"
+setw -g window-status-bg default
+setw -g window-status-attr dim
+
+setw -g window-status-current-fg black
+setw -g window-status-current-bg "#d0f000"
+setw -g window-status-current-attr bright
+
+# status message
+set -g message-fg white
+set -g message-bg black
+set -g message-attr bright
+
+setw -g clock-mode-style 24
+
+#-------------------------------------------------------------- status bar ---
+##set -g status-left '#[fg=green](#S) #(whoami)@#H#[default]'
+#set-option -g status-left '[#(/usr/local/bin/power.sh)] #[default] Windows:'
+#set -g status-right '#[fg=yellow]#(uptime | cut -d" " -f 12-)#[default] #[fg=white]%H:%M#[default]'
+set -g status-left-length 40
+set -g status-left "#[bg=black,fg=white](%H:%M) #[fg=green]#S #[fg=yellow]#I #[fg=cyan]#P "
+set -g status-right '#[fg=yellow]#(tmux-mem-cpu-load --colors 2)#[default]'
+set -g status-utf8 on
+set -g status-interval 15
+set -g status-justify centre
+
+# set window notifications
+setw -g monitor-activity on
+set -g visual-activity on
+
+# Maximize and restore a pane
+#unbind Up
+#bind Up new-window -d -n tmp \; swap-pane -s tmp.1 \; select-window -t tmp
+#unbind Down
+#bind Down last-window \; swap-pane -s tmp.1 \; kill-window -t tmp
+
+# Log output to a text file on demand
+bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"
+
+# mimicking screen
+bind n next-layout
+bind C-b last-pane
+bind Space next-window
+bind C-Space next-window
+
+#--- to use pbcopy/pbpaste from tmux ----------------------------------------
+# http://robots.thoughtbot.com/post/19398560514/how-to-copy-and-paste-with-tmux-on-mac-os-x
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+
+# Update default binding of `Enter` to also use copy-pipe
+unbind -t vi-copy Enter
+bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+#--- </pbcopy/pbpaste> ------------------------------------------------------
+
+
+#new-session

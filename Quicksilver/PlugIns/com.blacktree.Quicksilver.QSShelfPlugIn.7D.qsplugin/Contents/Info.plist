@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13B42</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Shelf</string>
+	<key>CFBundleExecutable</key>
+	<string>Shelf Plugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSShelfPlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Shelf Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.3.0</string>
+	<key>CFBundleVersion</key>
+	<string>7D</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>5A2034a</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>13A595</string>
+	<key>DTSDKName</key>
+	<string>macosx10.9</string>
+	<key>DTXcode</key>
+	<string>0501</string>
+	<key>DTXcodeBuild</key>
+	<string>5A2034a</string>
+	<key>NSPrincipalClass</key>
+	<string>QSShelfController</string>
+	<key>QSActions</key>
+	<dict>
+		<key>QSPutOnShelfAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSShelfSource</string>
+			<key>actionSelector</key>
+			<string>putObjectOnShelf:</string>
+			<key>directTypes</key>
+			<array>
+				<string>*</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>icon</key>
+			<string>Catalog</string>
+			<key>name</key>
+			<string>Put on Shelf</string>
+			<key>rankModification</key>
+			<integer>0</integer>
+		</dict>
+		<key>QSShelfShowAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSShelfSource</string>
+			<key>actionSelector</key>
+			<string>show:</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.shelf</string>
+			</array>
+			<key>name</key>
+			<string>Show</string>
+		</dict>
+	</dict>
+	<key>QSLoadImmediately</key>
+	<true/>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Quicksilver</string>
+		</array>
+		<key>description</key>
+		<string>Provides a shelf for permanent storage of objects</string>
+		<key>extendedDescription</key>
+		<string>&lt;h1&gt;Shelf Plugin&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; the Shelf Plugin must be installed in order for the Clipboard plugin to work correctly.&lt;/p&gt;
+&lt;p&gt;The shelf plugin adds a 'Shelf' for permanent storage of any Quicksilver item, which is persistent across relaunches. You can add any item to the Shelf, and retrieve it at any time.&lt;/p&gt;
+&lt;p&gt;Some examples of items you put on the shelf might be:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Text you commonly type (like an email signature or boilerplate HTML code)&lt;/li&gt;
+&lt;li&gt;Your best friend's email address&lt;/li&gt;
+&lt;li&gt;A folder you commonly use&lt;/li&gt;
+&lt;li&gt;URLs, making the shelf an alternative to your browser's bookmarks folder (which is usable across browsers)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Showing the Shelf&lt;/h2&gt;
+&lt;p&gt;There are several ways in which you can show/activate the shelf:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Activate Quicksilver, and use the shortcut ⌘⌥S. This will automatically show or hide the shelf, depending on its current state.&lt;/li&gt;
+&lt;li&gt;From Quicksilver, selecting 'Shelf' in the 1st pane, and 'Show' as the action. This is useful for creating a trigger&lt;/li&gt;
+&lt;li&gt;If the Shelf is docked at the side of your screen, hover your mouse over it. For more info, see the 'Docked or Floating' section below.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Docked or Floating&lt;/h2&gt;
+&lt;p&gt;The Shelf (and Clipboard) windows are called 'Docking windows' in Quicksilver terminology. They can either be moved to float anywhere on your screen, or docked to the edge of the screen (similar to how the Dock itself behaves when you turn on Dock hiding).&lt;/p&gt;
+&lt;p&gt;Where you place your Shelf window is up to you. If your Shelf is floating, then after use it will fade into the background. You can use options 1 and 2 in the 'Showing the Shelf' list above to open it.&lt;/p&gt;
+&lt;p&gt;If you dock your window, you can also show the window by hovering the mouse over the portion of the screen where your shelf is docked. This can be useful for dragging items onto the shelf, or for manipulating the shelf solely with the mouse.&lt;/p&gt;
+&lt;h2&gt;Actions&lt;/h2&gt;
+&lt;dl&gt;
+&lt;dt&gt;Put on Shelf&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;This is a shortcut for adding items to your shelf. See 'Adding items to the shelf' below.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h3&gt;Catalog&lt;/h3&gt;
+&lt;p&gt;The Shelf plugin adds 3 items to your &lt;a href="qs://preferences#QSCatalogPrefPane"&gt;catalog&lt;/a&gt; (in one group), under the 'Quicksilver' tab.&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Shelf &amp;amp; Clipboard&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;This entry adds the two 'shelf' and 'clipboard' items to your catalog, allowing you to manipulate them from the Quicksilver interface (e.g. Show, Search Contents) etc.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt&gt;Shelf Contents&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Enable this item if you want the entire contents of your shelf to be available in Quicksilver's 1st and 3rd panes. That is - allowing you to manipulate an item on the shelf from Quicksilver&lt;/p&gt;
+&lt;/dd&gt;
+&lt;dt&gt;Clipboard Contents&lt;/dt&gt;
+&lt;dd&gt;
+&lt;p&gt;Enable this item if you want the contents of your clipboard available in Quicksilver, much like the 'Shelf Contents' entry&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;h2&gt;Adding items to the Shelf&lt;/h2&gt;
+&lt;p&gt;There are two ways to add items to your shelf. One is to use the 'Put on Shelf' action from Quicksilver; select an item in Quicksilver's 1st pane, and use the 'Put on Shelf' action.
+The other is to drag and drop an item from Quicksilver's 1st (or 3rd) pane straight onto the shelf.&lt;/p&gt;
+&lt;h2&gt;Using items on the Shelf&lt;/h2&gt;
+&lt;p&gt;You can use items on the shelf in several different ways&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Double clicking a shelf item (or pressing return ↩ on a selected item) will cause Quicksilver to use the default action for that item.
+    For example, if you have some text on your Shelf, and in Quicksilver the default action for text is to "Large Type", then when double clicking a text item from your shelf it will be shown in Large Type. Alter your default actions in the &lt;a href=""&gt;actions preferences&lt;/a&gt; to alter this behaviour.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Dragging an item from the Shelf to an application. This will use the item in whatever way the receiving action sees fit. For example;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Dragging a text item from your shelf to TextEdit will make TextEdit paste the item&lt;/li&gt;
+&lt;li&gt;Dragging a URL from your shelf to Finder will make Finder create a file for that URL&lt;/li&gt;
+&lt;li&gt;If you drag a file from your shelf to Finder, Finder will move that file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Enabling the 'Shelf Contents' Catalog entry (see 'Catalog' above) means you can use the the items on your shelf from anywhere in Quicksilver (search for them in the 1st pane, or use them in actions in the 3rd pane)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Finally, you can remove items from your shelf by highlighting them, and pressing the delete (⌫) key&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</string>
+		<key>icon</key>
+		<string>Catalog</string>
+		<key>qsversion</key>
+		<string>2A5F</string>
+		<key>recommended</key>
+		<true/>
+	</dict>
+	<key>QSPresetAdditions</key>
+	<array>
+		<dict>
+			<key>ID</key>
+			<string>QSPresetShelfGroup</string>
+			<key>catalogPath</key>
+			<string>QSPresetQSGroup</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetShelves</string>
+					<key>source</key>
+					<string>QSShelfSource</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetShelfContents</string>
+					<key>enabled</key>
+					<false/>
+					<key>name</key>
+					<string>Shelf Contents</string>
+					<key>source</key>
+					<string>QSShelfSource</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPresetClipboardContents</string>
+					<key>enabled</key>
+					<false/>
+					<key>name</key>
+					<string>Clipboard Contents</string>
+					<key>source</key>
+					<string>QSShelfSource</string>
+				</dict>
+			</array>
+			<key>icon</key>
+			<string>Catalog</string>
+			<key>name</key>
+			<string>Shelf &amp; Clipboard</string>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+		</dict>
+	</array>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSActionProviders</key>
+		<dict>
+			<key>QSShelfSource</key>
+			<string>QSShelfSource</string>
+		</dict>
+		<key>QSObjectHandlers</key>
+		<dict>
+			<key>qs.shelf</key>
+			<string>QSShelfSource</string>
+		</dict>
+		<key>QSObjectSources</key>
+		<dict>
+			<key>QSShelfSource</key>
+			<string>QSShelfSource</string>
+		</dict>
+		<key>QSShelfControllers</key>
+		<dict>
+			<key>General</key>
+			<string>QSShelfController</string>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+</dict>
+</plist>

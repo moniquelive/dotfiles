@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>11E53</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Notification Hub</string>
+	<key>CFBundleExecutable</key>
+	<string>Notification Hub</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.NotificationHub</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Notification Hub</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1.0</string>
+	<key>CFBundleVersion</key>
+	<string>6C</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>4E3002</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>11E52</string>
+	<key>DTSDKName</key>
+	<string>macosx10.7</string>
+	<key>DTXcode</key>
+	<string>0433</string>
+	<key>DTXcodeBuild</key>
+	<string>4E3002</string>
+	<key>NSPrincipalClass</key>
+	<string>NotificationHub</string>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Kevin Ballard</string>
+		<key>categories</key>
+		<array>
+			<string>Quicksilver</string>
+			<string>Miscellaneous</string>
+		</array>
+		<key>description</key>
+		<string>Provides a way to use several notifiers at once</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2 id="what_is_it"&gt;What is it?&lt;/h2&gt;
+
+&lt;p&gt;This plugin adds a new Notify Mediator that can be used to use different Notify mediators based on the notification type&lt;/p&gt;
+
+&lt;h2 id="usage"&gt;Usage&lt;/h2&gt;
+
+&lt;p&gt;In the Handlers preference pane, select Notification Hub as the Notify mediator. Then in the Notifiication Hub preference pane you can customize it further.&lt;/p&gt;
+
+&lt;p&gt;The Default popup is what Notify Mediator to use if the given notification has no type or isn&amp;#8217;t in the table.&lt;/p&gt;
+
+&lt;p&gt;Hit the add button to add an entry to the table. The first column is the notification type. Double-click to edit to put in a custom type, or click the popup at the right side of the column to select a known type. The second column is the Notify Mediator to use for that notification type.&lt;/p&gt;
+
+&lt;p&gt;You can add several entries for a given notification type - each Notify Mediator will be called for that notification.&lt;/p&gt;</string>
+		<key>infoFile</key>
+		<string>Info.rtf</string>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSNotifiers</key>
+		<dict>
+			<key>com.blacktree.quicksilver.notificationhub</key>
+			<string>NotificationHub</string>
+		</dict>
+		<key>QSPreferencePanes</key>
+		<dict>
+			<key>NotificationHubPrefPane</key>
+			<dict>
+				<key>class</key>
+				<string>NotificationHubPrefPane</string>
+				<key>description</key>
+				<string>Lets you customize the notifications to send to different notifiers</string>
+				<key>icon</key>
+				<string>defaultAction</string>
+				<key>name</key>
+				<string>Notification Hub</string>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

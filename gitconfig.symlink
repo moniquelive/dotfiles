@@ -1,0 +1,108 @@
+[user]
+  name  = cyber
+  email = cyber@21212.com
+
+[github]
+  user  = lccro
+  token = 25a9ee6a19fd514be58361873ec1e9bb
+
+[core]
+  quotepath    = false
+  editor       = vim
+	excludesfile = /Users/leo/.gitignore_global
+  whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  autocrlf     = input
+
+[diff]
+[color]
+  status      = auto
+  diff        = auto
+  branch      = auto
+  interactive = auto
+  ui          = auto
+
+[alias]
+  aa          = add --all
+  br          = branch
+  ci          = commit
+  co          = checkout
+  fe          = fetch
+  pu          = push
+  commit      = commit -v
+  amend       = commit --amend
+  d           = diff --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
+  dc          = diff --cached --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
+  df          = diff --color-words --ignore-space-at-eol -b -w
+  h           = !git head
+
+  head        = !git l -1
+  r           = !git l -30
+  #l          = log --graph --all --pretty=format:'%C(auto)%C(blue)%h%C(reset) %C(green)%ar%C(reset) %C(dim white)%an%C(reset)%C(auto)%d%C(reset) %C(bold white)%s%C(reset)'
+  l           = "!. ~/bin/git_log.sh && default"
+  l1          = log --graph --all --decorate --pretty='format:%C(blue)%h%C(auto)%d%C(reset) %ar %C(green)%an%C(reset) %s'
+  l2          = log --graph --all --decorate --oneline
+  l3          = log --graph --all --pretty=format:'%C(red)%h%C(reset) - %C(green)<%an>%C(reset)%d %C(magenta)%s%C(reset) %C(yellow)(%cr)%C(reset)' --abbrev-commit
+  l4          = log --graph --all --pretty=format:'%Cred%h%Creset %C(bold blue)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
+  l5          = log --graph --all --pretty=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
+
+  s           = status -sb
+  sh          = show --color-words --minimal
+  show        = show -b
+  st          = status -s
+  ribbon      = tag --force _ribbon origin/master
+  catchup     = log --patch --reverse --topo-order _ribbon..origin/master
+  statcatchup = log --stat --reverse --topo-order _ribbon..origin/master
+  showtool    = "!sh -c 'REVISION="${1:-HEAD}"; git difftool $REVISION~ $REVISION' -"
+
+[branch]
+#    autosetupmerge  = true # the default
+  autosetuprebase = always
+
+[push]
+    #default = tracking
+  default = current
+
+[url "git@github.com:"]
+  insteadOf = gh:
+
+[url "git@bitbucket.org:"]
+  insteadOf = bb:
+
+[gc]
+  auto = 1
+
+[merge]
+  tool    = meld
+  summary = true
+
+[diff]
+  #tool = p4mergetool
+  tool = meld
+
+[difftool]
+  prompt = false
+
+[mergetool]
+  prompt     = false
+  keepBackup = false
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
+[mergetool "p4mergetool"]
+  cmd           = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
+  trustExitCode = false
+
+[difftool "p4mergetool"]
+  cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
+
+[gui]
+	warndetachedcommit = true
+
+[init]
+	templatedir = ~/.git_template

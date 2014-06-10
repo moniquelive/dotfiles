@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13C1021</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>1Password Plugin</string>
+	<key>CFBundleExecutable</key>
+	<string>OnePassword</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.robertson.Quicksilver.OnePassword</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>1Password Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.6.3</string>
+	<key>CFBundleVersion</key>
+	<string>383</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>5B1008</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>13C64</string>
+	<key>DTSDKName</key>
+	<string>macosx10.9</string>
+	<key>DTXcode</key>
+	<string>0511</string>
+	<key>DTXcodeBuild</key>
+	<string>5B1008</string>
+	<key>QSActions</key>
+	<dict>
+		<key>goAndFill</key>
+		<dict>
+			<key>actionClass</key>
+			<string>OnePasswordAction</string>
+			<key>actionSelector</key>
+			<string>goAndFill:</string>
+			<key>alternateAction</key>
+			<string>viewInOnePwd</string>
+			<key>directTypes</key>
+			<array>
+				<string>QS1PasswordForm</string>
+			</array>
+			<key>name</key>
+			<string>Go &amp; Fill</string>
+			<key>precedence</key>
+			<string>4</string>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+		<key>goAndFillWith</key>
+		<dict>
+			<key>actionClass</key>
+			<string>OnePasswordAction</string>
+			<key>actionSelector</key>
+			<string>goAndFill:with:</string>
+			<key>directTypes</key>
+			<array>
+				<string>QS1PasswordForm</string>
+			</array>
+			<key>name</key>
+			<string>Go &amp; Fill With...</string>
+			<key>precedence</key>
+			<string>3</string>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+		<key>viewInOnePwd</key>
+		<dict>
+			<key>actionClass</key>
+			<string>OnePasswordAction</string>
+			<key>actionSelector</key>
+			<string>viewInOnePwd:</string>
+			<key>directTypes</key>
+			<array>
+				<string>QS1PasswordForm</string>
+				<string>QS1PasswordSecureNote</string>
+				<string>QS1PasswordIdentity</string>
+				<string>QS1PasswordSoftwareLicense</string>
+				<string>QS1PasswordOnlineService</string>
+				<string>QS1PasswordWalletItem</string>
+			</array>
+			<key>name</key>
+			<string>Reveal in 1Password</string>
+			<key>precedence</key>
+			<string>2</string>
+			<key>validatesObjects</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Patrick Robertson</string>
+		<key>categories</key>
+		<array>
+			<string>Applications</string>
+		</array>
+		<key>description</key>
+		<string>Adds support for 1Password Data to Reveal in 1Password and to Go &amp; Fill web forms</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2&gt;1Password 3 Plugin&lt;/h2&gt;
+&lt;p&gt;The 1Password plugin for Quicksilver gives you the ability to manipulate 1Password data from Quicksilver, and to Go &amp;amp; Fill web logins.&lt;/p&gt;
+&lt;h3&gt;Catalog&lt;/h3&gt;
+&lt;p&gt;This plugin enables Quicksilver to index your 1Password data. This includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Web forms&lt;/li&gt;
+&lt;li&gt;Accounts&lt;/li&gt;
+&lt;li&gt;Software&lt;/li&gt;
+&lt;li&gt;Identities&lt;/li&gt;
+&lt;li&gt;Wallet items&lt;/li&gt;
+&lt;li&gt;Notes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;You can access all these items by right arrowing (→) into the 1Password.app in Quicksilver's first pane.
+You may also add these items to your catalog by going to the &lt;a href="qs://preferences#QSCatalogPrefPane"&gt;Catalog preferences&lt;/a&gt; and enabling the '1Password' entry.&lt;/p&gt;
+&lt;h3&gt;Actions&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Go &amp;amp; Fill&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Go &amp;amp; Fill action is available for 1Password web forms. When run on a web form, the plugin takes you to your browser and logs you in using the login.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Go &amp;amp; Fill With...&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;This action is an extension of the 'Go &amp;amp; Fill' action, and allows you to specify a browser to use when filling the login/web form.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Reveal in 1Password&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The Reveal in 1Password action is available for all data types (see above). It launches 1Password and selects the entry in the application, allowing you to manipulate of view its details.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;This plugin has taken a lot of development time. If you enjoy using it, please consider &lt;a href="http://patjack.co.uk/donating-for-my-quicksilver-1password-plugin/"&gt;donating&lt;/a&gt;.&lt;/p&gt;</string>
+		<key>icon</key>
+		<string>com.agilebits.onepassword-osx</string>
+		<key>relatedBundles</key>
+		<array>
+			<string>com.agilebits.onepassword-osx</string>
+			<string>ws.agile.1Password</string>
+		</array>
+	</dict>
+	<key>QSPresetAdditions</key>
+	<array>
+		<dict>
+			<key>ID</key>
+			<string>QSPresetOnePassword</string>
+			<key>children</key>
+			<array>
+				<dict>
+					<key>ID</key>
+					<string>QSPreset1PasswordForm</string>
+					<key>enabled</key>
+					<true/>
+					<key>icon</key>
+					<string>com.agilebits.onepassword-osx</string>
+					<key>name</key>
+					<string>Logins</string>
+					<key>source</key>
+					<string>OnePasswordSource</string>
+					<key>type</key>
+					<string>WebForm</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPreset1PasswordOnlineService</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>/Applications/1Password.app/Contents/Resources/logins-icon-128.png</string>
+					<key>name</key>
+					<string>Accounts</string>
+					<key>source</key>
+					<string>OnePasswordSource</string>
+					<key>type</key>
+					<string>OnlineService</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPreset1PasswordIdentity</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>UserIcon</string>
+					<key>name</key>
+					<string>Identities</string>
+					<key>source</key>
+					<string>OnePasswordSource</string>
+					<key>type</key>
+					<string>Identity</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPreset1PasswordSecureNote</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>/Applications/1Password.app/Contents/Resources/secure-notes-icon-128.png</string>
+					<key>name</key>
+					<string>Secure Notes</string>
+					<key>source</key>
+					<string>OnePasswordSource</string>
+					<key>type</key>
+					<string>SecureNote</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPreset1PasswordSoftwareLicense</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>ToolbarAppsFolderIcon</string>
+					<key>name</key>
+					<string>Software Licenses</string>
+					<key>source</key>
+					<string>OnePasswordSource</string>
+					<key>type</key>
+					<string>SoftwareLicense</string>
+				</dict>
+				<dict>
+					<key>ID</key>
+					<string>QSPreset1PasswordWalletItem</string>
+					<key>enabled</key>
+					<false/>
+					<key>icon</key>
+					<string>/Applications/1Password.app/Contents/Resources/wallet-icon-128.png</string>
+					<key>name</key>
+					<string>Wallet Items</string>
+					<key>source</key>
+					<string>OnePasswordSource</string>
+					<key>type</key>
+					<string>WalletItem</string>
+				</dict>
+			</array>
+			<key>icon</key>
+			<string>com.agilebits.onepassword-osx</string>
+			<key>name</key>
+			<string>1Password</string>
+			<key>source</key>
+			<string>QSGroupObjectSource</string>
+		</dict>
+	</array>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSActionProviders</key>
+		<dict>
+			<key>OnePasswordAction</key>
+			<string>OnePasswordAction</string>
+		</dict>
+		<key>QSBundleChildHandlers</key>
+		<dict>
+			<key>com.agilebits.onepassword-osx</key>
+			<string>OnePasswordSource</string>
+			<key>ws.agile.1Password</key>
+			<string>OnePasswordSource</string>
+		</dict>
+		<key>QSObjectHandlers</key>
+		<dict>
+			<key>QS1PasswordForm</key>
+			<string>OnePasswordSource</string>
+			<key>QS1PasswordIdentity</key>
+			<string>OnePasswordSource</string>
+			<key>QS1PasswordOnlineService</key>
+			<string>OnePasswordSource</string>
+			<key>QS1PasswordSecureNote</key>
+			<string>OnePasswordSource</string>
+			<key>QS1PasswordSoftwareLicense</key>
+			<string>OnePasswordSource</string>
+			<key>QS1PasswordWalletItem</key>
+			<string>OnePasswordSource</string>
+		</dict>
+		<key>QSObjectSources</key>
+		<dict>
+			<key>OnePasswordSource</key>
+			<string>OnePasswordSource</string>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+</dict>
+</plist>

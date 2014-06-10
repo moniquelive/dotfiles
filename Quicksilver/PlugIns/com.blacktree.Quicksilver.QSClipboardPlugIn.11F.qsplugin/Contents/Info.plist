@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>12E55</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Clipboard</string>
+	<key>CFBundleExecutable</key>
+	<string>Clipboard Plugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSClipboardPlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Clipboard Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.3.2</string>
+	<key>CFBundleVersion</key>
+	<string>11F</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>4H1503</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>12D75</string>
+	<key>DTSDKName</key>
+	<string>macosx10.8</string>
+	<key>DTXcode</key>
+	<string>0463</string>
+	<key>DTXcodeBuild</key>
+	<string>4H1503</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2004, Blacktree, Inc.</string>
+	<key>NSPrincipalClass</key>
+	<string>QSPasteboardController</string>
+	<key>QSLoadImmediately</key>
+	<true/>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Text</string>
+			<string>System</string>
+		</array>
+		<key>description</key>
+		<string>Allows clipboard recording and adds a clipboard history window.</string>
+		<key>extendedDescription</key>
+		<string>&lt;h3&gt;Clipboard Plugin&lt;/h3&gt;
+&lt;p&gt;The clipboard plugin gives Quicksilver the ability to keep a record of the Clipboard history, storing it in the 'Clipboard History' item in Quicksilver (type 'Clipboard History' into Quicksilver).&lt;br&gt;
+In addition to viewing the clipboard history in Quicksilver, the plugin adds a floating panel which displays all your history. To open the panel, open Quicksilver and press ⌘L.&lt;/p&gt;
+&lt;h3&gt;Preferences&lt;/h3&gt;
+&lt;p&gt;The Clipboard preferences allow you to alter the behaviour of how Quicksilver stores your clipboard contents. The following options are available:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Capture History:&lt;/strong&gt; Turn on the history capture option, so Quicksilver will keep a record of your history items. Enter the number of items you would like Quicksilver to store. 20 items is a good starting point.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hide after pasting:&lt;/strong&gt; Enabling this option causes the Clipboard window to hide when you paste an item.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ignore Applications:&lt;/strong&gt; Sometimes you may copy sensitive information for certain applications, if you want Quicksilver to ignore all clipboard entries from a given application, then enter its name in the box.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Clipboard Window&lt;/h3&gt;
+&lt;h4&gt;Positioning the window&lt;/h4&gt;
+&lt;p&gt;The Clipboard Window is a floating panel specific to Quicksilver, giving it several useful features for positioning. Positioning the window on the side of the screen will cause it to become 'docked' on the screen edge. It will then slide into the screen edge. Hover over the edge of the screen to make the window reappear.&lt;/p&gt;
+&lt;p&gt;The position of windows is remembered across restarts of Quicksilver, and you can have the window disappear after pasting by enabling the 'Hide after pasting' option in the preferences (see above).&lt;br&gt;
+&lt;strong&gt;Tip:&lt;/strong&gt; You can quickly open and close the Clipboard Window by creating a trigger with the following options:&lt;br&gt;
+'Clipboard History ⇥ Show'
+If you would like to display the contents of your Clipboard history in Quicksilver (so that they are searchable) then set up the following trigger:&lt;br&gt;
+'Clipboard History ⇥ Show Contents'&lt;/p&gt;
+&lt;h4&gt;Pasting Items&lt;/h4&gt;
+&lt;p&gt;The Clipboard Window (activated by pressing ⌘L when Quicksilver is activated) displays a list of your Clipboard history. You can browse the history using the ↑↓ arrows, and paste text by pressing the Enter key (↩). A quicker way to paste an item is by pressing its corresponding number (from 1 to 9), displayed next to the item in the preference window.&lt;/p&gt;
+&lt;p&gt;Finally, it is possible to drag an item from the Clipboard window to wherever you would like to place it (e.g. on your Desktop) or double click an item to paste it.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tip&lt;/strong&gt;
+To paste items form the Clipboard Window as plain text, hold the ⌥ (option) key whilst either double clicking an item or pressing a keyboard key (numbers 1 to 9 or ↩)&lt;/p&gt;
+&lt;h3&gt;Proxy Objects&lt;/h3&gt;
+&lt;h4&gt;Clipboard Contents&lt;/h4&gt;
+&lt;p&gt;The 'Clipboard Contents' proxy object returns whatever you have currently copied to your clipboard. It is useful for setting up with triggers. An example could be:&lt;br&gt;
+'Clipboard Contents ⇥ Find With... ⇥ Google'&lt;/p&gt;
+&lt;h3&gt;Action Objects&lt;/h3&gt;
+&lt;p&gt;By default, the Clipboard plugin adds a serious of 'action objects' which can be run from Quicksilver's 1st pane, or more usefully, as triggers. These are:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Clip store paste &lt;code&gt;&amp;lt;number&amp;gt;&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Clip store copy &lt;code&gt;&amp;lt;number&amp;gt;&lt;/code&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;Clip store paste&lt;/code&gt; can be used to paste the clipboard's contents corresponding to &lt;code&gt;&amp;lt;number&amp;gt;&lt;/code&gt;. For example, &lt;code&gt;Clip store paste 9&lt;/code&gt; will paste the 9th item from the pasteboard.
+&lt;code&gt;Clip store copy&lt;/code&gt; works in a similar way, except instead of pasting the item directly, it copies it to the clipboard.&lt;/p&gt;</string>
+		<key>icon</key>
+		<string>Clipboard</string>
+		<key>qsversion</key>
+		<string>2A5F</string>
+		<key>requiresFeature</key>
+		<string>0</string>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSInternalMessages</key>
+		<dict>
+			<key>QSClipboardPaste</key>
+			<dict>
+				<key>action</key>
+				<string>qsPaste:</string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Paste Selection from Clipboard</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardQueueShowMessage</key>
+			<dict>
+				<key>action</key>
+				<string>showQueue:</string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Show Clipboard Cache (pOld)</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardShowMessage</key>
+			<dict>
+				<key>action</key>
+				<string>showClipboard:</string>
+				<key>classMethod</key>
+				<true/>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Show Clipboard</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStackShowMessage</key>
+			<dict>
+				<key>action</key>
+				<string>showStack:</string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Show Clipboard Cache (pNew)</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy0</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 1</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy1</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>1</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 2</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy2</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>2</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 3</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy3</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>3</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 4</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy4</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>4</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 5</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy5</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>5</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 6</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy6</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>6</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 7</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy7</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>7</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 8</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageCopy8</key>
+			<dict>
+				<key>action</key>
+				<string>copyNumber:</string>
+				<key>argument</key>
+				<integer>8</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Copy 9</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste0</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 1</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste1</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>1</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 2</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste2</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>2</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 3</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste3</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>3</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 4</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste4</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>4</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 5</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste5</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>5</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 6</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste6</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>6</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 7</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste7</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>7</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 8</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStoragePaste8</key>
+			<dict>
+				<key>action</key>
+				<string>pasteNumber:</string>
+				<key>argument</key>
+				<integer>8</integer>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clip Store Paste 9</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+			<key>QSClipboardStorageShowMessage</key>
+			<dict>
+				<key>action</key>
+				<string>showStore:</string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Show Clipboard Storage</string>
+				<key>target</key>
+				<string>QSPasteboardController</string>
+			</dict>
+		</dict>
+		<key>QSInternalObjects</key>
+		<dict>
+			<key>QSClipboardObject</key>
+			<dict>
+				<key>handler</key>
+				<string>QSPasteboardController</string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clipboard</string>
+			</dict>
+		</dict>
+		<key>QSModules</key>
+		<dict>
+			<key>QSClipboardModule</key>
+			<dict>
+				<key>action</key>
+				<string></string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clipboard Tool</string>
+				<key>target</key>
+				<string></string>
+			</dict>
+		</dict>
+		<key>QSPreferencePanes</key>
+		<dict>
+			<key>QSPasteboardPrefPane</key>
+			<dict>
+				<key>class</key>
+				<string>QSPasteboardPrefPane</string>
+				<key>description</key>
+				<string>Clipboard History Options</string>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clipboard</string>
+				<key>nibBundle</key>
+				<string>com.blacktree.Quicksilver.QSClipboardPlugIn</string>
+				<key>nibName</key>
+				<string>QSPasteboardPrefPane</string>
+			</dict>
+		</dict>
+		<key>QSProxies</key>
+		<dict>
+			<key>QSGeneralPasteboardProxy</key>
+			<dict>
+				<key>icon</key>
+				<string>Clipboard</string>
+				<key>name</key>
+				<string>Clipboard Contents</string>
+				<key>providerClass</key>
+				<string>QSPasteboardController</string>
+				<key>types</key>
+				<array>
+					<string>NSColorPboardType</string>
+					<string>Apple URL pasteboard type</string>
+					<string>NSFileContentsPboardType</string>
+					<string>NSFilenamesPboardType</string>
+					<string>NSFontPboardType</string>
+					<string>NSHTMLPboardType</string>
+					<string>NSPDFPboardType</string>
+					<string>NSPICTPboardType</string>
+					<string>NSPostScriptPboardType</string>
+					<string>NSRulerPboardType</string>
+					<string>NSRTFPboardType</string>
+					<string>NSRTFDPboardType</string>
+					<string>NSStringPboardType</string>
+					<string>NSTabularTextPboardType</string>
+					<string>NSTIFFPboardType</string>
+					<string>NSURLPboardType</string>
+					<string>NSVCardPboardType</string>
+					<string>NSFilesPromisePboardType</string>
+				</array>
+			</dict>
+		</dict>
+		<key>QSShelfControllers</key>
+		<dict>
+			<key>QSPasteboardHistory</key>
+			<string>QSPasteboardController</string>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>plugins</key>
+		<array>
+			<dict>
+				<key>id</key>
+				<string>com.blacktree.Quicksilver.QSShelfPlugIn</string>
+				<key>name</key>
+				<string>Shelf Plugin</string>
+			</dict>
+		</array>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+	<key>QSResourceAdditions</key>
+	<dict>
+		<key>Clipboard</key>
+		<dict>
+			<key>bundle</key>
+			<string>com.blacktree.Quicksilver.QSClipboardPlugIn</string>
+			<key>resource</key>
+			<string>Clipboard.icns</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

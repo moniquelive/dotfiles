@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>13C64</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>E-mail Support</string>
+	<key>CFBundleExecutable</key>
+	<string>E-mail Support</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSEmailSupport</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>E-mail Support</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.0.2</string>
+	<key>CFBundleSignature</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>9B</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>5A2034a</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>13A595</string>
+	<key>DTSDKName</key>
+	<string>macosx10.9</string>
+	<key>DTXcode</key>
+	<string>0501</string>
+	<key>DTXcodeBuild</key>
+	<string>5A2034a</string>
+	<key>NSPrincipalClass</key>
+	<string>QSEmailSupport</string>
+	<key>QSActions</key>
+	<dict>
+		<key>QSComposeEmailItemAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>composeEmailTo:withItem:</string>
+			<key>commandFormat</key>
+			<string>Compose a message to %@ with %@ attached</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>name</key>
+			<string>E-mail Item… (Compose)</string>
+		</dict>
+		<key>QSComposeEmailItemReverseAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>composeEmailTo:withItem:</string>
+			<key>commandFormat</key>
+			<string>Compose a message, with %@ attached, to %@</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>indirectTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>name</key>
+			<string>E-mail To… (Compose)</string>
+			<key>reverseArguments</key>
+			<true/>
+		</dict>
+		<key>QSDirectEmailItemAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>sendDirectEmailTo:withItem:</string>
+			<key>commandFormat</key>
+			<string>Send a message to %@ containing %@ immediately</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>indirectTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>name</key>
+			<string>E-mail Item… (Send Directly)</string>
+		</dict>
+		<key>QSDirectEmailItemReverseAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>sendDirectEmailTo:withItem:</string>
+			<key>commandFormat</key>
+			<string>Send %@ to %@ immediately</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>icon</key>
+			<string>Quicksilver</string>
+			<key>indirectTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>name</key>
+			<string>E-mail To… (Send Directly)</string>
+			<key>reverseArguments</key>
+			<true/>
+		</dict>
+		<key>QSEmailAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>sendEmailTo:</string>
+			<key>commandFormat</key>
+			<string>Compose a new message to %@</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>name</key>
+			<string>Compose E-mail</string>
+			<key>rankModification</key>
+			<real>0.10000000000000001</real>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+		<key>QSEmailItemAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>sendEmailTo:withItem:</string>
+			<key>commandFormat</key>
+			<string>Send a message to %@ containing %@ using your mail client</string>
+			<key>directTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>identifier</key>
+			<string>QSArchiveFolderAction</string>
+			<key>indirectTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>name</key>
+			<string>E-mail Item… (Send)</string>
+		</dict>
+		<key>QSEmailItemReverseAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSEmailActions</string>
+			<key>actionSelector</key>
+			<string>sendEmailTo:withItem:</string>
+			<key>commandFormat</key>
+			<string>Send %@ to %@ using your mail client</string>
+			<key>directTypes</key>
+			<array>
+				<string>NSFilenamesPboardType</string>
+				<string>NSStringPboardType</string>
+			</array>
+			<key>enabled</key>
+			<false/>
+			<key>indirectTypes</key>
+			<array>
+				<string>qs.contact.email</string>
+			</array>
+			<key>name</key>
+			<string>E-mail To… (Send)</string>
+			<key>reverseArguments</key>
+			<true/>
+		</dict>
+	</dict>
+	<key>QSDefaults</key>
+	<dict>
+		<key>QSMailActionCustomFrom</key>
+		<string>Home</string>
+		<key>QSMailActionFileBody</key>
+		<string>Your files are attached to this message</string>
+		<key>QSMailActionFileSubject</key>
+		<string>%@</string>
+	</dict>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>categories</key>
+		<array>
+			<string>Mail &amp; Chat</string>
+		</array>
+		<key>description</key>
+		<string>Works with your mail client to enable e-mail based actions</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2&gt;E-mail Support&lt;/h2&gt;
+&lt;p&gt;This plug-in enables you to send mail (including attachments) directly from Quicksilver. You must have a mail client (such as Apple Mail) configured, and its plugin must be loaded.&lt;/p&gt;
+&lt;h3&gt;Sending&lt;/h3&gt;
+&lt;p&gt;You can send one or more files using the comma-trick or you can enter the text of your message into Quicksilver. When entering text, you can specify a subject by separating it from the rest of your message with "&amp;gt;&amp;gt;". For example&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Tomorrow night&amp;gt;&amp;gt;Are you busy? That new movie is coming out.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;will be sent as&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Subject: Tomorrow night
+
+Are you busy? That new movie is coming out.
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;You can't enter text when sending files, but you can set a message to accompany attachments by default in the preferences.&lt;/p&gt;
+&lt;p&gt;As a general rule, you can do either "Contact(s) ⇥ E-mail Item… ⇥ Text/Files" or "Text/Files ⇥ E-mail To… ⇥ Contact(s)".&lt;/p&gt;
+&lt;h3&gt;Compose vs. Send vs. Direct&lt;/h3&gt;
+&lt;p&gt;The actions have either "Compose", "Send", or "Direct" in their name somewhere.&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;Compose&lt;/dt&gt;
+&lt;dd&gt;Send the text or file(s) using your e-mail client. A new message will open for further editing.&lt;/dd&gt;
+&lt;dt&gt;Send&lt;/dt&gt;
+&lt;dd&gt;Send the text or file(s) using your e-mail client. The message will be sent immediately.&lt;/dd&gt;
+&lt;dt&gt;Direct&lt;/dt&gt;
+&lt;dd&gt;Send the text or file(s) immedately without opening an e-mail client. Though the client doesn't need to run, this action still requires that your e-mail client be configured with the details for at least one SMTP server.&lt;/dd&gt;
+&lt;/dl&gt;</string>
+		<key>hidden</key>
+		<false/>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSActionProviders</key>
+		<dict>
+			<key>QSEmailActions</key>
+			<string>QSEmailActions</string>
+		</dict>
+		<key>QSPreferencePanes</key>
+		<dict>
+			<key>QSMailActionsPrefPane</key>
+			<dict>
+				<key>class</key>
+				<string>QSPreferencePane</string>
+				<key>description</key>
+				<string>Mail Composition Preferences</string>
+				<key>icon</key>
+				<string>com.apple.Mail</string>
+				<key>name</key>
+				<string>E-mail Options</string>
+				<key>nibBundle</key>
+				<string>com.blacktree.Quicksilver.QSEmailSupport</string>
+				<key>nibName</key>
+				<string>QSMailSupportPrefPane</string>
+			</dict>
+		</dict>
+		<key>QSRegistryHeaders</key>
+		<dict>
+			<key>QSMailMediators</key>
+			<dict>
+				<key>allowDefault</key>
+				<false/>
+				<key>bundle</key>
+				<string>com.blacktree.Quicksilver.QSEmailSupport</string>
+				<key>classTable</key>
+				<true/>
+				<key>name</key>
+				<string>Email</string>
+				<key>registryPreferredSelector</key>
+				<string>QSMailMediatorID</string>
+				<key>selector</key>
+				<string>QSMailMediator</string>
+				<key>type</key>
+				<string>mediator</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+</dict>
+</plist>

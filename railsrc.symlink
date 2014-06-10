@@ -1,0 +1,30 @@
+# Launch Pry with access to the entire Rails stack.
+# If you have Pry in your Gemfile, you can pass: ./script/console --irb=pry instead.
+# If you don't, you can load it through the lines below :)
+require 'rails'
+
+I18n.enforce_available_locales = true
+
+if Rails.version[0..0] == "2"
+  require 'console_app'
+  require 'console_with_helpers'
+elsif %w(3 4).include? Rails.version[0..0]
+  require File.join(Rails.root,"config","environment")
+  require 'rails/console/app'
+  require 'rails/console/helpers'
+  Pry::RailsCommands.instance_methods.each do |name|
+    Pry::Commands.command name.to_s do
+      Class.new.extend(Pry::RailsCommands).send(name)
+    end
+  end
+else
+  warn "[WARN] cannot load Rails console commands (Not on Rails2 or Rails3?)"
+end
+
+## https://github.com/cldwalker/hirb/issues/46#issuecomment-1870823
+#Pry.config.print = proc do |output, value|
+#  Hirb::View.view_or_page_output(value) || Pry::DEFAULT_PRINT.call(output, value)
+#end
+#
+#Hirb.enable
+

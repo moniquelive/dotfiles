@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>action</key>
+	<false/>
+	<key>category</key>
+	<string>SCRIPTS</string>
+	<key>command</key>
+	<string># Usage : "desk" toogle on and off desktop icons
+# If it doesn't work (icons disappearing for few seconds only) you can try to enter "defaults write com.apple.finder CreateDesktop 1" in the terminal (~/Applications/Utilities) or contact me @Silouane20 on Twitter
+
+val=$(defaults read com.apple.finder CreateDesktop)
+case $val in
+0) defaults write com.apple.finder CreateDesktop -bool true;;
+1) defaults write com.apple.finder CreateDesktop -bool false;;
+FALSE) defaults write com.apple.finder CreateDesktop -bool true;;
+TRUE) defaults write com.apple.finder CreateDesktop -bool false;;
+false) defaults write com.apple.finder CreateDesktop -bool true;;
+true) defaults write com.apple.finder CreateDesktop -bool false;;
+yes) defaults write com.apple.finder CreateDesktop -bool false;;
+no) defaults write com.apple.finder CreateDesktop -bool true;;
+YES) defaults write com.apple.finder CreateDesktop -bool false;;
+NO) defaults write com.apple.finder CreateDesktop -bool true;;
+on) defaults write com.apple.finder CreateDesktop -bool false;;
+off) defaults write com.apple.finder CreateDesktop -bool true;;
+ON) defaults write com.apple.finder CreateDesktop -bool false;;
+OFF) defaults write com.apple.finder CreateDesktop -bool true;;
+esac
+killall Finder</string>
+	<key>disabled</key>
+	<false/>
+	<key>escapedollar</key>
+	<false/>
+	<key>escapequery</key>
+	<true/>
+	<key>escapequerybackquotes</key>
+	<true/>
+	<key>escapequerybrackets</key>
+	<true/>
+	<key>escapequeryquotes</key>
+	<true/>
+	<key>escapequerysemicolons</key>
+	<true/>
+	<key>growloutput</key>
+	<false/>
+	<key>growloutputsticky</key>
+	<false/>
+	<key>keyword</key>
+	<string>desk</string>
+	<key>logging</key>
+	<false/>
+	<key>multifileargs</key>
+	<false/>
+	<key>parameter</key>
+	<integer>1</integer>
+	<key>silent</key>
+	<true/>
+	<key>subtitle</key>
+	<string>Hide or Show Desktop Icons in one command</string>
+	<key>title</key>
+	<string>Hide/Show Desktop Icons</string>
+</dict>
+</plist>

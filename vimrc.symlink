@@ -1,0 +1,386 @@
+" This is CyberLeo's .vimrc file
+" vim:set ts=2 sts=2 sw=2 expandtab:
+"
+"-------------------------------------------------------- VUNDLE - plugins ---
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/vundle " set the runtime path to include Vundle and initialize
+call vundle#begin()           " or: call vundle#begin('~/some/path/here')
+
+Plugin 'gmarik/vundle'        " let Vundle manage Vundle, required
+
+"vim-scripts
+Plugin 'Align'
+Plugin 'The-NERD-Commenter'
+Plugin 'editorconfig-vim'
+Plugin 'trailing-whitespace'
+"Plugin 'vim-auto-save'
+Plugin 'mileszs/ack.vim'
+Plugin 'ctrlp.vim'
+Plugin 'vim-ruby/vim-ruby'
+
+"tpope awesomeness
+Plugin 'tpope/vim-sensible'
+Plugin 'tpope/vim-rails'
+Plugin 'tpope/vim-rake'
+Plugin 'tpope/vim-cucumber'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-ragtag'
+
+"Shougo
+Plugin 'Shougo/neocomplete'
+Plugin 'Shougo/neosnippet'
+Plugin 'Shougo/neosnippet-snippets'
+
+"misc
+Plugin 'bling/vim-airline'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'kchmck/vim-coffee-script'
+
+call vundle#end()            " All of your Plugins must be added before the following line
+filetype plugin indent on    " required
+
+"-------------------------------------------------------- CYBERAMA - begin ---
+"let mapleader=","
+let g:ackprg                    = 'ag --nogroup --nocolor --column'
+let g:netrw_liststyle           = 3 " = 3: tree style listing
+let g:auto_save = 1 " I'm free of :w
+inoremap <M-o>       <Esc>o
+inoremap <C-j>       <Down>
+let g:ragtag_global_maps = 1
+
+" global defaults
+set ts=2 sts=2 sw=2 et nowrap
+set nobackup hlsearch cursorline
+set ignorecase smartcase
+set laststatus=2 " Always display the statusline in all windows
+set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
+set switchbuf=useopen
+set winwidth=79
+set number
+set showfulltag
+set incsearch
+set autowriteall
+set kp=ri " user ruby's ri instead of man for K command
+set updatetime=2000
+set pastetoggle=<F4>
+
+" Prevent Vim from clobbering the scrollback buffer. See
+" http://www.shallowsky.com/linux/noaltscreen.html
+set t_ti= t_te=
+" keep more context when scrolling off the end of a buffer
+set scrolloff=2
+" Store temporary files in a central spot
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
+" display incomplete commands
+set showcmd
+" make tab completion for files/buffers act like bash
+set wildmenu
+set wildmode=full "list:full
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
+" If a file is changed outside of vim, automatically reload it without asking
+set autoread
+set autoindent smartindent
+
+set background=dark t_Co=256 " 256 colors
+color solarized "mustang
+syntax on
+
+highlight Cursor guifg=white guibg=red
+highlight iCursor guifg=white guibg=steelblue
+highlight cCursor guifg=black guibg=white
+highlight CursorLineNr guifg=white
+
+if &term =~ "xterm\\|rxvt\\|screen"
+"COLOR
+  if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;orange\x7\<Esc>\\" " use an orange cursor in insert mode
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]12;red\x7\<Esc>\\" " use a red cursor otherwise
+  else
+    let &t_SI = "\<Esc>]12;orange\x7" " use an orange cursor in insert mode
+    let &t_EI = "\<Esc>]12;red\x7" " use a red cursor otherwise
+  endif
+  silent !echo -ne "\033]12;red\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal
+"SHAPE
+  if exists('$TMUX')
+    let &t_SI .= "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI .= "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  else
+    let &t_SI .= "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI .= "\<Esc>]50;CursorShape=0\x7"
+  endif
+  " 1 or 0 -> blinking block
+  " 3 -> blinking underscore
+  " Recent versions of xterm (282 or above) also support
+  " 5 -> blinking vertical bar
+  " 6 -> solid vertical bar
+endif
+
+
+" This autocommand jumps to the last known position in a file
+" just after opening it, if the '" mark is set:
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+
+" More discrete search highlights
+highlight Search ctermbg=black ctermfg=yellow term=underline
+
+" Allow saving of files as sudo when I forgot to start vim using sudo.
+cmap w!! w !sudo tee > /dev/null %
+map <leader><leader> <c-^>
+
+" Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+map <leader>b :CtrlPBuffer<cr>
+map <leader>t :CtrlP<cr>
+map <leader>gt :CtrlPTag<cr>
+
+" Move around splits with <c-hjkl>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+
+" Dont fold foldable files by default
+if has("autocmd")
+  augroup Unfolding
+    autocmd BufRead * normal zR
+  augroup END
+endif
+
+if has("autocmd") && exists("+omnifunc")
+  augroup OmniFunk
+    autocmd Filetype *
+          \	if &omnifunc == "" |
+          \		setlocal omnifunc=syntaxcomplete#Complete |
+          \	endif
+    autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+  augroup END
+endif
+
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+"" Shougo / neocomplete
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+"let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"" Shougo / neocomplete
+
+"" Shougo / neosnippet
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+"" Shougo / neosnippet
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" MULTIPURPOSE TAB KEY
+" Indent if we're at the beginning of a line. Else, do completion.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"function! Smart_TabComplete()
+  "let line = getline('.')                         " current line
+
+  "let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  "" line to one character right
+                                                  "" of the cursor
+  "let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  "if (strlen(substr)==0)                          " nothing to match on empty string
+    "return "\<tab>"
+  "endif
+  "let has_period = match(substr, '\.') != -1      " position of period, if any
+  "let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  "if (!has_period && !has_slash)
+    "return "\<C-X>\<C-P>"                         " existing text matching
+  "elseif ( has_slash )
+    "return "\<C-X>\<C-F>"                         " file matching
+  "elseif ( pumvisible() )
+    "return "\<C-n>"
+  "else
+    "return "\<C-X>\<C-O>"                         " plugin matching
+  "endif
+
+"endfunction
+"inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RENAME CURRENT FILE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RemoveFancyCharacters COMMAND
+" Remove smart quotes, etc.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! RemoveFancyCharacters()
+    let typo = {}
+    let typo["“"] = '"'
+    let typo["”"] = '"'
+    let typo["‘"] = "'"
+    let typo["’"] = "'"
+    let typo["–"] = '--'
+    let typo["—"] = '---'
+    let typo["…"] = '...'
+    :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
+endfunction
+command! RemoveFancyCharacters :call RemoveFancyCharacters()
+
+"from janus
+" NERDCommenter mappings
+if has("gui_macvim") && has("gui_running")
+  map <D-/> <plug>NERDCommenterToggle<CR>
+  imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
+else
+  map <leader>/ <plug>NERDCommenterToggle<CR>
+endif
+
+if has("gui_macvim") && has("gui_running")
+  " Command-Shift-F on OSX
+  map <D-F> :Ack<space>
+else
+  " Define <C-F> to a dummy value to see if it would set <C-f> as well.
+  map <C-F> :dummy
+
+  if maparg("<C-f>") == ":dummy"
+    " <leader>f on systems where <C-f> == <C-F>
+    map <leader>f :Ack<space>
+  else
+    " <C-F> if we can still map <C-f> to <S-Down>
+    map <C-F> :Ack<space>
+  endif
+
+  map <C-f> <S-Down>
+endif
+
+"CTRL_P
+let g:ctrlp_lazy_update=1
+let g:ctrlp_map = ''
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
+  \ }
+if has("gui_macvim") && has("gui_running")
+  map <D-t> :CtrlP<CR>
+  imap <D-t> <ESC>:CtrlP<CR>
+endif
+
+
+if 0 " if 0 / endif HACK
+i
+
+"SYNTASTIC
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_auto_loc_list=2
+
+.
+endif
+

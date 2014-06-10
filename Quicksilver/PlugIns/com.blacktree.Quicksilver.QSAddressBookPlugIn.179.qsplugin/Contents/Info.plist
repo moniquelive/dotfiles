@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>12E55</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Contacts</string>
+	<key>CFBundleExecutable</key>
+	<string>QSAddressBookPlugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSAddressBookPlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Contacts Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.1.4</string>
+	<key>CFBundleVersion</key>
+	<string>179</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>4H1503</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>12D75</string>
+	<key>DTSDKName</key>
+	<string>macosx10.8</string>
+	<key>DTXcode</key>
+	<string>0463</string>
+	<key>DTXcodeBuild</key>
+	<string>4H1503</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2012, QSApp</string>
+	<key>QSActions</key>
+	<dict>
+		<key>QSABContactAddDataAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSABMimicActionProvider</string>
+			<key>actionSelector</key>
+			<string>addData:toContact:</string>
+			<key>directTypes</key>
+			<array>
+				<string>ABPeopleUIDsPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>com.apple.AddressBook</string>
+			<key>name</key>
+			<string>Add Note…</string>
+			<key>reverseArguments</key>
+			<true/>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+		<key>QSABContactEditAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSABContactActions</string>
+			<key>actionSelector</key>
+			<string>editContact:</string>
+			<key>directTypes</key>
+			<array>
+				<string>ABPeopleUIDsPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>com.apple.AddressBook</string>
+			<key>name</key>
+			<string>Edit Contact</string>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+		<key>QSABContactShowAction</key>
+		<dict>
+			<key>actionClass</key>
+			<string>QSABContactActions</string>
+			<key>actionSelector</key>
+			<string>showContact:</string>
+			<key>directTypes</key>
+			<array>
+				<string>ABPeopleUIDsPboardType</string>
+			</array>
+			<key>icon</key>
+			<string>com.apple.AddressBook</string>
+			<key>name</key>
+			<string>Show Contact</string>
+			<key>precedence</key>
+			<integer>3</integer>
+			<key>validatesObjects</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>QSDefaults</key>
+	<dict>
+		<key>QSABIncludeContacts</key>
+		<true/>
+	</dict>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Contacts</string>
+			<string>Applications</string>
+		</array>
+		<key>description</key>
+		<string>Provides access to contact information</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2&gt;Overview&lt;/h2&gt;
+&lt;p&gt;The Apple Contacts plugin allows interaction with the contacts stored on your Mac or other sources (Exchange, CardDav). Contacts are added to your catalog, but can also be found by right arrowing → into the Contacts app.&lt;/p&gt;
+&lt;h2&gt;Catalog&lt;/h2&gt;
+&lt;p&gt;The plugin adds a single catalog source called 'Contacts', available under the 'Modules' tab in the Catalog preferences that adds all your contacts to Quicksilver's catalog. If you do not wish to populate your catalog with your contacts, you can disable this entry and obtain a list of all your contacts by right arrowing → into the Contacts app instead.&lt;/p&gt;
+&lt;h3&gt;Contacts in Quicksilver&lt;/h3&gt;
+&lt;p&gt;Quicksilver obtains all the available information about a contact, including their email addresses, postal addresses, phone numbers and websites. This information can be viewed by right arrowing → into a selected contact.&lt;/p&gt;
+&lt;p&gt;The contact's information is available for use with any valid action in Quicksilver. For example you can find a contact's postal address with Google Maps, email a file to one email address or open the contact's website.&lt;/p&gt;
+&lt;h2&gt;Actions&lt;/h2&gt;
+&lt;dl&gt;
+&lt;dt&gt;Show Contact&lt;/dt&gt;
+&lt;dd&gt;Show the selected contact in Contacts&lt;/dd&gt;
+&lt;dt&gt;Edit Contact&lt;/dt&gt;
+&lt;dd&gt;Edit the selected contact in Contacts&lt;/dd&gt;
+&lt;dt&gt;Add Note…&lt;/dt&gt;
+&lt;dd&gt;Add a text note to a selected contact. This does not open Contacts.&lt;/dd&gt;
+&lt;/dl&gt;</string>
+		<key>icon</key>
+		<string>com.apple.AddressBook</string>
+		<key>relatedBundles</key>
+		<array>
+			<string>com.apple.AddressBook</string>
+		</array>
+		<key>requiresFeature</key>
+		<string>0</string>
+	</dict>
+	<key>QSPresetAdditions</key>
+	<array>
+		<dict>
+			<key>ID</key>
+			<string>QSPresetAddressBook</string>
+			<key>icon</key>
+			<string>com.apple.AddressBook</string>
+			<key>name</key>
+			<string>Contacts</string>
+			<key>requiresBundle</key>
+			<string>com.apple.AddressBook</string>
+			<key>source</key>
+			<string>QSAddressBookObjectSource</string>
+		</dict>
+	</array>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSAETypeConverters</key>
+		<dict>
+			<key>com.apple.addressbook.item-object</key>
+			<string>QSContactObjectHandler</string>
+		</dict>
+		<key>QSActionProviders</key>
+		<dict>
+			<key>QSABContactActions</key>
+			<string>QSABContactActions</string>
+			<key>QSABMimicActionProvider</key>
+			<string>QSABMimicActionProvider</string>
+		</dict>
+		<key>QSBundleChildHandlers</key>
+		<dict>
+			<key>com.apple.AddressBook</key>
+			<string>QSAddressBookObjectSource</string>
+		</dict>
+		<key>QSObjectHandlers</key>
+		<dict>
+			<key>ABPeopleUIDsPboardType</key>
+			<string>QSContactObjectHandler</string>
+		</dict>
+		<key>QSObjectSources</key>
+		<dict>
+			<key>QSAddressBookObjectSource</key>
+			<string>QSAddressBookObjectSource</string>
+		</dict>
+		<key>QSTypeDefinitions</key>
+		<dict>
+			<key>ABPeopleUIDsPboardType</key>
+			<dict>
+				<key>icon</key>
+				<string>com.apple.addressbook</string>
+				<key>name</key>
+				<string>Contacts</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>version</key>
+		<string>4001</string>
+	</dict>
+</dict>
+</plist>

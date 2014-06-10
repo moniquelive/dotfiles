@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>BuildMachineOSBuild</key>
+	<string>12D78</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleDisplayName</key>
+	<string>Gmail Plugin</string>
+	<key>CFBundleExecutable</key>
+	<string>Gmail Plugin</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.blacktree.Quicksilver.QSGmailPlugIn</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Gmail Plugin</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.1.0</string>
+	<key>CFBundleVersion</key>
+	<string>5F</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
+	<key>DTPlatformBuild</key>
+	<string>4H512</string>
+	<key>DTPlatformVersion</key>
+	<string>GM</string>
+	<key>DTSDKBuild</key>
+	<string>12D75</string>
+	<key>DTSDKName</key>
+	<string>macosx10.8</string>
+	<key>DTXcode</key>
+	<string>0461</string>
+	<key>DTXcodeBuild</key>
+	<string>4H512</string>
+	<key>QSPlugIn</key>
+	<dict>
+		<key>author</key>
+		<string>Blacktree, Inc.</string>
+		<key>categories</key>
+		<array>
+			<string>Mail &amp; Chat</string>
+			<string>Web</string>
+		</array>
+		<key>description</key>
+		<string>Allows Quicksilver to send emails via Gmail</string>
+		<key>extendedDescription</key>
+		<string>&lt;h2&gt;Gmail Plugin&lt;/h2&gt;
+&lt;p&gt;The Gmail plugin allows you to use Quicksilver to send email via the Compose Email, Email Item..., and Email To... actions, through Gmail.&lt;/p&gt;
+&lt;p&gt;To enable Quicksilver to send email using the Gmail plugin, go to Quicksilver's Preferences, and within the 'Handlers' tab, choose 'Gmail Plugin' as the Mail Handler from the dropdown list.&lt;/p&gt;
+&lt;p&gt;Once set, open the &lt;a href="qs://preferences#QSGmailPluginPrefs"&gt;Gmail preferences&lt;/a&gt; and enter your username and password. This information is stored securely in the Apple OS X Keychain.&lt;/p&gt;</string>
+		<key>icon</key>
+		<string>GmaiIcon</string>
+		<key>relatedBundles</key>
+		<array>
+			<string>com.google.GmailNotifier</string>
+		</array>
+	</dict>
+	<key>QSRegistration</key>
+	<dict>
+		<key>QSMailMediators</key>
+		<dict>
+			<key>com.google.GmailNotifier</key>
+			<string>QSGmailMediator</string>
+		</dict>
+		<key>QSPreferencePanes</key>
+		<dict>
+			<key>QSGmailPluginPrefs</key>
+			<dict>
+				<key>class</key>
+				<string>QSGmailPluginPrefs</string>
+				<key>description</key>
+				<string>Gmail Login Preferences</string>
+				<key>icon</key>
+				<string>GmaiIcon</string>
+				<key>name</key>
+				<string>Gmail</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>QSRequirements</key>
+	<dict>
+		<key>plugins</key>
+		<array>
+			<dict>
+				<key>id</key>
+				<string>com.blacktree.Quicksilver.QSEmailSupport</string>
+				<key>name</key>
+				<string>Mail Support</string>
+			</dict>
+		</array>
+		<key>version</key>
+		<string>4000</string>
+	</dict>
+	<key>QSResourceAdditions</key>
+	<dict>
+		<key>GmaiIcon</key>
+		<array>
+			<dict>
+				<key>bundle</key>
+				<string>com.google.GmailNotifier</string>
+				<key>resource</key>
+				<string>GmailIcon.png</string>
+			</dict>
+			<dict>
+				<key>bundle</key>
+				<string>com.blacktree.Quicksilver.QSGmailPlugIn</string>
+				<key>resource</key>
+				<string>gmail.png</string>
+			</dict>
+		</array>
+	</dict>
+</dict>
+</plist>
