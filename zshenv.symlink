@@ -17,8 +17,7 @@ ${HOME}/bin:\
 /usr/X11/bin:\
 ${SENCHA_CMD}"
 
-export AWS_ACCESS_KEY_ID="AKIAI67RPPW2FQKARCLA"
-export AWS_SECRET_ACCESS_KEY="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"
+source ~/.awskeys.sh
 
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(brew --prefix)
