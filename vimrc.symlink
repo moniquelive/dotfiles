@@ -95,7 +95,7 @@ set autoread
 set autoindent smartindent
 
 set background=dark t_Co=256 " 256 colors
-color solarized "mustang
+color Monokai-chris
 syntax on
 
 highlight Cursor guifg=white guibg=red
