@@ -42,6 +42,7 @@ Plugin 'Shougo/neosnippet-snippets'
 Plugin 'bling/vim-airline'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'kchmck/vim-coffee-script'
+Plugin 'nelstrom/vim-visual-star-search'
 
 call vundle#end()            " All of your Plugins must be added before the following line
 filetype plugin indent on    " required
