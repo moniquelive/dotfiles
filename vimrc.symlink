@@ -175,7 +175,7 @@ if has("autocmd") && exists("+omnifunc")
 endif
 
 if ! has('gui_running')
-    set ttimeoutlen=10
+    set ttimeoutlen=10 lazyredraw
     augroup FastEscape
         autocmd!
         au InsertEnter * set timeoutlen=0
