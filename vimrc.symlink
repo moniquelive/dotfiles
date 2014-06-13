@@ -31,6 +31,7 @@ Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-ragtag'
+Plugin 'tpope/vim-abolish'
 
 "Shougo
 Plugin 'Shougo/neocomplete'
