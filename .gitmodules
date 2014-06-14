@@ -4,3 +4,84 @@
 [submodule "vim.symlink/bundle/vundle"]
 	path = vim.symlink/bundle/vundle
 	url = https://github.com/gmarik/vundle.git
+[submodule "vim.symlink/bundle/Align"]
+	path = vim.symlink/bundle/Align
+	url = https://github.com/vim.symlink/bundle/Align
+[submodule "vim.symlink/bundle/The-NERD-Commenter"]
+	path = vim.symlink/bundle/The-NERD-Commenter
+	url = https://github.com/vim.symlink/bundle/The-NERD-Commenter
+[submodule "vim.symlink/bundle/ag.vim"]
+	path = vim.symlink/bundle/ag.vim
+	url = https://github.com/vim.symlink/bundle/ag.vim
+[submodule "vim.symlink/bundle/ctrlp.vim"]
+	path = vim.symlink/bundle/ctrlp.vim
+	url = https://github.com/vim.symlink/bundle/ctrlp.vim
+[submodule "vim.symlink/bundle/editorconfig-vim"]
+	path = vim.symlink/bundle/editorconfig-vim
+	url = https://github.com/vim.symlink/bundle/editorconfig-vim
+[submodule "vim.symlink/bundle/neocomplete"]
+	path = vim.symlink/bundle/neocomplete
+	url = https://github.com/vim.symlink/bundle/neocomplete
+[submodule "vim.symlink/bundle/neosnippet"]
+	path = vim.symlink/bundle/neosnippet
+	url = https://github.com/vim.symlink/bundle/neosnippet
+[submodule "vim.symlink/bundle/neosnippet-snippets"]
+	path = vim.symlink/bundle/neosnippet-snippets
+	url = https://github.com/vim.symlink/bundle/neosnippet-snippets
+[submodule "vim.symlink/bundle/trailing-whitespace"]
+	path = vim.symlink/bundle/trailing-whitespace
+	url = https://github.com/vim.symlink/bundle/trailing-whitespace
+[submodule "vim.symlink/bundle/vim-abolish"]
+	path = vim.symlink/bundle/vim-abolish
+	url = https://github.com/vim.symlink/bundle/vim-abolish
+[submodule "vim.symlink/bundle/vim-airline"]
+	path = vim.symlink/bundle/vim-airline
+	url = https://github.com/vim.symlink/bundle/vim-airline
+[submodule "vim.symlink/bundle/vim-bundler"]
+	path = vim.symlink/bundle/vim-bundler
+	url = https://github.com/vim.symlink/bundle/vim-bundler
+[submodule "vim.symlink/bundle/vim-coffee-script"]
+	path = vim.symlink/bundle/vim-coffee-script
+	url = https://github.com/vim.symlink/bundle/vim-coffee-script
+[submodule "vim.symlink/bundle/vim-colorschemes"]
+	path = vim.symlink/bundle/vim-colorschemes
+	url = https://github.com/vim.symlink/bundle/vim-colorschemes
+[submodule "vim.symlink/bundle/vim-cucumber"]
+	path = vim.symlink/bundle/vim-cucumber
+	url = https://github.com/vim.symlink/bundle/vim-cucumber
+[submodule "vim.symlink/bundle/vim-endwise"]
+	path = vim.symlink/bundle/vim-endwise
+	url = https://github.com/vim.symlink/bundle/vim-endwise
+[submodule "vim.symlink/bundle/vim-fugitive"]
+	path = vim.symlink/bundle/vim-fugitive
+	url = https://github.com/vim.symlink/bundle/vim-fugitive
+[submodule "vim.symlink/bundle/vim-haml"]
+	path = vim.symlink/bundle/vim-haml
+	url = https://github.com/vim.symlink/bundle/vim-haml
+[submodule "vim.symlink/bundle/vim-pathogen"]
+	path = vim.symlink/bundle/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule "vim.symlink/bundle/vim-ragtag"]
+	path = vim.symlink/bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag.git
+[submodule "vim.symlink/bundle/vim-rails"]
+	path = vim.symlink/bundle/vim-rails
+	url = https://github.com/tpope/vim-rails.git
+[submodule "vim.symlink/bundle/vim-rake"]
+	path = vim.symlink/bundle/vim-rake
+	url = https://github.com/tpope/vim-rake.git
+[submodule "vim.symlink/bundle/vim-repeat"]
+	path = vim.symlink/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat.git
+[submodule "vim.symlink/bundle/vim-ruby"]
+	path = vim.symlink/bundle/vim-ruby
+	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "vim.symlink/bundle/vim-sensible"]
+	path = vim.symlink/bundle/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
+[submodule "vim.symlink/bundle/vim-surround"]
+	path = vim.symlink/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "vim.symlink/bundle/vim-visual-star-search"]
+	path = vim.symlink/bundle/vim-visual-star-search
+	url = https://github.com/nelstrom/vim-visual-star-search.git
