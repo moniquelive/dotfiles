@@ -64,7 +64,6 @@ plugins=(\
   rails rsync rvm\
   themes tmux\
   urltools\
-  vundle\
   yum\
   z
 )
