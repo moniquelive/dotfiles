@@ -1,57 +1,19 @@
 " This is CyberLeo's .vimrc file
 " vim:set ts=2 sts=2 sw=2 expandtab:
 "
-"-------------------------------------------------------- VUNDLE - plugins ---
-set nocompatible              " be iMproved, required
-filetype off                  " required
+"------------------------------------------------------ PATHOGEN - plugins ---
+set nocompatible
 
-set rtp+=~/.vim/bundle/vundle " set the runtime path to include Vundle and initialize
-call vundle#begin()           " or: call vundle#begin('~/some/path/here')
-
-Plugin 'gmarik/vundle'        " let Vundle manage Vundle, required
-
-"vim-scripts
-Plugin 'Align'
-Plugin 'The-NERD-Commenter'
-Plugin 'editorconfig-vim'
-Plugin 'trailing-whitespace'
-Plugin 'rking/ag.vim'
-Plugin 'ctrlp.vim'
-Plugin 'vim-ruby/vim-ruby'
-
-"tpope awesomeness
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-rails'
-Plugin 'tpope/vim-rake'
-Plugin 'tpope/vim-cucumber'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
-Plugin 'tpope/vim-bundler'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-ragtag'
-Plugin 'tpope/vim-abolish'
-
-"Shougo
-Plugin 'Shougo/neocomplete'
-Plugin 'Shougo/neosnippet'
-Plugin 'Shougo/neosnippet-snippets'
-
-"misc
-Plugin 'bling/vim-airline'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'nelstrom/vim-visual-star-search'
-
-call vundle#end()            " All of your Plugins must be added before the following line
-filetype plugin indent on    " required
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+filetype plugin indent on
+set sessionoptions-=options
 
 "-------------------------------------------------------- CYBERAMA - begin ---
 "let mapleader=","
 "let g:ackprg                    = 'ag --nogroup --nocolor --column'
+"let g:auto_save = 1 " I'm free of :w
 let g:netrw_liststyle           = 3 " = 3: tree style listing
-let g:auto_save = 1 " I'm free of :w
 inoremap <M-o>       <Esc>o
 inoremap <C-j>       <Down>
 let g:ragtag_global_maps = 1
