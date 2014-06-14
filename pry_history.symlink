@@ -218,3 +218,6 @@ nil.tap {|me| me = 3; 4}
 {}.tap {|me| me = 3; 4}
 {}.tap {|me| me[:a] = 3; 4}
 [].tap {|me| me<< 3; 4}.first
+a = %q{leo\ oliveira leo}
+a
+a = %w{leo\ oliveira leo}

@@ -15,7 +15,7 @@ Plugin 'Align'
 Plugin 'The-NERD-Commenter'
 Plugin 'editorconfig-vim'
 Plugin 'trailing-whitespace'
-Plugin 'mileszs/ack.vim'
+Plugin 'rking/ag.vim'
 Plugin 'ctrlp.vim'
 Plugin 'vim-ruby/vim-ruby'
 
@@ -49,7 +49,7 @@ filetype plugin indent on    " required
 
 "-------------------------------------------------------- CYBERAMA - begin ---
 "let mapleader=","
-let g:ackprg                    = 'ag --nogroup --nocolor --column'
+"let g:ackprg                    = 'ag --nogroup --nocolor --column'
 let g:netrw_liststyle           = 3 " = 3: tree style listing
 let g:auto_save = 1 " I'm free of :w
 inoremap <M-o>       <Esc>o
@@ -78,7 +78,7 @@ set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
 set scrolloff=2
 " Store temporary files in a central spot
-set backup
+"set backup
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 " allow backspacing over everything in insert mode
@@ -345,17 +345,17 @@ endif
 
 if has("gui_macvim") && has("gui_running")
   " Command-Shift-F on OSX
-  map <D-F> :Ack<space>
+  map <D-F> :Ag<space>
 else
   " Define <C-F> to a dummy value to see if it would set <C-f> as well.
   map <C-F> :dummy
 
   if maparg("<C-f>") == ":dummy"
     " <leader>f on systems where <C-f> == <C-F>
-    map <leader>f :Ack<space>
+    map <leader>f :Ag<space>
   else
     " <C-F> if we can still map <C-f> to <S-Down>
-    map <C-F> :Ack<space>
+    map <C-F> :Ag<space>
   endif
 
   map <C-f> <S-Down>
