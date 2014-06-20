@@ -112,6 +112,12 @@ map <leader>b :CtrlPBuffer<cr>
 map <leader>t :CtrlP<cr>
 map <leader>gt :CtrlPTag<cr>
 
+" buffer navigation from Practical Vim Book
+nnoremap <silent> [b :bprevious<CR>
+nnoremap <silent> ]b :bnext<CR>
+nnoremap <silent> [B :bfirst<CR>
+nnoremap <silent> ]B :blast<CR>
+
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
