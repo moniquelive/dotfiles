@@ -45,6 +45,8 @@
   l4          = log --graph --all --pretty=format:'%Cred%h%Creset %C(bold blue)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
   l5          = log --graph --all --pretty=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
 
+  rl          = reflog --all --decorate --pretty='format:%C(blue)%h%C(auto)%d%C(reset) %ar %C(green)%an%C(reset) %s'
+
   s           = status -sb
   sh          = show --color-words --minimal
   show        = show -b
@@ -88,7 +90,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [mergetool "sourcetree"]
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
