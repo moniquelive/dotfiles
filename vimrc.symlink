@@ -9,6 +9,9 @@ execute pathogen#infect()
 filetype plugin indent on
 set sessionoptions-=options
 
+" do use sensible defaults but let me override them
+runtime! plugin/sensible.vim
+
 "-------------------------------------------------------- CYBERAMA - begin ---
 "let mapleader=","
 "let g:ackprg                    = 'ag --nogroup --nocolor --column'
