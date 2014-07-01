@@ -42,6 +42,7 @@ export LESSCHARSET=utf-8
 export EDITOR=/usr/local/bin/vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export DOCKER_HOST=tcp://localhost:4243
+export CUCUMBER_FORMAT=progress
 
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
