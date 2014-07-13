@@ -85,3 +85,6 @@
 [submodule "vim.symlink/bundle/vim-git"]
 	path = vim.symlink/bundle/vim-git
 	url = https://github.com/tpope/vim-git.git
+[submodule "vim.symlink/bundle/vim-vinegar"]
+	path = vim.symlink/bundle/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar.git
