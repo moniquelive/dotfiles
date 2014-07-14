@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
+set -e
 
-echo Resetting...
-git submodule foreach --quiet git reset --hard
-echo Checking out master...
-git submodule foreach --quiet git checkout master > /dev/null
-echo Pulling...
-git submodule foreach --quiet git pull -q
+echo updating:
+git submodule update
 
-echo Done.
+echo getting latest:
+git submodule foreach --quiet "git reset --hard; git checkout -q master; git pull -q"
 
