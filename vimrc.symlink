@@ -19,6 +19,9 @@ runtime! plugin/sensible.vim
 let g:netrw_liststyle    = 3 " = 3: tree style listing
 let g:ragtag_global_maps = 1
 
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+
 " global defaults
 set ts=2 sts=2 sw=2 et nowrap
 set nobackup hlsearch cursorline

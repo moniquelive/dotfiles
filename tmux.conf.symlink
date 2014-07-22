@@ -76,12 +76,16 @@ setw -g clock-mode-style 24
 ##set -g status-left '#[fg=green](#S) #(whoami)@#H#[default]'
 #set-option -g status-left '[#(/usr/local/bin/power.sh)] #[default] Windows:'
 #set -g status-right '#[fg=yellow]#(uptime | cut -d" " -f 12-)#[default] #[fg=white]%H:%M#[default]'
+
 set -g status-left-length 40
-set -g status-left "#[bg=black,fg=white](%H:%M) #[fg=green]#S #[fg=yellow]#I #[fg=cyan]#P "
-set -g status-right '#[fg=yellow]#(tmux-mem-cpu-load --colors 2)#[default]'
+### set -g status-left "#[bg=black,fg=white](%H:%M) #[fg=green]#S #[fg=yellow]#I #[fg=cyan]#P "
+### set -g status-right '#[fg=yellow]#(tmux-mem-cpu-load --colors 2)#[default]'
+if-shell "test -f ~/.tmux-snapshot" "source ~/.tmux-snapshot"
+
 set -g status-utf8 on
 set -g status-interval 15
 set -g status-justify centre
+
 
 # set window notifications
 setw -g monitor-activity on
