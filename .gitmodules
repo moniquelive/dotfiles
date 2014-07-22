@@ -88,3 +88,9 @@
 [submodule "vim.symlink/bundle/vim-vinegar"]
 	path = vim.symlink/bundle/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar.git
+[submodule "vim.symlink/bundle/tmuxline.vim"]
+	path = vim.symlink/bundle/tmuxline.vim
+	url = https://github.com/edkolev/tmuxline.vim.git
+[submodule "vim.symlink/bundle/tmux-config"]
+	path = vim.symlink/bundle/tmux-config
+	url = https://github.com/lccro/tmux-config.git
