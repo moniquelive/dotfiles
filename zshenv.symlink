@@ -80,6 +80,8 @@ fi
 #  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 #}
 
+[[ -s "${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh" ]] && source ${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh
+
 # last lines pls
 [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
