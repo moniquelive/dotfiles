@@ -1,7 +1,7 @@
 {
   "name": "color-picker",
   "main": "./lib/ColorPicker",
-  "version": "0.14.3",
+  "version": "1.1.0",
   "private": true,
   "description": "A Color Picker for the Atom Editor. Right click a color and select color picker to open it.",
   "repository": {
@@ -12,16 +12,16 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or place the cursor on a color and hit `CMD-SHIFT-C`. Currently reads HEX, HEXA, RGB, RGBA, HSL and HSLA.\n\nInspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n**NEW:** Now also reads HSL and HSLA!\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/3g3T401o0o0F2m2O1z1K/output.gif)\n\n## To do\n\n- Code cleanup\n- Preview color manipulation functions (lighten, darken)\n- Convertions\n- Stylus variable lookup\n- Edit the color value\n- Tests\n",
+  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or hit `CMD-SHIFT-C`/`CTRL-ALT-C` anywhere. Currently reads HEX, HEXA, RGB, RGBA, HSL and HSLA.\n\nInspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n**NEW:** You can now open the color picker whenever, without input, using `CMD-SHIFT-C`/`CTRL-ALT-C`!\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/3g3T401o0o0F2m2O1z1K/output.gif)\n\n## To do\n\n- Stylus variable lookup\n- Context menu convertions\n- Preview color manipulation functions (lighten, darken)\n- Edit the color value\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/thomaslindstrom/color-picker/issues"
   },
   "homepage": "https://github.com/thomaslindstrom/color-picker",
-  "_id": "color-picker@0.14.3",
+  "_id": "color-picker@1.1.0",
   "dist": {
-    "shasum": "60e38af704b26932627166660baf25303a90bd7c"
+    "shasum": "0fb75b30ead90a65abcb6be0c35715904ab95fdc"
   },
-  "_resolved": "/var/folders/ds/pcpl_xbj23q9_pcvy15t2z3w0000gn/T/d-11439-7178-17tyv7a/package.tgz",
-  "_from": "/var/folders/ds/pcpl_xbj23q9_pcvy15t2z3w0000gn/T/d-11439-7178-17tyv7a/package.tgz"
+  "_resolved": "/var/folders/ds/pcpl_xbj23q9_pcvy15t2z3w0000gn/T/d-114628-64489-1cvsuj4/package.tgz",
+  "_from": "/var/folders/ds/pcpl_xbj23q9_pcvy15t2z3w0000gn/T/d-114628-64489-1cvsuj4/package.tgz"
 }
