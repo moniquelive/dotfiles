@@ -11,10 +11,6 @@
   'showIndentGuide': true
   'showInvisibles': true
 'core':
-  'themes': [
-    'atom-dark-ui'
-    'base16-tomorrow-dark-theme'
-  ]
   'ignoredNames': [
     '.git'
     '.svn'
@@ -22,5 +18,9 @@
   ]
   'projectHome': '/Users/leo/Projects'
   'excludeVcsIgnoredPaths': false
+  'themes': [
+    'atom-dark-ui'
+    'monokai'
+  ]
 'autosave':
   'enabled': true

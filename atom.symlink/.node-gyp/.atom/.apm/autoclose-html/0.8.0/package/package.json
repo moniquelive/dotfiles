@@ -1,0 +1,17 @@
+{
+  "name": "autoclose-html",
+  "author": "Matt Berkowitz",
+  "main": "./lib/autoclose-html",
+  "version": "0.8.0",
+  "private": true,
+  "description": "Automates closing of HTML Tags",
+  "repository": "https://github.com/mattberkowitz/autoclose-html",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "contributors": [
+    "Evan Hahn <me@evanhahn.com> (http://evanhahn.com)"
+  ]
+}
