@@ -2,8 +2,8 @@
 set -e
 
 echo updating:
-git submodule update
+git pull
 
 echo getting latest:
-git submodule foreach --quiet '/bin/echo -n "$path: "; git reset --hard; git checkout -q master; git pull -q'
+git submodule update --init --recursive
 
