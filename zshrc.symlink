@@ -54,7 +54,8 @@ plugins=(\
   z
 )
 
-source $ZSH/oh-my-zsh.sh
+[[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
+
 export LESS="-FRmX"
 unsetopt correctall
 
