@@ -21,7 +21,7 @@ source ~/.awskeys.sh
 
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(brew --prefix)
-  python_prefix=$(brew --prefix python)
+  #python_prefix=$(brew --prefix python)
   #coreutils_prefix=$(brew --prefix coreutils)
   #npm_prefix=$(brew --prefix npm)
   #php_prefix=$(brew --prefix josegonzalez/php/php55)
@@ -29,8 +29,8 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   export MANPATH="${brew_prefix}/opt/coreutils/libexec/gnuman:${MANPATH}"
   export PYTHONPATH=".:${brew_prefix}/lib/python2.7/site-packages:${PYTHONPATH}"
 
+#${python_prefix}/bin:\
   export PATH="\
-${python_prefix}/bin:\
 ${brew_prefix}/opt/node/bin:\
 ${brew_prefix}/opt/coreutils/bin:\
 ${brew_prefix}/opt/coreutils/libexec/gnubin:\
@@ -43,44 +43,6 @@ export EDITOR=/usr/local/bin/vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export DOCKER_HOST=tcp://localhost:4243
 export CUCUMBER_FORMAT=progress
-
-alias ri='ri -Tf ansi'
-alias rm='rm -I'
-alias tis='tig status'
-alias listen='lsof -i -P | grep LISTEN'
-alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
-alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
-alias t='tmux -2u $*'
-alias tree='tree -SA'
-alias gd="git difftool --no-prompt --tool=mvimdiff"
-alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-#alias vim="mvim -v"
-alias gs='git status -sb'
-
-setopt numericglobsort
-setopt braceccl
-#setopt noclobber
-setopt extendedglob
-setopt HIST_IGNORE_SPACE
-skip_global_compinit=1
-
-# search on zshall man page
-zman() {
-  PAGER="less -g -s '+/^       "$1"'" man zshall
-}
-
-# save dirstack between sessions
-DIRSTACKSIZE=9
-DIRSTACKFILE=~/.zdirs
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-fi
-#chpwd() {
-#  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-#}
-
-[[ -s "${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh" ]] && source ${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh
 
 # last lines pls
 [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"

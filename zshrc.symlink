@@ -1,11 +1,11 @@
-# BENCHMARKING (begin)
-# set the trace prompt to include seconds, nanoseconds, script name and line number
-##PS4='+$(date "+%s:%N") %N:%i> '
-# save file stderr to file descriptor 3 and redirect stderr (including trace
-# output) to a file with the script's PID as an extension
-##exec 3>&2 2>/tmp/startlog.$$
-# set options to turn on tracing and expansion of commands contained in the prompt
-##setopt xtrace prompt_subst
+## BENCHMARKING (begin)
+## set the trace prompt to include seconds, nanoseconds, script name and line number
+#PS4='+$(date "+%s:%N") %N:%i> '
+## save file stderr to file descriptor 3 and redirect stderr (including trace
+## output) to a file with the script's PID as an extension
+#exec 3>&2 2>/tmp/startlog.$$
+## set options to turn on tracing and expansion of commands contained in the prompt
+#setopt xtrace prompt_subst
 #----------------------------------------------------------------------------
 
 # Path to your oh-my-zsh configuration.
@@ -17,24 +17,7 @@ SAVEHIST=$HISTSIZE
 REPORTTIME=10
 WORDCHARS=${WORDCHARS//[&=\/;\!#%\{]}
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-#ZSH_THEME="suvash"
-#ZSH_THEME="terminalparty"
-#ZSH_THEME="wuffers"
-#ZSH_THEME="murilasso"
 ZSH_THEME="gnzh"
-
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
-
-# Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -53,16 +36,17 @@ ZSH_TMUX_FIXTERM=true
 # optional:
   #brew \
   #history\
+#  osx\
+#  heroku\
+#  docker\
+
 plugins=(\
-  git\
   capistrano cp colored-man colorize\
-  docker\
   forklift\
   gem gnu-utils github gitignore\
-  heroku\
+  git\
   mosh\
   npm\
-  osx\
   rails rsync rvm\
   themes tmux\
   urltools\
@@ -92,15 +76,48 @@ alias mmv='noglob zmv -W'
 #compdef t=tmux
 unset SCRIPT_NAME
 
-#source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+alias ri='ri -Tf ansi'
+alias rm='rm -I'
+alias tis='tig status'
+alias listen='lsof -i -P | grep LISTEN'
+alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
+alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
+alias t='tmux -2u $*'
+alias tree='tree -SA'
+alias gd="git difftool --no-prompt --tool=mvimdiff"
+alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
+#alias vim="mvim -v"
+alias gs='git status -sb'
+
+setopt numericglobsort
+setopt braceccl
+#setopt noclobber
+setopt extendedglob
+setopt HIST_IGNORE_SPACE
+skip_global_compinit=1
+
+# search on zshall man page
+zman() {
+  PAGER="less -g -s '+/^       "$1"'" man zshall
+}
+
+# save dirstack between sessions
+DIRSTACKSIZE=9
+DIRSTACKFILE=~/.zdirs
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
+
+[[ -s "${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh" ]] && source ${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 
 #----------------------------------------------------------------------------
-# BENCHMARKING (END)
-# turn off tracing
-##unsetopt xtrace
-# restore stderr to the value saved in FD 3
-##exec 2>&3 3>&-
+## BENCHMARKING (END)
+## turn off tracing
+#unsetopt xtrace
+## restore stderr to the value saved in FD 3
+#exec 2>&3 3>&-
 
