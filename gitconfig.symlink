@@ -2,10 +2,6 @@
   name  = cyber
   email = cyber@21212.com
 
-[github]
-  user  = lccro
-  token = 25a9ee6a19fd514be58361873ec1e9bb
-
 [core]
   quotepath    = false
   editor       = vim
