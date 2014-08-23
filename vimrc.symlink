@@ -156,7 +156,7 @@ if ! has('gui_running')
     augroup END
 endif
 
-"" Shougo / neocomplete
+"--------------------------------------------------- Shougo / neocomplete ---
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -203,24 +203,8 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
-" For cursor moving in insert mode(Not recommended)
-"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
-"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
-"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
-"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
-" Or set this.
-"let g:neocomplete#enable_cursor_hold_i = 1
-" Or set this.
-"let g:neocomplete#enable_insert_char_pre = 1
-
 " AutoComplPop like behavior.
 "let g:neocomplete#enable_auto_select = 1
-
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -230,7 +214,6 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-
 
 " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
@@ -243,9 +226,7 @@ let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-"" Shougo / neocomplete
 
-"" Shougo / neosnippet
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -253,41 +234,9 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
-"" Shougo / neosnippet
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" MULTIPURPOSE TAB KEY
-" Indent if we're at the beginning of a line. Else, do completion.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"function! Smart_TabComplete()
-  "let line = getline('.')                         " current line
-
-  "let substr = strpart(line, -1, col('.')+1)      " from the start of the current
-                                                  "" line to one character right
-                                                  "" of the cursor
-  "let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-  "if (strlen(substr)==0)                          " nothing to match on empty string
-    "return "\<tab>"
-  "endif
-  "let has_period = match(substr, '\.') != -1      " position of period, if any
-  "let has_slash = match(substr, '\/') != -1       " position of slash, if any
-  "if (!has_period && !has_slash)
-    "return "\<C-X>\<C-P>"                         " existing text matching
-  "elseif ( has_slash )
-    "return "\<C-X>\<C-F>"                         " file matching
-  "elseif ( pumvisible() )
-    "return "\<C-n>"
-  "else
-    "return "\<C-X>\<C-O>"                         " plugin matching
-  "endif
-
-"endfunction
-"inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RENAME CURRENT FILE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""" RENAME CURRENT FILE
 function! RenameFile()
     let old_name = expand('%')
     let new_name = input('New file name: ', expand('%'), 'file')
@@ -299,10 +248,7 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RemoveFancyCharacters COMMAND
-" Remove smart quotes, etc.
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""" RemoveFancyCharacters COMMAND
 function! RemoveFancyCharacters()
     let typo = {}
     let typo["“"] = '"'
@@ -316,8 +262,20 @@ function! RemoveFancyCharacters()
 endfunction
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
-"from janus
-" NERDCommenter mappings
+"--------------------------------------------------------- vim-easymotion ---
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+nmap <Leader>s <Plug>(easymotion-s)
+
+" Turn on case sensitive feature
+let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
+"============================================================= from janus ===
+"---------------------------------------------------------- NERDCommenter ---
 if has("gui_macvim") && has("gui_running")
   map <D-/> <plug>NERDCommenterToggle<CR>
   imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
@@ -343,7 +301,7 @@ else
   map <C-f> <S-Down>
 endif
 
-"CTRL_P
+"----------------------------------------------------------------- CTRL_P ---
 let g:ctrlp_lazy_update=1
 let g:ctrlp_map = ''
 let g:ctrlp_custom_ignore = {
