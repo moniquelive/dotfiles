@@ -97,3 +97,6 @@
 [submodule "vim.symlink/bundle/vim-blade"]
 	path = vim.symlink/bundle/vim-blade
 	url = https://github.com/xsbeats/vim-blade.git
+[submodule "vim.symlink/bundle/vim-easymotion"]
+	path = vim.symlink/bundle/vim-easymotion
+	url = https://github.com/Lokaltog/vim-easymotion
