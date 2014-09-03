@@ -1,5 +1,8 @@
 *~
 .*.swp
 .DS_Store
-/.idea
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/*/*.iml
+/.idea/dictionaries
 
