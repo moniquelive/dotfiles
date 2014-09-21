@@ -4,6 +4,9 @@ set -e
 echo updating:
 git pull
 
-echo getting latest:
+echo initting submodules:
 git submodule update --init --recursive
+
+echo pulling latest:
+git submodule foreach "git checkout -q master; git pull -q"
 
