@@ -49,9 +49,6 @@
 [submodule "vim.symlink/bundle/vim-endwise"]
 	path = vim.symlink/bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise
-[submodule "vim.symlink/bundle/vim-fugitive"]
-	path = vim.symlink/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "vim.symlink/bundle/vim-haml"]
 	path = vim.symlink/bundle/vim-haml
 	url = https://github.com/tpope/vim-haml
