@@ -13,6 +13,12 @@ set sessionoptions-=options
 runtime! plugin/sensible.vim
 
 "-------------------------------------------------------- CYBERAMA - begin ---
+" VIM Book
+nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+inoremap jk <esc>
+" /VIM Book
+
 "let mapleader=","
 "let g:ackprg                    = 'ag --nogroup --nocolor --column'
 "let g:auto_save = 1 " I'm free of :w
