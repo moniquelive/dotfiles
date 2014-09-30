@@ -43,9 +43,6 @@
 [submodule "vim.symlink/bundle/vim-colorschemes"]
 	path = vim.symlink/bundle/vim-colorschemes
 	url = https://github.com/flazz/vim-colorschemes
-[submodule "vim.symlink/bundle/vim-cucumber"]
-	path = vim.symlink/bundle/vim-cucumber
-	url = https://github.com/tpope/vim-cucumber
 [submodule "vim.symlink/bundle/vim-endwise"]
 	path = vim.symlink/bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise
