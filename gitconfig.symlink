@@ -69,35 +69,34 @@
 [gc]
   auto = 1
 
-[merge]
-  tool    = meld
-  summary = true
-
 [diff]
-  #tool = p4mergetool
-  tool = meld
+  #tool = meld
+  tool = bcomp
 
 [difftool]
   prompt = false
 
-[mergetool]
-  prompt     = false
-  keepBackup = false
+[difftool "bcomp"]
+	trustExitCode = true
+  cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
 
+[merge]
+  tool    = bcomp
+
+[mergetool]
+  prompt     = false
+
+[mergetool "bcomp"]
+	trustExitCode = true
+  cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
+
 [mergetool "sourcetree"]
 	cmd = /Users/leo/Library/Application Support/SourceTree/SourceTree 1.9.8 1/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
-
-[mergetool "p4mergetool"]
-  cmd           = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$REMOTE $PWD/$LOCAL $PWD/$MERGED
-  trustExitCode = false
-
-[difftool "p4mergetool"]
-  cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $LOCAL $REMOTE
 
 [gui]
 	warndetachedcommit = true
