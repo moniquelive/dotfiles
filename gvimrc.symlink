@@ -17,8 +17,8 @@ if has("gui_macvim")
   set guicursor+=n-v-c-i:blinkon0
   set guicursor+=i:ver100-iCursor
 
-  set lines=40
-  set columns=80
+  set lines=45
+  set columns=85
 
   " Autosave on focus lost
   autocmd FocusLost * silent! wa
