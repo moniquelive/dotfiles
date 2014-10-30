@@ -67,8 +67,9 @@ set nojoinspaces
 set autoread
 set autoindent smartindent
 
+"color Monokai-chris
+color solarized
 set background=dark t_Co=256 " 256 colors
-color Monokai-chris
 syntax on
 
 highlight Cursor guifg=white guibg=red
