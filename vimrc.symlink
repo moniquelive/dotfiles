@@ -68,10 +68,11 @@ set autoread
 set autoindent smartindent
 
 "color Monokai-chris
-let g:solarized_contrast="high"    "default value is normal
-let g:solarized_visibility="high"    "default value is normal
-let g:solarized_hitrail=1    "default value is 0
-color solarized
+"let g:solarized_contrast="high"    "default value is normal
+"let g:solarized_visibility="high"    "default value is normal
+"let g:solarized_hitrail=1    "default value is 0
+"color solarized
+color vividchalk
 set background=dark t_Co=256 " 256 colors
 syntax on
 
