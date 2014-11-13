@@ -48,6 +48,7 @@ plugins=(\
   mosh\
   npm\
   rails rsync rvm\
+  ssh-agent\
   themes tmux\
   urltools\
   z
@@ -71,6 +72,9 @@ zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+zstyle :omz:plugins:ssh-agent identities id_rsa z_github_rsa github_rsa
+
 autoload zmv
 alias mmv='noglob zmv -W'
 
@@ -88,7 +92,6 @@ alias t='tmux -2u $*'
 alias tree='tree -SA'
 alias gd="git difftool --no-prompt --tool=mvimdiff"
 alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
-#alias vim="mvim -v"
 alias gs='git status -sb'
 
 setopt numericglobsort
