@@ -141,6 +141,20 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" Easier split resizing
+nnoremap - <c-w>-
+nnoremap + <c-w>+
+if has("autocmd")
+  autocmd WinEnter *
+        \ if winnr() == 1 |
+        \   nnoremap < <c-w>< |
+        \   nnoremap > <c-w>> |
+        \ else |
+        \   nnoremap < <c-w>> |
+        \   nnoremap > <c-w>< |
+        \ endif
+endif
+
 " Dont fold foldable files by default
 if has("autocmd")
   augroup Unfolding
