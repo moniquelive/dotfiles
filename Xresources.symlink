@@ -2,6 +2,7 @@ URxvt.perl-lib: /home/cyber/.urxvt/perls
 URxvt.perl-ext-common: clipboard
 
 URxvt.font: xft:Ubuntu Mono derivative Powerline:size=12:Regular
+URxvt.letterSpace: -1
 
 URxvt.urgentOnBell: off
 URxvt.visualBell: off
