@@ -94,3 +94,6 @@
 [submodule "vim.symlink/bundle/vim-easymotion"]
 	path = vim.symlink/bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion
+[submodule "urxvt.symlink/perls"]
+	path = urxvt.symlink/perls
+	url = https://github.com/muennich/urxvt-perls.git
