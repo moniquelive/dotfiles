@@ -67,9 +67,10 @@ bindkey '\e\e[D' backward-word
 export LESS="-FRmX"
 unsetopt correctall
 
-unalias run-help
-autoload run-help
-HELPDIR=/usr/local/share/zsh/helpfiles
+#unalias run-help
+autoload -U run-help
+autoload run-help-git
+export HELPDIR=/usr/local/share/zsh/helpfiles
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
