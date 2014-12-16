@@ -1,0 +1,32 @@
+URxvt.perl-lib: /home/cyber/.urxvt/perls
+URxvt.perl-ext-common: clipboard
+
+URxvt.font:xft:Ubuntu Mono derivative Powerline:pixelsize=14:Regular
+
+URxvt.urgentOnBell: off
+URxvt.visualBell: off
+URxvt.iso14755: off
+URxvt.iso14755_52: off
+!URxvt.meta8: true
+URxvt.depth: 32
+
+URxvt.scrollBar: off
+URxvt.saveLines: 1024
+URxvt.scrollTtyOutput:   false
+URxvt.scrollWithBuffer:  true
+URxvt.scrollTtyKeypress: true
+
+URxvt.inheritPixmap: false
+URxvt.fading: 0
+URxvt.background: [95]#300030
+URxvt.foreground: 15
+
+! Disable screen printing by overriding the default print pipe.
+URxvt.print-pipe: "cat >/dev/null"
+
+URxvt.clipboard.copycmd:  xsel --input  --clipboard
+URxvt.clipboard.pastecmd: xsel --output --clipboard
+
+URxvt.keysym.Control-Shift-C: perl:clipboard:copy
+URxvt.keysym.Control-Shift-V: perl:clipboard:paste
+
