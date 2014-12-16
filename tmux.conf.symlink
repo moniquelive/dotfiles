@@ -34,6 +34,7 @@ bind - split-window -v
 #----------------------------------------------------------------- VI mode ---
 setw -g mode-keys vi
 setw -g status-keys vi
+setw -g xterm-keys on
 
 #---------------------------------------------------- moving between panes ---
 bind h select-pane -L
