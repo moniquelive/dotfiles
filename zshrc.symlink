@@ -58,6 +58,12 @@ plugins=(\
 
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 
+bindkey -e
+bindkey '\e[1;3C' forward-word
+bindkey '\e[1;3D' backward-word
+bindkey '\e\e[C' forward-word
+bindkey '\e\e[D' backward-word
+
 export LESS="-FRmX"
 unsetopt correctall
 
