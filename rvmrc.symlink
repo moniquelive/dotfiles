@@ -1,0 +1,8 @@
+[[ -s "${HOME}/.rvm" ]] && export rvm_path="${HOME}/.rvm"
+[[ -s "/usr/local/rvm" ]] && export rvm_path="/usr/local/rvm"
+#export rvm_project_rvmrc_default=1
+#export rvm_gemset_create_on_use_flag=1
+export rvm_auto_reload_flag=2
+
+true
+

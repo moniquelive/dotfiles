@@ -41,6 +41,7 @@ export EDITOR=/usr/local/bin/vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export DOCKER_HOST=tcp://localhost:2375
 export CUCUMBER_FORMAT=progress
+export PMX_VM_PRIVATE_IP="10.10.10.10"
 
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"

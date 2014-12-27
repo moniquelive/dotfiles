@@ -1,4 +1,4 @@
-## BENCHMARKING (begin)
+# #BENCHMARKING (begin)
 ## set the trace prompt to include seconds, nanoseconds, script name and line number
 #PS4='+$(date "+%s:%N") %N:%i> '
 ## save file stderr to file descriptor 3 and redirect stderr (including trace
