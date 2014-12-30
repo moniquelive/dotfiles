@@ -39,9 +39,12 @@ fi
 export LESSCHARSET=utf-8
 export EDITOR=/usr/local/bin/vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
-export DOCKER_HOST=tcp://localhost:2375
 export CUCUMBER_FORMAT=progress
-export PMX_VM_PRIVATE_IP="10.10.10.10"
+
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=/Users/leo/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
 
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
