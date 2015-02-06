@@ -15,7 +15,8 @@ ZSH=$HOME/.oh-my-zsh
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 REPORTTIME=10
-WORDCHARS=${WORDCHARS//[&=\/;\!#%\{]}
+#WORDCHARS=${WORDCHARS//[&=\/;\!#%\{]}
+WORDCHARS='*?_[]~=&;!#$%^(){}'
 
 ZSH_THEME="gnzh"
 

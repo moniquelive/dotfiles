@@ -137,22 +137,45 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
 " Move around splits with <c-hjkl>
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-h> <c-w>h
-nnoremap <c-l> <c-w>l
+"nnoremap <c-j> <c-w>j
+"nnoremap <c-k> <c-w>k
+"nnoremap <c-h> <c-w>h
+"nnoremap <c-l> <c-w>l
+
+" Window movements; I do this often enough to warrant using up M-arrows on this"
+nnoremap <M-Right> <c-w><Right>
+nnoremap <M-Left>  <c-w><Left>
+nnoremap <M-Up>    <c-w><Up>
+nnoremap <M-Down>  <c-w><Down>
+
+" Open window below instead of above"
+nnoremap <c-w>N :let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>
+
+" Vertical equivalent of c-w-n and c-w-N"
+nnoremap <c-w>v :vnew<CR>
+nnoremap <c-w>V :let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>
+
+" I open new windows to warrant using up c-M-arrows on this"
+nmap <D-M-Up> <c-w>n
+nmap <D-M-Down> <c-w>N
+nmap <D-M-Right> <c-w>v
+nmap <D-M-Left> <c-w>V
 
 " Easier split resizing
 nnoremap - <c-w>-
 nnoremap + <c-w>+
 if has("autocmd")
-  autocmd WinEnter *
-        \ if winnr() == 1 |
-        \   nnoremap < <c-w>< |
-        \   nnoremap > <c-w>> |
-        \ else |
-        \   nnoremap < <c-w>> |
-        \   nnoremap > <c-w>< |
+  autocmd WinEnter,BufWinEnter *
+        \ silent! nunmap <|
+        \ silent! nunmap >|
+        \ if winnr('$') > 1 |
+        \   if winnr() == 1|
+        \     nnoremap < <c-w><|
+        \     nnoremap > <c-w>>|
+        \   else|
+        \     nnoremap < <c-w>>|
+        \     nnoremap > <c-w><|
+        \   endif |
         \ endif
 endif
 
@@ -231,7 +254,7 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
 " AutoComplPop like behavior.
 let g:neocomplete#enable_auto_select = 1
