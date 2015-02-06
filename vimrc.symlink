@@ -7,21 +7,22 @@
 
 set nocompatible
 
+filetype off
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
+execute pathogen#helptags()
 filetype plugin indent on
 set sessionoptions-=options
 
 "-------------------------------------------------------- CYBERAMA - begin ---
-" VIM Book
+" VIM BOOK {{{
 nnoremap <leader>ev :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <esc>
-" /VIM Book
+" }}}
 
 "let mapleader=","
 "let g:ackprg                    = 'ag --nogroup --nocolor --column'
-"let g:auto_save = 1 " I'm free of :w
 let g:netrw_liststyle    = 3 " = 3: tree style listing
 
 let g:ragtag_global_maps = 1
@@ -29,9 +30,9 @@ let g:ragtag_global_maps = 1
 "let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
-" global defaults
-set ts=2 sts=2 sw=2 et nowrap
-set nobackup hlsearch cursorline
+" global defaults {{{
+set ts=2 sts=2 sw=2 sr et nowrap
+set nobackup noswapfile hlsearch cursorline
 set ignorecase smartcase
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
@@ -44,6 +45,9 @@ set autowriteall
 set keywordprg=ri " user ruby's ri instead of man for K command
 set updatetime=2000
 set pastetoggle=<F4>
+set shortmess+=I
+set termencoding=utf-8 encoding=utf-8
+set visualbell noerrorbells
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
@@ -61,12 +65,13 @@ set showcmd
 " make tab completion for files/buffers act like bash
 set wildmenu
 set wildmode=full "list:full
+set wildignore=*.swp,*.bak,*.pyc,*.class
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
-set autoindent smartindent
+set autoindent copyindent smartindent
 
 "color Monokai-chris
 "let g:solarized_contrast="high"    "default value is normal
@@ -76,6 +81,7 @@ set autoindent smartindent
 color vividchalk
 set background=dark t_Co=256 " 256 colors
 syntax on
+" }}}
 
 highlight Cursor guifg=white guibg=red
 highlight iCursor guifg=white guibg=steelblue
@@ -110,6 +116,38 @@ if &term =~ "xterm\\|rxvt\\|screen"
   " 6 -> solid vertical bar
 endif
 
+" Folding rules {{{
+set foldenable                  " enable folding
+set foldcolumn=2                " add a fold column
+set foldmethod=marker           " detect triple-{ style fold markers
+set foldlevelstart=99           " start out with everything unfolded
+set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
+                                " which commands trigger auto-unfold
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount) - 4
+    return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
+endfunction
+set foldtext=MyFoldText()
+
+" Mappings to easily toggle fold levels
+nnoremap z0 :set foldlevel=0<cr>
+nnoremap z1 :set foldlevel=1<cr>
+nnoremap z2 :set foldlevel=2<cr>
+nnoremap z3 :set foldlevel=3<cr>
+nnoremap z4 :set foldlevel=4<cr>
+nnoremap z5 :set foldlevel=5<cr>
+" }}}
 
 " This autocommand jumps to the last known position in a file
 " just after opening it, if the '" mark is set:
@@ -124,6 +162,10 @@ highlight Search ctermbg=black ctermfg=yellow term=underline
 cmap w!! w !sudo tee > /dev/null %
 map <leader><leader> <c-^>
 
+" See http://stevelosh.com/blog/2010/09/coming-home-to-vim
+nnoremap / /\v
+vnoremap / /\v
+
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 map <leader>b :CtrlPBuffer<cr>
@@ -137,16 +179,12 @@ nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
 
 " Move around splits with <c-hjkl>
-"nnoremap <c-j> <c-w>j
-"nnoremap <c-k> <c-w>k
-"nnoremap <c-h> <c-w>h
-"nnoremap <c-l> <c-w>l
-
-" Window movements; I do this often enough to warrant using up M-arrows on this"
-nnoremap <M-Right> <c-w><Right>
-nnoremap <M-Left>  <c-w><Left>
-nnoremap <M-Up>    <c-w><Up>
-nnoremap <M-Down>  <c-w><Down>
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <leader>w <C-w>v<C-w>l
+nnoremap <leader>l <C-l>
 
 " Open window below instead of above"
 nnoremap <c-w>N :let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>
@@ -154,12 +192,6 @@ nnoremap <c-w>N :let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>
 " Vertical equivalent of c-w-n and c-w-N"
 nnoremap <c-w>v :vnew<CR>
 nnoremap <c-w>V :let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>
-
-" I open new windows to warrant using up c-M-arrows on this"
-nmap <D-M-Up> <c-w>n
-nmap <D-M-Down> <c-w>N
-nmap <D-M-Right> <c-w>v
-nmap <D-M-Left> <c-w>V
 
 " Easier split resizing
 nnoremap - <c-w>-
