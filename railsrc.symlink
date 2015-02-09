@@ -1,9 +1,11 @@
+-m https://raw.github.com/RailsApps/rails-composer/master/composer.rb
+
 # Launch Pry with access to the entire Rails stack.
 # If you have Pry in your Gemfile, you can pass: ./script/console --irb=pry instead.
 # If you don't, you can load it through the lines below :)
-require 'rails'
+#require 'rails'
 
-I18n.enforce_available_locales = true
+#I18n.enforce_available_locales = true
 
 #if Rails.version[0..0] == "2"
 #  require 'console_app'
