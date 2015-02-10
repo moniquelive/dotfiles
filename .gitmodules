@@ -97,3 +97,9 @@
 [submodule "urxvt.symlink/perls"]
 	path = urxvt.symlink/perls
 	url = https://github.com/muennich/urxvt-perls.git
+[submodule "vim.symlink/bundle/vim-obsession"]
+	path = vim.symlink/bundle/vim-obsession
+	url = git://github.com/tpope/vim-obsession.git
+[submodule "vim.symlink/bundle/vim-prosession"]
+	path = vim.symlink/bundle/vim-prosession
+	url = git://github.com/dhruvasagar/vim-prosession.git
