@@ -37,7 +37,7 @@ set ignorecase smartcase
 set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set switchbuf=useopen
-set winwidth=79
+"set winwidth=79
 set number
 set showfulltag
 set incsearch
