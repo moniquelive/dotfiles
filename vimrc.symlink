@@ -22,8 +22,9 @@ inoremap jk <esc>
 " }}}
 
 "let mapleader=","
-"let g:ackprg                    = 'ag --nogroup --nocolor --column'
-let g:netrw_liststyle    = 3 " = 3: tree style listing
+"let g:ackprg          = 'ag --nogroup --nocolor --column'
+"let g:netrw_liststyle = 3 " = 3: tree style listing
+let g:netrw_altfile   = 1 " <C-6> returns to files
 
 let g:ragtag_global_maps = 1
 
@@ -193,8 +194,8 @@ nnoremap <c-w>N :let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>
 nnoremap <c-w>v :vnew<CR>
 nnoremap <c-w>V :let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>
 
-" Easier split resizing
-nnoremap - <c-w>-
+" Easier split resizing (shift - and shift +)
+nnoremap _ <c-w>-
 nnoremap + <c-w>+
 if has("autocmd")
   autocmd WinEnter,BufWinEnter *
