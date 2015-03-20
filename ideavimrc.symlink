@@ -1,1 +1,4 @@
-source ~/.vimrc
+"source ~/.vimrc
+nunmap /
+vunmap /
+
