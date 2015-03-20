@@ -1,6 +1,6 @@
 #--drb
-#--color
+--color
 #--format Rainbow
---format Fuubar
+#--format Fuubar
 #--format RSpec::Smart::Formatter
 
