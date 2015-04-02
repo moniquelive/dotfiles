@@ -35,13 +35,13 @@ ZSH_TMUX_FIXTERM=true
 # too expensive:
 # history-substring-search\
 # optional:
-  #brew \
   #history\
 #  osx\
 #  heroku\
 #  docker\
 
 plugins=(\
+  brew \
   capistrano cp colored-man colorize\
   forklift\
   gem gnu-utils github gitignore\
