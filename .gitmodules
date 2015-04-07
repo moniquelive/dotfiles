@@ -103,3 +103,6 @@
 [submodule "vim.symlink/bundle/vim-prosession"]
 	path = vim.symlink/bundle/vim-prosession
 	url = git://github.com/dhruvasagar/vim-prosession.git
+[submodule "vim.symlink/bundle/ember.vim"]
+	path = vim.symlink/bundle/ember.vim
+	url = https://github.com/dsawardekar/ember.vim
