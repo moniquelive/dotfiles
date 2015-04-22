@@ -41,8 +41,8 @@ ZSH_TMUX_FIXTERM=true
 #  docker\
 
 plugins=(\
-  brew \
-  capistrano cp colored-man colorize\
+  brew bundler\
+  capistrano cp colored-man colorize common-aliases\
   forklift\
   gem gnu-utils github gitignore\
   git\
