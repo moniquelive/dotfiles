@@ -246,8 +246,10 @@ endif
 "Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
 let g:acp_enableAtStartup = 0 " Disable AutoComplPop.
 let g:neocomplete#enable_at_startup = 1 " Use neocomplete.
-let g:neocomplete#enable_fuzzy_completion = 1
-let g:neocomplete#enable_fuzzy_completion_start_length = 2
+let g:neocomplete#enable_fuzzy_completion = 0
+" screws up . repetition
+"let g:neocomplete#enable_fuzzy_completion = 1
+"let g:neocomplete#enable_fuzzy_completion_start_length = 2
 let g:neocomplete#enable_camel_case_completion = 0
 let g:neocomplete#enable_auto_delimiter = 1
 let g:neocomplete#force_overwrite_completefunc = 1
