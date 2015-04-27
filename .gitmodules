@@ -97,3 +97,6 @@
 [submodule "vim.symlink/bundle/ember.vim"]
 	path = vim.symlink/bundle/ember.vim
 	url = https://github.com/dsawardekar/ember.vim
+[submodule "vim.symlink/bundle/supertab"]
+	path = vim.symlink/bundle/supertab
+	url = git@github.com:ervandew/supertab.git
