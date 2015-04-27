@@ -16,15 +16,6 @@
 [submodule "vim.symlink/bundle/editorconfig-vim"]
 	path = vim.symlink/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
-[submodule "vim.symlink/bundle/neocomplete"]
-	path = vim.symlink/bundle/neocomplete
-	url = https://github.com/Shougo/neocomplete
-[submodule "vim.symlink/bundle/neosnippet"]
-	path = vim.symlink/bundle/neosnippet
-	url = https://github.com/Shougo/neosnippet
-[submodule "vim.symlink/bundle/neosnippet-snippets"]
-	path = vim.symlink/bundle/neosnippet-snippets
-	url = https://github.com/Shougo/neosnippet-snippets
 [submodule "vim.symlink/bundle/trailing-whitespace"]
 	path = vim.symlink/bundle/trailing-whitespace
 	url = https://github.com/bronson/vim-trailing-whitespace
