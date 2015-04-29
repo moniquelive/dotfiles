@@ -100,3 +100,6 @@
 [submodule "vim.symlink/bundle/supertab"]
 	path = vim.symlink/bundle/supertab
 	url = git@github.com:ervandew/supertab.git
+[submodule "vim.symlink/bundle/syntastic"]
+	path = vim.symlink/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic.git
