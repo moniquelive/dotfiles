@@ -21,7 +21,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <esc>
 nnoremap <Leader>s <Plug>(easymotion-s)
 nnoremap <leader>l :setlocal number!<cr>
-
 " }}}
 
 "let mapleader=","
@@ -42,7 +41,7 @@ set laststatus=2 " Always display the statusline in all windows
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set switchbuf=useopen
 "set winwidth=79
-set number
+"set number " <leader>l
 set showfulltag
 set incsearch
 set autowriteall
@@ -77,14 +76,8 @@ set nojoinspaces
 set autoread
 set autoindent copyindent smartindent
 
-"color Monokai-chris
-"let g:solarized_contrast="high"    "default value is normal
-"let g:solarized_visibility="high"    "default value is normal
-"let g:solarized_hitrail=1    "default value is 0
-"color solarized
-"color vividchalk
-color xoria256
 set background=dark t_Co=256 " 256 colors
+color xoria256
 syntax on
 " }}}
 
@@ -146,12 +139,12 @@ endfunction
 set foldtext=MyFoldText()
 
 " Mappings to easily toggle fold levels
-nnoremap z0 :set foldlevel=0<cr>
-nnoremap z1 :set foldlevel=1<cr>
-nnoremap z2 :set foldlevel=2<cr>
-nnoremap z3 :set foldlevel=3<cr>
-nnoremap z4 :set foldlevel=4<cr>
-nnoremap z5 :set foldlevel=5<cr>
+nnoremap z0 :setlocal foldlevel=0<cr>
+nnoremap z1 :setlocal foldlevel=1<cr>
+nnoremap z2 :setlocal foldlevel=2<cr>
+nnoremap z3 :setlocal foldlevel=3<cr>
+nnoremap z4 :setlocal foldlevel=4<cr>
+nnoremap z5 :setlocal foldlevel=5<cr>
 " }}}
 
 " This autocommand jumps to the last known position in a file
@@ -160,11 +153,13 @@ augroup JumpToLastPosition
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-" More discrete search highlights
+" Subtle search highlights
 highlight Search ctermbg=black ctermfg=yellow term=underline
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+" Alternate buffer (easier than <C-^>)
 map <leader><leader> <c-^>
 
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
@@ -173,6 +168,7 @@ vnoremap / /\v
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
+
 map <leader>b :CtrlPBuffer<cr>
 map <leader>t :CtrlP<cr>
 map <leader>gt :CtrlPTag<cr>
@@ -330,8 +326,17 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
   \ }
 if has("gui_macvim") && has("gui_running")
+  " CMD-t
   map <D-t> :CtrlP<CR>
   imap <D-t> <ESC>:CtrlP<CR>
+
+  " CMD-T
+  map <M-D-T> :CtrlPTag<CR>
+  imap <M-D-T> <ESC>:CtrlPTag<CR>
+
+  " CMD-B
+  map <D-B> :CtrlPBuffer<cr>
+  imap <D-B> <ESC>:CtrlPBuffer<cr>
 endif
 
 
