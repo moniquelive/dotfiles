@@ -51,6 +51,7 @@
   catchup     = log --patch --reverse --topo-order _ribbon..origin/master
   statcatchup = log --stat --reverse --topo-order _ribbon..origin/master
   showtool    = "!sh -c 'REVISION="${1:-HEAD}"; git difftool $REVISION~ $REVISION' -"
+  dt          = difftool --dir-diff
 
 [branch]
 #    autosetupmerge  = true # the default
@@ -70,7 +71,6 @@
   auto = 1
 
 [diff]
-  #tool = meld
   tool = bcomp
 
 [difftool]
@@ -82,7 +82,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 
 [merge]
   tool    = bcomp
