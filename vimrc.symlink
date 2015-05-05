@@ -363,6 +363,10 @@ autocmd FileType *
       \   call SuperTabChain(&omnifunc, "<c-p>") |
       \ endif
 
+" ULTISNIPS
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
 if 0 " if 0 / endif HACK
 i
 

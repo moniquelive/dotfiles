@@ -100,3 +100,9 @@
 [submodule "vim.symlink/bundle/vim-obsession"]
 	path = vim.symlink/bundle/vim-obsession
 	url = gh:t-pope/vim-obsession
+[submodule "vim.symlink/bundle/vim-snippets"]
+	path = vim.symlink/bundle/vim-snippets
+	url = git://github.com/honza/vim-snippets.git
+[submodule "vim.symlink/bundle/ultisnips"]
+	path = vim.symlink/bundle/ultisnips
+	url = git://github.com/SirVer/ultisnips.git
