@@ -106,3 +106,6 @@
 [submodule "vim.symlink/bundle/ultisnips"]
 	path = vim.symlink/bundle/ultisnips
 	url = git://github.com/SirVer/ultisnips.git
+[submodule "vim.symlink/bundle/dash.vim"]
+	path = vim.symlink/bundle/dash.vim
+	url = git@github.com:rizzatti/dash.vim.git

@@ -173,6 +173,7 @@ map <silent> <leader><cr> :noh<cr>
 map <leader>b :CtrlPBuffer<cr>
 map <leader>t :CtrlP<cr>
 map <leader>gt :CtrlPTag<cr>
+nmap <silent> <leader>d <Plug>DashSearch
 
 " buffer navigation from Practical Vim Book
 nnoremap <silent> [b :bprevious<CR>
