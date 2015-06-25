@@ -87,7 +87,11 @@ lua <<EOF
 EOF
 endfunction
 set background=dark t_Co=256
-call PickRandomTheme()
+if has('lua')
+  call PickRandomTheme()
+else
+  color railscasts
+end
 syntax on
 
 set colorcolumn=0
