@@ -80,6 +80,10 @@ set autoindent copyindent smartindent
 set background=dark t_Co=256 " 256 colors
 color xoria256
 syntax on
+
+set colorcolumn=0
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
 " }}}
 
 highlight Cursor guifg=white guibg=red
@@ -219,6 +223,14 @@ if has("autocmd")
   augroup Unfolding
     autocmd!
     autocmd BufRead * normal zR
+  augroup END
+endif
+
+" Spell checking for git commit messages
+if has("autocmd")
+  augroup Unfolding
+    autocmd!
+    autocmd FileType gitcommit set spell
   augroup END
 endif
 
