@@ -78,25 +78,34 @@ set autoread
 set autoindent copyindent smartindent
 
 " Random themes!
-function! PickRandomTheme()
+set t_Co=256
+syntax on
+
+function! s:turn_column_off()
+  set colorcolumn=0
+  "highlight ColorColumn ctermbg=magenta
+  call matchadd('ColorColumn', '\%81v', 100)
+endfunction
+
+function! s:pick_random_theme()
 lua <<EOF
   math.randomseed(os.time())
-  local themes = {'BlackSea', 'ChasingLogic', 'CodeFactoryv3', 'Monokai', 'MontainDew', 'SlateDark', 'Tomorrow-Night', 'Tomorrow-Night-Eighties', 'abra', 'anotherdark', 'apprentice', 'asu1dark', 'babymate256', 'badwolf', 'base16-atelierdune', 'bensday', 'billw', 'blackboard', 'blackdust', 'blacklight', 'blazer', 'bluechia', 'bluegreen', 'blugrine', 'bocau', 'bubblegum', 'burnttoast256', 'busybee', 'bvemu', 'camo', 'candy', 'candycode', 'candyman', 'carvedwood', 'chance-of-storm', 'chocolate', 'clearance', 'cobaltish', 'codeschool', 'coffee', 'corn', 'corporation', 'cthulhian', 'darkBlue', 'darkZ', 'darkbone', 'darkburn', 'darkeclipse', 'darker-robin', 'darkdesert', 'darkocean', 'darkrobot', 'darkspectrum', 'desert', 'desert256v2', 'desertEx', 'desertedocean', 'detailed', 'distinguished', 'doriath', 'dusk', 'earendel', 'eclm_wombat', 'ecostation', 'ego', 'ekinivim', 'elise', 'flatcolor', 'flatland', 'flattr', 'fnaqevan', 'forneus', 'freya', 'fu', 'getafe', 'golden', 'gor', 'gotham256', 'graywh', 'grb256', 'greyblue', 'gruvbox', 'guardian', 'herald', 'hybrid', 'industrial', 'inkpot', 'jelleybeans', 'jellyx', 'kellys', 'kib_darktango', 'kkruby', 'kolor', 'lilypink', 'lizard256', 'lodestone', 'luna', 'made_of_code', 'mango', 'manuscript', 'mdark', 'midnight', 'mint', 'monokain', 'moria', 'motus', 'mrpink', 'muon', 'mustang', 'native', 'nazca', 'neon', 'nevfn', 'nightVision', 'nightflight2', 'no_quarter', 'obsidian2', 'pacific', 'peppers', 'pf_earth', 'phd', 'pw', 'quagmire', 'radicalgoodspeed', 'railscasts', 'rainbow_neon', 'rdark', 'refactor', 'robinhood', 'rootwater', 'selenitic', 'seoul256', 'settlemyer', 'sexy-railscasts', 'shobogenzo', 'sift', 'skittles_berry', 'softbluev2', 'sonofobsidian', 'sorcerer', 'southwest-fog', 'strawimodo', 'symfony', 'synic', 'tchaba', 'tesla', 'twilight', 'two2tango', 'umber-green', 'up', 'vilight', 'void', 'watermark', 'wombat256', 'zenburn', '0x7A69_dark'}
-  local theme = string.format('color %s', themes[math.random(1,#themes)])
-  vim.command(theme)
+  local themes = {'BlackSea', 'Chasing_Logic', 'CodeFactoryv3', 'Monokai', 'MountainDew', 'SlateDark', 'Tomorrow-Night', 'Tomorrow-Night-Eighties', 'abra', 'anotherdark', 'apprentice', 'asu1dark', 'babymate256', 'badwolf', 'base16-atelierdune', 'bensday', 'billw', 'blackboard', 'blackdust', 'blacklight', 'blazer', 'bluechia', 'bluegreen', 'blugrine', 'bocau', 'bubblegum', 'burnttoast256', 'busybee', 'bvemu', 'camo', 'candy', 'candycode', 'candyman', 'carvedwood', 'chance-of-storm', 'chocolate', 'clearance', 'cobaltish', 'codeschool', 'coffee', 'corn', 'corporation', 'cthulhian', 'darkBlue', 'darkZ', 'darkbone', 'darkburn', 'darkeclipse', 'darker-robin', 'darkerdesert', 'darkocean', 'darkrobot', 'darkspectrum', 'desert', 'desert256v2', 'desertEx', 'desertedocean', 'detailed', 'distinguished', 'doriath', 'dusk', 'earendel', 'eclm_wombat', 'ecostation', 'ego', 'ekinivim', 'elise', 'flatcolor', 'flatland', 'flattr', 'fnaqevan', 'forneus', 'freya', 'fu', 'getafe', 'golden', 'gor', 'gotham256', 'graywh', 'grb256', 'greyblue', 'gruvbox', 'guardian', 'herald', 'hybrid', 'industrial', 'inkpot', 'jelleybeans', 'jellyx', 'kellys', 'kib_darktango', 'kkruby', 'kolor', 'lilypink', 'lizard256', 'lodestone', 'luna', 'made_of_code', 'mango', 'manuscript', 'mdark', 'midnight', 'mint', 'monokain', 'moria', 'motus', 'mrpink', 'muon', 'mustang', 'native', 'nazca', 'neon', 'nevfn', 'nightVision', 'nightflight2', 'no_quarter', 'obsidian2', 'pacific', 'peppers', 'pf_earth', 'phd', 'pw', 'quagmire', 'radicalgoodspeed', 'railscasts', 'rainbow_neon', 'rdark', 'refactor', 'robinhood', 'rootwater', 'selenitic', 'seoul256', 'settlemyer', 'sexy-railscasts', 'shobogenzo', 'sift', 'skittles_berry', 'softbluev2', 'sonofobsidian', 'sorcerer', 'southwest-fog', 'strawimodo', 'symfony', 'synic', 'tchaba', 'tesla', 'twilight', 'two2tango', 'umber-green', 'up', 'vilight', 'void', 'watermark', 'wombat256', 'zenburn', '0x7A69_dark'}
+  local theme = themes[math.random(1,#themes)]
+  local col = 'call <SID>turn_column_off() | set background=dark'
+  local log = string.format('redraw | echo "Loaded theme %s"', theme)
+  local cmd = string.format('color %s | %s | %s', theme, col, log)
+  vim.command(cmd)
 EOF
 endfunction
-set background=dark t_Co=256
+
 if has('lua')
-  call PickRandomTheme()
+  nnoremap <expr> <F5> <SID>pick_random_theme()
+  silent call <SID>pick_random_theme()
 else
   color railscasts
 end
-syntax on
 
-set colorcolumn=0
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
 " }}}
 
 highlight Cursor guifg=white guibg=red
