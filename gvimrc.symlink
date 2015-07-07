@@ -12,11 +12,6 @@ if has("gui_macvim")
   " hlsearch underline
   highlight Search guibg=black guifg=yellow gui=underline
 
-  " Cursor
-  set guicursor=n-v-c-i:block-Cursor
-  set guicursor+=n-v-c-i:blinkon0
-  set guicursor+=i:ver100-iCursor
-
   set lines=45
   set columns=120
 
