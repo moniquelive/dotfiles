@@ -43,6 +43,7 @@ ZSH_TMUX_FIXTERM=true
 plugins=(\
   brew bundler\
   capistrano cp colored-man colorize common-aliases\
+  dirpersist \
   forklift\
   gem gnu-utils github gitignore\
   git\
