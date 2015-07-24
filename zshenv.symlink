@@ -25,7 +25,7 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   #php_prefix=$(brew --prefix josegonzalez/php/php55)
 
   export MANPATH="${brew_prefix}/opt/coreutils/libexec/gnuman:${MANPATH}"
-  export PYTHONPATH=".:${brew_prefix}/lib/python2.7/site-packages:${PYTHONPATH}"
+  #export PYTHONPATH=".:${brew_prefix}/lib/python2.7/site-packages:${PYTHONPATH}"
 
 #${python_prefix}/bin:\
   export PATH="\
