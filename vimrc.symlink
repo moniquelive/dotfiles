@@ -30,14 +30,18 @@ let g:netrw_altfile   = 1 " <C-6> returns to files
 
 let g:ragtag_global_maps = 1
 
-"let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-
 " global defaults {{{
 set ts=2 sts=2 sw=2 sr et nowrap
 set nobackup noswapfile hlsearch "cursorline
 set ignorecase smartcase
+autocmd User Flags call Hoist("window", "SyntasticStatuslineFlag")
+autocmd User Flags call Hoist("global", "%{&ignorecase ? '[IC]' : ''}")
+
+" vim-flagship recommendations
 set laststatus=2 " Always display the statusline in all windows
+set showtabline=2
+set guioptions-=e
+
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set switchbuf=useopen
 "set winwidth=79
