@@ -103,3 +103,6 @@
 [submodule "vim.symlink/bundle/dash.vim"]
 	path = vim.symlink/bundle/dash.vim
 	url = git@github.com:rizzatti/dash.vim.git
+[submodule "vim.symlink/bundle/vim-airline"]
+	path = vim.symlink/bundle/vim-airline
+	url = https://github.com/bling/vim-airline
