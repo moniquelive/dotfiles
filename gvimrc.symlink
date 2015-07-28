@@ -19,5 +19,7 @@ if has("gui_macvim")
   autocmd FocusLost * silent! wa
   let g:auto_save = 0
 
+  set guitablabel=\[%N\]\ %t\ %M
+
 endif
 
