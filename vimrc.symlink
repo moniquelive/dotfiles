@@ -371,6 +371,10 @@ autocmd FileType *
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" EMMET
+let g:user_emmet_expandabbr_key = '<Tab>'
+let g:use_emmet_complete_tag = 1
+
 if 0 " if 0 / endif HACK
 i
 
