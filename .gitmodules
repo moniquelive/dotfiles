@@ -106,3 +106,6 @@
 [submodule "vim.symlink/bundle/emmet-vim"]
 	path = vim.symlink/bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "vim.symlink/bundle/quick-scope"]
+	path = vim.symlink/bundle/quick-scope
+	url = https://github.com/unblevable/quick-scope.git
