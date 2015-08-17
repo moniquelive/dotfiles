@@ -55,9 +55,6 @@
 [submodule "vim.symlink/bundle/vim-ruby"]
 	path = vim.symlink/bundle/vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
-[submodule "vim.symlink/bundle/vim-sensible"]
-	path = vim.symlink/bundle/vim-sensible
-	url = https://github.com/tpope/vim-sensible.git
 [submodule "vim.symlink/bundle/vim-surround"]
 	path = vim.symlink/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround.git
