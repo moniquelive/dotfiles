@@ -126,13 +126,14 @@ fi
 
 [[ -s "${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh" ]] && source ${HOME}/.vim/bundle/tmux-config/tmux-autowrite/autowrite-vim.sh
 
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-
 #----------------------------------------------------------------------------
 ## BENCHMARKING (END)
 ## turn off tracing
 #unsetopt xtrace
 ## restore stderr to the value saved in FD 3
 #exec 2>&3 3>&-
+
+# Add RVM to PATH for scripting
+[[ -s "${HOME}/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "/usr/local/rvm/bin" ]] && export PATH="$PATH:/usr/local/rvm/bin"
 
