@@ -50,13 +50,13 @@ plugins=(\
   mosh\
   npm\
   rails rsync rvm\
-  ssh-agent\
   themes tmux\
   urltools\
   z
 )
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(debian)
+[[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
 
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 
@@ -82,7 +82,7 @@ zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa z_github_rsa github_rsa
+zstyle :omz:plugins:ssh-agent identities id_rsa
 
 autoload zmv
 alias mmv='noglob zmv -W'
