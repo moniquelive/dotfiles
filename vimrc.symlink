@@ -16,7 +16,7 @@ set sessionoptions-=options
 nnoremap <leader>ev :split $MYVIMRC<cr>
 inoremap jk <esc>
 nnoremap <Leader>s <Plug>(easymotion-s)
-nnoremap <leader>l :setlocal number!<cr>
+" vim-uninpaired: nnoremap <leader>l :setlocal number!<cr>
 " }}}
 
 augroup reload_vimrc " {
@@ -42,13 +42,12 @@ set showtabline=2
 set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set switchbuf=useopen
 "set winwidth=79
-"set number " <leader>l
 set showfulltag
 set incsearch
 set autowriteall
 set keywordprg=ri " user ruby's ri instead of man for K command
 set updatetime=2000
-set pastetoggle=<leader>o "<F4>
+" vim-uninpayred (yo/yO): set pastetoggle=<leader>o "<F4>
 set shortmess+=I
 set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
@@ -86,7 +85,7 @@ if has('lua')
   function! s:turn_column_off()
     set colorcolumn=0
     "highlight ColorColumn ctermbg=magenta
-    call matchadd('ColorColumn', '\%81v', 100)
+    call matchadd('ColorColumn', '\%79v', 100)
   endfunction
 
   function! s:pick_random_theme()
@@ -102,7 +101,8 @@ EOF
   endfunction
 
   nnoremap <expr> <F5> <SID>pick_random_theme()
-  silent call <SID>pick_random_theme()
+  "silent call <SID>pick_random_theme()
+  color blazer
 else
   color railscasts
 end
@@ -441,6 +441,11 @@ i
 .
 endif
 
+" AIRLINE
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+let g:airline#extensions#tmuxline#enabled = 1
+let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
+let g:airline_theme = 'papercolor'
 
