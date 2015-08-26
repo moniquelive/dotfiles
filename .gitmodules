@@ -106,3 +106,6 @@
 [submodule "vim.symlink/bundle/quick-scope"]
 	path = vim.symlink/bundle/quick-scope
 	url = https://github.com/unblevable/quick-scope.git
+[submodule "vim.symlink/bundle/vim-unimpaired"]
+	path = vim.symlink/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired.git
