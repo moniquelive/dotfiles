@@ -109,3 +109,6 @@
 [submodule "vim.symlink/bundle/vim-unimpaired"]
 	path = vim.symlink/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
+[submodule "vim.symlink/bundle/anderson.vim"]
+	path = vim.symlink/bundle/anderson.vim
+	url = https://github.com/gilgigilgil/anderson.vim.git
