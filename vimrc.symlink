@@ -102,10 +102,8 @@ EOF
 
   nnoremap <expr> <F5> <SID>pick_random_theme()
   "silent call <SID>pick_random_theme()
-  color blazer
-else
-  color railscasts
 end
+color anderson
 
 " }}}
 
