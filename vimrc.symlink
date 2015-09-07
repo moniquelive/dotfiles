@@ -103,7 +103,7 @@ EOF
   nnoremap <expr> <F5> <SID>pick_random_theme()
   "silent call <SID>pick_random_theme()
 end
-color anderson
+color railscasts
 
 " }}}
 
@@ -253,7 +253,6 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 
 " For snippet_complete marker.
