@@ -112,3 +112,6 @@
 [submodule "vim.symlink/bundle/anderson.vim"]
 	path = vim.symlink/bundle/anderson.vim
 	url = https://github.com/gilgigilgil/anderson.vim.git
+[submodule "vim.symlink/bundle/undotree"]
+	path = vim.symlink/bundle/undotree
+	url = https://github.com/mbbill/undotree.git
