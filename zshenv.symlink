@@ -45,6 +45,11 @@ export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=/Users/leo/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
 
+export LANG=pt_BR
+export LANGUAGE=${LANG}.UTF-8
+export LC_ALL=${LANG}.UTF-8
+export LC_CTYPE=${LANG}.UTF-8
+
 
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
