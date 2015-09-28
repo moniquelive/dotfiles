@@ -40,6 +40,8 @@
   l3          = log --graph --all --pretty=format:'%C(red)%h%C(reset) - %C(green)<%an>%C(reset)%d %C(magenta)%s%C(reset) %C(yellow)(%cr)%C(reset)' --abbrev-commit
   l4          = log --graph --all --pretty=format:'%Cred%h%Creset %C(bold blue)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)' --abbrev-commit
   l5          = log --graph --all --pretty=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(bold white)— %an%C(reset)' --abbrev-commit
+# diff branch
+  db          = log --graph  --pretty=format:'%Cred%h%Creset %C(bold blue)%an%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)'  --abbrev-commit --date=relative
 
   rl          = reflog --all --decorate --pretty='format:%C(blue)%h%C(auto)%d%C(reset) %ar %C(green)%an%C(reset) %s'
 
