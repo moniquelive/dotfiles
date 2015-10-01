@@ -1,6 +1,6 @@
 [user]
-  name  = cyber
-  email = cyber@21212.com
+	name = cyber
+	email = cyber@21212.com
 
 [core]
   quotepath    = false
@@ -83,8 +83,8 @@
   cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
 
 [difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
+	cmd = /usr/local/bin/bcomp $LOCAL $REMOTE
+	path = 
 
 [merge]
   tool    = bcomp
@@ -97,7 +97,7 @@
   cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
 
 [mergetool "sourcetree"]
-	cmd = /Users/leo/Library/Application Support/SourceTree/SourceTree 1.9.8 1/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	cmd = /usr/local/bin/bcomp $LOCAL $REMOTE $BASE $MERGED
 	trustExitCode = true
 
 [gui]
