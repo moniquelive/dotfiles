@@ -1,11 +1,5 @@
 # Customize to your needs...
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-export SENCHA_CMD="${HOME}/bin/Sencha/Cmd/3.1.2.342"
-
-export PATH="${HOME}/.rvm/bin:\
-/usr/local/rvm/bin:\
+export PATH="\
 ${HOME}/bin:\
 /usr/local/bin:\
 /usr/local/share/npm/bin:\
@@ -14,8 +8,12 @@ ${HOME}/bin:\
 /sbin:\
 /usr/bin:\
 /usr/sbin:\
-/usr/X11/bin:\
-${SENCHA_CMD}"
+/usr/X11/bin"
+
+# Add RVM to PATH for scripting
+[[ -s "${HOME}/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "/usr/local/rvm/bin" ]] && export PATH="$PATH:/usr/local/rvm/bin"
+
 
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(brew --prefix)
@@ -50,9 +48,7 @@ export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 
-
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
 [[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
-
