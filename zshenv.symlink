@@ -1,8 +1,5 @@
 # Customize to your needs...
 
-# unique paths in path var
-typeset -U path manpath
-
 # Add our bin to PATH
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
 
@@ -45,5 +42,3 @@ export LC_CTYPE=${LANG}.UTF-8
 
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
-[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"
-[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
