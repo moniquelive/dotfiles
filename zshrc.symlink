@@ -33,25 +33,25 @@ ZSH_TMUX_FIXTERM=true
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # too expensive:
-# history-substring-search\
+# history-substring-search
 # optional:
-  #history\
-#  osx\
-#  heroku\
-#  docker\
+  #history
+#  osx
+#  heroku
+#  docker
 
-plugins=(\
-  brew bundler\
-  capistrano cp colored-man colorize common-aliases\
-  dirpersist \
-  forklift\
-  gem gnu-utils github gitignore\
-  git\
-  mosh\
-  npm\
-  rails rsync rvm\
-  themes tmux\
-  urltools\
+plugins=(
+  brew bundler
+  capistrano cp colored-man colorize common-aliases
+  dirpersist
+  forklift
+  gem gnu-utils github gitignore
+  git
+  mosh
+  npm
+  rails rsync rvm
+  themes tmux
+  urltools
   z
 )
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
@@ -92,7 +92,7 @@ alias mmv='noglob zmv -W'
 unset SCRIPT_NAME
 
 alias ri='ri -Tf ansi'
-alias rm='grm -I'
+alias rm='rm -I'
 alias tis='tig status'
 alias listen='lsof -i -P | grep LISTEN'
 alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'

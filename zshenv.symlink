@@ -1,37 +1,32 @@
 # Customize to your needs...
-export PATH="\
-${HOME}/bin:\
-/usr/local/bin:\
-/usr/local/share/npm/bin:\
-/usr/local/sbin:\
-/bin:\
-/sbin:\
-/usr/bin:\
-/usr/sbin:\
-/usr/X11/bin"
 
-# Add RVM to PATH for scripting
-[[ -s "${HOME}/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "/usr/local/rvm/bin" ]] && export PATH="$PATH:/usr/local/rvm/bin"
+# unique paths in path var
+typeset -U path manpath
 
+# Add our bin to PATH
+[[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
+
+# Add RVM to PATH
+[[ -d "${HOME}/.rvm/bin" ]] && path+=($HOME/.rvm/bin)
+[[ -d "/usr/local/rvm/bin" ]] && path+=(/usr/local/rvm/bin)
+
+# Add NPM to PATH
+[[ -d "/usr/local/share/npm/bin" ]] && path+=(/usr/local/share/npm/bin)
 
 if [[ -s "/usr/local/bin/brew" ]]; then
-  brew_prefix=$(brew --prefix)
-  #python_prefix=$(brew --prefix python)
-  #coreutils_prefix=$(brew --prefix coreutils)
-  #npm_prefix=$(brew --prefix npm)
-  #php_prefix=$(brew --prefix josegonzalez/php/php55)
+  brew_prefix=$(/usr/local/bin/brew --prefix)
 
-  export MANPATH="${brew_prefix}/opt/coreutils/libexec/gnuman:${MANPATH}"
-  #export PYTHONPATH=".:${brew_prefix}/lib/python2.7/site-packages:${PYTHONPATH}"
+  # On OSX edit /etc/paths to really change the order
+  path=(
+    ${brew_prefix}/opt/node/bin
+    ${brew_prefix}/opt/coreutils/bin
+    ${brew_prefix}/opt/coreutils/libexec/gnubin
+    ${brew_prefix}/opt/php55/bin
+    $path
+  )
 
-#${python_prefix}/bin:\
-  export PATH="\
-${brew_prefix}/opt/node/bin:\
-${brew_prefix}/opt/coreutils/bin:\
-${brew_prefix}/opt/coreutils/libexec/gnubin:\
-${brew_prefix}/opt/php55/bin:\
-${PATH}"
+  #export -TU MANPATH manpath
+  manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
 export LESSCHARSET=utf-8
