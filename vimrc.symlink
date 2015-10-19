@@ -46,7 +46,6 @@ set switchbuf=useopen
 set showfulltag
 set incsearch
 set autowriteall
-set keywordprg=ri " user ruby's ri instead of man for K command
 set updatetime=2000
 "set shortmess+=I
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
@@ -103,8 +102,6 @@ map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
 set completeopt=menu,preview,longest
-
-inoremap <expr> <Space> pumvisible() ? "\<C-y>" : " "
 
 if isdirectory(expand("~/.vim/bundle/undotree/"))
   nnoremap <Leader>u :UndotreeToggle<CR>
@@ -274,6 +271,7 @@ if has("autocmd") && exists("+omnifunc")
     autocmd FileType ruby,eruby let g:rubycomplete_use_bundler = 1
     autocmd FileType ruby,eruby let ruby_fold = 1
     autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
+    autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
   augroup END
 endif
 
@@ -399,7 +397,9 @@ let g:syntastic_html_tidy_exec = 'tidy5'
 let g:syntastic_loc_list_height = 5
 
 "SUPERTAB
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+"let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabCrMapping = 0
+let g:SuperTabClosePreviewOnPopupClose = 1
 let g:SuperTabLongestEnhanced = 1
 let g:SuperTabLongestHighlight = 1
 let g:SuperTabDefaultCompletionType = 'context'
