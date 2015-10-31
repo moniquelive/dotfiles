@@ -118,3 +118,9 @@
 [submodule "vim.symlink/bundle/incsearch.vim"]
 	path = vim.symlink/bundle/incsearch.vim
 	url = https://github.com/haya14busa/incsearch.vim.git
+[submodule "vim.symlink/bundle/vim-elixir"]
+	path = vim.symlink/bundle/vim-elixir
+	url = https://github.com/elixir-lang/vim-elixir.git
+[submodule "vim.symlink/bundle/dracula-theme"]
+	path = vim.symlink/bundle/dracula-theme
+	url = git@github.com:zenorocha/dracula-theme.git

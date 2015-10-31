@@ -137,7 +137,8 @@ EOF
   nnoremap <expr> <F5> <SID>pick_random_theme()
   "silent call <SID>pick_random_theme()
 end
-color vividchalk
+"color vividchalk
+color Dracula
 
 " }}}
 
