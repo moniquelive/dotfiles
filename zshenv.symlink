@@ -26,6 +26,8 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 export LESSCHARSET=utf-8
 export EDITOR=/usr/local/bin/vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"

@@ -137,8 +137,16 @@ EOF
   nnoremap <expr> <F5> <SID>pick_random_theme()
   "silent call <SID>pick_random_theme()
 end
+set background=dark
+set fillchars=vert:│,fold:-
+highlight VertSplit cterm=none ctermbg=none ctermfg=247
+let g:gruvbox_improved_strings=0
+let g:gruvbox_improved_warnings=1
+let g:gruvbox_contrast_dark='dark'
 "color vividchalk
-color Dracula
+"color Dracula
+color gruvbox
+
 
 " }}}
 
@@ -487,5 +495,5 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
-let g:airline_theme = 'papercolor'
+"let g:airline_theme = 'papercolor'
 
