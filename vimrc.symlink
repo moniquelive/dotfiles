@@ -52,6 +52,7 @@ set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
 set splitbelow splitright
+set number relativenumber
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
