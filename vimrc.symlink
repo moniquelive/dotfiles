@@ -356,25 +356,6 @@ if has("gui_macvim") && has("gui_running")
 else
   map <leader>/ <plug>NERDCommenterToggle<CR>
 endif
-
-if has("gui_macvim") && has("gui_running")
-  " Command-Shift-F on OSX
-  map <D-F> :Ag<space>
-else
-  " Define <C-F> to a dummy value to see if it would set <C-f> as well.
-  map <C-F> :dummy
-
-  if maparg("<C-f>") == ":dummy"
-    " <leader>f on systems where <C-f> == <C-F>
-    map <leader>f :Ag<space>
-  else
-    " <C-F> if we can still map <C-f> to <S-Down>
-    map <C-F> :Ag<space>
-  endif
-
-  map <C-f> <S-Down>
-endif
-
 "----------------------------------------------------------------- CTRL_P ---
 let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
 let g:ctrlp_lazy_update=1
@@ -501,4 +482,49 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
 "let g:airline_theme = 'papercolor'
+
+
+" UNITE
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#profile('default', 'context', {'start_insert': 1})
+
+let g:unite_data_directory="~/.vim/unite/cache" " s:get_cache_dir('unite')
+let g:unite_source_history_yank_enable=1
+let g:unite_source_rec_max_cache_files=5000
+
+if executable('ag')
+  " Use ag (the silver searcher)
+  " https://github.com/ggreer/the_silver_searcher
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
+  \ '-i --vimgrep --hidden --ignore ' .
+  \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+  let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack')
+  let g:unite_source_grep_command='ack'
+  let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
+  let g:unite_source_grep_recursive_opt=''
+endif
+
+function! s:unite_settings()
+  nmap <buffer> Q <plug>(unite_exit)
+  nmap <buffer> <esc> <plug>(unite_exit)
+  imap <buffer> <esc> <plug>(unite_exit)
+endfunction
+autocmd FileType unite call s:unite_settings()
+
+"nmap <space> [unite]
+"nnoremap [unite] <nop>
+
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
+nnoremap <silent> <leader>t :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
+nnoremap <silent> <leader>e :<C-u>Unite -buffer-name=recent file_mru<cr>
+" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+nnoremap <silent> <leader>f :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
+"}}}
 

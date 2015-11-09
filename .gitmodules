@@ -127,3 +127,12 @@
 [submodule "vim.symlink/bundle/gruvbox"]
 	path = vim.symlink/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
+[submodule "vim.symlink/bundle/unite.vim"]
+	path = vim.symlink/bundle/unite.vim
+	url = https://github.com/Shougo/unite.vim.git
+[submodule "vim.symlink/bundle/vimproc.vim"]
+	path = vim.symlink/bundle/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim.git
+[submodule "vim.symlink/bundle/neomru.vim"]
+	path = vim.symlink/bundle/neomru.vim
+	url = https://github.com/Shougo/neomru.vim.git
