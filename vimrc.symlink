@@ -282,6 +282,10 @@ if has("autocmd") && exists("+omnifunc")
     autocmd FileType ruby,eruby let ruby_fold = 1
     autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
     autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
+
+    autocmd FileType ruby let &l:tags = pathogen#legacyjoin(pathogen#uniq(
+          \ pathogen#split(&tags) +
+          \ map(split($GEM_PATH,':'),'v:val."/gems/*/tags"')))
   augroup END
 endif
 
