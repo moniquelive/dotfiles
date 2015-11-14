@@ -2,6 +2,6 @@
 --color
 #--format Fivemat
 #--format Rainbow
---format Fuubar
+#--format Fuubar
 #--format RSpec::Smart::Formatter
 
