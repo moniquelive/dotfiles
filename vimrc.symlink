@@ -12,11 +12,14 @@ filetype plugin indent on
 set sessionoptions-=options
 
 "-------------------------------------------------------- CYBERAMA - begin ---
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+
 " VIM BOOK {{{
 nnoremap <leader>v :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <esc>
 nnoremap <Leader>s <Plug>(easymotion-s)
+nnoremap <silent> <leader>d <Plug>DashSearch
 " vim-uninpaired: nnoremap <leader>l :setlocal number!<cr>
 " }}}
 
@@ -208,11 +211,6 @@ vnoremap / /\v
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
-map <leader>b :CtrlPBuffer<cr>
-map <leader>t :CtrlP<cr>
-map <leader>gt :CtrlPTag<cr>
-nmap <silent> <leader>d <Plug>DashSearch
-
 " buffer navigation from Practical Vim Book
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -355,27 +353,6 @@ if has("gui_macvim") && has("gui_running")
   imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
 else
   map <leader>/ <plug>NERDCommenterToggle<CR>
-endif
-"----------------------------------------------------------------- CTRL_P ---
-let s:ctrlp_fallback = 'ag %s --nocolor -l -g ""'
-let g:ctrlp_lazy_update=1
-let g:ctrlp_map = ''
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
-  \ }
-if has("gui_macvim") && has("gui_running")
-  " CMD-t
-  map <D-t> :CtrlP<CR>
-  imap <D-t> <ESC>:CtrlP<CR>
-
-  " CMD-T
-  map <M-D-T> :CtrlPTag<CR>
-  imap <M-D-T> <ESC>:CtrlPTag<CR>
-
-  " CMD-B
-  map <D-B> :CtrlPBuffer<cr>
-  imap <D-B> <ESC>:CtrlPBuffer<cr>
 endif
 
 
@@ -525,6 +502,24 @@ nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
 nnoremap <silent> <leader>f :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
 nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
+" nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
+
+" CtrlP clone
+" CMD-t
+nmap <D-t> <leader>t
+imap <D-t> <ESC><leader>t
+
+" CMD-B
+nmap <D-b> <leader>b
+imap <D-b> <ESC><leader>b
+
+" SHIFT-CMD-F
+nmap <S-D-f> <leader>f
+imap <S-D-f> <ESC><leader>f
+
+" CMD-T - https://github.com/tsukkee/unite-tag
+" noremap <M-D-T> :CtrlPTag<CR>
+" inoremap <M-D-T> <ESC>:CtrlPTag<CR>
+
 "}}}
 
