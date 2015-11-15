@@ -1,0 +1,1 @@
+("~/.dotfiles/" "~/Dropbox/Projects/ruby/cyberleo/" "~/Dropbox/Projects/ruby/pinpeoplehomolog/" "~/Dropbox/Projects/ruby/kata/life/")

@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Server: nginx
+Date: Tue, 10 Nov 2015 23:29:00 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-Source: back
+Access-Control-Allow-Origin: *
+Access-Control-Allow-Credentials: true
+Access-Control-Allow-Methods: GET, POST
+
+{"city":{"id":3451190,"name":"Rio de Janeiro","coord":{"lon":-43.2075,"lat":-22.902781},"country":"BR","population":0},"cod":"200","message":0.0303,"cnt":5,"list":[{"dt":1447164000,"temp":{"day":25.55,"min":21.43,"max":25.55,"night":21.43,"eve":25.55,"morn":25.55},"pressure":1015.26,"humidity":74,"weather":[{"id":800,"main":"Clear","description":"sky is clear","icon":"01d"}],"speed":3.96,"deg":67,"clouds":0},{"dt":1447250400,"temp":{"day":30.6,"min":20.68,"max":31.66,"night":23.09,"eve":28.4,"morn":20.68},"pressure":1011.8,"humidity":74,"weather":[{"id":800,"main":"Clear","description":"sky is clear","icon":"01d"}],"speed":1.41,"deg":11,"clouds":0},{"dt":1447336800,"temp":{"day":27.82,"min":21.59,"max":27.82,"night":21.59,"eve":21.96,"morn":22.2},"pressure":1010.07,"humidity":83,"weather":[{"id":501,"main":"Rain","description":"moderate rain","icon":"10d"}],"speed":3.66,"deg":203,"clouds":24,"rain":10.03},{"dt":1447423200,"temp":{"day":27.72,"min":22.21,"max":27.72,"night":22.36,"eve":24.27,"morn":22.21},"pressure":1009.1,"humidity":92,"weather":[{"id":501,"main":"Rain","description":"moderate rain","icon":"10d"}],"speed":2.42,"deg":131,"clouds":56,"rain":3.35},{"dt":1447509600,"temp":{"day":25.8,"min":23.76,"max":26.92,"night":23.91,"eve":26.92,"morn":23.76},"pressure":1005.14,"humidity":0,"weather":[{"id":501,"main":"Rain","description":"moderate rain","icon":"10d"}],"speed":1.26,"deg":266,"clouds":40,"rain":8.17}]}
