@@ -95,13 +95,17 @@ Return a list of installed PACKAGES or nil for every skipped package."
 (setq split-width-threshold nil)
 (setq visible-bell t)
 
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+
 (load-theme 'gruvbox t)
-;; (add-hook 'after-make-frame-functions
-;;           (lambda (frame)
-;;             (let ((mode (if (display-graphic-p frame) 'dark 'dark)))
-;;               (set-frame-parameter frame 'background-mode mode)
-;;               (set-terminal-parameter frame 'background-mode mode))
-;;             (enable-theme 'gruvbox)))
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (let ((mode (if (display-graphic-p frame) 'dark 'dark)))
+              (set-frame-parameter frame 'background-mode mode)
+              (set-terminal-parameter frame 'background-mode mode))
+            (enable-theme 'gruvbox)))
 
 ;;; File type overrides.
 (add-to-list 'auto-mode-alist '("\\.html$" . web-mode))

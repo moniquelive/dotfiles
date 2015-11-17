@@ -7,7 +7,7 @@ set -g default-terminal "screen-256color"   # 256 color terminal
 set -g history-limit 5000                   # increase history limit
 set -g renumber-windows on
 setw -g utf8 on
-setw -g aggressive-resize on
+setw -g aggressive-resize off
 
 # MOUSE & CLIPBOARD
 set -g mouse-utf8 on
