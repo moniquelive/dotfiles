@@ -52,6 +52,11 @@
   (setq-default evil-want-C-i-jump nil)
   (setq-default evil-symbol-word-search t)
 
+  ;; Cyberama
+  (require 'evil-search-highlight-persist)
+  (global-evil-search-highlight-persist t)
+  (evil-leader/set-key "RET" 'evil-search-highlight-persist-remove-all)
+
   (evil-set-initial-state 'magit-log-edit-mode 'insert)
   (evil-set-initial-state 'git-rebase-mode 'emacs)
   (evil-set-initial-state 'sunshine-mode 'emacs)

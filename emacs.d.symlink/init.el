@@ -39,6 +39,7 @@ Return a list of installed PACKAGES or nil for every skipped package."
 (ensure-package-installed
   'evil
   'evil-rails
+  'evil-search-highlight-persist
   'helm
   'helm-rails
   'linum
@@ -82,6 +83,7 @@ Return a list of installed PACKAGES or nil for every skipped package."
       inhibit-startup-echo-area-message t)
 ;; for aquamacs (menu-bar-mode -1)
 ;; for aquamacs (tool-bar-mode -1)
+(toggle-truncate-lines -1)
 (when (boundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 (show-paren-mode 1)
@@ -95,6 +97,7 @@ Return a list of installed PACKAGES or nil for every skipped package."
 (setq split-width-threshold nil)
 (setq visible-bell t)
 
+(require 'iso-transl)
 (require 'mouse)
 (xterm-mouse-mode t)
 (defun track-mouse (e))
