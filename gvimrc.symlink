@@ -35,5 +35,9 @@ if has("gui_macvim")
   " SHIFT-CMD-F
   nmap <D-F> <leader>f
   imap <D-F> <ESC><leader>f
+
+  " SHIFT-CMD-M
+  nmap <D-M> <leader>m
+  imap <D-M> <ESC><leader>m
 endif
 
