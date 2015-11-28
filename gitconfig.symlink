@@ -73,39 +73,21 @@
   auto = 1
 
 [diff]
-  tool = bcomp
-
-[difftool]
-  prompt = false
-
-[difftool "bcomp"]
-	trustExitCode = true
-  cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE"
-
-[difftool "sourcetree"]
-	cmd = /usr/local/bin/bcomp $LOCAL $REMOTE
-	path = 
+  tool = bc3
 
 [merge]
-  tool    = bcomp
+  tool = bc3
 
 [mergetool]
-  prompt     = false
-
-[mergetool "bcomp"]
-	trustExitCode = true
-  cmd = "/usr/local/bin/bcomp" "$LOCAL" "$REMOTE" "$BASE" "$MERGED"
-
-[mergetool "sourcetree"]
-	cmd = /usr/local/bin/bcomp $LOCAL $REMOTE $BASE $MERGED
-	trustExitCode = true
+  bc3 = trustExitCode
 
 [gui]
-	warndetachedcommit = true
+  warndetachedcommit = true
 
 [init]
-	templatedir = ~/.git_template
+  templatedir = ~/.git_template
+
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
+  clean = git-lfs clean %f
+  smudge = git-lfs smudge %f
+  required = true
