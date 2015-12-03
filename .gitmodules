@@ -145,3 +145,6 @@
 [submodule "vim.symlink/bundle/neco-vim"]
 	path = vim.symlink/bundle/neco-vim
 	url = https://github.com/Shougo/neco-vim.git
+[submodule "vim.symlink/bundle/vim-devicons"]
+	path = vim.symlink/bundle/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons.git
