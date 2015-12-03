@@ -22,8 +22,6 @@
   br          = branch
   ci          = commit
   co          = checkout
-  fe          = fetch
-  pu          = push
   commit      = commit -v
   amend       = commit --amend
   d           = diff --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
