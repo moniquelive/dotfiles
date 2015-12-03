@@ -105,7 +105,7 @@ alias tree='tree -SA'
 alias gd="git difftool --no-prompt --tool=mvimdiff"
 alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias gs='git status -sb'
-alias nv='nvim'
+alias vim='nvim'
 
 setopt numericglobsort
 setopt braceccl
