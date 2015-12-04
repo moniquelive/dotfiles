@@ -40,5 +40,7 @@ export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 
+[[ -n "${TMUX}" ]] && export NVIM_TUI_ENABLE_TRUE_COLOR="1"
+
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
