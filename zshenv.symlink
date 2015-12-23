@@ -27,7 +27,7 @@ if [[ -s "/usr/local/bin/brew" ]]; then
 fi
 
 export LESSCHARSET=utf-8
-export EDITOR=/usr/local/bin/vim
+export EDITOR=vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export CUCUMBER_FORMAT=progress
 
