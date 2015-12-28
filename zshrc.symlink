@@ -136,4 +136,5 @@ fi
 # Add RVM to PATH for scripting
 [[ -s "${HOME}/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "/usr/local/rvm/bin" ]] && export PATH="$PATH:/usr/local/rvm/bin"
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
