@@ -1,43 +1,33 @@
 # Customize to your needs...
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
 
-export SENCHA_CMD="${HOME}/bin/Sencha/Cmd/3.1.2.342"
+# Add our bin to PATH
+[[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
 
-export PATH="${HOME}/.rvm/bin:\
-/usr/local/rvm/bin:\
-${HOME}/bin:\
-/usr/local/bin:\
-/usr/local/share/npm/bin:\
-/usr/local/sbin:\
-/bin:\
-/sbin:\
-/usr/bin:\
-/usr/sbin:\
-/usr/X11/bin:\
-${SENCHA_CMD}"
+# Add RVM to PATH
+[[ -d "${HOME}/.rvm/bin" ]] && path+=($HOME/.rvm/bin)
+[[ -d "/usr/local/rvm/bin" ]] && path+=(/usr/local/rvm/bin)
+
+# Add NPM to PATH
+[[ -d "/usr/local/share/npm/bin" ]] && path+=(/usr/local/share/npm/bin)
 
 if [[ -s "/usr/local/bin/brew" ]]; then
-  brew_prefix=$(brew --prefix)
-  #python_prefix=$(brew --prefix python)
-  #coreutils_prefix=$(brew --prefix coreutils)
-  #npm_prefix=$(brew --prefix npm)
-  #php_prefix=$(brew --prefix josegonzalez/php/php55)
+  brew_prefix=$(/usr/local/bin/brew --prefix)
 
-  export MANPATH="${brew_prefix}/opt/coreutils/libexec/gnuman:${MANPATH}"
-  #export PYTHONPATH=".:${brew_prefix}/lib/python2.7/site-packages:${PYTHONPATH}"
+  # On OSX edit /etc/paths to really change the order
+  path=(
+    ${brew_prefix}/opt/node/bin
+    ${brew_prefix}/opt/coreutils/bin
+    ${brew_prefix}/opt/coreutils/libexec/gnubin
+    ${brew_prefix}/opt/php55/bin
+    $path
+  )
 
-#${python_prefix}/bin:\
-  export PATH="\
-${brew_prefix}/opt/node/bin:\
-${brew_prefix}/opt/coreutils/bin:\
-${brew_prefix}/opt/coreutils/libexec/gnubin:\
-${brew_prefix}/opt/php55/bin:\
-${PATH}"
+  #export -TU MANPATH manpath
+  manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
 export LESSCHARSET=utf-8
-export EDITOR=/usr/local/bin/vim
+export EDITOR=vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export CUCUMBER_FORMAT=progress
 
@@ -45,9 +35,12 @@ export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=/Users/leo/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
 
+export LANG=pt_BR
+export LANGUAGE=${LANG}.UTF-8
+export LC_ALL=${LANG}.UTF-8
+export LC_CTYPE=${LANG}.UTF-8
+
+[[ -n "${TMUX}" ]] && export NVIM_TUI_ENABLE_TRUE_COLOR="1"
 
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
-[[ -s "${HOME}/.rvm/scripts/rvm" ]] && source "${HOME}/.rvm/scripts/rvm"
-[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
-

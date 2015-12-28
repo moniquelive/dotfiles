@@ -19,5 +19,25 @@ if has("gui_macvim")
   autocmd FocusLost * silent! wa
   let g:auto_save = 0
 
+  if &term == 'xterm' || &term == 'screen'
+    set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
+  endif
+
+  " CtrlP clone
+  " CMD-t
+  nmap <D-t> <leader>t
+  imap <D-t> <ESC><leader>t
+
+  " CMD-B
+  nmap <D-B> <leader>b
+  imap <D-B> <ESC><leader>b
+
+  " SHIFT-CMD-F
+  nmap <D-F> <leader>f
+  imap <D-F> <ESC><leader>f
+
+  " SHIFT-CMD-M
+  nmap <D-M> <leader>m
+  imap <D-M> <ESC><leader>m
 endif
 

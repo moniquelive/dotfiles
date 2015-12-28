@@ -12,17 +12,22 @@ filetype plugin indent on
 set sessionoptions-=options
 
 "-------------------------------------------------------- CYBERAMA - begin ---
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=0
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " VIM BOOK {{{
-nnoremap <leader>ev :split $MYVIMRC<cr>
+nnoremap <leader>v :split $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <esc>
 nnoremap <Leader>s <Plug>(easymotion-s)
+nnoremap <silent> <leader>d <Plug>DashSearch
 " vim-uninpaired: nnoremap <leader>l :setlocal number!<cr>
 " }}}
 
-augroup reload_vimrc " {
-  au!
-  au BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+" augroup reload_vimrc " {
+"   au!
+"   au BufWritePost $MYVIMRC source $MYVIMRC
+" augroup END " }
 
 "let mapleader=","
 "let g:ackprg          = 'ag --nogroup --nocolor --column'
@@ -33,7 +38,7 @@ let g:ragtag_global_maps = 1
 
 " global defaults {{{
 set ts=2 sts=2 sw=2 sr et nowrap
-set nobackup noswapfile hlsearch "cursorline
+set noswapfile hlsearch cursorline
 set ignorecase smartcase
 
 set laststatus=2 " Always display the statusline in all windows
@@ -45,13 +50,13 @@ set switchbuf=useopen
 set showfulltag
 set incsearch
 set autowriteall
-set keywordprg=ri " user ruby's ri instead of man for K command
 set updatetime=2000
-" vim-uninpayred (yo/yO): set pastetoggle=<leader>o "<F4>
-set shortmess+=I
+"set shortmess+=I
+set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
 set splitbelow splitright
+set number "relativenumber
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
@@ -59,9 +64,15 @@ set t_ti= t_te=
 " keep more context when scrolling off the end of a buffer
 set scrolloff=2
 " Store temporary files in a central spot
-"set backup
+set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backup                  " Backups are nice ...
+if has('persistent_undo')
+    set undofile                " So is persistent undo ...
+    set undolevels=1000         " Maximum number of changes that can be undone
+    set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+endif
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 " display incomplete commands
@@ -76,6 +87,34 @@ set nojoinspaces
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
 set autoindent copyindent smartindent
+
+" copied from spf13
+set mouse=a mousehide
+scriptencoding utf-8
+set viewoptions=folds,options,cursor,unix,slash
+set history=1000
+set iskeyword-=.                    " '.' is an end of word designator
+set iskeyword-=#                    " '#' is an end of word designator
+set iskeyword-=-                    " '-' is an end of word designator
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+
+cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
+map <leader>ew :e %%
+map <leader>es :sp %%
+map <leader>ev :vsp %%
+map <leader>et :tabe %%
+
+set completeopt=menu,preview,longest
+
+if isdirectory(expand("~/.vim/bundle/undotree/"))
+  nnoremap <Leader>u :UndotreeToggle<CR>
+  " If undotree is opened, it is likely one wants to interact with it.
+  let g:undotree_SetFocusWhenToggle=1
+endif
+
+
 
 " Random themes!
 set t_Co=256
@@ -102,10 +141,17 @@ EOF
 
   nnoremap <expr> <F5> <SID>pick_random_theme()
   "silent call <SID>pick_random_theme()
-  color blazer
-else
-  color railscasts
 end
+set background=dark
+set fillchars=vert:│,fold:-
+highlight VertSplit cterm=none ctermbg=none ctermfg=247
+let g:gruvbox_improved_strings=0
+let g:gruvbox_improved_warnings=1
+let g:gruvbox_contrast_dark='dark'
+"color vividchalk
+"color Dracula
+color gruvbox
+
 
 " }}}
 
@@ -147,6 +193,7 @@ nnoremap z5 :setlocal foldlevel=5<cr>
 augroup JumpToLastPosition
   au!
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 augroup END
 
 " Subtle search highlights
@@ -165,11 +212,6 @@ vnoremap / /\v
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
-map <leader>b :CtrlPBuffer<cr>
-map <leader>t :CtrlP<cr>
-map <leader>gt :CtrlPTag<cr>
-nmap <silent> <leader>d <Plug>DashSearch
-
 " buffer navigation from Practical Vim Book
 nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :bnext<CR>
@@ -182,7 +224,7 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 nnoremap <leader>w <C-w>v<C-w>l
-"nnoremap <leader>l <C-l>
+nnoremap <leader>l <C-l>
 
 " Open window below instead of above"
 nnoremap <c-w>N :let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>
@@ -229,12 +271,21 @@ if has("autocmd") && exists("+omnifunc")
   augroup OmniFunk
     autocmd!
     autocmd Filetype *
-          \	if &omnifunc == "" |
-          \		setlocal omnifunc=syntaxcomplete#Complete |
-          \	endif
+          \if &omnifunc == "" |
+          \setlocal omnifunc=syntaxcomplete#Complete |
+          \endif
     autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
     autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
     autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+    autocmd FileType ruby,eruby let g:rubycomplete_use_bundler = 1
+    autocmd FileType ruby,eruby let ruby_fold = 1
+    autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
+    autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
+    autocmd FileType ruby,eruby UltiSnipsAddFiletypes rails.ruby
+
+    autocmd FileType ruby let &l:tags = pathogen#legacyjoin(pathogen#uniq(
+          \ pathogen#split(&tags) +
+          \ map(split($GEM_PATH,':'),'v:val."/gems/*/tags"')))
   augroup END
 endif
 
@@ -255,7 +306,6 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 
 
 " For snippet_complete marker.
@@ -300,6 +350,7 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
 "---------------------------------------------------------- NERDCommenter ---
+let NERDSpaceDelims=1
 if has("gui_macvim") && has("gui_running")
   map <D-/> <plug>NERDCommenterToggle<CR>
   imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
@@ -307,62 +358,19 @@ else
   map <leader>/ <plug>NERDCommenterToggle<CR>
 endif
 
-if has("gui_macvim") && has("gui_running")
-  " Command-Shift-F on OSX
-  map <D-F> :Ag<space>
-else
-  " Define <C-F> to a dummy value to see if it would set <C-f> as well.
-  map <C-F> :dummy
 
-  if maparg("<C-f>") == ":dummy"
-    " <leader>f on systems where <C-f> == <C-F>
-    map <leader>f :Ag<space>
-  else
-    " <C-F> if we can still map <C-f> to <S-Down>
-    map <C-F> :Ag<space>
-  endif
+" Neomake
+autocmd! BufWritePost * Neomake
 
-  map <C-f> <S-Down>
-endif
-
-"----------------------------------------------------------------- CTRL_P ---
-let g:ctrlp_lazy_update=1
-let g:ctrlp_map = ''
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\.pyc$\|\.pyo$\|\.rbc$|\.rbo$\|\.class$\|\.o$\|\~$\',
-  \ }
-if has("gui_macvim") && has("gui_running")
-  " CMD-t
-  map <D-t> :CtrlP<CR>
-  imap <D-t> <ESC>:CtrlP<CR>
-
-  " CMD-T
-  map <M-D-T> :CtrlPTag<CR>
-  imap <M-D-T> <ESC>:CtrlPTag<CR>
-
-  " CMD-B
-  map <D-B> :CtrlPBuffer<cr>
-  imap <D-B> <ESC>:CtrlPBuffer<cr>
-endif
-
-
-"SYNTASTIC
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_html_tidy_exec = 'tidy5'
-let g:syntastic_loc_list_height = 5
+" Deoplete
+let g:deoplete#enable_at_startup = 1
 
 "SUPERTAB
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabLongestEnhanced = 1
-let g:SuperTabLongestHighlight = 1
+"let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabCrMapping = 0
+let g:SuperTabClosePreviewOnPopupClose = 1
+" let g:SuperTabLongestEnhanced = 1
+" let g:SuperTabLongestHighlight = 1
 let g:SuperTabDefaultCompletionType = 'context'
 autocmd FileType *
       \ if &omnifunc != '' |
@@ -442,10 +450,60 @@ i
 endif
 
 " AIRLINE
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 let g:airline#extensions#tmuxline#enabled = 1
 let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
-let g:airline_theme = 'papercolor'
+"let g:airline_theme = 'papercolor'
+
+
+" UNITE
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#profile('default', 'context', {'start_insert':1,'winheight':10,'direction':'dynamicbottom'})
+
+let g:unite_data_directory="~/.vim/unite/cache" " s:get_cache_dir('unite')
+let g:unite_source_history_yank_enable=1
+let g:unite_source_rec_max_cache_files=5000
+
+if executable('ag')
+  " Use ag (the silver searcher)
+  " https://github.com/ggreer/the_silver_searcher
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
+  \ '-i --vimgrep --hidden --ignore ' .
+  \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+  let g:unite_source_grep_recursive_opt = ''
+elseif executable('ack')
+  let g:unite_source_grep_command='ack'
+  let g:unite_source_grep_default_opts='--no-heading --no-color -C4'
+  let g:unite_source_grep_recursive_opt=''
+endif
+
+function! s:unite_settings()
+  nmap <buffer> Q <plug>(unite_exit)
+  nmap <buffer> <esc> <plug>(unite_exit)
+  imap <buffer> <esc> <plug>(unite_exit)
+endfunction
+autocmd FileType unite call s:unite_settings()
+
+"nmap <space> [unite]
+"nnoremap [unite] <nop>
+
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr>
+nnoremap <silent> <leader>t :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr>
+nnoremap <silent> <leader>e :<C-u>Unite -buffer-name=recent file_mru<cr>
+" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+nnoremap <silent> <leader>f :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+" nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
+
+" CMD-T - https://github.com/tsukkee/unite-tag
+" noremap <M-D-T> :CtrlPTag<CR>
+" inoremap <M-D-T> <ESC>:CtrlPTag<CR>
+
+"}}}
 

@@ -59,7 +59,7 @@ end
 
 # Load plugins (only those I whitelist)
 
-#%w(hirb).each do |gem|
-#  require gem
-#end
-
+%w(awesome_print).each do |gem|
+  require gem
+end
+AwesomePrint.pry!

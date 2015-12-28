@@ -1,5 +1,6 @@
 #--drb
 --color
+#--format Fivemat
 #--format Rainbow
 #--format Fuubar
 #--format RSpec::Smart::Formatter
