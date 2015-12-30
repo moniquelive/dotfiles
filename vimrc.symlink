@@ -106,6 +106,8 @@ map <leader>es :sp %%
 map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
+noremap Q !!sh<CR>
+
 set completeopt=menu,preview,longest
 
 if isdirectory(expand("~/.vim/bundle/undotree/"))
