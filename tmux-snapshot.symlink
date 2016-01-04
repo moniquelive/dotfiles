@@ -1,5 +1,5 @@
 # This tmux statusbar config was created by tmuxline.vim
-# on Wed, 30 Dec 2015
+# on Seg, 04 Jan 2016
 
 set -g status-bg ""
 set -g message-command-fg ""
