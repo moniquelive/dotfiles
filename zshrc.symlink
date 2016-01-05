@@ -44,7 +44,7 @@ ZSH_TMUX_FIXTERM=true
 #  docker
 
 plugins=(
-  brew bundler
+  brew brew-cask bundler
   capistrano cp colored-man colorize common-aliases
   dirpersist
   forklift
@@ -143,3 +143,5 @@ fi
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
