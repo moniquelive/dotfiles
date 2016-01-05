@@ -151,3 +151,6 @@
 [submodule "vim.symlink/bundle/vim-auto-save"]
 	path = vim.symlink/bundle/vim-auto-save
 	url = https://github.com/vim-scripts/vim-auto-save.git
+[submodule "vim.symlink/bundle/YouCompleteMe"]
+	path = vim.symlink/bundle/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe.git
