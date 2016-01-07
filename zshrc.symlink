@@ -105,8 +105,14 @@ alias tree='tree -SA'
 alias gd="git difftool --no-prompt --tool=mvimdiff"
 alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias gs='git status -sb'
-alias vim='nvim'
 alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
+# alias vim='nvim'
+unalias sr
+
+# surfraw - bookmarks
+fzf-surfraw() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sort -n | fzf -e)" }
+fzf-locate() { open "$(locate "*" | fzf -e)"; }
+alias bm='$EDITOR $HOME/.config/surfraw/bookmarks'
 
 setopt numericglobsort
 setopt braceccl

@@ -18,6 +18,13 @@ set -g mouse on
 #set -g mouse-select-window on
 set -g set-clipboard on
 
+#------------------------------------------------------------- fzf aliases ---
+bind-key -n 'C-\' new-window -n bookmarks -c $HOME \; \
+  send-keys 'fzf-surfraw && tmux kill-window' 'Enter'
+
+bind-key -n M-\ new-window -n locate -c $HOME \; \
+  send-keys 'fzf-locate && tmux kill-window' 'Enter'
+
 #----------------------------------------------------------- reload config ---
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 bind C-r source-file ~/.tmux.conf \; display "Reloaded!"
