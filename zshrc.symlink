@@ -114,6 +114,8 @@ fzf-surfraw() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sort 
 fzf-locate() { open "$(locate "*" | fzf -e)"; }
 alias bm='$EDITOR $HOME/.config/surfraw/bookmarks'
 
+eval $(docker-machine env default)
+
 setopt numericglobsort
 setopt braceccl
 #setopt noclobber
