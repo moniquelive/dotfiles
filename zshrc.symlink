@@ -21,7 +21,16 @@ REPORTTIME=10
 #WORDCHARS=${WORDCHARS//[&=\/;\!#%\{]}
 WORDCHARS='*?_[]~=&;!#$%^(){}'
 
-ZSH_THEME="gnzh"
+# ZSH_THEME="gallois"
+ZSH_THEME="cyber-alanpeabody"
+
+# ZSH_THEME="gnzh"
+# ZSH_THEME="3den"
+# ZSH_THEME="bira"
+# ZSH_THEME="fino"
+# ZSH_THEME="jonathan"
+# ZSH_THEME="josh"
+# ZSH_THEME="murilasso"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
