@@ -53,10 +53,6 @@
   showtool    = "!sh -c 'REVISION="${1:-HEAD}"; git difftool $REVISION~ $REVISION' -"
   dt          = difftool --dir-diff
 
-[branch]
-#    autosetupmerge  = true # the default
-  autosetuprebase = always
-
 [push]
     #default = tracking
   default = current
@@ -89,3 +85,6 @@
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
   required = true
+
+[pull]
+  rebase = true
