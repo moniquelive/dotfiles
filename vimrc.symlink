@@ -364,34 +364,6 @@ autocmd! BufWritePost * Neomake
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 
-"SUPERTAB
-"let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabCrMapping = 0
-let g:SuperTabClosePreviewOnPopupClose = 1
-" let g:SuperTabLongestEnhanced = 1
-" let g:SuperTabLongestHighlight = 1
-let g:SuperTabDefaultCompletionType = 'context'
-autocmd FileType *
-      \ if &omnifunc != '' |
-      \   call SuperTabChain(&omnifunc, "<c-p>") |
-      \ endif
-
-" You Complete Me
-let g:ycm_min_num_of_chars_for_completion = 0
-let g:ycm_auto_trigger = 1
-" let g:ycm_seed_identifiers_with_syntax = 1
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby let g:rubycomplete_use_bundler = 1
-
-
-" ULTISNIPS
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
@@ -444,7 +416,7 @@ let g:syntastic_json_checkers=['jsonlint', 'jsonval']
 let g:syntastic_ruby_checkers=['rubocop','mri']
 let g:syntastic_perl_checkers=['perl','perlcritic','podchecker']
 let g:syntastic_python_checkers=['pylint','pep8','python']
-let g:syntastic_cpp_checkers=['gcc','cppcheck','cpplint','ycm','clang_tidy','clang_check']
+let g:syntastic_cpp_checkers=['gcc','cppcheck','cpplint','clang_tidy','clang_check']
 let g:syntastic_c_checkers=['gcc','make','cppcheck','clang_tidy','clang_check']
 let g:syntastic_haml_checkers=['haml_lint', 'haml']
 let g:syntastic_html_checkers=['jshint']
