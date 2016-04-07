@@ -157,6 +157,9 @@ color gruvbox
 
 " }}}
 
+if 0 " if 0 / endif HACK
+i
+
 " Folding rules {{{
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
@@ -189,6 +192,9 @@ nnoremap z3 :setlocal foldlevel=3<cr>
 nnoremap z4 :setlocal foldlevel=4<cr>
 nnoremap z5 :setlocal foldlevel=5<cr>
 " }}}
+
+.
+endif
 
 " This autocommand jumps to the last known position in a file
 " just after opening it, if the '" mark is set:
@@ -298,19 +304,19 @@ if ! has('gui_running')
 endif
 
 " Enable omni completion.
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-" autocmd FileType c set omnifunc=ccomplete#Complete
-" autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
 
 " For snippet_complete marker.
-"if has('conceal')
-"  set conceallevel=2 concealcursor=i
-"endif
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""" RENAME CURRENT FILE
 function! RenameFile()
@@ -357,20 +363,43 @@ else
   map <leader>/ <plug>NERDCommenterToggle<CR>
 endif
 
-
 " Neomake
 autocmd! BufWritePost * Neomake
 
-" Deoplete
+"-------------------------------------------------------------- ultisnips ---
+" UltiSnips config
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsUsePythonVersion = 3
+
+"--------------------------------------------------------------- Deoplete ---
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
+" let g:deoplete#enable_refresh_always = 1
+let g:deoplete#enable_camel_case = 1
+let g:deoplete#auto_complete_start_length = 2
 
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
 
+" tab-complete
+let g:ulti_expand_or_jump_res = 0
+function ExpandSnippetOrTab()
+    let snippet = UltiSnips#ExpandSnippetOrJump()
+    if g:ulti_expand_or_jump_res > 0
+        return snippet
+    else
+        return "\<c-n>"
+    endif
+endfunction
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "<C-R>=ExpandSnippetOrTab()<CR>" :
+      \ "\<Tab>"
 
-" EMMET
+"------------------------------------------------------------------ EMMET ---
 let g:user_emmet_expandabbr_key = '<Tab>'
 let g:use_emmet_complete_tag = 1
 
