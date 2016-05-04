@@ -47,7 +47,7 @@ zplug "plugins/colored-man", if:"(( $+commands[man] ))", from:oh-my-zsh
 zplug "plugins/colorize", from:oh-my-zsh
 zplug "plugins/common-aliases", nice:10, from:oh-my-zsh, ignore:oh-my-zsh.sh
 zplug "plugins/dirpersist", from:oh-my-zsh
-zplug "plugins/dpkg", if:"(( $+commands[dpkg] ))", from:oh-my-zsh
+zplug "plugins/debian", if:"(( $+commands[dpkg] ))", from:oh-my-zsh
 zplug "plugins/forklift", if:"(( $+commands[forklift] ))", from:oh-my-zsh
 zplug "plugins/gem", if:"(( $+commands[gem] ))", from:oh-my-zsh
 zplug "plugins/gnu-utils", from:oh-my-zsh
