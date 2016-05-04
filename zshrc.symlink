@@ -8,6 +8,8 @@
 #setopt xtrace prompt_subst
 #----------------------------------------------------------------------------
 
+autoload -U compaudit compinit
+
 # Check if zplug is installed
 [[ -d ~/.zplug ]] || {
   git clone https://github.com/b4b4r07/zplug ~/.zplug
@@ -34,6 +36,7 @@ zplug "b4b4r07/emoji-cli", if:"which jq"
 # Supports oh-my-zsh plugins and the like
 # zplug "themes/duellj", from:oh-my-zsh
 # zstyle ':zplug:tag' from oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
 zplug "lib/clipboard", if:"[[ $OSTYPE == *darwin* ]]", from:oh-my-zsh
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 zplug "lib/spectrum", from:oh-my-zsh
