@@ -107,6 +107,7 @@ map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
 noremap Q !!sh<CR>
+tnoremap <Esc> <C-\><C-n>
 
 set completeopt=menu,preview,longest
 
@@ -476,7 +477,7 @@ let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
 "let g:airline_theme = 'papercolor'
 
 " FZF
-set rtp+=~/.fzf
+set rtp+=/usr/local/opt/fzf
 
 nnoremap <silent> <leader>t :<C-u>Files<cr>
 nnoremap <silent> <leader>l :<C-u>Lines<cr>
