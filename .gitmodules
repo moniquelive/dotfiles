@@ -157,3 +157,6 @@
 [submodule "vim.symlink/bundle/fzf.vim"]
 	path = vim.symlink/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule "vim.symlink/bundle/vim-lion"]
+	path = vim.symlink/bundle/vim-lion
+	url = https://github.com/tommcdo/vim-lion.git
