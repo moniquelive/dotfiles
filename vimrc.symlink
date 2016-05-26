@@ -158,6 +158,14 @@ color gruvbox
 
 " }}}
 
+" Mappings to easily toggle fold levels
+nnoremap z0 :setlocal foldlevel=0<cr>
+nnoremap z1 :setlocal foldlevel=1<cr>
+nnoremap z2 :setlocal foldlevel=2<cr>
+nnoremap z3 :setlocal foldlevel=3<cr>
+nnoremap z4 :setlocal foldlevel=4<cr>
+nnoremap z5 :setlocal foldlevel=5<cr>
+
 if 0 " if 0 / endif HACK
 i
 
@@ -185,13 +193,6 @@ function! MyFoldText()
 endfunction
 set foldtext=MyFoldText()
 
-" Mappings to easily toggle fold levels
-nnoremap z0 :setlocal foldlevel=0<cr>
-nnoremap z1 :setlocal foldlevel=1<cr>
-nnoremap z2 :setlocal foldlevel=2<cr>
-nnoremap z3 :setlocal foldlevel=3<cr>
-nnoremap z4 :setlocal foldlevel=4<cr>
-nnoremap z5 :setlocal foldlevel=5<cr>
 " }}}
 
 .
