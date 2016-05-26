@@ -3,7 +3,7 @@ if has("gui_macvim")
 
   "set guifont=Panic\ Sans:h18
   "set guifont=Menlo:h20
-  set guifont=Ubuntu\ Mono\ derivative\ Powerline:h20
+  set guifont=Mononoki:h16
 
   set transparency=1
   set macmeta
