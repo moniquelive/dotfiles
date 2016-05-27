@@ -38,6 +38,7 @@ zplug "b4b4r07/emoji-cli", if:"which jq"
 # zstyle ':zplug:tag' from oh-my-zsh
 zplug "lib/completion", from:oh-my-zsh
 zplug "lib/clipboard", if:"[[ $OSTYPE == *darwin* ]]", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
 zplug "lib/theme-and-appearance", from:oh-my-zsh
 zplug "lib/spectrum", from:oh-my-zsh
 zplug "lib/misc", from:oh-my-zsh
