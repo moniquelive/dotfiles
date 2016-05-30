@@ -160,3 +160,6 @@
 [submodule "vim.symlink/bundle/vim-lion"]
 	path = vim.symlink/bundle/vim-lion
 	url = https://github.com/tommcdo/vim-lion.git
+[submodule "vim.symlink/bundle/splitjoin.vim"]
+	path = vim.symlink/bundle/splitjoin.vim
+	url = https://github.com/AndrewRadev/splitjoin.vim.git
