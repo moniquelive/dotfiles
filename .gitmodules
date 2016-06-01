@@ -163,3 +163,6 @@
 [submodule "vim.symlink/bundle/splitjoin.vim"]
 	path = vim.symlink/bundle/splitjoin.vim
 	url = https://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "vim.symlink/bundle/vim-commentary"]
+	path = vim.symlink/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
