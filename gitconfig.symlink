@@ -53,6 +53,9 @@
   showtool    = "!sh -c 'REVISION="${1:-HEAD}"; git difftool $REVISION~ $REVISION' -"
   dt          = difftool --dir-diff
 
+[branch "master"]
+	mergeoptions = --no-ff
+
 [push]
     #default = tracking
   default = current
