@@ -1,4 +1,5 @@
 "source ~/.vimrc
 nunmap /
 vunmap /
+set surround
 
