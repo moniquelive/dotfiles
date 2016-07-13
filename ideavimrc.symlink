@@ -2,4 +2,5 @@
 nunmap /
 vunmap /
 set surround
+set ignorecase
 
