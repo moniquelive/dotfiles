@@ -22,6 +22,9 @@ if [[ -s "/usr/local/bin/brew" ]]; then
     $path
   )
 
+  # my anaconda don't
+  [[ -d "${HOME}/anaconda3/bin" ]] && path+=(${HOME}/anaconda3/bin)
+
   #export -TU MANPATH manpath
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
