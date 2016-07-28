@@ -12,10 +12,11 @@ autoload -U compaudit compinit
 
 # Check if zplug is installed
 [[ -d ~/.zplug ]] || {
-  git clone https://github.com/b4b4r07/zplug ~/.zplug
+  git clone https://github.com/zplug/zplug ~/.zplug
   source ~/.zplug/init.zsh && zplug update --self
 }
 
+# Essential
 source ~/.zplug/init.zsh
 
 # Make sure to use double quotes
@@ -30,8 +31,8 @@ zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*darwin*amd64*"
 
 # Group dependencies. Load emoji-cli if jq is installed in this example
-zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
-zplug "b4b4r07/emoji-cli", if:"which jq"
+# zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
+# zplug "zplug/emoji-cli", if:"which jq"
 
 # Supports oh-my-zsh plugins and the like
 # zplug "themes/duellj", from:oh-my-zsh
@@ -76,18 +77,20 @@ zplug "${HOME}/.dotfiles", \
   as:plugin, \
   nice:19
 
-# Install plugins if there are plugins that have not been installed
+# Install packages that have not been installed yet
 if ! zplug check --verbose; then
     printf "Install? [y/N]: "
     if read -q; then
         echo; zplug install
+    else
+        echo
     fi
 fi
 
 # Then, source plugins and add commands to $PATH
 zplug load --verbose
 
-if zplug check b4b4r07/enhancd; then
+if zplug check zplug/enhancd; then
   export ENHANCD_FILTER=fzf-tmux
 fi
 
@@ -123,13 +126,20 @@ bindkey '\e[1;3D' backward-word
 bindkey '\e\e[C' forward-word
 bindkey '\e\e[D' backward-word
 
+# History completion
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '\e[A' history-beginning-search-backward-end
+bindkey '\e[B' history-beginning-search-forward-end
+
 # bind UP and DOWN arrow keys
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
-zle -N up-line-or-beginning-search
-zle -N down-line-or-beginning-search
-bindkey '\e[A' history-substring-search-up
-bindkey '\e[B' history-substring-search-down
+# autoload -U up-line-or-beginning-search
+# autoload -U down-line-or-beginning-search
+# zle -N up-line-or-beginning-search
+# zle -N down-line-or-beginning-search
+# bindkey '\e[A' history-substring-search-up
+# bindkey '\e[B' history-substring-search-down
 
 export LESS="-FRmX"
 unsetopt correctall
@@ -139,18 +149,39 @@ autoload -U run-help
 autoload run-help-git
 export HELPDIR=/usr/local/share/zsh/helpfiles
 
-zstyle ':completion:*' use-cache on
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:descriptions' format '%d'
+zstyle ':completion:*:options' verbose yes
+zstyle ':completion:*:values' verbose yes
+zstyle ':completion:*:options' prefix-needed yes
+
+zstyle ':completion:*' use-cache true
 zstyle ':completion:*' cache-path ~/.zsh/cache
-zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*:match:*' original only
+zstyle ':completion:*' menu select
+zstyle ':completion:*' keep-prefix
+#zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*' completer _oldlist _complete _match _ignored \
+    _approximate _list _history
+#zstyle ':completion:*:match:*' original only
+zstyle ':completion:*' matcher-list \
+    '' \
+    'm:{a-z}={A-Z}' \
+    'l:|=* r:|[.,_-]=* r:|=* m:{a-z}={A-Z}'
+zstyle ':completion:*:default' menu select=1
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*:functions' ignored-patterns '_*'
+
+zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
 autoload zmv
 alias mmv='noglob zmv -W'
+
+autoload -U colors
+colors
 
 # autocomplete aliases
 #compdef t=tmux
@@ -170,19 +201,97 @@ alias gs='git status -sb'
 alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias vim='nvim'
 unalias sr
+alias od='od -Ax -tx1z'
+alias hexdump='hexdump -C'
+alias hexd=hexdump
+alias where="command -v"
+alias j="jobs -l"
+alias mv='nocorrect mv'
+alias cp='nocorrect cp'
+alias mkdir='nocorrect mkdir'
+
+# global aliases
+alias -g A="| awk"
+alias -g G="| grep"
+alias -g GV="| grep -v"
+alias -g H="| head"
+alias -g L="| $PAGER"
+alias -g P=' --help | less'
+alias -g R="| ruby -e"
+alias -g S="| sed"
+alias -g T="| tail"
+alias -g V="| vim -R -"
+alias -g U=' --help | head'
+alias -g W="| wc"
+
+# suffix aliases
+alias -s zip=zipinfo
+alias -s tgz=gzcat
+alias -s gz=gzcat
+alias -s tbz=bzcat
+alias -s bz2=bzcat
+alias -s java=vim
+alias -s c=vim
+alias -s h=vim
+alias -s C=vim
+alias -s cpp=vim
+alias -s php=vim
+alias -s py=vim
+alias -s rb=vim
+alias -s txt=vim
+alias -s xml=vim
 
 # surfraw - bookmarks
 fzf-surfraw() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sort -n | fzf -e)" }
 fzf-locate() { open "$(locate "*" | fzf -e)"; }
 alias bm='$EDITOR $HOME/.config/surfraw/bookmarks'
 
+setopt auto_resume
+setopt no_beep
+setopt hist_ignore_dups
+setopt hist_reduce_blanks
+setopt extended_history
+setopt hist_expand
+setopt long_list_jobs
+setopt magic_equal_subst
+setopt mark_dirs
+setopt no_menu_complete
+setopt list_rows_first
+setopt multios
+setopt path_dirs
+setopt print_eightbit
+setopt print_exit_value
+setopt pushd_ignore_dups
+setopt pushd_silent
+setopt hist_no_store
+setopt transient_rprompt
+unsetopt promptcr
+setopt hash_cmds
+setopt numeric_glob_sort
+setopt rm_star_wait
+setopt auto_list
+setopt auto_param_slash
+setopt auto_param_keys
+setopt list_types
+setopt list_packed
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_minus
+setopt pushd_ignore_dups
+setopt complete_aliases
+unsetopt hist_verify
+
+
 setopt numericglobsort
 setopt braceccl
 #setopt noclobber
 setopt extendedglob
-setopt HIST_IGNORE_SPACE
-#setopt INC_APPEND_HISTORY
+setopt hist_ignore_space
+setopt inc_append_history
+setopt share_history
 skip_global_compinit=1
+
+zmodload zsh/mathfunc
 
 # search on zshall man page
 zman() {
