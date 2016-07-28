@@ -261,6 +261,12 @@ if has("autocmd")
         \ endif
 endif
 
+nmap <silent> <leader><c-t> :TestNearest<CR>
+nmap <silent> <leader><c-T> :TestFile<CR>
+nmap <silent> <leader><c-a> :TestSuite<CR>
+nmap <silent> <leader><c-l> :TestLast<CR>
+nmap <silent> <leader><c-g> :TestVisit<CR>
+
 " Dont fold foldable files by default
 if has("autocmd")
   augroup Unfolding
