@@ -177,6 +177,16 @@ zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cput
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
+# .ssh/config FTW!
+h=()
+if [[ -r ~/.ssh/config ]]; then
+  h=($h $(awk '/^[hH]ost/ {for(i=2;i<=NF;++i) print $i}' .ssh/config))
+fi
+if [[ $#h -gt 0 ]]; then
+  zstyle ':completion:*:ssh:*' hosts $h
+  zstyle ':completion:*:slogin:*' hosts $h
+fi
+
 autoload zmv
 alias mmv='noglob zmv -W'
 
