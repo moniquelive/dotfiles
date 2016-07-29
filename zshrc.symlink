@@ -270,7 +270,7 @@ setopt list_rows_first
 setopt multios
 setopt path_dirs
 setopt print_eightbit
-setopt print_exit_value
+#setopt print_exit_value
 setopt pushd_ignore_dups
 setopt pushd_silent
 setopt hist_no_store
