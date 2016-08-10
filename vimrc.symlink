@@ -261,11 +261,11 @@ if has("autocmd")
         \ endif
 endif
 
-nmap <silent> <leader><c-t> :TestNearest<CR>
-nmap <silent> <leader><c-T> :TestFile<CR>
-nmap <silent> <leader><c-a> :TestSuite<CR>
-nmap <silent> <leader><c-l> :TestLast<CR>
-nmap <silent> <leader><c-g> :TestVisit<CR>
+nmap <silent> <leader>Tt :TestNearest<CR>
+nmap <silent> <leader>TT :TestFile<CR>
+nmap <silent> <leader>Ta :TestSuite<CR>
+nmap <silent> <leader>Tl :TestLast<CR>
+nmap <silent> <leader>Tg :TestVisit<CR>
 
 " Dont fold foldable files by default
 if has("autocmd")
@@ -485,6 +485,8 @@ let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
 
 " FZF
 set rtp+=/usr/local/opt/fzf
+
+let g:fzf_launcher = "in_a_new_term_window %s"
 
 nnoremap <silent> <leader>t :<C-u>Files<cr>
 nnoremap <silent> <leader>l :<C-u>Lines<cr>
