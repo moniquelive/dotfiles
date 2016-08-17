@@ -1,1 +1,0 @@
-("~/Dropbox/Projects/ruby/pinpeoplehomolog/" "~/.dotfiles/" "~/Dropbox/Projects/ruby/cyberleo/" "~/Dropbox/Projects/ruby/kata/life/")
