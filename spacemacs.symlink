@@ -275,7 +275,6 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq powerline-default-separator 'bar)
-  (setq paradox-github-token "53eb35b3ff290f89cef7e8156d3ae41d266769f2")
   (setq vc-follow-symlinks t)
   (setq markdown-open-command "/usr/bin/open")
   (global-company-mode)
