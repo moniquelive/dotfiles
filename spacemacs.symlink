@@ -23,30 +23,32 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
+     ;; ansible
      better-defaults
+     command-log
+     cscope
      emacs-lisp
+     emoji
+     evil-commentary
      git
+     html
      markdown
      org
-     (shell :variables
-            shell-default-height 30
-            shell-default-position 'bottom)
-     spell-checking
-     (syntax-checking :variables
-                      syntax-checking-enable-tooltips nil)
-     version-control
-     (ruby :variables
-           ruby-version-manager 'rvm
-           ruby-test-runner 'rspec
-           ruby-enable-enh-ruby-mode t)
-           ;; ruby-enable-ruby-on-rails-support t)
-     ruby-on-rails
-     themes-megapack
-     emoji
+     osx
      ranger
+     ruby-on-rails
+     selectric
+     semantic
+     spell-checking
      spotify
+     swift
+     themes-megapack
+     unimpaired
+     version-control
+     vim-empty-lines
      vinegar
-     evil-commentary
+     yaml
+     xkcd
      (auto-completion :variables
                       auto-completion-return-key-behavior 'complete
                       auto-completion-tab-key-behavior 'cycle
@@ -56,8 +58,16 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip nil
                       auto-completion-enable-sort-by-usage nil)
-     ;; ansible
-     html
+     (ruby :variables
+           ruby-version-manager 'rvm
+           ruby-test-runner 'rspec
+           ruby-enable-enh-ruby-mode t
+           ruby-enable-ruby-on-rails-support t)
+     (shell :variables
+            shell-default-height 30
+            shell-default-position 'bottom)
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips nil)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -65,7 +75,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(company)
+   dotspacemacs-excluded-packages '()
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -277,7 +287,7 @@ you should place your code here."
   (setq powerline-default-separator 'bar)
   (setq vc-follow-symlinks t)
   (setq markdown-open-command "/usr/bin/open")
-  ;; (global-company-mode)
+  (global-company-mode)
   ;; default vim-surround
   (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
   (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
@@ -299,7 +309,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(magit-log-arguments
+   (quote
+    ("--graph" "--color" "--decorate" "++header" "--simplify-by-decoration" "--follow" "-n256"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
