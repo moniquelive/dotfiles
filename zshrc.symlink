@@ -9,96 +9,11 @@
 #----------------------------------------------------------------------------
 
 autoload -U compaudit compinit
-
-# Check if zplug is installed
-[[ -d ~/.zplug ]] || {
-  git clone https://github.com/zplug/zplug ~/.zplug
-  source ~/.zplug/init.zsh && zplug update --self
-}
-
-# Essential
-source ~/.zplug/init.zsh
-
-# Make sure to use double quotes
-# zplug "zsh-users/zsh", nice:-20
-zplug "zsh-users/zsh", nice:-1
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
-
-# Grab binaries from GitHub Releases
-# and rename with the "rename-to:" tag
-zplug "junegunn/fzf-bin", from:gh-r, as:command, rename-to:fzf, use:"*darwin*amd64*"
-
-# Group dependencies. Load emoji-cli if jq is installed in this example
-# zplug "stedolan/jq", from:gh-r, as:command, rename-to:jq
-# zplug "zplug/emoji-cli", if:"which jq"
-
-# Supports oh-my-zsh plugins and the like
-# zplug "themes/duellj", from:oh-my-zsh
-# zstyle ':zplug:tag' from oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/clipboard", if:"[[ $OSTYPE == *darwin* ]]", from:oh-my-zsh
-zplug "lib/directories", from:oh-my-zsh
-zplug "lib/theme-and-appearance", from:oh-my-zsh
-zplug "lib/spectrum", from:oh-my-zsh
-zplug "lib/misc", from:oh-my-zsh
-zplug "plugins/brew", if:"(( $+commands[brew] ))", from:oh-my-zsh
-zplug "plugins/brew-cask", if:"(( $+commands[brew] ))", nice:10, from:oh-my-zsh
-zplug "plugins/bundler", from:oh-my-zsh
-zplug "plugins/capistrano", from:oh-my-zsh
-zplug "plugins/cp", from:oh-my-zsh
-zplug "plugins/colored-man", if:"(( $+commands[man] ))", from:oh-my-zsh
-zplug "plugins/colorize", from:oh-my-zsh
-zplug "plugins/common-aliases", nice:10, from:oh-my-zsh, ignore:oh-my-zsh.sh
-zplug "plugins/dirpersist", from:oh-my-zsh
-zplug "plugins/debian", if:"(( $+commands[dpkg] ))", from:oh-my-zsh
-zplug "plugins/forklift", if:"(( $+commands[forklift] ))", from:oh-my-zsh
-zplug "plugins/gem", if:"(( $+commands[gem] ))", from:oh-my-zsh
-zplug "plugins/gnu-utils", from:oh-my-zsh
-zplug "plugins/github", if:"(( $+commands[git] ))", from:oh-my-zsh
-zplug "plugins/gitignore", if:"(( $+commands[git] ))", nice:10, from:oh-my-zsh
-zplug "plugins/git", if:"(( $+commands[git] ))", nice:10, from:oh-my-zsh
-zplug "plugins/npm", if:"(( $+commands[npm] ))", from:oh-my-zsh
-zplug "plugins/rails", if:"(( $+commands[rails] ))", nice:10, from:oh-my-zsh
-zplug "plugins/rsync", if:"(( $+commands[rsync] ))", from:oh-my-zsh
-zplug "plugins/rvm", if:"(( $+commands[rvm] ))", nice:10, from:oh-my-zsh
-zplug "plugins/ssh-agent", if:"[[ $OSTYPE == *darwin* ]]", from:oh-my-zsh
-zplug "plugins/tmux", if:"(( $+commands[tmux] ))", nice:10, from:oh-my-zsh
-zplug "plugins/urltools", from:oh-my-zsh
-zplug "plugins/yum", if:"(( $+commands[yum] ))", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-
-# Can manage local plugins
-# zplug "robbyrussell/oh-my-zsh", use:oh-my-zsh.sh, nice:-10
-zplug "${HOME}/.dotfiles", \
-  from:local, \
-  use:"cyber-alanpeabody.zsh-theme", \
-  as:plugin, \
-  nice:19
-
-# Install packages that have not been installed yet
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    else
-        echo
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load --verbose
-
-if zplug check zplug/enhancd; then
-  export ENHANCD_FILTER=fzf-tmux
-fi
-
 # unique these arrays
 typeset -U path manpath
 
 # Path to your oh-my-zsh configuration.
-# ZSH=$HOME/.oh-my-zsh
+ZSH=$HOME/.oh-my-zsh
 
 # Nicer history
 HISTSIZE=100000
@@ -110,6 +25,15 @@ HISTFILE=~/.zsh_history
 
 ZSH_THEME="cyber-alanpeabody"
 
+# ZSH_THEME="gallois"
+# ZSH_THEME="gnzh"
+# ZSH_THEME="3den"
+# ZSH_THEME="bira"
+# ZSH_THEME="fino"
+# ZSH_THEME="jonathan"
+# ZSH_THEME="josh"
+# ZSH_THEME="murilasso"
+
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
 
@@ -120,19 +44,52 @@ COMPLETION_WAITING_DOTS="true"
 ZSH_TMUX_AUTOCONNECT=true
 ZSH_TMUX_FIXTERM=true
 
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# too expensive:
+# history-substring-search
+# optional:
+  #history
+#  heroku
+#  docker
+#  pj
+
+plugins=(
+  brew brew-cask bundler
+  capistrano cp colored-man colorize colored-man-pages common-aliases
+  dirpersist
+  emoji emoji-clock emotty
+  forklift
+  gem gnu-utils github gitignore
+  git
+  mosh
+  npm
+  osx
+  rails rake-fast rand-quote rsync rvm
+  sudo
+  themes tig tmux
+  urltools
+  z zeus zsh_reload
+)
+[[ -x "/usr/bin/yum" ]] && plugins+=(yum)
+[[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
+[[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
+
+[[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
+
+# EMACS emul:
 bindkey -e
 bindkey '\e[1;3C' forward-word
 bindkey '\e[1;3D' backward-word
 bindkey '\e\e[C' forward-word
 bindkey '\e\e[D' backward-word
 
-# History completion
+#------------------------------------------------------ History completion ---
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
-bindkey '\e[A' history-beginning-search-backward-end
-bindkey '\e[B' history-beginning-search-forward-end
-
+bindkey '\eOA' up-line-or-beginning-search
+bindkey '\eOB' down-line-or-beginning-search
 # edit command line in $EDITOR
 autoload -z edit-command-line
 zle -N edit-command-line
@@ -146,30 +103,12 @@ autoload -U run-help
 autoload run-help-git
 export HELPDIR=/usr/local/share/zsh/helpfiles
 
-zstyle ':completion:*' group-name ''
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:descriptions' format '%d'
-zstyle ':completion:*:options' verbose yes
-zstyle ':completion:*:values' verbose yes
-zstyle ':completion:*:options' prefix-needed yes
-
-zstyle ':completion:*' use-cache true
+zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-zstyle ':completion:*' menu select
-zstyle ':completion:*' keep-prefix
-#zstyle ':completion:*' completer _complete _match _approximate
-zstyle ':completion:*' completer _oldlist _complete _match _ignored \
-    _approximate _list _history
-#zstyle ':completion:*:match:*' original only
-zstyle ':completion:*' matcher-list \
-    '' \
-    'm:{a-z}={A-Z}' \
-    'l:|=* r:|[.,_-]=* r:|=* m:{a-z}={A-Z}'
-zstyle ':completion:*:default' menu select=1
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*:functions' ignored-patterns '_*'
-
-zstyle ':completion:*:processes' command "ps -u $USER -o pid,stat,%cpu,%mem,cputime,command"
 
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa
@@ -183,10 +122,8 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
 fi
-
 autoload zmv
 alias mmv='noglob zmv -W'
-
 autoload -U colors
 colors
 
@@ -196,7 +133,6 @@ unset SCRIPT_NAME
 
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
-alias tis='tig status'
 alias listen='lsof -i -P | grep LISTEN'
 alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
@@ -216,7 +152,7 @@ alias j="jobs -l"
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-[ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='open -a /usr/local/opt/emacs-plus/bin/emacs'
+[ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='open -a /usr/local/opt/emacs-plus/bin/emacs --args $*'
 
 # global aliases
 alias -g A="| awk"
@@ -231,7 +167,6 @@ alias -g T="| tail"
 alias -g V="| vim -R -"
 alias -g U=' --help | head'
 alias -g W="| wc"
-
 # suffix aliases
 alias -s zip=zipinfo
 alias -s tgz=gzcat
@@ -248,7 +183,6 @@ alias -s py=vim
 alias -s rb=vim
 alias -s txt=vim
 alias -s xml=vim
-
 # surfraw - bookmarks
 fzf-surfraw() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sort -n | fzf -e)" }
 fzf-locate() { open "$(locate "*" | fzf -e)"; }
@@ -294,11 +228,10 @@ setopt numericglobsort
 setopt braceccl
 #setopt noclobber
 setopt extendedglob
-setopt hist_ignore_space
+setopt HIST_IGNORE_SPACE
 setopt inc_append_history
 setopt share_history
 skip_global_compinit=1
-
 zmodload zsh/mathfunc
 
 # search on zshall man page
