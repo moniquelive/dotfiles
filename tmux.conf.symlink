@@ -6,11 +6,9 @@ set -g pane-base-index 1                    # counting panes from 1
 set -g default-terminal "screen-256color"   # 256 color terminal
 set -g history-limit 5000                   # increase history limit
 set -g renumber-windows on
-setw -g utf8 on
 setw -g aggressive-resize off
 
 # MOUSE & CLIPBOARD
-set -g mouse-utf8 on
 set -g mouse on
 #set -g mode-mouse on
 #set -g mouse-resize-pane on
@@ -92,7 +90,6 @@ set -g status-left-length 40
 ### set -g status-right '#[fg=yellow]#(tmux-mem-cpu-load --colors 2)#[default]'
 if-shell "test -f ~/.tmux-snapshot" "source ~/.tmux-snapshot"
 
-set -g status-utf8 on
 set -g status-interval 15
 set -g status-justify centre
 
@@ -130,4 +127,12 @@ bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
 #--- </pbcopy/pbpaste> ------------------------------------------------------
 
 
-#new-session
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+#set -g @plugin 'jimeh/tmux-themepack'
+
+source-file ~/.tmux/plugins/tmux-themepack/basic.tmuxtheme
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
