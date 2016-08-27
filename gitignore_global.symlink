@@ -5,3 +5,4 @@
 /.idea
 custom_plan.rb
 zeus.json
+.rake_tasks
