@@ -172,3 +172,9 @@
 [submodule "vim.symlink/bundle/vim-test"]
 	path = vim.symlink/bundle/vim-test
 	url = https://github.com/janko-m/vim-test.git
+[submodule "vim.symlink/bundle/vim-two-firewatch"]
+	path = vim.symlink/bundle/vim-two-firewatch
+	url = https://github.com/rakr/vim-two-firewatch.git
+[submodule "vim.symlink/bundle/Sierra"]
+	path = vim.symlink/bundle/Sierra
+	url = https://github.com/AlessandroYorba/Sierra.git

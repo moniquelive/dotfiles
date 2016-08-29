@@ -12,9 +12,6 @@ filetype plugin indent on
 set sessionoptions-=options
 
 "-------------------------------------------------------- CYBERAMA - begin ---
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=0
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-
 " VIM BOOK {{{
 nnoremap <leader>v :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -107,7 +104,17 @@ map <leader>ev :vsp %%
 map <leader>et :tabe %%
 
 noremap Q !!sh<CR>
-tnoremap <Esc> <C-\><C-n>
+if exists(':tnoremap')
+  tnoremap <Esc> <C-\><C-n>
+  tnoremap <A-h> <C-\><C-n><C-w>h
+  tnoremap <A-j> <C-\><C-n><C-w>j
+  tnoremap <A-k> <C-\><C-n><C-w>k
+  tnoremap <A-l> <C-\><C-n><C-w>l
+  nnoremap <A-h> <C-w>h
+  nnoremap <A-j> <C-w>j
+  nnoremap <A-k> <C-w>k
+  nnoremap <A-l> <C-w>l
+endif
 
 set completeopt=menu,preview,longest
 
@@ -121,7 +128,14 @@ endif
 
 " Random themes!
 set t_Co=256
+set background=dark
+
 syntax on
+if (has("termguicolors")) " Or if you have Neovim >= 0.1.5
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1 " For Neovim 0.1.3 and 0.1.4
+  set termguicolors
+endif
 
 if has('lua')
   function! s:turn_column_off()
@@ -145,17 +159,23 @@ EOF
   nnoremap <expr> <F5> <SID>pick_random_theme()
   "silent call <SID>pick_random_theme()
 end
-set background=dark
 set fillchars=vert:│,fold:-
-highlight VertSplit cterm=none ctermbg=none ctermfg=247
-let g:gruvbox_improved_strings=0
-let g:gruvbox_improved_warnings=1
-let g:gruvbox_contrast_dark='dark'
+"highlight VertSplit cterm=none ctermbg=none ctermfg=247
 "color vividchalk
 "color Dracula
-color gruvbox
+"color sierra
 
+"let g:gruvbox_improved_strings=0
+"let g:gruvbox_improved_warnings=1
+"let g:gruvbox_contrast_dark='dark'
+"color gruvbox
 
+let g:two_firewatch_italics=1
+let g:airline_theme='twofirewatch'
+color two-firewatch
+
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 " }}}
 
 " Mappings to easily toggle fold levels
@@ -479,9 +499,6 @@ endif
 let g:airline#extensions#tabline#enabled = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#tmuxline#enabled = 1
-let g:airline#extensions#tmuxline#snapshot_file = "~/.tmux-snapshot"
-"let g:airline_theme = 'papercolor'
 
 " FZF
 set rtp+=/usr/local/opt/fzf
