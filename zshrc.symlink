@@ -8,7 +8,21 @@
 #setopt xtrace prompt_subst
 #----------------------------------------------------------------------------
 
-autoload -U compaudit compinit
+## Interactive shell ##
+
+skip_global_compinit=1
+zmodload zsh/mathfunc
+autoload -U compaudit compinit run-help
+
+autoload run-help-git
+export HELPDIR=/usr/local/share/zsh/helpfiles
+
+# search on zshall man page
+zman() { MANPAGER="less -g -s '+/^       "$1"'" man zshall }
+
+autoload zmv
+alias mmv='noglob zmv -W'
+
 # unique these arrays
 typeset -U path manpath
 
@@ -22,17 +36,6 @@ REPORTTIME=10
 #WORDCHARS=${WORDCHARS//[&=\/;\!#%\{]}
 WORDCHARS='*?_[]~=&;!#$%^(){}'
 HISTFILE=~/.zsh_history
-
-ZSH_THEME="cyber-alanpeabody"
-
-# ZSH_THEME="gallois"
-# ZSH_THEME="gnzh"
-# ZSH_THEME="3den"
-# ZSH_THEME="bira"
-# ZSH_THEME="fino"
-# ZSH_THEME="jonathan"
-# ZSH_THEME="josh"
-# ZSH_THEME="murilasso"
 
 # Uncomment following line if you want to disable autosetting terminal title.
 DISABLE_AUTO_TITLE="true"
@@ -48,28 +51,18 @@ ZSH_TMUX_FIXTERM=false
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-# too expensive:
-# history-substring-search
-# optional:
-  #history
-#  heroku
-#  docker
-#  pj
-
 plugins=(
   brew brew-cask bundler
   capistrano cp colored-man colorize colored-man-pages common-aliases
   dirpersist
-  emoji emoji-clock emotty
   forklift
   gem gnu-utils github gitignore
   git
-  mosh
   npm
   osx
   rails rake-fast rand-quote rsync rvm
   sudo
-  themes tig tmux
+  tig tmux
   urltools
   z zeus zsh_reload
 )
@@ -77,34 +70,13 @@ plugins=(
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
 [[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
 
+ZSH_THEME="cyber-alanpeabody"
+
+#---------------------------------------------------------------- load OMZ ---
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
+unalias sr
 
-# EMACS emul:
-bindkey -e
-bindkey '\e[1;3C' forward-word
-bindkey '\e[1;3D' backward-word
-bindkey '\e\e[C' forward-word
-bindkey '\e\e[D' backward-word
-
-#------------------------------------------------------ History completion ---
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey '\eOA' up-line-or-beginning-search
-bindkey '\eOB' down-line-or-beginning-search
-# edit command line in $EDITOR
-autoload -z edit-command-line
-zle -N edit-command-line
-bindkey "^X^E" edit-command-line
-
-export LESS="-FRmX"
-unsetopt correctall
-
-#unalias run-help
-autoload -U run-help
-autoload run-help-git
-export HELPDIR=/usr/local/share/zsh/helpfiles
-
+# zshlovers(https://grml.org/zsh/zsh-lovers.html)
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' completer _complete _match _approximate
@@ -112,6 +84,7 @@ zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
+# loadup ssh-agent (<3)
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
@@ -124,15 +97,18 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
 fi
-autoload zmv
-alias mmv='noglob zmv -W'
-autoload -U colors
-colors
 
-# autocomplete aliases
-#compdef t=tmux
 unset SCRIPT_NAME
 
+# save dirstack between sessions
+DIRSTACKSIZE=9
+DIRSTACKFILE=~/.zdirs
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
+
+#----------------------------------------------------------------- aliases ---
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
 alias listen='lsof -i -P | grep LISTEN'
@@ -145,7 +121,6 @@ alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Framewor
 alias gs='git status -sb'
 alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias vim='nvim'
-unalias sr
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 alias hexd=hexdump
@@ -156,7 +131,7 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 [ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='open -a /usr/local/opt/emacs-plus/bin/emacs --args $*'
 
-# global aliases
+#------------------------------------------------------------------ global ---
 alias -g A="| awk"
 alias -g G="| grep"
 alias -g GV="| grep -v"
@@ -169,7 +144,8 @@ alias -g T="| tail"
 alias -g V="| vim -R -"
 alias -g U=' --help | head'
 alias -g W="| wc"
-# suffix aliases
+
+#------------------------------------------------------------------ suffix ---
 alias -s zip=zipinfo
 alias -s tgz=gzcat
 alias -s gz=gzcat
@@ -185,11 +161,27 @@ alias -s py=vim
 alias -s rb=vim
 alias -s txt=vim
 alias -s xml=vim
-# surfraw - bookmarks
-fzf-surfraw() { surfraw "$(cat ~/.config/surfraw/bookmarks | sed '/^$/d' | sort -n | fzf -e)" }
-fzf-locate() { open "$(locate "*" | fzf -e)"; }
-alias bm='$EDITOR $HOME/.config/surfraw/bookmarks'
 
+#-------------------------------------------------------------- EMACS emul ---
+bindkey -e
+bindkey '\e[1;3C' forward-word
+bindkey '\e[1;3D' backward-word
+bindkey '\e\e[C' forward-word
+bindkey '\e\e[D' backward-word
+
+#------------------------------------------------------ History completion ---
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '\eOA' up-line-or-beginning-search
+bindkey '\eOB' down-line-or-beginning-search
+
+# edit command line in $EDITOR
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey "^X^E" edit-command-line
+
+#---------------------------------------------------------------- ZSH opts ---
 setopt auto_resume
 setopt no_beep
 setopt hist_ignore_dups
@@ -204,12 +196,10 @@ setopt list_rows_first
 setopt multios
 setopt path_dirs
 setopt print_eightbit
-#setopt print_exit_value
 setopt pushd_ignore_dups
 setopt pushd_silent
 setopt hist_no_store
 setopt transient_rprompt
-unsetopt promptcr
 setopt hash_cmds
 setopt numeric_glob_sort
 setopt rm_star_wait
@@ -223,9 +213,6 @@ setopt auto_pushd
 setopt pushd_minus
 setopt pushd_ignore_dups
 setopt complete_aliases
-unsetopt hist_verify
-
-
 setopt numericglobsort
 setopt braceccl
 #setopt noclobber
@@ -233,21 +220,13 @@ setopt extendedglob
 setopt HIST_IGNORE_SPACE
 setopt inc_append_history
 setopt share_history
-skip_global_compinit=1
-zmodload zsh/mathfunc
 
-# search on zshall man page
-zman() {
-  PAGER="less -g -s '+/^       "$1"'" man zshall
-}
+unsetopt promptcr
+unsetopt correctall
+unsetopt hist_verify
+unsetopt print_exit_value
 
-# save dirstack between sessions
-DIRSTACKSIZE=9
-DIRSTACKFILE=~/.zdirs
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 #----------------------------------------------------------------------------
 ## BENCHMARKING (END)
@@ -255,12 +234,3 @@ fi
 #unsetopt xtrace
 ## restore stderr to the value saved in FD 3
 #exec 2>&3 3>&-
-
-# Add RVM to PATH for scripting
-[[ -s "${HOME}/.rvm/bin" ]] && export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "/usr/local/rvm/bin" ]] && export PATH="$PATH:/usr/local/rvm/bin"
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
