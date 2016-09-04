@@ -134,7 +134,6 @@ if &term =~ '256color'
   " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
   set t_ut=
 endif
-set background=dark
 
 syntax on
 if (has("termguicolors")) " Or if you have Neovim >= 0.1.5
@@ -165,19 +164,19 @@ EOF
   "silent call <SID>pick_random_theme()
 end
 set fillchars=vert:│,fold:-
-"highlight VertSplit cterm=none ctermbg=none ctermfg=247
-"color vividchalk
-"color Dracula
-"color sierra
+highlight VertSplit cterm=none ctermbg=none ctermfg=247
 
 "let g:gruvbox_improved_strings=0
 "let g:gruvbox_improved_warnings=1
 "let g:gruvbox_contrast_dark='dark'
 "color gruvbox
 
+set background=dark
 let g:two_firewatch_italics=1
-let g:airline_theme='twofirewatch'
 color two-firewatch
+let g:airline_theme='twofirewatch'
+
+"color sierra
 
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
@@ -243,6 +242,14 @@ map <leader><leader> <c-^>
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
 vnoremap / /\v
+
+" Move visual block
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" un/indent
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <LT>gv
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -377,6 +384,19 @@ function! RemoveFancyCharacters()
 endfunction
 command! RemoveFancyCharacters :call RemoveFancyCharacters()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Reg COMMAND
+function! Reg()
+    reg
+    echo "Register: "
+    let char = nr2char(getchar())
+    if char != "\<Esc>"
+        execute "normal! \"".char."p"
+    endif
+    redraw
+endfunction
+
+command! -nargs=0 Reg call Reg()
+
 "--------------------------------------------------------- vim-easymotion ---
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -398,6 +418,9 @@ endif
 
 " Neomake
 autocmd! BufWritePost * Neomake
+
+" let terminal resize scale the internal windows
+autocmd VimResized * :wincmd =
 
 "-------------------------------------------------------------- ultisnips ---
 " UltiSnips config
