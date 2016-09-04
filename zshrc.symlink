@@ -43,12 +43,6 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-# zsh tmux plugin options
-ZSH_TMUX_AUTOCONNECT=true
-ZSH_TMUX_FIXTERM=false
-#ZSH_TMUX_FIXTERM_WITH_256COLOR=$TERM
-#ZSH_TMUX_ITERM2=true
-
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
@@ -99,14 +93,6 @@ if [[ $#h -gt 0 ]]; then
 fi
 
 unset SCRIPT_NAME
-
-# save dirstack between sessions
-DIRSTACKSIZE=9
-DIRSTACKFILE=~/.zdirs
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-  [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-fi
 
 #----------------------------------------------------------------- aliases ---
 alias ri='ri -Tf ansi'
