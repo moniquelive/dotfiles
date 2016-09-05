@@ -1,12 +1,6 @@
 ## Non-interactive shell ##
 
 #----------------------------------------------------------------- exports ---
-export LESSCHARSET=utf-8
-export LESS="-FRmX"
-export EDITOR=$([[ -f /usr/local/bin/nvim ]] && echo nvim || echo vim)
-export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
-export CUCUMBER_FORMAT=progress
-
 export LANG=pt_BR
 export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8

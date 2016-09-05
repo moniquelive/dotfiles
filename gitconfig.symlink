@@ -31,8 +31,8 @@
 
   head        = !git l -1
   r           = !git l -30
-  #l          = log --graph --all --pretty=format:'%C(auto)%C(blue)%h%C(reset) %C(green)%ar%C(reset) %C(dim white)%an%C(reset)%C(auto)%d%C(reset) %C(bold white)%s%C(reset)'
-  l           = "!. ~/bin/git_log.sh && default"
+  l          = log --graph --pretty=format:'%C(auto)%C(blue)%h%C(reset) %C(green)%ar%C(reset) %C(dim white)%an%C(reset)%C(auto)%d%C(reset) %C(bold white)%s%C(reset)'
+  #l           = "!. ~/bin/git_log.sh && default"
   l1          = log --graph --all --decorate --pretty='format:%C(blue)%h%C(auto)%d%C(reset) %ar %C(green)%an%C(reset) %s'
   l2          = log --graph --all --decorate --oneline
   l3          = log --graph --all --pretty=format:'%C(red)%h%C(reset) - %C(green)<%an>%C(reset)%d %C(magenta)%s%C(reset) %C(yellow)(%cr)%C(reset)' --abbrev-commit

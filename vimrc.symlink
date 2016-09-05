@@ -299,6 +299,15 @@ nmap <silent> <leader>Ta :TestSuite<CR>
 nmap <silent> <leader>Tl :TestLast<CR>
 nmap <silent> <leader>Tg :TestVisit<CR>
 
+if has("gui_macvim") && has("gui_running")
+  xmap <D-/> <Plug>Commentary
+  imap <D-/> <Plug>Commentary
+  nmap <D-/> <Plug>CommentaryLine
+else
+  nmap <leader>/ <Plug>CommentaryLine
+  xmap <leader>/ <Plug>Commentary
+endif
+
 " Dont fold foldable files by default
 if has("autocmd")
   augroup Unfolding
@@ -406,15 +415,6 @@ let g:EasyMotion_smartcase = 1
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
-
-"---------------------------------------------------------- NERDCommenter ---
-let NERDSpaceDelims=1
-if has("gui_macvim") && has("gui_running")
-  map <D-/> <plug>NERDCommenterToggle<CR>
-  imap <D-/> <Esc><plug>NERDCommenterToggle<CR>i
-else
-  map <leader>/ <plug>NERDCommenterToggle<CR>
-endif
 
 " Neomake
 autocmd! BufWritePost * Neomake

@@ -70,6 +70,13 @@ ZSH_THEME="cyber-alanpeabody"
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 unalias sr
 
+# set these after omz
+export LESSCHARSET=utf-8
+export LESS="-FRmX"
+export EDITOR=$([[ -f /usr/local/bin/nvim ]] && echo nvim || echo vim)
+export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
+export CUCUMBER_FORMAT=progress
+
 # zshlovers(https://grml.org/zsh/zsh-lovers.html)
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
