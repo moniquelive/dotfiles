@@ -205,7 +205,7 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_minus
 setopt pushd_ignore_dups
-setopt complete_aliases
+#setopt complete_aliases
 setopt numericglobsort
 setopt braceccl
 #setopt noclobber
