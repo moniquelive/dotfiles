@@ -26,6 +26,7 @@ values."
      ;; ansible
      better-defaults
      command-log
+     common-lisp
      cscope
      emacs-lisp
      emoji
@@ -295,6 +296,7 @@ you should place your code here."
   (setq neo-vc-integration 'face)
   (define-key evil-normal-state-map (kbd "\\ \\") 'spacemacs/alternate-buffer)
   (define-key evil-normal-state-map (kbd "\\ RET") 'evil-search-highlight-persist-remove-all)
+  (setq inferior-lisp-program "/usr/local/bin/clisp")
   )
 
 (defun save-all ()
