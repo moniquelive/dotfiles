@@ -62,6 +62,7 @@ plugins=(
 )
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
+[[ -x "/usr/bin/pacman" ]] && plugins+=(archlinux)
 [[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
 
 ZSH_THEME="cyber-alanpeabody"
