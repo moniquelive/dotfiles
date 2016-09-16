@@ -44,7 +44,8 @@ end
 
 class Hash
   def self.toy(n=10)
-    Hash[Array.toy(n).zip(Array.toy(n){|c| (96+(c+1)).chr})]
+    # Hash[Array.toy(n).zip(Array.toy(n){|c| (96+(c+1)).chr})]
+    {}.tap { |hsh| n.times {|i| hsh[('a'.ord+i).chr.to_sym] = i+1} }
   end
 end
 
