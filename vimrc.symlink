@@ -128,14 +128,21 @@ endif
 
 " Random themes!
 if &term =~ '256color'
+  if !has("gui_running")
+    set term=xterm-256color
+  endif
+
   set t_Co=256
+
   " disable Background Color Erase (BCE) so that color schemes
   " render properly when inside 256-color tmux and GNU screen.
   " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
   set t_ut=
 endif
 
+set background=dark
 syntax on
+
 if (has("termguicolors")) " Or if you have Neovim >= 0.1.5
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   set termguicolors
@@ -166,20 +173,19 @@ end
 set fillchars=vert:│,fold:-
 highlight VertSplit cterm=none ctermbg=none ctermfg=247
 
-"let g:gruvbox_improved_strings=0
-"let g:gruvbox_improved_warnings=1
-"let g:gruvbox_contrast_dark='dark'
-"color gruvbox
+let g:gruvbox_improved_strings=0
+let g:gruvbox_improved_warnings=1
+let g:gruvbox_contrast_dark='dark'
+color gruvbox
 
-set background=dark
-let g:two_firewatch_italics=1
-color two-firewatch
-let g:airline_theme='twofirewatch'
+"let g:two_firewatch_italics=1
+"color two-firewatch
+"let g:airline_theme='twofirewatch'
 
 "color sierra
 
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
+"highlight Normal ctermbg=NONE
+"highlight nonText ctermbg=NONE
 " }}}
 
 " Mappings to easily toggle fold levels
