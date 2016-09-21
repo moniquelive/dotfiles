@@ -31,6 +31,7 @@ values."
      emacs-lisp
      emoji
      evil-commentary
+     finance
      git
      html
      markdown
@@ -288,7 +289,7 @@ you should place your code here."
   (setq powerline-default-separator 'bar)
   (setq vc-follow-symlinks t)
   (setq markdown-open-command "/usr/bin/open")
-  (global-company-mode)
+  ;;; (global-company-mode)
   ;; default vim-surround
   (evil-define-key 'visual evil-surround-mode-map "s" 'evil-substitute)
   (evil-define-key 'visual evil-surround-mode-map "S" 'evil-surround-region)
