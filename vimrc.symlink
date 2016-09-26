@@ -243,7 +243,7 @@ highlight Search ctermbg=black ctermfg=yellow term=underline
 cmap w!! w !sudo tee > /dev/null %
 
 " Alternate buffer (easier than <C-^>)
-map <leader><leader> <c-^>
+nmap <leader><leader> <c-^>
 
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
