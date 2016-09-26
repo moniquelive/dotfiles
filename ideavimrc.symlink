@@ -1,6 +1,6 @@
 "source ~/.vimrc
 nunmap /
 vunmap /
+nnoremap <leader><leader> :action VimFilePrevious<CR>
 set surround
 set ignorecase
-
