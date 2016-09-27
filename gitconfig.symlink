@@ -1,11 +1,11 @@
 [user]
-	name = cyber
-	email = cyber@21212.com
+  name = cyber
+  email = cyber@21212.com
 
 [core]
   quotepath    = false
   editor       = vim
-	excludesfile = /Users/leo/.gitignore_global
+  excludesfile = /Users/leo/.gitignore_global
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   autocrlf     = input
 
@@ -52,10 +52,10 @@
   statcatchup = log --stat --reverse --topo-order _ribbon..origin/master
   showtool    = "!sh -c 'REVISION="${1:-HEAD}"; git difftool $REVISION~ $REVISION' -"
   dt          = difftool --dir-diff
-	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
+  ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 
 [branch "master"]
-	mergeoptions = --no-ff
+  mergeoptions = --no-ff
 
 [push]
     #default = tracking
@@ -72,6 +72,7 @@
 
 [diff]
   tool = bc3
+  algorithm = patience
 
 [merge]
   tool = bc3
