@@ -73,6 +73,8 @@
 [diff]
   tool = bc3
   algorithm = patience
+  wordRegex = [A-z0-9_]+|[^[:space:]]
+  context = 5
 
 [merge]
   tool = bc3
