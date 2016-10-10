@@ -54,6 +54,9 @@ set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
 set splitbelow splitright
 set number "relativenumber
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
@@ -377,9 +380,17 @@ function! s:unite_my_settings()"{{{
   imap <silent><buffer><expr> <C-s>     unite#do_action('split')
   imap <silent><buffer><expr> <C-v>     unite#do_action('vsplit')
 
-  if executable('ag')
+  if executable('rg')
+    " use ripgrep
+    "
+    let g:unite_source_rec_async_command = ['rg', '--follow', '--color never', '--no-heading', '--hidden', '-g', '--files', '']
+    let g:unite_source_grep_command = 'rg'
+    let g:unite_source_grep_default_opts = '-i --vimgrep --hidden'
+    let g:unite_source_grep_recursive_opt = ''
+  elseif executable('ag')
     " Use ag (the silver searcher)
     " https://github.com/ggreer/the_silver_searcher
+    "
     let g:unite_source_rec_async_command =
           \ ['ag', '--follow', '--nocolor', '--nogroup',
           \  '--hidden', '-g', '']
