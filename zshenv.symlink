@@ -10,6 +10,7 @@ export LC_CTYPE=${LANG}.UTF-8
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
 
 # Add RVM to PATH
+[[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
 [[ -d "${HOME}/.rvm/bin" ]] && path+=($HOME/.rvm/bin)
 [[ -d "/usr/local/rvm/bin" ]] && path+=(/usr/local/rvm/bin)
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
