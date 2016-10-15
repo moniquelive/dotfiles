@@ -163,9 +163,6 @@
 [submodule "vim.symlink/bundle/vim-mustache-handlebars"]
 	path = vim.symlink/bundle/vim-mustache-handlebars
 	url = git://github.com/mustache/vim-mustache-handlebars.git
-[submodule "vim.symlink/bundle/vim-test"]
-	path = vim.symlink/bundle/vim-test
-	url = https://github.com/janko-m/vim-test.git
 [submodule "vim.symlink/bundle/vim-two-firewatch"]
 	path = vim.symlink/bundle/vim-two-firewatch
 	url = https://github.com/rakr/vim-two-firewatch.git
