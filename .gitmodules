@@ -103,9 +103,6 @@
 [submodule "vim.symlink/bundle/emmet-vim"]
 	path = vim.symlink/bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
-[submodule "vim.symlink/bundle/quick-scope"]
-	path = vim.symlink/bundle/quick-scope
-	url = https://github.com/unblevable/quick-scope.git
 [submodule "vim.symlink/bundle/vim-unimpaired"]
 	path = vim.symlink/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired.git
@@ -178,3 +175,6 @@
 [submodule "vim.symlink/bundle/Sierra"]
 	path = vim.symlink/bundle/Sierra
 	url = https://github.com/AlessandroYorba/Sierra.git
+[submodule "vim.symlink/bundle/vim-rspec"]
+	path = vim.symlink/bundle/vim-rspec
+	url = https://github.com/thoughtbot/vim-rspec.git
