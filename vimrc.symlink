@@ -566,16 +566,18 @@ map <Leader>ra :call RunAllSpecs()<CR>
 let g:user_emmet_expandabbr_key = '<Tab>'
 let g:use_emmet_complete_tag = 1
 
-if 0 " if 0 / endif HACK
-i
+"--------------------------------------------------------------- SplitJoin ---
+let g:splitjoin_align = 1
 
-
-.
-endif
-
-" AIRLINE
+"----------------------------------------------------------------- AIRLINE ---
 let g:airline#extensions#tabline#enabled = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+if 0 " if 0 / endif HACK
+i
+
+.
+endif
 
 "}}}
