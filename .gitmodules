@@ -142,9 +142,6 @@
 [submodule "vim.symlink/bundle/vim-devicons"]
 	path = vim.symlink/bundle/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule "vim.symlink/bundle/vim-auto-save"]
-	path = vim.symlink/bundle/vim-auto-save
-	url = https://github.com/vim-scripts/vim-auto-save.git
 [submodule "vim.symlink/bundle/YouCompleteMe"]
 	path = vim.symlink/bundle/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
@@ -172,3 +169,9 @@
 [submodule "vim.symlink/bundle/vim-rspec"]
 	path = vim.symlink/bundle/vim-rspec
 	url = https://github.com/thoughtbot/vim-rspec.git
+[submodule "vim.symlink/bundle/base16-vim"]
+	path = vim.symlink/bundle/base16-vim
+	url = https://github.com/chriskempson/base16-vim.git
+[submodule "vim.symlink/bundle/terminus"]
+	path = vim.symlink/bundle/terminus
+	url = https://github.com/wincent/terminus.git

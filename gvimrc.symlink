@@ -16,10 +16,6 @@ if has("gui_macvim")
   set lines=45
   set columns=120
 
-  " Autosave on focus lost
-  autocmd FocusLost * silent! wa
-  let g:auto_save = 0
-
   if &term == 'xterm' || &term == 'screen'
     set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
   endif
