@@ -53,6 +53,13 @@ bind C-b last-pane
 bind Space next-window
 bind C-Space next-window
 
+# Use Alt-vim keys without prefix key to switch panes
+bind -n M-h select-pane -L
+bind -n M-j select-pane -D
+bind -n M-k select-pane -U
+bind -n M-l select-pane -R
+
+# Use meta keys without prefix split panes
 bind -n M-\ split-window -h -c '#{pane_current_path}'
 bind -n M-- split-window -v -c '#{pane_current_path}'
 
