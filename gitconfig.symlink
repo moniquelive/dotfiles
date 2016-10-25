@@ -61,13 +61,13 @@
     #default = tracking
   default = current
 
-[url "https://github.com"]
+[url "git@github.com:"]
   insteadOf = gh:
 
-[url "https://bitbucket.org"]
+[url "https://bitbucket.org/"]
   insteadOf = bb:
 
-[url "https://github.com"]
+[url "https://github.com/"]
   insteadOf = git://github.com
 
 [gc]
