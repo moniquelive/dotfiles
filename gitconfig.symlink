@@ -67,7 +67,7 @@
 [url "https://bitbucket.org/"]
   insteadOf = bb:
 
-[url "https://github.com/"]
+[url "https://github.com"]
   insteadOf = git://github.com
 
 [gc]
