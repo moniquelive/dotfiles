@@ -36,5 +36,8 @@ if has("gui_macvim")
   " SHIFT-CMD-M
   nmap <D-M> <leader>m
   imap <D-M> <ESC><leader>m
-endif
 
+  " CPP make / makerun (for openframeworks)
+  autocmd FileType cpp nmap <D-b> :make -j Release<cr>
+  autocmd FileType cpp nmap <D-r> :make RunRelease<cr>
+endif
