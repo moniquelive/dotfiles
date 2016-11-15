@@ -138,7 +138,7 @@
 	url = https://github.com/ryanoasis/vim-devicons.git
 [submodule "vim.symlink/bundle/YouCompleteMe"]
 	path = vim.symlink/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe.git
+	url = https://github.com/Valloric/YouCompleteMe
 [submodule "vim.symlink/bundle/fzf.vim"]
 	path = vim.symlink/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
@@ -169,6 +169,3 @@
 [submodule "vim.symlink/bundle/terminus"]
 	path = vim.symlink/bundle/terminus
 	url = https://github.com/wincent/terminus.git
-[submodule "vim.symlink/bundle/VimCompletesMe"]
-	path = vim.symlink/bundle/VimCompletesMe
-	url = git://github.com/ajh17/VimCompletesMe.git
