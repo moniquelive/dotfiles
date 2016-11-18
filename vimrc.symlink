@@ -527,9 +527,19 @@ autocmd VimResized * :wincmd =
 "-------------------------------------------------------------- ultisnips ---
 " UltiSnips config
 " make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:ycm_key_list_select_completion    = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion  = ['<C-p>', '<Up>']
+"let g:SuperTabDefaultCompletionType    = '<C-n>'
+let g:SuperTabDefaultCompletionType     = 'context'
+let g:SuperTabCompletionContexts        = ['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
+let g:SuperTabMappingForward            = '<tab>'
+let g:SuperTabMappingBackward           = '<s-tab>'
+let g:SuperTabCrMapping                 = 1
+autocmd FileType *
+      \ if &omnifunc != '' |
+      \   call SuperTabChain(&omnifunc, "<c-p>") |
+      \ endif
 
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
