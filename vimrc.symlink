@@ -105,6 +105,15 @@ set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
+" create intermediary directories
+fun! <SID>AutoMakeDirectory()
+  let s:directory = expand("<afile>:p:h")
+  if !isdirectory(s:directory)
+    call mkdir(s:directory, "p")
+  endif
+endfun
+autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
+
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 map <leader>ew :e %%
 map <leader>es :sp %%
