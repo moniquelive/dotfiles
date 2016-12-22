@@ -9,7 +9,7 @@ URxvt.urgentOnBell: off
 URxvt.visualBell: off
 URxvt.iso14755: off
 URxvt.iso14755_52: off
-!URxvt.meta8: true
+URxvt.meta8: true
 URxvt.depth: 32
 
 URxvt.scrollBar: off
@@ -89,7 +89,7 @@ URxvt.intensityStyles: false
 
 ! Xterm
 !!! xterm*termName: xterm-256color
-XTerm*metaSendsEscape: false
+XTerm*metaSendsEscape: true
 xterm*faceName:           Ubuntu Mono derivative Powerline:style=Regular:size=18
 ! Xterm*saveLines: 4096
 ! #include ".Xresources.d/xterm"
