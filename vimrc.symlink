@@ -190,19 +190,16 @@ end
 set fillchars=vert:│,fold:-
 highlight VertSplit cterm=none ctermbg=none ctermfg=247
 
-" let g:base16colorspace=256
+" base16
+let g:base16colorspace=256
 " color base16-tomorrow-night
+color base16-hopscotch
 
-let g:gruvbox_improved_strings=0
-let g:gruvbox_improved_warnings=1
-let g:gruvbox_contrast_dark='dark'
-color gruvbox
-
-"let g:two_firewatch_italics=1
-"color two-firewatch
-"let g:airline_theme='twofirewatch'
-
-"color sierra
+" gruvbox
+" let g:gruvbox_improved_strings=0
+" let g:gruvbox_improved_warnings=1
+" let g:gruvbox_contrast_dark='dark'
+" color gruvbox
 
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
