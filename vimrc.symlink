@@ -253,6 +253,13 @@ augroup JumpToLastPosition
   au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 augroup END
 
+" augroup DynamicNumbering
+"   au!
+"   set relativenumber number
+"   autocmd InsertEnter * set norelativenumber
+"   autocmd InsertLeave * set relativenumber
+" augroup END
+
 " Subtle search highlights
 highlight Search ctermbg=black ctermfg=yellow term=underline
 
