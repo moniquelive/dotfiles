@@ -123,7 +123,7 @@ alias j="jobs -l"
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
-[ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='open -a /usr/local/opt/emacs-plus/bin/emacs --args $*'
+[ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='/usr/local/opt/emacs-plus/bin/emacs -nw $*'
 
 #------------------------------------------------------------------ global ---
 alias -g A="| awk"
