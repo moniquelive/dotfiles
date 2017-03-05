@@ -1,7 +1,8 @@
 # Basic Settings
 #
-fontName         = "Panic Sans"
-fontSize         = 16
+fontName         = "Roboto Mono for Powerline"
+fontSize         = 18
+saveOnBlur       = true
 
 # Extra files to include
 #

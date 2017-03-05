@@ -163,3 +163,6 @@
 [submodule "vim.symlink/bundle/terminus"]
 	path = vim.symlink/bundle/terminus
 	url = https://github.com/wincent/terminus.git
+[submodule "vim.symlink/bundle/ale"]
+	path = vim.symlink/bundle/ale
+	url = https://github.com/w0rp/ale.git
