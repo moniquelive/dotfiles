@@ -37,6 +37,7 @@ let g:ragtag_global_maps = 1
 set ts=2 sts=2 sw=2 sr et nowrap
 set noswapfile hlsearch cursorline
 set ignorecase smartcase
+set textwidth=80 colorcolumn=+1
 
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2
@@ -169,7 +170,7 @@ if has('lua')
   function! s:turn_column_off()
     set colorcolumn=0
     "highlight ColorColumn ctermbg=magenta
-    call matchadd('ColorColumn', '\%79v', 100)
+    call matchadd('ColorColumn', '\%81v', 100)
   endfunction
 
   function! s:pick_random_theme()
@@ -379,6 +380,7 @@ if has("autocmd") && exists("+omnifunc")
           \if &omnifunc == "" |
           \setlocal omnifunc=syntaxcomplete#Complete |
           \endif
+    autocmd FileType ruby,eruby let ruby_space_errors = 1
     autocmd FileType ruby,eruby let ruby_fold = 1
     autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
     autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
