@@ -124,9 +124,6 @@
 [submodule "vim.symlink/bundle/neomru.vim"]
 	path = vim.symlink/bundle/neomru.vim
 	url = https://github.com/Shougo/neomru.vim.git
-[submodule "vim.symlink/bundle/neomake"]
-	path = vim.symlink/bundle/neomake
-	url = https://github.com/benekastah/neomake.git
 [submodule "vim.symlink/bundle/neco-vim"]
 	path = vim.symlink/bundle/neco-vim
 	url = https://github.com/Shougo/neco-vim.git
