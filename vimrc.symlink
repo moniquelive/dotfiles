@@ -465,9 +465,6 @@ let g:EasyMotion_smartcase = 1
 map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 
-" Neomake
-autocmd! BufWritePost * Neomake
-
 " let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
 
