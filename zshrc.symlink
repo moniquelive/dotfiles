@@ -222,6 +222,14 @@ unsetopt print_exit_value
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export CUDA_HOME=/usr/local/cuda
+export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
+export PATH="$CUDA_HOME/bin:$PATH"
+
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/Projects/python
+source /usr/local/bin/virtualenvwrapper.sh
+
 #----------------------------------------------------------------------------
 ## BENCHMARKING (END)
 ## turn off tracing
