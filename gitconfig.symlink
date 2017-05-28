@@ -1,6 +1,6 @@
 [user]
-  name = cyber
-  email = cyber@21212.com
+	name = cyber
+	email = lccro@msn.com
 
 [core]
   quotepath    = false
@@ -98,3 +98,9 @@
 
 [pull]
   rebase = true
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
+	path = -ro
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
+	trustExitCode = true
