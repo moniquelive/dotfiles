@@ -255,6 +255,15 @@ augroup JumpToLastPosition
   au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 augroup END
 
+augroup RainbowParentheses
+  let g:rbpt_max            = 16
+  let g:rbpt_loadcmd_toggle = 0
+  au VimEnter * RainbowParenthesesToggle
+  au Syntax * RainbowParenthesesLoadRound
+  au Syntax * RainbowParenthesesLoadSquare
+  au Syntax * RainbowParenthesesLoadBraces
+augroup END
+
 " augroup DynamicNumbering
 "   au!
 "   set relativenumber number
