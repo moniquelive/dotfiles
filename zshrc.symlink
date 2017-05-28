@@ -103,6 +103,7 @@ fi
 unset SCRIPT_NAME
 
 #----------------------------------------------------------------- aliases ---
+alias ls='ls --color=auto'
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
 alias listen='lsof -i -P | grep LISTEN'
@@ -123,6 +124,7 @@ alias j="jobs -l"
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
+alias createiso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 [ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='/usr/local/opt/emacs-plus/bin/emacs -nw $*'
 
 #------------------------------------------------------------------ global ---
