@@ -195,13 +195,13 @@ highlight VertSplit cterm=none ctermbg=none ctermfg=247
 " base16
 let g:base16colorspace=256
 " color base16-tomorrow-night
-color base16-hopscotch
+" color base16-hopscotch
 
 " gruvbox
-" let g:gruvbox_improved_strings=0
-" let g:gruvbox_improved_warnings=1
-" let g:gruvbox_contrast_dark='dark'
-" color gruvbox
+let g:gruvbox_improved_strings=0
+let g:gruvbox_improved_warnings=1
+let g:gruvbox_contrast_dark='dark'
+color gruvbox
 
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
