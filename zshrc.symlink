@@ -238,3 +238,5 @@ source /usr/local/bin/virtualenvwrapper.sh
 #unsetopt xtrace
 ## restore stderr to the value saved in FD 3
 #exec 2>&3 3>&-
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

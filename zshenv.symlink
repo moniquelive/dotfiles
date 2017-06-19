@@ -11,8 +11,8 @@ export LC_CTYPE=${LANG}.UTF-8
 
 # Add RVM to PATH
 [[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
-[[ -d "${HOME}/.rvm/bin" ]] && path+=($HOME/.rvm/bin)
-[[ -d "/usr/local/rvm/bin" ]] && path+=(/usr/local/rvm/bin)
+[[ -d "${HOME}/.rvm/bin" ]] && path=($HOME/.rvm/bin $path)
+[[ -d "/usr/local/rvm/bin" ]] && path=(/usr/local/rvm/bin $path)
 [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 if [[ -s "/usr/local/bin/brew" ]]; then
