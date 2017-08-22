@@ -28,9 +28,6 @@
 [submodule "vim.symlink/bundle/vim-coffee-script"]
 	path = vim.symlink/bundle/vim-coffee-script
 	url = https://github.com/kchmck/vim-coffee-script
-[submodule "vim.symlink/bundle/vim-colorschemes"]
-	path = vim.symlink/bundle/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes
 [submodule "vim.symlink/bundle/vim-endwise"]
 	path = vim.symlink/bundle/vim-endwise
 	url = https://github.com/tpope/vim-endwise
@@ -76,9 +73,6 @@
 [submodule "vim.symlink/bundle/vim-prosession"]
 	path = vim.symlink/bundle/vim-prosession
 	url = git://github.com/dhruvasagar/vim-prosession.git
-[submodule "vim.symlink/bundle/supertab"]
-	path = vim.symlink/bundle/supertab
-	url = https://github.com/ervandew/supertab
 [submodule "vim.symlink/bundle/syntastic"]
 	path = vim.symlink/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
@@ -87,7 +81,7 @@
 	url = git@github.com:tpope/vim-fugitive.git
 [submodule "vim.symlink/bundle/vim-obsession"]
 	path = vim.symlink/bundle/vim-obsession
-	url = gh:tpope/vim-obsession
+	url = git://github.com/tpope/vim-obsession
 [submodule "vim.symlink/bundle/vim-snippets"]
 	path = vim.symlink/bundle/vim-snippets
 	url = git://github.com/honza/vim-snippets.git
@@ -130,9 +124,6 @@
 [submodule "vim.symlink/bundle/vim-devicons"]
 	path = vim.symlink/bundle/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
-[submodule "vim.symlink/bundle/YouCompleteMe"]
-	path = vim.symlink/bundle/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe
 [submodule "vim.symlink/bundle/fzf.vim"]
 	path = vim.symlink/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
@@ -148,9 +139,6 @@
 [submodule "vim.symlink/bundle/vim-mustache-handlebars"]
 	path = vim.symlink/bundle/vim-mustache-handlebars
 	url = git://github.com/mustache/vim-mustache-handlebars.git
-[submodule "vim.symlink/bundle/vim-two-firewatch"]
-	path = vim.symlink/bundle/vim-two-firewatch
-	url = https://github.com/rakr/vim-two-firewatch.git
 [submodule "vim.symlink/bundle/vim-rspec"]
 	path = vim.symlink/bundle/vim-rspec
 	url = https://github.com/thoughtbot/vim-rspec.git
