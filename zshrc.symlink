@@ -171,6 +171,8 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey '\eOA' up-line-or-beginning-search
 bindkey '\eOB' down-line-or-beginning-search
+bindkey '^P' up-line-or-beginning-search
+bindkey '^N' down-line-or-beginning-search
 
 # edit command line in $EDITOR
 autoload -z edit-command-line
