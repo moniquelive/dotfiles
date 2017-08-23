@@ -17,8 +17,7 @@ nnoremap <leader>v :split $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap jk <esc>
 nnoremap <Leader>s <Plug>(easymotion-s)
-nnoremap <silent> <leader>d <Plug>DashSearch
-" vim-uninpaired: nnoremap <leader>l :setlocal number!<cr>
+"nnoremap <silent> <leader>d <Plug>DashSearch
 " }}}
 
 " augroup reload_vimrc " {
@@ -480,66 +479,8 @@ endfunction
 
 command! -nargs=0 Reg call Reg()
 
-"--------------------------------------------------------- vim-easymotion ---
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" Turn on case sensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
 " let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
-
-"-------------------------------------------------------------- ultisnips ---
-" UltiSnips config
-" make YCM compatible with UltiSnips (using supertab)
-let g:ycm_key_list_select_completion    = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion  = ['<C-p>', '<Up>']
-"let g:SuperTabDefaultCompletionType    = '<C-n>'
-let g:SuperTabDefaultCompletionType     = 'context'
-let g:SuperTabCompletionContexts        = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
-let g:SuperTabMappingForward            = '<tab>'
-let g:SuperTabMappingBackward           = '<s-tab>'
-let g:SuperTabCrMapping                 = 1
-autocmd FileType *
-      \ if &omnifunc != '' |
-      \   call SuperTabChain(&omnifunc, "<c-p>") |
-      \ endif
-
-" better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-
-"--------------------------------------------------------------- Deoplete ---
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-" let g:deoplete#enable_refresh_always = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#auto_complete_start_length = 2
-let g:ycm_global_ycm_extra_conf='~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
-
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-
-" tab-complete
-let g:ulti_expand_or_jump_res = 0
-function ExpandSnippetOrTab()
-    let snippet = UltiSnips#ExpandSnippetOrJump()
-    if g:ulti_expand_or_jump_res > 0
-        return snippet
-    else
-        return "\<c-n>"
-    endif
-endfunction
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "<C-R>=ExpandSnippetOrTab()<CR>" :
-      \ "\<Tab>"
 
 "------------------------------------------------------------ editorconfig ---
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
@@ -554,21 +495,50 @@ map <Leader>ra :call RunAllSpecs()<CR>
 "let g:rspec_runner = "os_x_iterm2"
 
 "------------------------------------------------------------------ EMMET ---
-let g:user_emmet_expandabbr_key = '<Tab>'
+"let g:user_emmet_expandabbr_key = '<Tab>'
 let g:use_emmet_complete_tag = 1
 
 "--------------------------------------------------------------- SplitJoin ---
 let g:splitjoin_align = 1
 
-"----------------------------------------------------------------- AIRLINE ---
-let g:airline#extensions#tabline#enabled = 0
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
+"-------------------------------------------------------------- MuComplete ---
+set noshowmode shortmess+=c
+set noinfercase
+set completeopt-=preview
+set completeopt+=longest,menuone,noinsert,noselect
 
-if 0 " if 0 / endif HACK
-i
+" tab-complete
+let g:ulti_expand_or_jump_res = 0
+" function ExpandSnippetOrTab()
+"     let snippet = UltiSnips#ExpandSnippetOrJump()
+"     if g:ulti_expand_or_jump_res > 0
+"         return snippet
+"     else
+"         return mucomplete#tab_complete(1)
+"     endif
+" endfunction
+" inoremap <silent><expr> <tab>
+"       \ pumvisible() ? "<C-R>=ExpandSnippetOrTab()<CR>" :
+"       \ "\<Tab>"
 
-.
-endif
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" inoremap <silent> <plug>(MUcompleteFwdKey) <right>
+" imap <expr> <right> <plug>(MUcompleteCycFwd)
+
+imap <unique> <c-j> <plug>(MUcompleteFwd)
+imap <unique> <c-k> <plug>(MUcompleteBwd)
+
+let g:mucomplete#no_mappings = 1
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#chains = {
+      \ 'default': ['path', 'keyn', 'omni', 'dict', 'ulti'],
+      \ 'cucumber' : ['keyn', 'dict', 'line', 'uspl', 'ulti'],
+      \ 'gitcommit' : ['keyn', 'dict', 'uspl'],
+      \ 'ruby': ['path', 'dict', 'ulti'],
+      \ }
+
 
 "}}}
