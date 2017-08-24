@@ -161,11 +161,6 @@ endif
 set background=dark
 syntax on
 
-if (has("termguicolors")) " Or if you have Neovim >= 0.1.5
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-  set termguicolors
-endif
-
 if has('lua')
   function! s:turn_column_off()
     set colorcolumn=0
