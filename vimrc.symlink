@@ -142,8 +142,6 @@ if isdirectory(expand("~/.vim/bundle/undotree/"))
   let g:undotree_SetFocusWhenToggle=1
 endif
 
-
-
 " Random themes!
 if &term =~ '256color'
   if !has("gui_running")
