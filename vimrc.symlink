@@ -1,6 +1,6 @@
 " This is CyberLeo's .vimrc file
 " vim:set ts=2 sts=2 sw=2 expandtab:
-"
+
 "------------------------------------------------------ PATHOGEN - plugins ---
 set nocompatible
 
@@ -12,28 +12,16 @@ filetype plugin indent on
 set sessionoptions-=options
 
 "-------------------------------------------------------- CYBERAMA - begin ---
-" VIM BOOK {{{
-nnoremap <leader>v :split $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-inoremap jk <esc>
-nnoremap <Leader>s <Plug>(easymotion-s)
-"nnoremap <silent> <leader>d <Plug>DashSearch
-" }}}
+augroup reload_vimrc " {
+  au!
+  au BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
-" augroup reload_vimrc " {
-"   au!
-"   au BufWritePost $MYVIMRC source $MYVIMRC
-" augroup END " }
-
-"let mapleader=","
-"let g:ackprg          = 'ag --nogroup --nocolor --column'
-"let g:netrw_liststyle = 3 " = 3: tree style listing
-let g:netrw_altfile   = 1 " <C-6> returns to files
-
+let g:netrw_altfile = 1 " <C-6> returns to files
 let g:ragtag_global_maps = 1
 
 " global defaults {{{
-set ts=2 sts=2 sw=2 sr et nowrap
+set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
 set noswapfile hlsearch cursorline
 set ignorecase smartcase
 set textwidth=80 colorcolumn=+1
@@ -41,20 +29,17 @@ set textwidth=80 colorcolumn=+1
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2
 
-set noshowmode " Hide the default mode text (e.g. -- INSERT -- below the statusline)
 set switchbuf=useopen
-"set winwidth=79
 set showfulltag
 set incsearch
-set autowriteall
 set updatetime=2000
-"set shortmess+=I
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
 set splitbelow splitright
-set number "relativenumber
-set rtp+=/usr/local/opt/fzf
+set runtimepath+=/usr/local/opt/fzf
+
+" ripgrep ftw!
 if executable("rg")
   set grepprg=rg\ --vimgrep\ --no-heading
   set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -62,13 +47,18 @@ endif
 
 " Autosave on focus lost
 autocmd FocusLost * silent! wa
-let g:auto_save = 0
+set autowriteall
+
+" let terminal resize scale the internal windows
+autocmd VimResized * :wincmd =
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
 set t_ti= t_te=
+
 " keep more context when scrolling off the end of a buffer
 set scrolloff=2
+
 " Store temporary files in a central spot
 set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -79,17 +69,22 @@ if has('persistent_undo')
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
+
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
+
 " display incomplete commands
 set showcmd
+
 " make tab completion for files/buffers act like bash
 set wildmenu
 set wildmode=full "list:full
 set wildignore=*.swp,*.bak,*.pyc,*.class
+
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
+
 " If a file is changed outside of vim, automatically reload it without asking
 set autoread
 set autoindent copyindent smartindent
@@ -104,7 +99,6 @@ set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
-autocmd BufNewFile,BufRead *.coffee set filetype=coffee
 
 " create intermediary directories
 fun! <SID>AutoMakeDirectory()
@@ -116,12 +110,9 @@ endfun
 autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>et :tabe %%
-
 noremap Q !!sh<CR>
+
+" neovim terminal mappings
 if exists(':tnoremap')
   tnoremap <Esc> <C-\><C-n>
   tnoremap <A-h> <C-\><C-n><C-w>h
@@ -134,17 +125,14 @@ if exists(':tnoremap')
   nnoremap <A-l> <C-w>l
 endif
 
-set completeopt=menu,preview,longest
-
 if isdirectory(expand("~/.vim/bundle/undotree/"))
   nnoremap <Leader>u :UndotreeToggle<CR>
   " If undotree is opened, it is likely one wants to interact with it.
   let g:undotree_SetFocusWhenToggle=1
 endif
 
-" Random themes!
 if &term =~ '256color'
-  if !has("gui_running")
+  if ! has("gui_running")
     set term=xterm-256color
   endif
 
@@ -159,33 +147,8 @@ endif
 set background=dark
 syntax on
 
-if has('lua')
-  function! s:turn_column_off()
-    set colorcolumn=0
-    "highlight ColorColumn ctermbg=magenta
-    call matchadd('ColorColumn', '\%81v', 100)
-  endfunction
-
-  function! s:pick_random_theme()
-lua <<EOF
-    math.randomseed(os.time())
-    local themes = {'BlackSea', 'Chasing_Logic', 'CodeFactoryv3', 'Monokai', 'MountainDew', 'SlateDark', 'Tomorrow-Night', 'Tomorrow-Night-Eighties', 'abra', 'anotherdark', 'apprentice', 'asu1dark', 'babymate256', 'badwolf', 'base16-atelierdune', 'bensday', 'billw', 'blackboard', 'blackdust', 'blacklight', 'blazer', 'bluechia', 'bluegreen', 'blugrine', 'bocau', 'bubblegum', 'burnttoast256', 'busybee', 'bvemu', 'camo', 'candy', 'candycode', 'candyman', 'carvedwood', 'chance-of-storm', 'chocolate', 'clearance', 'cobaltish', 'codeschool', 'coffee', 'corn', 'corporation', 'cthulhian', 'darkBlue', 'darkZ', 'darkbone', 'darkburn', 'darkeclipse', 'darker-robin', 'darkerdesert', 'darkocean', 'darkrobot', 'darkspectrum', 'desert', 'desert256v2', 'desertEx', 'desertedocean', 'detailed', 'distinguished', 'doriath', 'dusk', 'earendel', 'eclm_wombat', 'ecostation', 'ego', 'ekinivim', 'elise', 'flatcolor', 'flatland', 'flattr', 'fnaqevan', 'forneus', 'freya', 'fu', 'getafe', 'golden', 'gor', 'gotham256', 'graywh', 'grb256', 'greyblue', 'gruvbox', 'guardian', 'herald', 'hybrid', 'industrial', 'inkpot', 'jelleybeans', 'jellyx', 'kellys', 'kib_darktango', 'kkruby', 'kolor', 'lilypink', 'lizard256', 'lodestone', 'luna', 'made_of_code', 'mango', 'manuscript', 'mdark', 'midnight', 'mint', 'monokain', 'moria', 'motus', 'mrpink', 'muon', 'mustang', 'native', 'nazca', 'neon', 'nevfn', 'nightVision', 'nightflight2', 'no_quarter', 'obsidian2', 'pacific', 'peppers', 'pf_earth', 'phd', 'pw', 'quagmire', 'radicalgoodspeed', 'railscasts', 'rainbow_neon', 'rdark', 'refactor', 'robinhood', 'rootwater', 'selenitic', 'seoul256', 'settlemyer', 'sexy-railscasts', 'shobogenzo', 'sift', 'skittles_berry', 'softbluev2', 'sonofobsidian', 'sorcerer', 'southwest-fog', 'strawimodo', 'symfony', 'synic', 'tchaba', 'tesla', 'twilight', 'two2tango', 'umber-green', 'up', 'vilight', 'void', 'watermark', 'wombat256', 'zenburn', '0x7A69_dark'}
-    local theme = themes[math.random(1,#themes)]
-    local col = 'call <SID>turn_column_off() | set background=dark'
-    local log = string.format('redraw | echo "Loaded theme %s"', theme)
-    local cmd = string.format('color %s | %s | %s', theme, col, log)
-    vim.command(cmd)
-EOF
-  endfunction
-
-  nnoremap <expr> <F5> <SID>pick_random_theme()
-  "silent call <SID>pick_random_theme()
-end
-set fillchars=vert:│,fold:-
-highlight VertSplit cterm=none ctermbg=none ctermfg=247
-
 " base16
-let g:base16colorspace=256
+" let g:base16colorspace=256
 " color base16-tomorrow-night
 " color base16-hopscotch
 
@@ -194,6 +157,11 @@ let g:gruvbox_improved_strings=0
 let g:gruvbox_improved_warnings=1
 let g:gruvbox_contrast_dark='dark'
 color gruvbox
+
+" set fillchars=vert:│,fold:-
+set fillchars=""
+highlight VertSplit cterm=none ctermbg=none ctermfg=247 guifg=fg guibg=bg
+" highlight VertSplit guifg=fg guibg=bg
 
 "highlight Normal ctermbg=NONE
 "highlight nonText ctermbg=NONE
@@ -256,13 +224,6 @@ augroup RainbowParentheses
   au Syntax * RainbowParenthesesLoadBraces
 augroup END
 
-" augroup DynamicNumbering
-"   au!
-"   set relativenumber number
-"   autocmd InsertEnter * set norelativenumber
-"   autocmd InsertLeave * set relativenumber
-" augroup END
-
 " Subtle search highlights
 highlight Search ctermbg=black ctermfg=yellow term=underline
 
@@ -279,10 +240,6 @@ vnoremap / /\v
 " Move visual block
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
-
-" un/indent
-vnoremap <Tab> >gv
-vnoremap <S-Tab> <LT>gv
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -326,12 +283,6 @@ if has("autocmd")
         \ endif
 endif
 
-nmap <silent> <leader>Tt :TestNearest<CR>
-nmap <silent> <leader>TT :TestFile<CR>
-nmap <silent> <leader>Ta :TestSuite<CR>
-nmap <silent> <leader>Tl :TestLast<CR>
-nmap <silent> <leader>Tg :TestVisit<CR>
-
 if has("gui_macvim") && has("gui_running")
   xmap <D-/> <Plug>Commentary
   imap <D-/> <Plug>Commentary
@@ -373,6 +324,13 @@ command! -bang -nargs=* Ag
   \                 <bang>0)
 " </FZF>
 
+if has("autocmd")
+  augroup CoffeeScripting
+    autocmd!
+    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
+  augroup END
+endif
+
 " Dont fold foldable files by default
 if has("autocmd")
   augroup Unfolding
@@ -406,6 +364,16 @@ if has("autocmd") && exists("+omnifunc")
     autocmd FileType ruby let &l:tags = pathogen#legacyjoin(pathogen#uniq(
           \ pathogen#split(&tags) +
           \ map(split($GEM_PATH,':'),'v:val."/gems/*/tags"')))
+
+    " Enable omni completion.
+    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+    autocmd FileType c set omnifunc=ccomplete#Complete
+    autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
   augroup END
 endif
 
@@ -417,16 +385,6 @@ if ! has('gui_running')
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
-
-" Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
 
 " For snippet_complete marker.
 if has('conceal')
@@ -469,16 +427,14 @@ function! Reg()
     endif
     redraw
 endfunction
-
 command! -nargs=0 Reg call Reg()
-
-" let terminal resize scale the internal windows
-autocmd VimResized * :wincmd =
 
 "------------------------------------------------------------ editorconfig ---
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
-let g:EditorConfig_exec_path = '/usr/local/bin/editorconfig'
-let g:EditorConfig_core_mode = 'external_command'
+if executable('editorconfig')
+  let g:EditorConfig_exec_path = exepath('editorconfig')
+  let g:EditorConfig_core_mode = 'external_command'
+endif
 
 "--------------------------------------------------------------- RSpec.vim ---
 map <Leader>rt :call RunCurrentSpecFile()<CR>
@@ -498,33 +454,13 @@ let g:splitjoin_align = 1
 set noshowmode shortmess+=c
 set noinfercase
 set completeopt-=preview
-set completeopt+=longest,menuone,noinsert,noselect
-
-" tab-complete
-let g:ulti_expand_or_jump_res = 0
-" function ExpandSnippetOrTab()
-"     let snippet = UltiSnips#ExpandSnippetOrJump()
-"     if g:ulti_expand_or_jump_res > 0
-"         return snippet
-"     else
-"         return mucomplete#tab_complete(1)
-"     endif
-" endfunction
-" inoremap <silent><expr> <tab>
-"       \ pumvisible() ? "<C-R>=ExpandSnippetOrTab()<CR>" :
-"       \ "\<Tab>"
+set completeopt+=menuone,noinsert,noselect
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" inoremap <silent> <plug>(MUcompleteFwdKey) <right>
-" imap <expr> <right> <plug>(MUcompleteCycFwd)
-
-imap <unique> <c-j> <plug>(MUcompleteFwd)
-imap <unique> <c-k> <plug>(MUcompleteBwd)
-
-let g:mucomplete#no_mappings = 1
+let g:mucomplete#no_mappings=1
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#chains = {
       \ 'default': ['path', 'keyn', 'omni', 'dict', 'ulti'],
@@ -532,6 +468,4 @@ let g:mucomplete#chains = {
       \ 'gitcommit' : ['keyn', 'dict', 'uspl'],
       \ 'ruby': ['path', 'dict', 'ulti'],
       \ }
-
-
 "}}}
