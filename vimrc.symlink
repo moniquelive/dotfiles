@@ -153,10 +153,14 @@ syntax on
 " color base16-hopscotch
 
 " gruvbox
-let g:gruvbox_improved_strings=0
-let g:gruvbox_improved_warnings=1
-let g:gruvbox_contrast_dark='dark'
-color gruvbox
+" let g:gruvbox_improved_strings=0
+" let g:gruvbox_improved_warnings=1
+" let g:gruvbox_contrast_dark='dark'
+" color gruvbox
+
+" alduin
+let g:alduin_Contract_Vampirism = 1
+colorscheme alduin
 
 " set fillchars=vert:│,fold:-
 set fillchars=""

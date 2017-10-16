@@ -154,3 +154,6 @@
 [submodule "vim.symlink/bundle/vim-mucomplete"]
 	path = vim.symlink/bundle/vim-mucomplete
 	url = https://github.com/lifepillar/vim-mucomplete.git
+[submodule "vim.symlink/bundle/Alduin"]
+	path = vim.symlink/bundle/Alduin
+	url = https://github.com/AlessandroYorba/Alduin

@@ -2,7 +2,7 @@
 " set guifont=Menlo:h20
 " set guifont=Mononoki:h16
 " set guifont=Roboto\ Mono\ Light\ for\ Powerline:h18
-set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete\ Windows\ Compatible:h18
+set guifont=Roboto\ Mono\ Light\ for\ Powerline:h16
 set guioptions=aAce
 " hlsearch underline
 highlight Search guibg=black guifg=yellow gui=underline
