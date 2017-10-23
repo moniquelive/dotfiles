@@ -162,6 +162,9 @@ syntax on
 let g:alduin_Contract_Vampirism = 1
 colorscheme alduin
 
+" vitality
+let g:vitality_always_assume_iterm = 1
+
 " set fillchars=vert:│,fold:-
 set fillchars=""
 highlight VertSplit cterm=none ctermbg=none ctermfg=247 guifg=fg guibg=bg
