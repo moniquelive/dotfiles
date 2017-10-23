@@ -125,6 +125,9 @@ alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias createiso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
+alias dockerkillall='docker kill $(docker ps -q)'
+alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
+alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
 [ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='/usr/local/opt/emacs-plus/bin/emacs -nw $*'
 
 #------------------------------------------------------------------ global ---
