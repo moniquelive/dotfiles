@@ -97,9 +97,6 @@
 [submodule "vim.symlink/bundle/undotree"]
 	path = vim.symlink/bundle/undotree
 	url = https://github.com/mbbill/undotree.git
-[submodule "vim.symlink/bundle/incsearch.vim"]
-	path = vim.symlink/bundle/incsearch.vim
-	url = https://github.com/haya14busa/incsearch.vim.git
 [submodule "vim.symlink/bundle/vim-elixir"]
 	path = vim.symlink/bundle/vim-elixir
 	url = https://github.com/elixir-lang/vim-elixir.git
