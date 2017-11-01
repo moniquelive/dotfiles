@@ -154,3 +154,6 @@
 [submodule "vim.symlink/bundle/Alduin"]
 	path = vim.symlink/bundle/Alduin
 	url = https://github.com/AlessandroYorba/Alduin
+[submodule "vim.symlink/bundle/is.vim"]
+	path = vim.symlink/bundle/is.vim
+	url = https://github.com/haya14busa/is.vim
