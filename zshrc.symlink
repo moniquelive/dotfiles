@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # #BENCHMARKING (begin)
 ## set the trace prompt to include seconds, nanoseconds, script name and line number
 #PS4='+$(date "+%s:%N") %N:%i> '
@@ -128,7 +130,7 @@ alias createiso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias dockerkillall='docker kill $(docker ps -q)'
 alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
 alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
-[ -f '/usr/local/opt/emacs-plus/bin/emacs' ] && alias emacs='/usr/local/opt/emacs-plus/bin/emacs -nw $*'
+[ -f /usr/local/opt/emacs-plus/bin/emacs ] && alias emacs='/usr/local/opt/emacs-plus/bin/emacs -nw $*'
 
 #------------------------------------------------------------------ global ---
 alias -g A="| awk"
@@ -156,8 +158,8 @@ alias -s h=vim
 alias -s C=vim
 alias -s cpp=vim
 alias -s php=vim
-alias -s py=vim
-alias -s rb=vim
+# alias -s py=vim
+# alias -s rb=vim
 alias -s txt=vim
 alias -s xml=vim
 
@@ -229,13 +231,17 @@ unsetopt print_exit_value
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export CUDA_HOME=/usr/local/cuda
-export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
-export PATH="$CUDA_HOME/bin:$PATH"
+if [[ -d /usr/local/cuda ]]; then
+  export CUDA_HOME=/usr/local/cuda
+  export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
+  export PATH="$CUDA_HOME/bin:$PATH"
+fi
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/Projects/python
-source /usr/local/bin/virtualenvwrapper.sh
+if [[ -f "/usr/local/bin/virtualenvwrapper.sh" ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Projects/python
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 #----------------------------------------------------------------------------
 ## BENCHMARKING (END)
@@ -244,4 +250,8 @@ source /usr/local/bin/virtualenvwrapper.sh
 ## restore stderr to the value saved in FD 3
 #exec 2>&3 3>&-
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+[ -e ${HOME}/.iterm2_shell_integration.zsh ] && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
