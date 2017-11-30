@@ -23,6 +23,7 @@ if [[ -s "/usr/local/bin/brew" ]]; then
     ${brew_prefix}/opt/node/bin
     ${brew_prefix}/opt/coreutils/bin
     ${brew_prefix}/opt/coreutils/libexec/gnubin
+    ${brew_prefix}/opt/python/libexec/bin
     $path
   )
 
