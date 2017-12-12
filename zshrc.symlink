@@ -79,6 +79,7 @@ export LESS="-FRmX"
 export EDITOR=$([[ -x /usr/local/bin/nvim ]] && echo nvim || [[ -x /usr/local/bin/vim ]] && echo /usr/local/bin/vim || echo vim)
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export CUCUMBER_FORMAT=progress
+export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
 
 # zshlovers(https://grml.org/zsh/zsh-lovers.html)
 zstyle ':completion:*' use-cache on
