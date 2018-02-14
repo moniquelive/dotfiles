@@ -67,7 +67,7 @@ plugins=(
 [[ -x "/usr/bin/pacman" ]] && plugins+=(archlinux)
 [[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
 
-ZSH_THEME="cyber-alanpeabody"
+ZSH_THEME=""
 
 #---------------------------------------------------------------- load OMZ ---
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
@@ -184,6 +184,13 @@ bindkey '^N' down-line-or-beginning-search
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
+
+#-------------------------------------------------------- Spaceship Prompt ---
+autoload -U promptinit; promptinit
+prompt spaceship
+SPACESHIP_PACKAGE_SHOW=false
+SPACESHIP_NODE_SHOW=false
+SPACESHIP_DOCKER_SHOW=false
 
 #---------------------------------------------------------------- ZSH opts ---
 setopt auto_resume

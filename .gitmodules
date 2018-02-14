@@ -160,3 +160,6 @@
 [submodule "vim.symlink/bundle/base16-black-metal-scheme"]
 	path = vim.symlink/bundle/base16-black-metal-scheme
 	url = https://github.com/metalelf0/base16-black-metal-scheme.git
+[submodule "spaceship-prompt"]
+	path = spaceship-prompt
+	url = https://github.com/denysdovhan/spaceship-prompt.git
