@@ -72,6 +72,7 @@ ZSH_THEME="spaceship"
 #---------------------------------------------------------------- load OMZ ---
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 unalias sr
+unalias fd
 
 # set these after omz
 export LESSCHARSET=utf-8
@@ -238,6 +239,18 @@ unsetopt hist_verify
 unsetopt print_exit_value
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
 
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
