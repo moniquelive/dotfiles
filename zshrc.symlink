@@ -77,7 +77,10 @@ unalias fd
 # set these after omz
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
-export EDITOR=$([[ -x /usr/local/bin/nvim ]] && echo nvim || [[ -x /usr/local/bin/vim ]] && echo /usr/local/bin/vim || echo vim)
+export EDITOR=$([[ -x /usr/local/bin/nvim ]] && echo nvim || \
+  [[ -x /usr/local/bin/vim ]] && echo /usr/local/bin/vim || \
+  [[ -x /usr/local/bin/mvim ]] && echo "mvim -v" || \
+  echo vim)
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export CUCUMBER_FORMAT=progress
 export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
@@ -119,7 +122,7 @@ alias gd="git difftool --no-prompt --tool=mvimdiff"
 alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias gs='git status -sb'
 alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
-alias vim=$(echo $EDITOR)
+alias vim="$(echo $EDITOR)"
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 alias hexd=hexdump
