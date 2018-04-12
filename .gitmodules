@@ -163,3 +163,6 @@
 [submodule "spaceship-prompt"]
 	path = spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
+[submodule "vim.symlink/bundle/vim-swift"]
+	path = vim.symlink/bundle/vim-swift
+	url = https://github.com/bumaociyuan/vim-swift.git
