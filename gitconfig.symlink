@@ -1,6 +1,6 @@
 [user]
-	name = cyber
-	email = lccro@msn.com
+  name = cyber
+  email = lccro@msn.com
 
 [core]
   quotepath    = false
@@ -58,11 +58,14 @@
   mergeoptions = --no-ff
 
 [push]
-    #default = tracking
+  #default = tracking
   default = current
 
 [url "git@github.com:"]
   insteadOf = gh:
+
+[url "git@gitlab.com:"]
+  insteadOf = gl:
 
 [url "https://bitbucket.org/"]
   insteadOf = bb:
@@ -75,9 +78,9 @@
 
 [diff]
   tool = bc3
-  algorithm = patience
-  wordRegex = [A-z0-9_]+|[^[:space:]]
-  context = 5
+  ; algorithm = patience
+  ; wordRegex = [A-z0-9_]+|[^[:space:]]
+  ; context = 5
 
 [merge]
   tool = bc3
@@ -98,9 +101,6 @@
 
 [pull]
   rebase = true
-[difftool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\"
-	path = -ro
-[mergetool "sourcetree"]
-	cmd = /usr/local/bin/bcomp \"$LOCAL\" \"$REMOTE\" \"$BASE\" \"$MERGED\"
-	trustExitCode = true
+
+[difftool "bc3"]
+  trustExitCode = true
