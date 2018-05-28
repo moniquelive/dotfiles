@@ -166,3 +166,6 @@
 [submodule "vim.symlink/bundle/vim-swift"]
 	path = vim.symlink/bundle/vim-swift
 	url = https://github.com/bumaociyuan/vim-swift.git
+[submodule "zsh-autosuggestions"]
+	path = zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions

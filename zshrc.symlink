@@ -60,7 +60,7 @@ plugins=(
   sudo
   tig tmux
   urltools
-  z zeus zsh_reload
+  z zeus zsh_reload zsh-autosuggestions
 )
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
