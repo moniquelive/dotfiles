@@ -5,6 +5,7 @@ export LANG=pt_BR
 export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
+export MAKEFLAGS=-j6
 
 # Add our bin to PATH
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
