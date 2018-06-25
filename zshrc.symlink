@@ -50,7 +50,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   brew brew-cask bundler
   capistrano cp colored-man colorize colored-man-pages common-aliases
-  dirpersist
+  dirpersist docker docker-compose
   forklift
   gem gnu-utils github gitignore
   git
