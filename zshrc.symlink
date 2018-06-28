@@ -276,6 +276,20 @@ fi
 
 [ -e ${HOME}/.iterm2_shell_integration.zsh ] && source "${HOME}/.iterm2_shell_integration.zsh"
 
+
+if [[ "$USER" == "paperspace" ]]; then
+  export PATH="$PATH:/usr/local/cuda/bin"
+  . /home/paperspace/src/torch/install/bin/torch-activate
+  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+  export CAFFE_ROOT=/home/paperspace/src/caffe
+  export PYTHONPATH=$CAFFE_ROOT/python:$PYTHONPATH
+
+  . /home/paperspace/src/torch/install/bin/torch-activate
+
+  # added by Anaconda3 installer
+  export PATH="/home/paperspace/anaconda3/bin:$PATH"
+fi
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
