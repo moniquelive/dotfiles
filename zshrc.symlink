@@ -119,22 +119,17 @@ alias dockspaceright='defaults write com.apple.dock persistent-others -array-add
 alias t='tmux -2u $*'
 alias tree='tree -SA'
 alias gd="git difftool --no-prompt --tool=mvimdiff"
-alias reset_openwith="/System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user"
 alias gs='git status -sb'
-alias whatismyip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias vim="$(echo $EDITOR)"
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
-alias hexd=hexdump
 alias where="command -v"
-alias j="jobs -l"
 alias mv='nocorrect mv'
 alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias createiso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
-alias dockerkillall='docker kill $(docker ps -q)'
-alias dockercleanc='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
-alias dockercleani='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
+alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
+
 [ -f /usr/local/opt/emacs-plus/bin/emacs ] && alias emacs='/usr/local/opt/emacs-plus/bin/emacs -nw $*'
 
 #------------------------------------------------------------------ global ---
