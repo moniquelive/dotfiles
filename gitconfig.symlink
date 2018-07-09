@@ -58,8 +58,13 @@
   mergeoptions = --no-ff
 
 [push]
-  #default = tracking
   default = current
+
+[gc]
+  auto = 1
+
+[pull]
+  rebase = true
 
 [url "git@github.com:"]
   insteadOf = gh:
@@ -73,20 +78,12 @@
 [url "https://github.com"]
   insteadOf = git://github.com
 
-[gc]
-  auto = 1
-
 [diff]
-  tool = bc3
+  ; tool = Kaleidoscope
+  ; tool = bc3
   ; algorithm = patience
   ; wordRegex = [A-z0-9_]+|[^[:space:]]
   ; context = 5
-
-[merge]
-  tool = bc3
-
-[mergetool]
-  bc3 = trustExitCode
 
 [gui]
   warndetachedcommit = true
@@ -99,14 +96,9 @@
   smudge = git-lfs smudge %f
   required = true
 
-[pull]
-  rebase = true
+[mergetool]
+  prompt = false
 
-[difftool "bc3"]
-  trustExitCode = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+[difftool]
+  prompt = false
+
