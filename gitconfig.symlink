@@ -1,6 +1,6 @@
 [user]
-  name = cyber
-  email = lccro@msn.com
+	name = cyber
+	email = lccro@msn.com
 
 [core]
   quotepath    = false
@@ -102,3 +102,11 @@
 [difftool]
   prompt = false
 
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[commit]
+	template = /Users/leo/.stCommitMsg
