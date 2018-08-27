@@ -69,7 +69,7 @@ bind -n M-\ split-window -h -c '#{pane_current_path}'
 bind -n M-- split-window -v -c '#{pane_current_path}'
 
 # type in multiple windows
-bind -n C-x setw synchronize-panes \; display "Sync #{?pane_synchronized,ON,OFF}"
+bind C-x setw synchronize-panes \; display "Sync #{?pane_synchronized,ON,OFF}"
 
 if-shell "uname | grep -q Darwin" "set -g default-shell /usr/local/bin/zsh"
 if-shell "uname | grep -q Darwin" "set -g default-command 'reattach-to-user-namespace -l zsh'"
