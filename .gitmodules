@@ -19,9 +19,6 @@
 [submodule "vim.symlink/bundle/trailing-whitespace"]
 	path = vim.symlink/bundle/trailing-whitespace
 	url = https://github.com/bronson/vim-trailing-whitespace
-[submodule "vim.symlink/bundle/vim-abolish"]
-	path = vim.symlink/bundle/vim-abolish
-	url = https://github.com/tpope/vim-abolish
 [submodule "vim.symlink/bundle/vim-bundler"]
 	path = vim.symlink/bundle/vim-bundler
 	url = https://github.com/tpope/vim-bundler
@@ -94,15 +91,9 @@
 [submodule "vim.symlink/bundle/anderson.vim"]
 	path = vim.symlink/bundle/anderson.vim
 	url = https://github.com/gilgigilgil/anderson.vim.git
-[submodule "vim.symlink/bundle/undotree"]
-	path = vim.symlink/bundle/undotree
-	url = https://github.com/mbbill/undotree.git
 [submodule "vim.symlink/bundle/vim-elixir"]
 	path = vim.symlink/bundle/vim-elixir
 	url = https://github.com/elixir-lang/vim-elixir.git
-[submodule "vim.symlink/bundle/dracula-theme"]
-	path = vim.symlink/bundle/dracula-theme
-	url = git@github.com:zenorocha/dracula-theme.git
 [submodule "vim.symlink/bundle/gruvbox"]
 	path = vim.symlink/bundle/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
@@ -136,9 +127,6 @@
 [submodule "vim.symlink/bundle/vim-rspec"]
 	path = vim.symlink/bundle/vim-rspec
 	url = https://github.com/thoughtbot/vim-rspec.git
-[submodule "vim.symlink/bundle/base16-vim"]
-	path = vim.symlink/bundle/base16-vim
-	url = https://github.com/chriskempson/base16-vim.git
 [submodule "vim.symlink/bundle/terminus"]
 	path = vim.symlink/bundle/terminus
 	url = https://github.com/wincent/terminus.git
@@ -157,12 +145,6 @@
 [submodule "vim.symlink/bundle/is.vim"]
 	path = vim.symlink/bundle/is.vim
 	url = https://github.com/haya14busa/is.vim
-[submodule "vim.symlink/bundle/base16-black-metal-scheme"]
-	path = vim.symlink/bundle/base16-black-metal-scheme
-	url = https://github.com/metalelf0/base16-black-metal-scheme.git
 [submodule "spaceship-prompt"]
 	path = spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
-[submodule "vim.symlink/bundle/vim-swift"]
-	path = vim.symlink/bundle/vim-swift
-	url = https://github.com/bumaociyuan/vim-swift.git
