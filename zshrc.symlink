@@ -77,10 +77,7 @@ unalias fd
 # set these after omz
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
-export EDITOR=$([[ -x /usr/local/bin/nvim ]] && echo nvim || \
-  [[ -x /usr/local/bin/vim ]] && echo /usr/local/bin/vim || \
-  [[ -x /usr/local/bin/mvim ]] && echo "mvim -v" || \
-  echo vim)
+export EDITOR=vim
 export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 export CUCUMBER_FORMAT=progress
 export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
@@ -120,7 +117,6 @@ alias t='tmux -2u $*'
 alias tree='tree -SA'
 alias gd="git difftool --no-prompt --tool=mvimdiff"
 alias gs='git status -sb'
-alias vim="$(echo $EDITOR)"
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 alias where="command -v"

@@ -84,7 +84,7 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'jimeh/tmux-themepack'
 
-source-file ~/.tmux/plugins/tmux-themepack/basic.tmuxtheme
+# source-file ~/.tmux/plugins/tmux-themepack/basic.tmuxtheme
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
