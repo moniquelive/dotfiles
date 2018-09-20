@@ -75,6 +75,7 @@ if-shell "uname | grep -q Darwin" "set -g default-shell /usr/local/bin/zsh"
 if-shell "uname | grep -q Darwin" "set -g default-command 'reattach-to-user-namespace -l zsh'"
 
 #--------------------------------------------------------------------- TPM ---
+# brew install reattach-to-user-namespace
 # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 #-----------------------------------------------------------------------------
 # List of plugins
@@ -84,7 +85,7 @@ set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-pain-control'
 set -g @plugin 'jimeh/tmux-themepack'
 
-# source-file ~/.tmux/plugins/tmux-themepack/basic.tmuxtheme
+source-file ~/.tmux/plugins/tmux-themepack/basic.tmuxtheme
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run '~/.tmux/plugins/tpm/tpm'
