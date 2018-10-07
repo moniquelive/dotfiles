@@ -32,7 +32,5 @@ export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 export MAKEFLAGS=-j$(nproc)
 
-hash -r
-
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
