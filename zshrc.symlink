@@ -14,7 +14,12 @@
 
 skip_global_compinit=1
 zmodload zsh/mathfunc
-autoload -U compaudit compinit run-help
+autoload -Uz compaudit compinit run-help
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+  compinit;
+else
+  compinit -C;
+fi
 
 autoload run-help-git
 export HELPDIR=/usr/local/share/zsh/helpfiles
