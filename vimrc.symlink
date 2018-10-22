@@ -93,12 +93,6 @@ set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
 set splitbelow splitright
 
-" ripgrep ftw!
-if executable("rg")
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat=%f:%l:%c:%m,%f:%l:%m
-endif
-
 " Autosave on focus lost
 autocmd FocusLost * silent! wa
 set autowriteall
@@ -481,11 +475,7 @@ let g:use_emmet_complete_tag = 1
 let g:splitjoin_align = 1
 
 "------------------------------------------------------------------- CtrlP ---
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-elseif executable('ag')
+if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
 
@@ -496,6 +486,18 @@ elseif executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
+if executable("rg")
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat=%f:%l:%c:%m,%f:%l:%m
+  " set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+
+if executable("fd")
+  let g:ctrlp_user_command = 'fd --type f --color=never "" %s'
+  let g:ctrlp_use_caching = 0
+endif
 
 "-------------------------------------------------------------- MuComplete ---
 set noshowmode shortmess+=c
