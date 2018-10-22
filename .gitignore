@@ -2,3 +2,5 @@
 /vim.symlink/unite
 emacs.d.symlink/url/cache/
 emacs.d.symlink/elpa/
+/vim.symlink/autoload
+/vim.symlink/plugged

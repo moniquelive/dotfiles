@@ -1,15 +1,70 @@
 " This is CyberLeo's .vimrc file
 " vim:set ts=2 sts=2 sw=2 expandtab:
 
-"------------------------------------------------------ PATHOGEN - plugins ---
+"----------------------------------------------------------------- plugins ---
 set nocompatible
 
 filetype off
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-execute pathogen#helptags()
+" runtime bundle/vim-pathogen/autoload/pathogen.vim
+" execute pathogen#infect()
+" execute pathogen#helptags()
 filetype plugin indent on
 set sessionoptions-=options
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" color schemes
+Plug 'AlessandroYorba/Alduin'
+Plug 'morhetz/gruvbox'
+
+" misc
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'tpope/vim-obsession'
+Plug 'dhruvasagar/vim-prosession'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'wincent/terminus'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-dispatch'
+
+" coding
+Plug 'kien/rainbow_parentheses.vim'
+Plug 'tpope/vim-commentary'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'lifepillar/vim-mucomplete'
+Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'mattn/emmet-vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'kchmck/vim-coffee-script'
+Plug 'ryanoasis/vim-devicons'
+Plug 'tpope/vim-haml', { 'for': 'haml' }
+Plug 'w0rp/ale'
+
+" rails
+Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'tpope/vim-rake', { 'for': 'ruby' }
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+
+" Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+
+" Initialize plugin system
+call plug#end()
+
 
 "-------------------------------------------------------- CYBERAMA - begin ---
 augroup reload_vimrc " {
@@ -37,7 +92,6 @@ set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
 set splitbelow splitright
-set runtimepath+=/usr/local/opt/fzf
 
 " ripgrep ftw!
 if executable("rg")
@@ -79,7 +133,7 @@ set showcmd
 " make tab completion for files/buffers act like bash
 set wildmenu
 set wildmode=full "list:full
-set wildignore=*.swp,*.bak,*.pyc,*.class
+set wildignore=*.swp,*.bak,*.pyc,*.class,*/.git/*,*/tmp/*
 
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
@@ -147,22 +201,22 @@ endif
 set background=dark
 syntax on
 
-" base16
+"------------------------------------------------------------------- base16 ---
 " let g:base16colorspace=256
 " color base16-tomorrow-night
 " color base16-hopscotch
 
-" gruvbox
+"------------------------------------------------------------------ gruvbox ---
 " let g:gruvbox_improved_strings=0
 " let g:gruvbox_improved_warnings=1
 " let g:gruvbox_contrast_dark='dark'
 " color gruvbox
 
-" alduin
+"------------------------------------------------------------------- alduin ---
 let g:alduin_Contract_Vampirism = 1
 colorscheme alduin
 
-" vitality
+"----------------------------------------------------------------- vitality ---
 let g:vitality_always_assume_iterm = 1
 
 " set fillchars=vert:│,fold:-
@@ -299,38 +353,6 @@ else
   xmap <leader>/ <Plug>Commentary
 endif
 
-" <FZF>
-" Mapping selecting mappings
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-" Insert mode completion
-" imap <c-x><c-k> <plug>(fzf-complete-word)
-" imap <c-x><c-f> <plug>(fzf-complete-path)
-" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-" imap <c-x><c-l> <plug>(fzf-complete-line)
-nnoremap <leader>b :Buffers<cr>
-nnoremap <leader>f :Ag<cr>
-nnoremap <leader>m :Maps<cr>
-nnoremap <leader>s :Snippets<cr>
-nnoremap <leader>t :Files<cr>
-let g:fzf_files_options = '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
-" Augmenting Ag command using fzf#vim#with_preview function
-"   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
-"     * For syntax-highlighting, Ruby and any of the following tools are required:
-"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
-"       - CodeRay: http://coderay.rubychan.de/
-"       - Rouge: https://github.com/jneen/rouge
-"
-"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
-"   :Ag! - Start fzf in fullscreen and display the preview window above
-command! -bang -nargs=* Ag
-  \ call fzf#vim#ag(<q-args>,
-  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
-  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \                 <bang>0)
-" </FZF>
-
 if has("autocmd")
   augroup CoffeeScripting
     autocmd!
@@ -448,6 +470,7 @@ map <Leader>rt :call RunCurrentSpecFile()<CR>
 map <Leader>rs :call RunNearestSpec()<CR>
 map <Leader>rl :call RunLastSpec()<CR>
 map <Leader>ra :call RunAllSpecs()<CR>
+let g:rspec_command = "Dispatch rspec {spec}"
 "let g:rspec_runner = "os_x_iterm2"
 
 "------------------------------------------------------------------ EMMET ---
@@ -456,6 +479,23 @@ let g:use_emmet_complete_tag = 1
 
 "--------------------------------------------------------------- SplitJoin ---
 let g:splitjoin_align = 1
+
+"------------------------------------------------------------------- CtrlP ---
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+elseif executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
 
 "-------------------------------------------------------------- MuComplete ---
 set noshowmode shortmess+=c
