@@ -372,6 +372,9 @@ if has("autocmd")
   augroup END
 endif
 
+autocmd FileType ruby
+      \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
+      \ let &path .= "," . $MY_RUBY_HOME . "/lib"
 
 if has("autocmd") && exists("+omnifunc")
   augroup OmniFunk

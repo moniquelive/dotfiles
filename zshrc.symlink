@@ -21,13 +21,13 @@ else
   compinit -C;
 fi
 
-autoload run-help-git
+autoload -Uz run-help-git
 export HELPDIR=/usr/local/share/zsh/helpfiles
 
 # search on zshall man page
 zman() { MANPAGER="less -g -s '+/^       "$1"'" man zshall }
 
-autoload zmv
+autoload -Uz zmv
 alias mmv='noglob zmv -W'
 
 # unique these arrays
@@ -172,7 +172,7 @@ bindkey '\e\e[C' forward-word
 bindkey '\e\e[D' backward-word
 
 #------------------------------------------------------ History completion ---
-autoload history-search-end
+autoload -Uz history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey '\eOA' up-line-or-beginning-search
@@ -181,12 +181,12 @@ bindkey '^P' up-line-or-beginning-search
 bindkey '^N' down-line-or-beginning-search
 
 # edit command line in $EDITOR
-autoload -z edit-command-line
+autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 #-------------------------------------------------------- Spaceship Prompt ---
-# autoload -U promptinit; promptinit
+# autoload -Uz promptinit; promptinit
 # prompt spaceship
 SPACESHIP_PACKAGE_SHOW=false
 SPACESHIP_NODE_SHOW=false
