@@ -52,19 +52,21 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'w0rp/ale'
 
-" rails
+" ruby & rails
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'tpope/vim-rake', { 'for': 'ruby' }
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-bundler'
 
-" Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 " Initialize plugin system
 call plug#end()
 
+packadd! matchit
 
 "-------------------------------------------------------- CYBERAMA - begin ---
 augroup reload_vimrc " {
@@ -383,10 +385,6 @@ if has("autocmd") && exists("+omnifunc")
     autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
     autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
     autocmd FileType ruby,eruby UltiSnipsAddFiletypes rails.ruby
-
-    autocmd FileType ruby let &l:tags = pathogen#legacyjoin(pathogen#uniq(
-          \ pathogen#split(&tags) +
-          \ map(split($GEM_PATH,':'),'v:val."/gems/*/tags"')))
 
     " Enable omni completion.
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
