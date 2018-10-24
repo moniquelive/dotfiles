@@ -23,7 +23,7 @@
   ci          = commit
   co          = checkout
   commit      = commit -v
-  amend       = commit --amend
+  amend       = commit --amend --no-edit
   d           = diff --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
   dc          = diff --cached --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
   df          = diff --color-words --ignore-space-at-eol -b -w
@@ -104,7 +104,7 @@
 
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
