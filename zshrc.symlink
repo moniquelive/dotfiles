@@ -50,6 +50,9 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+# Tmux plugin
+ZSH_TMUX_ITERM2=true
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
@@ -112,13 +115,26 @@ fi
 unset SCRIPT_NAME
 
 #----------------------------------------------------------------- aliases ---
+
+#
+# TMUX
+#
+unalias t
+t() {
+    if [ "$1" != "" ]; then
+        tmux $1
+    else
+        tmux new-session $1
+    fi
+}
+compdef _tmux t
+
 alias ls='ls --color=auto'
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
 alias listen='lsof -i -P | grep LISTEN'
 alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
-alias t='tmux -2u $*'
 alias tree='tree -SA'
 alias gd="git difftool --no-prompt --tool=mvimdiff"
 alias gs='git status -sb'
