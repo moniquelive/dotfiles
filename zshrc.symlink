@@ -64,11 +64,12 @@ plugins=(
   git
   npm
   osx
+  pyenv
   rails rake-fast rand-quote rsync rvm
   sudo
   tig tmux
   urltools
-  z zeus zsh_reload
+  z zsh_reload
 )
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
