@@ -268,6 +268,10 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
+if [[ -d $HOME/.local/bin ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
   export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
@@ -278,6 +282,12 @@ if [[ -f "/usr/local/bin/virtualenvwrapper.sh" ]]; then
   export WORKON_HOME=$HOME/.virtualenvs
   export PROJECT_HOME=$HOME/Projects/python
   source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Projects/python
+  source $HOME/.local/bin/virtualenvwrapper.sh
 fi
 
 #----------------------------------------------------------------------------
