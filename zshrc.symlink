@@ -130,7 +130,7 @@ t() {
 }
 compdef _tmux t
 
-alias ls='ls --color=auto'
+alias ls='ls --color=auto --group-directories-first'
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
 alias listen='lsof -i -P | grep LISTEN'
