@@ -3,11 +3,12 @@
 # Add our bin to PATH
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
 
-# Add RVM to PATH
 [[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
+[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
+# Add RVM to PATH
 [[ -d "${HOME}/.rvm/bin" ]] && path=($HOME/.rvm/bin $path)
 [[ -d "/usr/local/rvm/bin" ]] && path=(/usr/local/rvm/bin $path)
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(/usr/local/bin/brew --prefix)
