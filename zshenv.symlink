@@ -1,14 +1,29 @@
 ## Non-interactive shell ##
 
+# [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+
 # Add our bin to PATH
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
-
 [[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
-[[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+[[ -d "$HOME/.local/bin" ]] && path=($HOME/.local/bin $path)
 
-# Add RVM to PATH
-[[ -d "${HOME}/.rvm/bin" ]] && path=($HOME/.rvm/bin $path)
-[[ -d "/usr/local/rvm/bin" ]] && path=(/usr/local/rvm/bin $path)
+if [[ -d /usr/local/cuda ]]; then
+  export CUDA_HOME=/usr/local/cuda
+  export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
+  path+=($CUDA_HOME/bin)
+fi
+
+if [[ -f "/usr/local/bin/virtualenvwrapper.sh" ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Projects/python
+  source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
+  export WORKON_HOME=$HOME/.virtualenvs
+  export PROJECT_HOME=$HOME/Projects/python
+  source $HOME/.local/bin/virtualenvwrapper.sh
+fi
 
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(/usr/local/bin/brew --prefix)
@@ -25,6 +40,11 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   #export -TU MANPATH manpath
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
+
+# Add RVM to PATH
+[[ -d "${HOME}/.rvm/bin" ]] && path=($HOME/.rvm/bin $path)
+[[ -d "/usr/local/rvm/bin" ]] && path=(/usr/local/rvm/bin $path)
+[[ -d "${GEM_HOME}/bin" ]] && path=($GEM_HOME/bin $path)
 
 #----------------------------------------------------------------- exports ---
 export LANG=pt_BR

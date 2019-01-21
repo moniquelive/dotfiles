@@ -261,28 +261,6 @@ export FZF_DEFAULT_COMMAND='fd --type f'
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-if [[ -d $HOME/.local/bin ]]; then
-  export PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [[ -d /usr/local/cuda ]]; then
-  export CUDA_HOME=/usr/local/cuda
-  export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
-  export PATH="$CUDA_HOME/bin:$PATH"
-fi
-
-if [[ -f "/usr/local/bin/virtualenvwrapper.sh" ]]; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Projects/python
-  source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Projects/python
-  source $HOME/.local/bin/virtualenvwrapper.sh
-fi
-
 #----------------------------------------------------------------------------
 ## BENCHMARKING (END)
 ## turn off tracing
@@ -291,7 +269,6 @@ fi
 #exec 2>&3 3>&-
 
 [ -e ${HOME}/.iterm2_shell_integration.zsh ] && source "${HOME}/.iterm2_shell_integration.zsh"
-
 
 if [[ "$USER" == "paperspace" ]]; then
   export PATH="$PATH:/usr/local/cuda/bin"
@@ -307,5 +284,3 @@ fi
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
-
-#export PATH="$GEM_HOME/bin:$PATH"
