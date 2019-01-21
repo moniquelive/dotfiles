@@ -308,4 +308,4 @@ fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
 
-export PATH="$GEM_HOME/bin:$PATH"
+#export PATH="$GEM_HOME/bin:$PATH"
