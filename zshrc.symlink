@@ -57,16 +57,17 @@ ZSH_TMUX_ITERM2=true
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
   brew brew-cask bundler
-  capistrano cp colored-man colorize colored-man-pages common-aliases
+  capistrano cp colorize colored-man-pages common-aliases
   dirpersist docker docker-compose
-  forklift
+  emoji
+  forklift fzf
   gem gnu-utils github gitignore
   git
   npm
   osx
   pyenv
   rails rake-fast rand-quote rsync rvm
-  sudo
+  sudo systemd
   tig tmux
   urltools
   z zsh_reload
