@@ -2,7 +2,7 @@
 URxvt.perl-lib: /home/cyber/.urxvt/perls
 URxvt.perl-ext-common: clipboard
 
-URxvt.font: xft:Ubuntu Mono derivative Powerline:antialias=false:size=12:Regular
+URxvt.font: xft:Ubuntu Mono derivative Powerline:antialias=false:size=24:Regular
 URxvt.letterSpace: -1
 
 URxvt.urgentOnBell: off
@@ -32,7 +32,7 @@ URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 ! Colors
 URxvt.intensityStyles: false
 
-*background:              #002b36
+! *background:              #002b36
 *foreground:              #839496
 *fading:                  40
 *fadeColor:               #002b36
@@ -60,7 +60,7 @@ URxvt.intensityStyles: false
 
 ! from: https://wiki.archlinux.org/index.php/X_resources
 ! tangoesque scheme
-*background: #111111
+! *background: #111111
 *foreground: #babdb6
 ! Black (not tango) + DarkGrey
 *color0:  #000000
@@ -123,7 +123,7 @@ Xft.hintstyle:  hintslight
 #define base0F #a16946
 
 *.foreground:   base05
-*.background:   base00
+! *.background:   base00
 *.cursorColor:  base05
 
 *.color0:       base00
@@ -152,3 +152,6 @@ Xft.hintstyle:  hintslight
 *.color19:      base02
 *.color20:      base04
 *.color21:      base06
+
+*.background: rgba:0000/0000/0200/c800
+
