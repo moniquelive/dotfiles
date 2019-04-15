@@ -2,8 +2,8 @@
 
 # [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
 
-# Add our bin to PATH
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
+[[ -d "${HOME}/.local/bin" ]] && path+=($HOME/.local/bin)
 [[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
 [[ -d "$HOME/.local/bin" ]] && path=($HOME/.local/bin $path)
 
