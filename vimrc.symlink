@@ -212,8 +212,6 @@ syntax on
 let g:alduin_Contract_Vampirism = 1
 colorscheme alduin
 
-"----------------------------------------------------------------- vitality ---
-let g:vitality_always_assume_iterm = 1
 
 " set fillchars=vert:│,fold:-
 set fillchars=""
@@ -294,9 +292,9 @@ nmap <leader><leader> <c-^>
 nnoremap / /\v
 vnoremap / /\v
 
-" Move visual block
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
+" " Move visual block
+" vnoremap J :m '>+1<CR>gv=gv
+" vnoremap K :m '<-2<CR>gv=gv
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
@@ -341,6 +339,8 @@ if has("autocmd")
 endif
 
 if has("gui_macvim") && has("gui_running")
+  "-------------------------------------------------------------- vitality ---
+  let g:vitality_always_assume_iterm = 1
   xmap <D-/> <Plug>Commentary
   imap <D-/> <Plug>Commentary
   nmap <D-/> <Plug>CommentaryLine
@@ -518,4 +518,11 @@ let g:mucomplete#chains = {
       \ 'gitcommit' : ['keyn', 'dict', 'uspl'],
       \ 'ruby': ['path', 'dict', 'ulti'],
       \ }
+
+"--------------------------------------------------------------------- ALE ---
+let g:ale_fixers = ['prettier']
+let g:ale_lint_on_insert_leave = 1
+" Bind F8 to fixing problems with ALE
+nmap <F8> <Plug>(ale_fix)
+
 "}}}
