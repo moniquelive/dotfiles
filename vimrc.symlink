@@ -51,6 +51,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-haml', { 'for': 'haml' }
 Plug 'w0rp/ale'
+Plug 'cespare/vim-toml'
 
 " ruby & rails
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
