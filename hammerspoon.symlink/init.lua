@@ -16,6 +16,15 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, 'H', function()
   win:setFrame(f)
 end)
 
+hs.hotkey.bind({'cmd', 'alt', 'shift'}, 'R', function()
+  local win = hs.window.focusedWindow()
+  local f = win:frame()
+
+  f.w = 1280
+  f.h = 720
+  win:setFrame(f)
+end)
+
 -- finder watcher
 function applicationWatcher(appName, eventType, appObject)
   if (eventType == hs.application.watcher.activated) then
