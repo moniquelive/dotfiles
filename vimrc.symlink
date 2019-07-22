@@ -40,17 +40,14 @@ Plug 'tpope/vim-dispatch'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'tpope/vim-commentary'
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'lifepillar/vim-mucomplete'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'mattn/emmet-vim'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'kchmck/vim-coffee-script'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tpope/vim-haml', { 'for': 'haml' }
-Plug 'w0rp/ale'
 Plug 'cespare/vim-toml'
 
 " ruby & rails
@@ -61,8 +58,9 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
 
 " Snippets
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 
 " Initialize plugin system
 call plug#end()
@@ -350,13 +348,6 @@ else
   xmap <leader>/ <Plug>Commentary
 endif
 
-if has("autocmd")
-  augroup CoffeeScripting
-    autocmd!
-    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-  augroup END
-endif
-
 " Dont fold foldable files by default
 if has("autocmd")
   augroup Unfolding
@@ -377,30 +368,30 @@ autocmd FileType ruby
       \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
       \ let &path .= "," . $MY_RUBY_HOME . "/lib"
 
-if has("autocmd") && exists("+omnifunc")
-  augroup OmniFunk
-    autocmd!
-    autocmd Filetype *
-          \if &omnifunc == "" |
-          \setlocal omnifunc=syntaxcomplete#Complete |
-          \endif
-    autocmd FileType ruby,eruby let ruby_space_errors = 1
-    autocmd FileType ruby,eruby let ruby_fold = 1
-    autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
-    autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
-    autocmd FileType ruby,eruby UltiSnipsAddFiletypes rails.ruby
+" if has("autocmd") && exists("+omnifunc")
+"   augroup OmniFunk
+"     autocmd!
+"     autocmd Filetype *
+"           \if &omnifunc == "" |
+"           \setlocal omnifunc=syntaxcomplete#Complete |
+"           \endif
+"     autocmd FileType ruby,eruby let ruby_space_errors = 1
+"     autocmd FileType ruby,eruby let ruby_fold = 1
+"     autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
+"     autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
+"     autocmd FileType ruby,eruby UltiSnipsAddFiletypes rails.ruby
 
-    " Enable omni completion.
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    autocmd FileType python setlocal omnifunc=python3complete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-    autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-    autocmd FileType c set omnifunc=ccomplete#Complete
-    autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
-  augroup END
-endif
+"     " Enable omni completion.
+"     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"     autocmd FileType python setlocal omnifunc=python3complete#Complete
+"     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+"     autocmd FileType c set omnifunc=ccomplete#Complete
+"     autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
+"   augroup END
+" endif
 
 if ! has('gui_running')
     set ttimeoutlen=10 lazyredraw
@@ -501,30 +492,10 @@ if executable("fd")
   let g:ctrlp_use_caching = 0
 endif
 
-"-------------------------------------------------------------- MuComplete ---
-set noshowmode shortmess+=c
-set noinfercase
-set completeopt-=preview
-set completeopt+=menuone,noinsert,noselect
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+"--------------------------------------------------------------------- Coc ---
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
+"       \ \<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-let g:mucomplete#no_mappings=1
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#chains = {
-      \ 'default': ['path', 'keyn', 'omni', 'dict', 'ulti'],
-      \ 'cucumber' : ['keyn', 'dict', 'line', 'uspl', 'ulti'],
-      \ 'gitcommit' : ['keyn', 'dict', 'uspl'],
-      \ 'ruby': ['path', 'dict', 'ulti'],
-      \ }
-
-"--------------------------------------------------------------------- ALE ---
-let g:ale_linters = {'ruby': ['standardrb']}
-let g:ale_fixers = {'ruby': ['standardrb'], '*': ['prettier']}
-let g:ale_lint_on_insert_leave = 1
-" Bind F8 to fixing problems with ALE
-nmap <F8> <Plug>(ale_fix)
 
 "}}}
