@@ -13,3 +13,4 @@ nnoremap <c-l> :action VimWindowRight<CR>
 
 set surround
 set ignorecase
+set ideajoinset clipboard+=ideaput
