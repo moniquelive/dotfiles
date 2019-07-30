@@ -79,6 +79,7 @@
   insteadOf = git://github.com
 
 [diff]
+	tool = bc3
   ; tool = Kaleidoscope
   ; tool = bc3
   ; algorithm = patience
