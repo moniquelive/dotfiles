@@ -53,6 +53,7 @@ export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 export MAKEFLAGS=-j$(nproc)
 export HIGHLIGHT_OPTIONS="--style=zenburn --out-format=xterm256"
+[[ -d "${HOME}/Projects/go" ]] && export GOPATH=$HOME/Projects/go/lib:$HOME/Projects/go/src
 
 # last lines pls
 [[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
