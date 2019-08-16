@@ -180,19 +180,6 @@ if isdirectory(expand("~/.vim/bundle/undotree/"))
   let g:undotree_SetFocusWhenToggle=1
 endif
 
-if &term =~ '256color'
-  if ! has("gui_running")
-    set term=xterm-256color
-  endif
-
-  set t_Co=256
-
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
-
 set background=dark
 syntax on
 
@@ -202,14 +189,14 @@ syntax on
 " color base16-hopscotch
 
 "------------------------------------------------------------------ gruvbox ---
-" let g:gruvbox_improved_strings=0
-" let g:gruvbox_improved_warnings=1
-" let g:gruvbox_contrast_dark='dark'
-" color gruvbox
+let g:gruvbox_improved_strings=0
+let g:gruvbox_improved_warnings=1
+let g:gruvbox_contrast_dark='dark'
+color gruvbox
 
 "------------------------------------------------------------------- alduin ---
-let g:alduin_Contract_Vampirism = 1
-colorscheme alduin
+" let g:alduin_Contract_Vampirism = 1
+" colorscheme alduin
 
 
 " set fillchars=vert:│,fold:-
