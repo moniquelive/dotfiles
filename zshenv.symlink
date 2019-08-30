@@ -54,7 +54,7 @@ export LC_CTYPE=${LANG}.UTF-8
 export MAKEFLAGS=-j$(nproc)
 export HIGHLIGHT_OPTIONS="--style=base16/gruvbox-dark-medium --out-format=truecolor"
 
-# [[ -d "${HOME}/Projects/go" ]] && export GOPATH=$HOME/Projects/go/lib
+[[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
 
 
 # last lines pls
