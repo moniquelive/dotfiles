@@ -1,5 +1,5 @@
 [user]
-	name = cyber
+	name = Cyber Oliveira
 	email = lccro@msn.com
 
 [core]
@@ -112,3 +112,4 @@
 	trustExitCode = true
 [commit]
 	template = /Users/leo/.stCommitMsg
+	gpgsign = true
