@@ -56,16 +56,16 @@ ZSH_TMUX_ITERM2=true
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
+  aws
   brew bundler
-  capistrano cp colorize colored-man-pages common-aliases
+  cp colorize colored-man-pages common-aliases
   dirpersist docker docker-compose
-  emoji
   forklift fzf
   gem git gnu-utils github gitignore gpg-agent
   npm
   osx
   pyenv
-  rails rake-fast rand-quote rsync rvm
+  rails rake-fast rsync rvm
   sudo systemd
   tig tmux
   urltools
