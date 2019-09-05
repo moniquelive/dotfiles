@@ -1,10 +1,9 @@
 ## Non-interactive shell ##
 
-# [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
-
 [[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
 [[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
 [[ -d "$HOME/.local/bin" ]] && path=($HOME/.local/bin $path)
+[[ -d "/usr/local/sbin" ]] && path+=(/usr/local/sbin)
 
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
