@@ -61,8 +61,7 @@ plugins=(
   dirpersist docker docker-compose
   emoji
   forklift fzf
-  gem gnu-utils github gitignore
-  git
+  gem git gnu-utils github gitignore gpg-agent
   npm
   osx
   pyenv
