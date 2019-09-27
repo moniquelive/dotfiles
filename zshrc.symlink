@@ -75,6 +75,7 @@ plugins=(
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
 [[ -x "/usr/bin/pacman" ]] && plugins+=(archlinux)
 [[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
+[[ "$OSTYPE" = darwin* ]] && plugins+=(zsh-syntax-highlighting)
 
 ZSH_THEME="spaceship"
 
