@@ -51,7 +51,7 @@ DISABLE_AUTO_TITLE="true"
 COMPLETION_WAITING_DOTS="true"
 
 # Tmux plugin
-ZSH_TMUX_ITERM2=true
+ZSH_TMUX_FIXTERM_WITH_256COLOR=xterm-256color
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -118,17 +118,9 @@ unset SCRIPT_NAME
 
 #----------------------------------------------------------------- aliases ---
 
-#
 # TMUX
-#
 unalias t
-t() {
-    if [ "$1" != "" ]; then
-        tmux $1
-    else
-        tmux new-session $1
-    fi
-}
+alias t=tmux
 compdef _tmux t
 
 alias ls='ls --color=auto --group-directories-first'
