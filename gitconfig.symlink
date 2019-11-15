@@ -1,6 +1,7 @@
 [user]
-	name = Cyber Oliveira
-	email = lccro@msn.com
+  name = Cyber Oliveira
+  email = lccro@msn.com
+  signingkey = 595FABD9E2F0E2C7E53715DB185B193B89DF323E
 
 [core]
   quotepath    = false
@@ -113,3 +114,5 @@
 [commit]
 	; template = ~/.stCommitMsg
 	gpgsign = true
+[gpg]
+	program = gpg2
