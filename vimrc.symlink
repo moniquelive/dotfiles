@@ -20,6 +20,8 @@ call plug#begin('~/.vim/plugged')
 " Plug 'AlessandroYorba/Alduin'
 " Plug 'morhetz/gruvbox'
 Plug 'rakr/vim-one'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 " misc
 Plug 'bronson/vim-trailing-whitespace'
@@ -212,7 +214,8 @@ endif
 colorscheme one
 set background=dark " for the dark version
 let g:one_allow_italics = 1 " I love italic for comments
-let g:airline_theme='one'
+let g:airline_theme='onedark'
+let g:airline_powerline_fonts = 1
 
 "------------------------------------------------------------------- alduin ---
 " let g:alduin_Contract_Vampirism = 1
@@ -453,25 +456,27 @@ function! Reg()
 endfunction
 command! -nargs=0 Reg call Reg()
 
-"------------------------------------------------------------ editorconfig ---
+"------------------------------------------------------------ editorconfig {{{
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
 if executable('editorconfig')
   let g:EditorConfig_exec_path = exepath('editorconfig')
   let g:EditorConfig_core_mode = 'external_command'
 endif
+" }}}
 
-"--------------------------------------------------------------- RSpec.vim ---
+"--------------------------------------------------------------- RSpec.vim {{{
 map <Leader>rt :call RunCurrentSpecFile()<CR>
 map <Leader>rs :call RunNearestSpec()<CR>
 map <Leader>rl :call RunLastSpec()<CR>
 map <Leader>ra :call RunAllSpecs()<CR>
 let g:rspec_command = "Dispatch rspec {spec}"
 "let g:rspec_runner = "os_x_iterm2"
+"}}}
 
 "--------------------------------------------------------------- SplitJoin ---
 let g:splitjoin_align = 1
 
-"------------------------------------------------------------------- CtrlP ---
+"------------------------------------------------------------------- CtrlP {{{
 if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -495,6 +500,7 @@ if executable("fd")
   let g:ctrlp_user_command = 'fd --type f --color=never "" %s'
   let g:ctrlp_use_caching = 0
 endif
+"}}}
 
 
 "--------------------------------------------------------------------- Coc {{{
