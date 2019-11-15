@@ -526,10 +526,10 @@ let g:coc_global_extensions = [
       \ "coc-snippets",
       \ "coc-template",
       \ "coc-ultisnips",
-      \ "coc-vetur",
       \ "coc-yaml",
       \ "coc-yank",
       \ ]
+      " \ "coc-vetur",
 
 " if hidden is not set, TextEdit might fail.
 set hidden
