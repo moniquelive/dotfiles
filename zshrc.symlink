@@ -1,13 +1,7 @@
 #!/usr/bin/env zsh
 
-# #BENCHMARKING (begin)
-## set the trace prompt to include seconds, nanoseconds, script name and line number
-#PS4='+$(date "+%s:%N") %N:%i> '
-## save file stderr to file descriptor 3 and redirect stderr (including trace
-## output) to a file with the script's PID as an extension
-#exec 3>&2 2>/tmp/startlog.$$
-## set options to turn on tracing and expansion of commands contained in the prompt
-#setopt xtrace prompt_subst
+# BENCHMARKING
+# zmodload zsh/zprof
 #----------------------------------------------------------------------------
 
 ## Interactive shell ##
@@ -53,26 +47,22 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
-  aws
-  brew bundler
-  cp colorize colored-man-pages common-aliases
+  bundler
+  cp colored-man-pages common-aliases
   dirpersist docker docker-compose
-  forklift fzf
-  gem git gnu-utils github gitignore gpg-agent
-  npm
-  osx
-  pyenv
-  rails rake-fast rsync rvm
-  sudo systemd
+  fzf
+  gem git gnu-utils github gitignore golang
+  rails rake-fast ripgrep rsync
+  sudo
   tig tmux
-  urltools
-  z zsh_reload
+  z
 )
+[[ -x "/usr/local/bin/aws" ]] && plugins+=(aws)
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
 [[ -x "/usr/bin/pacman" ]] && plugins+=(archlinux)
-[[ "$OSTYPE" = darwin* ]] && plugins+=(ssh-agent)
-[[ "$OSTYPE" = darwin* ]] && plugins+=(zsh-syntax-highlighting)
+[[ "$OSTYPE" = linux* ]] && plugins+=(systemd)
+[[ "$OSTYPE" = darwin* ]] && plugins+=(brew gpg-agent ssh-agent osx)
 
 ZSH_THEME="spaceship"
 
@@ -261,13 +251,6 @@ if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
   source $HOME/.local/bin/virtualenvwrapper.sh
 fi
 
-#----------------------------------------------------------------------------
-## BENCHMARKING (END)
-## turn off tracing
-#unsetopt xtrace
-## restore stderr to the value saved in FD 3
-#exec 2>&3 3>&-
-
 [ -e ${HOME}/.iterm2_shell_integration.zsh ] && source "${HOME}/.iterm2_shell_integration.zsh"
 
 if [[ "$USER" == "paperspace" ]]; then
@@ -283,6 +266,6 @@ fi
 
 [ -e ${HOME}/.dircolors ] && eval $(dircolors -b $HOME/.dircolors)
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
+#----------------------------------------------------------------------------
+# BENCHMARKING (END)
+# zprof

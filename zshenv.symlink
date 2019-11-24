@@ -12,18 +12,6 @@ if [[ -d /usr/local/cuda ]]; then
   path+=($CUDA_HOME/bin)
 fi
 
-if [[ -f "/usr/local/bin/virtualenvwrapper.sh" ]]; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Projects/python
-  source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Projects/python
-  source $HOME/.local/bin/virtualenvwrapper.sh
-fi
-
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(/usr/local/bin/brew --prefix)
 
@@ -40,9 +28,6 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
-# Add RVM to PATH
-[[ -d "${HOME}/.rvm/bin" ]] && path=($HOME/.rvm/bin $path)
-[[ -d "/usr/local/rvm/bin" ]] && path=(/usr/local/rvm/bin $path)
 [[ -d "${GEM_HOME}/bin" ]] && path=($GEM_HOME/bin $path)
 
 #----------------------------------------------------------------- exports ---
@@ -54,7 +39,3 @@ export MAKEFLAGS=-j$(nproc)
 export HIGHLIGHT_OPTIONS="--style=base16/gruvbox-dark-medium --out-format=truecolor"
 
 [[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
-
-
-# last lines pls
-[[ -s "${HOME}/.awskeys.sh" ]] && source "${HOME}/.awskeys.sh"
