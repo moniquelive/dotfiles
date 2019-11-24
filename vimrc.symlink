@@ -26,14 +26,12 @@ Plug 'vim-airline/vim-airline-themes'
 " misc
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'nelstrom/vim-visual-star-search'
 Plug 'tpope/vim-obsession'
 Plug 'dhruvasagar/vim-prosession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
 Plug 'wincent/terminus'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
 
@@ -443,8 +441,28 @@ let g:rspec_command = "Dispatch rspec {spec}"
 let g:splitjoin_align = 1
 
 "--------------------------------------------------------------------- FZF ---
+" Bcommits
+" Blines
+" Btags
+" Files
 nnoremap <c-p> :Files<CR>
-
+nnoremap <leader>fc    :<C-u>Colors<cr>
+nnoremap <leader>fcmd  :<C-u>Commands<cr>
+nnoremap <leader>fgc   :<C-u>Commits<cr>
+nnoremap <leader>fft   :<C-u>Filetypes<cr>
+nnoremap <leader>fgf   :<C-u>Gfiles<cr>
+nnoremap <leader>fgfd  :<C-u>Gfiles-diff<cr>
+nnoremap <leader>fht   :<C-u>Helptags<cr>
+nnoremap <leader>fh    :<C-u>History-command<cr>
+nnoremap <leader>fhf   :<C-u>History-files<cr>
+nnoremap <leader>fhs   :<C-u>History-search<cr>
+nnoremap <leader>fmap  :<C-u>Maps<cr>
+nnoremap <leader>fmark :<C-u>Marks<cr>
+nnoremap <leader>fw    :<C-u>Windows<cr>
+" nnoremap <leader>fl    :<C-u>Lines<cr>
+" nnoremap <leader>floc  :<C-u>Locate<cr>
+" nnoremap <leader>fs    :<C-u>Snippets<cr>
+" nnoremap <leader>ft    :<C-u>Tags<cr>
 
 "--------------------------------------------------------------------- Coc {{{
 let g:coc_global_extensions = [
@@ -586,25 +604,20 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
-" Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " custom maps
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <space>m  :<C-u>CocList maps<cr>
+nnoremap <silent> <space>f  :<C-u>CocList files<cr>
+nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
 
 " custom colors
 highlight CocHighlightText guibg=#5800a9
