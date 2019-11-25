@@ -1,4 +1,1 @@
-# Store dirs stack
-# See /Users/leo/.oh-my-zsh/plugins/dirspersist.plugin.zsh
-setopt norcs
-dirpersiststore
+# .zlogout
