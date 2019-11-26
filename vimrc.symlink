@@ -34,6 +34,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'wincent/terminus'
 Plug 'tpope/vim-dispatch'
 Plug 'sheerun/vim-polyglot'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " coding
 Plug 'tpope/vim-commentary'
@@ -450,8 +451,8 @@ nnoremap <leader>fc    :<C-u>Colors<cr>
 nnoremap <leader>fcmd  :<C-u>Commands<cr>
 nnoremap <leader>fgc   :<C-u>Commits<cr>
 nnoremap <leader>fft   :<C-u>Filetypes<cr>
-nnoremap <leader>fgf   :<C-u>Gfiles<cr>
-nnoremap <leader>fgfd  :<C-u>Gfiles-diff<cr>
+" nnoremap <leader>fgf   :<C-u>Gfiles<cr>
+" nnoremap <leader>fgfd  :<C-u>Gfiles-diff<cr>
 nnoremap <leader>fht   :<C-u>Helptags<cr>
 nnoremap <leader>fh    :<C-u>History-command<cr>
 nnoremap <leader>fhf   :<C-u>History-files<cr>
@@ -484,6 +485,7 @@ let g:coc_global_extensions = [
       \ "coc-prettier",
       \ "coc-python",
       \ "coc-sh",
+      \ "coc-solargraph",
       \ "coc-snippets",
       \ "coc-template",
       \ "coc-ultisnips",
@@ -607,6 +609,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent> <space>g  :<C-u>CocList grep<cr>
 nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>

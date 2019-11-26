@@ -1,5 +1,6 @@
 #------------------------------------------------- true color everywhere 💃🏻-
 set -ga terminal-overrides ",${TERM}:Tc"
+set -g focus-events on
 
 #------------------------------------------------------ rebinds the prefix ---
 set -g prefix C-a
