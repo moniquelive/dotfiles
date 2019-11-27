@@ -17,9 +17,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-" Plug 'AlessandroYorba/Alduin'
-" Plug 'morhetz/gruvbox'
-Plug 'rakr/vim-one'
+Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -77,7 +75,7 @@ let g:ragtag_global_maps = 1
 
 " global defaults {{{
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
-set noswapfile hlsearch cursorline
+set noswapfile hlsearch cursorline noshowmode
 set ignorecase smartcase
 set textwidth=80 colorcolumn=+1
 
@@ -181,10 +179,7 @@ if isdirectory(expand("~/.vim/bundle/undotree/"))
   let g:undotree_SetFocusWhenToggle=1
 endif
 
-set background=dark
-syntax on
-
-" Use 24-bit (true-color) mode in Vim/Neovim
+"------------------------------- Use 24-bit (true-color) mode in Vim/Neovim ---
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -193,25 +188,15 @@ endif
 set background=dark " for the dark version
 
 "------------------------------------------------------------------- base16 ---
-" let g:base16colorspace=256
+let g:base16colorspace=256
 " color base16-tomorrow-night
 " color base16-hopscotch
+color base16-gruvbox-dark-medium
+" color base16-onedark
 
-"------------------------------------------------------------------ gruvbox ---
-" let g:gruvbox_improved_strings=0
-" let g:gruvbox_improved_warnings=1
-" let g:gruvbox_contrast_dark='dark'
-" color gruvbox
-
-"---------------------------------------------------------------------- one ---
-" let g:one_allow_italics = 1 " I love italic for comments
-let g:airline_theme='one'
+"------------------------------------------------------------------ airline ---
+let g:airline_theme='base16_vim'
 let g:airline_powerline_fonts = 1
-colorscheme one
-
-"------------------------------------------------------------------- alduin ---
-" let g:alduin_Contract_Vampirism = 1
-" colorscheme alduin
 
 " Mappings to easily toggle fold levels
 nnoremap z0 :setlocal foldlevel=0<cr>
