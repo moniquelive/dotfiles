@@ -39,14 +39,10 @@ Plug 'tpope/vim-commentary'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-fugitive'
-Plug 'mustache/vim-mustache-handlebars'
 Plug 'ryanoasis/vim-devicons'
-Plug 'tpope/vim-haml', { 'for': 'haml' }
-Plug 'cespare/vim-toml'
 
 " ruby & rails
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-bundler'
@@ -422,6 +418,9 @@ map <Leader>ra :call RunAllSpecs()<CR>
 let g:rspec_command = "Dispatch rspec {spec}"
 "let g:rspec_runner = "os_x_iterm2"
 "}}}
+
+"-------------------------------------------------------------- Prosession ---
+let g:prosession_tmux_title = 1
 
 "--------------------------------------------------------------- SplitJoin ---
 let g:splitjoin_align = 1
