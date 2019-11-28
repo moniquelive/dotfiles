@@ -67,7 +67,6 @@ augroup reload_vimrc " {
 augroup END " }
 
 let g:netrw_altfile = 1 " <C-6> returns to files
-let g:ragtag_global_maps = 1
 
 " global defaults {{{
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
@@ -81,6 +80,7 @@ set showtabline=2
 set switchbuf=useopen
 set showfulltag
 set incsearch
+
 " trying out coc.vim defaults:
 " set updatetime=2000
 set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
@@ -107,7 +107,7 @@ set scrolloff=2
 set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backup                  " Backups are nice ...
+" set backup                  " Backups are nice ...
 if has('persistent_undo')
     set undofile                " So is persistent undo ...
     set undolevels=1000         " Maximum number of changes that can be undone
@@ -141,8 +141,6 @@ set history=1000
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
-set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
 
 " create intermediary directories
 fun! <SID>AutoMakeDirectory()
@@ -169,12 +167,6 @@ if exists(':tnoremap')
   nnoremap <A-l> <C-w>l
 endif
 
-if isdirectory(expand("~/.vim/bundle/undotree/"))
-  nnoremap <Leader>u :UndotreeToggle<CR>
-  " If undotree is opened, it is likely one wants to interact with it.
-  let g:undotree_SetFocusWhenToggle=1
-endif
-
 "------------------------------- Use 24-bit (true-color) mode in Vim/Neovim ---
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -187,8 +179,8 @@ set background=dark " for the dark version
 let g:base16colorspace=256
 " color base16-tomorrow-night
 " color base16-hopscotch
-color base16-gruvbox-dark-medium
-" color base16-onedark
+" color base16-gruvbox-dark-medium
+color base16-onedark
 
 "------------------------------------------------------------------ airline ---
 let g:airline_theme='base16_vim'
@@ -247,18 +239,8 @@ nmap <leader><leader> <c-^>
 nnoremap / /\v
 vnoremap / /\v
 
-" " Move visual block
-" vnoremap J :m '>+1<CR>gv=gv
-" vnoremap K :m '<-2<CR>gv=gv
-
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-
-" buffer navigation from Practical Vim Book
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :bnext<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
 
 " Move around splits with <c-hjkl>
 nnoremap <c-j> <c-w>j
@@ -278,20 +260,6 @@ nnoremap <c-w>V :let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>
 " Easier split resizing (shift - and shift +)
 nnoremap _ <c-w>-
 nnoremap + <c-w>+
-if has("autocmd")
-  autocmd WinEnter,BufWinEnter *
-        \ silent! nunmap <|
-        \ silent! nunmap >|
-        \ if winnr('$') > 1 |
-        \   if winnr() == 1|
-        \     nnoremap < <c-w><|
-        \     nnoremap > <c-w>>|
-        \   else|
-        \     nnoremap < <c-w>>|
-        \     nnoremap > <c-w><|
-        \   endif |
-        \ endif
-endif
 
 if has("gui_macvim") && has("gui_running")
   "-------------------------------------------------------------- vitality ---
@@ -320,35 +288,6 @@ if has("autocmd")
   augroup END
 endif
 
-autocmd FileType ruby
-      \ let &tags .= "," . $MY_RUBY_HOME . "/lib/tags" |
-      \ let &path .= "," . $MY_RUBY_HOME . "/lib"
-
-" if has("autocmd") && exists("+omnifunc")
-"   augroup OmniFunk
-"     autocmd!
-"     autocmd Filetype *
-"           \if &omnifunc == "" |
-"           \setlocal omnifunc=syntaxcomplete#Complete |
-"           \endif
-"     autocmd FileType ruby,eruby let ruby_space_errors = 1
-"     autocmd FileType ruby,eruby let ruby_fold = 1
-"     autocmd FileType ruby,eruby let ruby_spellcheck_strings = 1
-"     autocmd FileType ruby,eruby set keywordprg=ri " use ruby's ri instead of man for K command
-"     autocmd FileType ruby,eruby UltiSnipsAddFiletypes rails.ruby
-
-"     " Enable omni completion.
-"     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"     autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-"     autocmd FileType python setlocal omnifunc=python3complete#Complete
-"     autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-"     autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-"     autocmd FileType c set omnifunc=ccomplete#Complete
-"     autocmd FileType ruby,eruby set omnifunc=syntaxcomplete#Complete
-"   augroup END
-" endif
-
 if ! has('gui_running')
     set ttimeoutlen=10 lazyredraw
     augroup FastEscape
@@ -356,11 +295,6 @@ if ! has('gui_running')
         au InsertEnter * set timeoutlen=0
         au InsertLeave * set timeoutlen=1000
     augroup END
-endif
-
-" For snippet_complete marker.
-if has('conceal')
-  set conceallevel=2 concealcursor=i
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""" RENAME CURRENT FILE
@@ -476,7 +410,6 @@ let g:coc_global_extensions = [
       \ "coc-yaml",
       \ "coc-yank",
       \ ]
-      " \ "coc-vetur",
 
 " if hidden is not set, TextEdit might fail.
 set hidden
@@ -515,9 +448,9 @@ inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -590,21 +523,21 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Using CocList
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-nnoremap <silent> <space>g  :<C-u>CocList grep<cr>
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <leader>ca  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>cg  :<C-u>CocList grep<cr>
+nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
+nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
+nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 
 " custom maps
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-nnoremap <silent> <space>m  :<C-u>CocList maps<cr>
-nnoremap <silent> <space>f  :<C-u>CocList files<cr>
-nnoremap <silent> <space>b  :<C-u>CocList buffers<cr>
+nnoremap <silent> <leader>cy  :<C-u>CocList -A --normal yank<cr>
+nnoremap <silent> <leader>cm  :<C-u>CocList maps<cr>
+nnoremap <silent> <leader>cf  :<C-u>CocList files<cr>
+nnoremap <silent> <leader>cb  :<C-u>CocList buffers<cr>
 
 " custom colors
 highlight CocHighlightText guibg=#5800a9
