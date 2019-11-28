@@ -36,6 +36,6 @@ export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 export MAKEFLAGS=-j$(nproc)
-export HIGHLIGHT_OPTIONS="--style=base16/gruvbox-dark-medium --out-format=truecolor"
+export HIGHLIGHT_OPTIONS="--style=base16/onedark --out-format=truecolor"
 
 [[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
