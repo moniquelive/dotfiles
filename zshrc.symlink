@@ -72,6 +72,7 @@ unalias sr
 unalias fd
 
 # set these after omz
+[[ -x `which highlight` ]] && export LESSOPEN="| highlight %s"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
 export EDITOR=vim
