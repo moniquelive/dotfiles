@@ -1,0 +1,3 @@
+if !exists('g:colors_name') || g:colors_name != 'base16-paraiso'
+  colorscheme base16-paraiso
+endif

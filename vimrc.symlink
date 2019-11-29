@@ -178,13 +178,20 @@ set background=dark " for the dark version
 "------------------------------------------------------------------- base16 ---
 let g:base16colorspace=256
 " color base16-tomorrow-night
-" color base16-hopscotch
 " color base16-gruvbox-dark-medium
-color base16-onedark
+" color base16-onedark
+" color base16-hopscotch
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
+else
+  color base16-paraiso
+endif
+
 
 "------------------------------------------------------------------ airline ---
 let g:airline_theme='base16_vim'
 let g:airline_powerline_fonts = 1
+let g:airline_base16_improved_contrast = 1
 
 " Mappings to easily toggle fold levels
 nnoremap z0 :setlocal foldlevel=0<cr>
@@ -360,6 +367,22 @@ let g:prosession_tmux_title = 1
 let g:splitjoin_align = 1
 
 "--------------------------------------------------------------------- FZF ---
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
 " Bcommits
 " Blines
 " Btags
