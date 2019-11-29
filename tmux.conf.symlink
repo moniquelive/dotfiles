@@ -1,5 +1,6 @@
 #------------------------------------------------- true color everywhere 💃🏻-
-set -ga terminal-overrides ",${TERM}:Tc"
+set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ',xterm-256color:Tc'
 set -g focus-events on
 
 #------------------------------------------------------ rebinds the prefix ---

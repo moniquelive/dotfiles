@@ -91,8 +91,8 @@
 [gui]
   warndetachedcommit = true
 
-[init]
-  templatedir = ~/.git_template
+; [init]
+;   templatedir = ~/.git_template
 
 [filter "lfs"]
   clean = git-lfs clean %f
