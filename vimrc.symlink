@@ -1,4 +1,4 @@
-" This is CyberLeo's .vimrc file
+" This is MoniqueLive's .vimrc file
 " vim:set ts=2 sts=2 sw=2 expandtab foldenable foldmethod=marker:
 
 "----------------------------------------------------------------- plugins ---
@@ -20,36 +20,36 @@ call plug#begin('~/.vim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
 
-" misc
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-obsession'
-Plug 'dhruvasagar/vim-prosession'
+" tpope fandom
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-vinegar'
-Plug 'wincent/terminus'
-Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-rails'
+
+" misc
 Plug 'sheerun/vim-polyglot'
+Plug 'wincent/terminus'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'dhruvasagar/vim-prosession'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'editorconfig/editorconfig-vim'
 
 " coding
-Plug 'tpope/vim-commentary'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
-Plug 'tpope/vim-fugitive'
-Plug 'ryanoasis/vim-devicons'
 
 " ruby & rails
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-bundler'
 
 " Auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'tpope/vim-surround'
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
