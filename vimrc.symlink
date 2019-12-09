@@ -505,6 +505,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " GO: Organize imports on save
 augroup golang
+  autocmd!
   autocmd BufWritePre *.go silent call CocAction('runCommand', 'editor.action.organizeImport') |
   autocmd BufWritePre *.go silent call CocAction('format')
 augroup end
