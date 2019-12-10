@@ -25,7 +25,7 @@ set -g history-limit 999999999 # increase history limit
 setw -g aggressive-resize off
 
 # Use unprefixed meta keys to split panes
-bind -n M-\\ split-window -h -c '#{pane_current_path}'
+bind -n M-'\' split-window -h -c '#{pane_current_path}'
 bind -n M-- split-window -v -c '#{pane_current_path}'
 
 # Use unprefixed Alt-vim keys to switch panes
