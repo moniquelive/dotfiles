@@ -2,14 +2,14 @@
 nunmap /
 vunmap /
 nnoremap <leader><leader> :action VimFilePrevious<CR>
-" nnoremap <c-h> <c-w>h
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-k> <c-w>k
-" nnoremap <c-l> <c-w>l
-nnoremap <c-h> :action VimWindowLeft<CR>
-nnoremap <c-j> :action VimWindowDown<CR>
-nnoremap <c-k> :action VimWindowUp<CR>
-nnoremap <c-l> :action VimWindowRight<CR>
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+" nnoremap <c-h> :action VimWindowLeft<CR>
+" nnoremap <c-j> :action VimWindowDown<CR>
+" nnoremap <c-k> :action VimWindowUp<CR>
+" nnoremap <c-l> :action VimWindowRight<CR>
 
 set surround
 set ignorecase
