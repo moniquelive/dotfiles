@@ -77,7 +77,7 @@ if-shell "uname | grep -q Darwin" "set -g default-shell /usr/local/bin/zsh"
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'jimeh/tmux-themepack'
-set -g @themepack 'powerline/block/yellow'
+set -g @themepack 'powerline/double/purple'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
+run -b '~/.tmux/plugins/tpm/tpm'
