@@ -2,7 +2,9 @@
 " set guifont=Menlo:h20
 " set guifont=Mononoki:h16
 " set guifont=Roboto\ Mono\ Light\ for\ Powerline:h18
-set guifont=Ubuntu\ Mono\ 14
+" set guifont=Ubuntu\ Mono\ 14
+set guifont=Roboto\ Mono\ Nerd\ Font\ Complete:h18
+
 set guioptions=aAce
 " hlsearch underline
 highlight Search guibg=black guifg=yellow gui=underline
