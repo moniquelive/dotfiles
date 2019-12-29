@@ -14,7 +14,7 @@
 
 # TUI:
 al
-q0
+q1
 v2
 ov
 m-1
@@ -23,17 +23,74 @@ r2
 
 # Left window history (oldest to newest):
 d/Users/leo
+	prj
+16
+d/Users/leo/prj
+	aoc2019
+2
+d/Users/leo/prj/aoc2019
+	14
+14
+d/Users/leo/prj/aoc2019/14
+	1.go
+1
+d/Users/leo/prj/aoc2019
+	13
+13
+d/Users/leo/prj/aoc2019/13
 	..
 0
+d/Users/leo/prj/aoc2019
+	13
+13
+d/Users/leo/prj/aoc2019/13
+	..
+0
+d/Users/leo/prj/aoc2019
+	17
+16
+d/Users/leo/prj/aoc2019/17
+	..
+0
+d/Users/leo/prj/aoc2019
+	17
+16
+d/Users/leo/prj
+	aoc2019
+2
+d/Users/leo
+	Pictures
+12
+d/Users/leo/Pictures
+	Photo Booth Library
+1
+d/Users/leo/Pictures/Photo Booth Library
+	..
+0
+d/Users/leo/Pictures
+	Photos Library.photoslibrary
+2
+d/Users/leo/Pictures/Photos Library.photoslibrary
+	originals
+3
+d/Users/leo/Pictures/Photos Library.photoslibrary/originals
+	0
+1
+d/Users/leo/Pictures/Photos Library.photoslibrary/originals/0
+	0A4A81B2-153F-4FB5-A2E0-FE658FAC1ED7_3.mov
+3
 d
 
 # Right window history (oldest to newest):
 D/Users/leo
-	..
-0
+	prj
+16
 D
 
 # Command line history (oldest to newest):
+:copy
+:move
+:ren
 
 # Search history (oldest to newest):
 
