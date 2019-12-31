@@ -38,5 +38,6 @@ export LC_CTYPE=${LANG}.UTF-8
 export MAKEFLAGS=-j$(nproc)
 [[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
 export HIGHLIGHT_OPTIONS="--style=${hltheme:-base16/ashes} --out-format=truecolor"
+export TIG_DIFF_OPTS="--patience --ignore-all-space"
 
 [[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
