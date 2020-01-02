@@ -68,7 +68,6 @@ ZSH_THEME="spaceship"
 
 #---------------------------------------------------------------- load OMZ ---
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
-unalias sr
 unalias fd
 
 # set these after omz

@@ -34,7 +34,6 @@ Plug 'tpope/vim-rake'
 Plug 'tpope/vim-rails'
 
 " misc
-Plug 'sheerun/vim-polyglot'
 Plug 'wincent/terminus'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'dhruvasagar/vim-prosession'
@@ -45,8 +44,10 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 
-" ruby & rails
+" languages
+Plug 'sheerun/vim-polyglot'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
+Plug 'fatih/vim-go'
 
 " Auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -419,7 +420,6 @@ let g:coc_global_extensions = [
       \ "coc-emmet",
       \ "coc-emoji",
       \ "coc-gitignore",
-      \ "coc-go",
       \ "coc-highlight",
       \ "coc-html",
       \ "coc-json",
@@ -433,7 +433,6 @@ let g:coc_global_extensions = [
       \ "coc-solargraph",
       \ "coc-snippets",
       \ "coc-template",
-      \ "coc-ultisnips",
       \ "coc-yaml",
       \ "coc-yank",
       \ ]
@@ -502,13 +501,6 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" GO: Organize imports on save
-augroup golang
-  autocmd!
-  autocmd BufWritePre *.go silent call CocAction('runCommand', 'editor.action.organizeImport') |
-  autocmd BufWritePre *.go silent call CocAction('format')
-augroup end
 
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
