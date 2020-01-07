@@ -2,5 +2,12 @@
   "list.source.files.args": ["--hidden", "--files"],
   "list.source.grep.defaultArgs": ["-S"],
   "codeLens.enable": true,
-  "solargraph.useBundler": true
+  "solargraph.useBundler": true,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
+    }
+  }
 }
