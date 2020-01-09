@@ -3,8 +3,7 @@
 " set guifont=Mononoki:h16
 " set guifont=Roboto\ Mono\ Light\ for\ Powerline:h18
 " set guifont=Ubuntu\ Mono\ 14
-set guifont=RobotoMono\ Nerd\ Font\ Mono:h18
-:help
+set guifont=RobotoMono\ Nerd\ Font\ Mono\ 18
 
 set guioptions=aAce
 " hlsearch underline
