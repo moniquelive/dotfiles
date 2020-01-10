@@ -3,7 +3,11 @@
 " set guifont=Mononoki:h16
 " set guifont=Roboto\ Mono\ Light\ for\ Powerline:h18
 " set guifont=Ubuntu\ Mono\ 14
-set guifont=RobotoMono\ Nerd\ Font\ Mono\ 18
+if has('macunix')
+  set guifont=RobotoMonoNerdFontComplete-Regular:h18
+else
+  set guifont=RobotoMono\ Nerd\ Font\ Mono\ 18
+endif
 
 set guioptions=aAce
 " hlsearch underline
