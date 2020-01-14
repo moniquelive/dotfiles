@@ -6,7 +6,7 @@
 if has('macunix')
   set guifont=RobotoMonoNerdFontComplete-Regular:h18
 else
-  set guifont=RobotoMono\ Nerd\ Font\ Mono\ 18
+  set guifont=RobotoMono\ Nerd\ Font\ 16
 endif
 
 set guioptions=aAce
