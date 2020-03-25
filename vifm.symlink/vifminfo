@@ -22,6 +22,9 @@ l2
 r2
 
 # Left window history (oldest to newest):
+d/Users/leo/Desktop/bear
+	Lojas e Sites.txt
+77
 d/Users/leo
 	prj
 16
@@ -100,6 +103,9 @@ d/Users/leo/Documents/99bottles
 d/Users/leo/Documents
 	21212
 2
+d/Users/leo/Desktop/bear
+	watermark.pdf.txt
+81
 d
 
 # Right window history (oldest to newest):
@@ -112,6 +118,7 @@ D
 :copy
 :move
 :ren
+:reload
 
 # Search history (oldest to newest):
 
