@@ -40,4 +40,13 @@ export MAKEFLAGS=-j$(nproc)
 export HIGHLIGHT_OPTIONS="--style=${hltheme:-base16/ashes} --out-format=truecolor"
 export TIG_DIFF_OPTS="--patience --ignore-all-space"
 
+SPACESHIP_CHAR_COLOR_SUCCESS="yellow"
+SPACESHIP_CHAR_PREFIX="\uf296"
+SPACESHIP_CHAR_SUFFIX=(" ")
+SPACESHIP_CHAR_SYMBOL=" \uf0e7"
+SPACESHIP_PROMPT_ADD_NEWLINE="true"
+# SPACESHIP_PROMPT_DEFAULT_PREFIX="$USER"
+# SPACESHIP_PROMPT_FIRST_PREFIX_SHOW="true"
+# SPACESHIP_USER_SHOW="true"
+
 [[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
