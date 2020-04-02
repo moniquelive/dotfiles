@@ -240,6 +240,7 @@ endif
 
 " Subtle search highlights
 highlight Search ctermbg=black ctermfg=yellow term=underline
+highlight Comment cterm=italic
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
