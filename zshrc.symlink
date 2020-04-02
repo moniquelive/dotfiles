@@ -72,7 +72,10 @@ ZSH_THEME="spaceship"
 unalias fd
 
 # set these after omz
-[[ -x `which highlight` ]] && export LESSOPEN="| highlight %s"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANROFFOPT="-c"
+export BAT_THEME="base16"
+export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
 export EDITOR=vim
@@ -144,6 +147,8 @@ alias -g T="| tail"
 alias -g V="| vim -R -"
 alias -g U=' --help | head'
 alias -g W="| wc"
+alias -g Z='| fzf'
+
 
 #------------------------------------------------------------------ suffix ---
 alias -s zip=zipinfo
@@ -237,11 +242,31 @@ unsetopt print_exit_value
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Setting fd as the default source for fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='-m --cycle'
+# export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --exclude 'node_modules'"
+export FZF_DEFAULT_OPTS="-m --cycle --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+
+# for more info see fzf/shell/completion.zsh
+_fzf_compgen_path() {
+    fd . "$1"
+}
+_fzf_compgen_dir() {
+    fd --type d . "$1"
+}
+
+# like normal z when used with arguments but displays an fzf prompt when used without.
+unalias z 2> /dev/null
+z() {
+    [ $# -gt 0 ] && _z "$*" && return
+    cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
 
 # To apply the command to CTRL-T as well
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# ALT-C's command
+export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
+
 fzfrmimage() {
   docker image rm $(docker image ls | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
 }
