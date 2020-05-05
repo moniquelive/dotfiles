@@ -43,7 +43,6 @@ bind -n M-L resize-pane -R 5
 # MOUSE & CLIPBOARD
 set -g mouse on
 set -g set-clipboard on
-# kitty: clipboard_control write-clipboard write-primary no-append
 
 #----------------------------------------------------------- reload config ---
 bind r source-file ~/.tmux.conf \; display "~/.tmux.conf Reloaded!"
@@ -78,11 +77,10 @@ if-shell "uname | grep -q Darwin" "set -g default-shell /usr/local/bin/zsh"
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'jimeh/tmux-themepack'
-set -g @plugin 'Morantron/tmux-fingers'
-# set -g @fingers-pattern-0 '\<[0-9a-zA-Z-./]+\>'
-# set -g @plugin 'fcsonline/tmux-thumbs'
+set -g @thumbs-key F
+set -g @plugin 'fcsonline/tmux-thumbs'
 
-set -g @themepack 'powerline/double/purple'
+set -g @themepack 'powerline/double/orange'
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 run -b '~/.tmux/plugins/tpm/tpm'
