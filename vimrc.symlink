@@ -413,9 +413,7 @@ nnoremap <leader>fw    :<C-u>Windows<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
 
 "--------------------------------------------------------------------- Coc {{{
-      " \ "coc-ccls",
 let g:coc_global_extensions = [
-      \ "coc-calc",
       \ "coc-css",
       \ "coc-docker",
       \ "coc-emmet",
@@ -456,6 +454,9 @@ set shortmess+=c
 
 " always show signcolumns
 set signcolumn=yes
+
+" fix emoji width
+set noemoji
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
