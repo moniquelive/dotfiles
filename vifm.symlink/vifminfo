@@ -106,6 +106,9 @@ d/Users/leo/Documents
 d/Users/leo/Desktop/bear
 	watermark.pdf.txt
 81
+d/Users/leo/Desktop
+	IMG_0502_1M.jpg
+27
 d
 
 # Right window history (oldest to newest):
@@ -119,6 +122,7 @@ D
 :move
 :ren
 :reload
+:q
 
 # Search history (oldest to newest):
 
