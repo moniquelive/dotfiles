@@ -48,7 +48,6 @@ Plug 'liuchengxu/vista.vim'
 " languages
 Plug 'sheerun/vim-polyglot'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -413,6 +412,7 @@ nnoremap <leader>fw    :<C-u>Windows<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
 
 "--------------------------------------------------------------------- Coc {{{
+let g:coc_node_path = '/usr/local/bin/node'
 let g:coc_global_extensions = [
       \ "coc-css",
       \ "coc-docker",
@@ -427,7 +427,6 @@ let g:coc_global_extensions = [
       \ "coc-marketplace",
       \ "coc-pairs",
       \ "coc-prettier",
-      \ "coc-python",
       \ "coc-sh",
       \ "coc-solargraph",
       \ "coc-snippets",

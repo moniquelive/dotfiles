@@ -109,6 +109,33 @@ d/Users/leo/Desktop/bear
 d/Users/leo/Desktop
 	IMG_0502_1M.jpg
 27
+d/Users/leo/.config/coc
+	extensions
+1
+d/Users/leo/.config/coc/extensions
+	node_modules
+2
+d/Users/leo/.config/coc/extensions/node_modules
+	..
+0
+d/Users/leo/.config/coc/extensions
+	node_modules
+2
+d/Users/leo/.config/coc
+	ultisnips
+2
+d/Users/leo/.config/coc/ultisnips
+	..
+0
+d/Users/leo/.config/coc
+	snippets-mru
+7
+d/Users/leo/.config
+	..
+0
+d/Users/leo
+	prj
+15
 d
 
 # Right window history (oldest to newest):
@@ -131,10 +158,19 @@ D
 # Local filter history (oldest to newest):
 
 # Registers:
+""/Users/leo/.local/share/vifm/Trash/000_java_error_in_goland_12015.log
 
 # Directory stack (oldest to newest):
 
 # Trash content:
+t/Users/leo/.local/share/vifm/Trash/000_go
+	/Users/leo/.config/coc/go
+t/Users/leo/.local/share/vifm/Trash/000_kitty
+	/Users/leo/.config/kitty
+t/Users/leo/.local/share/vifm/Trash/000_ranger
+	/Users/leo/.config/ranger
+t/Users/leo/.local/share/vifm/Trash/000_java_error_in_goland_12015.log
+	/Users/leo/java_error_in_goland_12015.log
 
 # State:
 f
