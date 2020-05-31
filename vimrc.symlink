@@ -154,19 +154,6 @@ autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 noremap Q !!sh<CR>
 
-" neovim terminal mappings
-if exists(':tnoremap')
-  tnoremap <Esc> <C-\><C-n>
-  tnoremap <A-h> <C-\><C-n><C-w>h
-  tnoremap <A-j> <C-\><C-n><C-w>j
-  tnoremap <A-k> <C-\><C-n><C-w>k
-  tnoremap <A-l> <C-\><C-n><C-w>l
-  nnoremap <A-h> <C-w>h
-  nnoremap <A-j> <C-w>j
-  nnoremap <A-k> <C-w>k
-  nnoremap <A-l> <C-w>l
-endif
-
 "------------------------------- Use 24-bit (true-color) mode in Vim/Neovim ---
 if exists("$TMUX") || exists("$SSH_TTY")
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
