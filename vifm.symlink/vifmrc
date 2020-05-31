@@ -233,7 +233,10 @@ filetype *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm,
 " fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
 "          \ identify %f
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.gif,*.xpm
-            \ tput cup %py %px > /dev/tty && catimg %c:p > /dev/tty
+            \ pixterm %c:p
+            " \ pixterm -tc %pw -tr %ph %c
+            " \ tput cup %py %px > /dev/tty && pixterm -tc %pw -tr %ph %c:p > /dev/tty
+            " \ tput cup %py %px > /dev/tty && catimg %c:p > /dev/tty
 
 " MD5
 filetype *.md5
