@@ -66,8 +66,10 @@ bind P pipe-pane -o "cat >>~/#W.log" \; display "Toggled logging to ~/#W.log"
 bind C-x setw synchronize-panes \; display "Sync #{?pane_synchronized,ON,OFF}"
 
 ## Join windows: <prefix> s, <prefix> j
-bind J command-prompt -p "join pane from:"  "join-pane -s '%%'"
-bind S command-prompt -p "send pane to:"  "join-pane -t '%%'"
+# bind J command-prompt -p "join pane from:"  "join-pane -s '%%'"
+# bind S command-prompt -p "send pane to:"  "join-pane -t '%%'"
+bind-key m choose-window -F "#{window_index}: #{window_name}" "join-pane -h -t %%"
+bind-key M choose-window -F "#{window_index}: #{window_name}" "join-pane -v -t %%"
 
 if-shell "uname | grep -q Darwin" "set -g default-shell /usr/local/bin/zsh"
 
