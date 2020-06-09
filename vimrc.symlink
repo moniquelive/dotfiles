@@ -48,6 +48,7 @@ Plug 'liuchengxu/vista.vim'
 " languages
 Plug 'sheerun/vim-polyglot'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
