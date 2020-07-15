@@ -287,17 +287,6 @@ fi
 
 [ -e ${HOME}/.iterm2_shell_integration.zsh ] && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [[ "$USER" == "paperspace" ]]; then
-  export PATH="$PATH:/usr/local/cuda/bin"
-  [[ -s "$HOME/src/torch/install/bin/torch-activate" ]] && source $HOME/src/torch/install/bin/torch-activate
-  export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-  export CAFFE_ROOT=/home/paperspace/src/caffe
-  export PYTHONPATH=$CAFFE_ROOT/python:$PYTHONPATH
-
-  # added by Anaconda3 installer
-  export PATH="/home/paperspace/anaconda3/bin:$PATH"
-fi
-
 # Base16 Shell
 BASE16_SHELL="$HOME/.base16-shell/"
 [ -n "$PS1" ] && \
