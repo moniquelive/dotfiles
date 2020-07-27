@@ -5,12 +5,11 @@
   "solargraph.useBundler": true,
   "languageserver": {
     "haskell": {
-      "command": "haskell-language-server-wrapper",
+      "command": "hie-wrapper",
       "args": ["--lsp"],
       "rootPatterns": [
-        "*.cabal",
         "stack.yaml",
-        "cabal.project",
+        "cabal.config",
         "package.yaml"
       ],
       "filetypes": [
@@ -19,6 +18,7 @@
       ],
       "initializationOptions": {
         "languageServerHaskell": {
+          "hlintOn": true
         }
       }
     }
