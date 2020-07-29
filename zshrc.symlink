@@ -61,10 +61,11 @@ plugins=(
   fzf
   gem git gnu-utils github gitignore golang
   rails rake-fast ripgrep rsync
-  sudo
+  stack sudo
   tig tmux
   z
 )
+
 [[ -x "/usr/local/bin/aws" ]] && plugins+=(aws)
 [[ -x "/usr/bin/yum" ]] && plugins+=(yum)
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
