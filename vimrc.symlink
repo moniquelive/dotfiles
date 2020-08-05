@@ -407,7 +407,9 @@ nnoremap <leader>fw    :<C-u>Windows<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
 
 "--------------------------------------------------------------------- Coc {{{
-let g:coc_node_path = '/usr/local/bin/node'
+if filereadable(expand("/usr/local/bin/node"))
+  let g:coc_node_path = '/usr/local/bin/node'
+endif
 let g:coc_global_extensions = [
       \ "coc-css",
       \ "coc-docker",
