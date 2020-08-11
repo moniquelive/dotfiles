@@ -125,7 +125,6 @@ compdef _tmux t
 alias ls='ls --color=auto --group-directories-first'
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
-alias listen='lsof -i -P | grep LISTEN'
 alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 alias tree='tree -SA'
@@ -279,6 +278,10 @@ export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
 fzfrmimage() {
   docker image rm $(docker image ls | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
+}
+
+listen() {
+  lsof -nP -iTCP:$1 | grep LISTEN
 }
 
 if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
