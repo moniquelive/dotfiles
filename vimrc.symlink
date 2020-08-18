@@ -17,7 +17,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-Plug 'chriskempson/base16-vim'
+Plug 'franbach/miramare'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -167,30 +167,13 @@ endif
 set termguicolors
 set background=dark " for the dark version
 
-"------------------------------------------------------------------- base16 ---
-let g:base16colorspace=256
-if filereadable(expand("~/.vimrc_background"))
-  source ~/.vimrc_background
-else
-" color base16-tomorrow-night
-" color base16-gruvbox-dark-medium
-" color base16-onedark
-" color base16-hopscotch
-  color base16-grayscale-dark
-endif
-
+let g:miramare_transparent_background=1
+" let g:miramare_current_word="underline"
+colorscheme miramare
 
 "------------------------------------------------------------------ airline ---
-let g:airline_theme='base16_gruvbox_dark_hard'
+let g:airline_theme='miramare'
 let g:airline_powerline_fonts = 1
-let g:airline_base16_improved_contrast = 1
-
-" function! AirlineInit()
-"   let g:airline_section_z = airline#section#create_right(['filetype','kite'])
-" endfunction
-" call airline#parts#define_function('kite', 'kite#statusline')
-" autocmd User AirlineAfterInit call AirlineInit()
-
 
 " Mappings to easily toggle fold levels
 nnoremap z0 :setlocal foldlevel=0<cr>
@@ -422,7 +405,6 @@ let g:coc_global_extensions = [
       \ "coc-lists",
       \ "coc-markdownlint",
       \ "coc-marketplace",
-      \ "coc-pairs",
       \ "coc-prettier",
       \ "coc-sh",
       \ "coc-solargraph",
@@ -573,6 +555,6 @@ nnoremap <silent> <leader>cf  :<C-u>CocList files<cr>
 nnoremap <silent> <leader>cb  :<C-u>CocList buffers<cr>
 
 " custom colors
-highlight CocHighlightText guibg=#5800a9
+highlight CocHighlightText guibg=#303010
 
 "}}}
