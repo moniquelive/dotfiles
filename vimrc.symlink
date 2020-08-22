@@ -52,6 +52,10 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': './install.sh'
+    \ }
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -388,6 +392,33 @@ nnoremap <leader>fw    :<C-u>Windows<cr>
 " nnoremap <leader>floc  :<C-u>Locate<cr>
 " nnoremap <leader>fs    :<C-u>Snippets<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
+
+"---------------------------------------------------------- LanguageClient {{{
+" \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+" \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+" \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+" \ 'python': ['/usr/local/bin/pyls'],
+" \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+let g:LanguageClient_serverCommands = {
+    \ 'haskell': ['hie-wrapper', '--lsp'],
+    \ }
+
+function LC_maps()
+  if has_key(g:LanguageClient_serverCommands, &filetype)
+    nnoremap <buffer> <silent><F5> :call LanguageClient_contextMenu()<CR>
+    nnoremap <buffer> <silent>K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <buffer> <silent>gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <buffer> <silent><F2> :call LanguageClient#textDocument_rename()<CR>
+
+    nnoremap <buffer> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+    nnoremap <buffer> <Leader>lb :call LanguageClient#textDocument_references()<CR>
+    nnoremap <buffer> <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+    nnoremap <buffer> <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+  endif
+endfunction
+
+autocmd FileType * call LC_maps()
+"}}}
 
 "--------------------------------------------------------------------- Coc {{{
 if filereadable(expand("/usr/local/bin/node"))
