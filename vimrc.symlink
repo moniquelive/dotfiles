@@ -263,7 +263,7 @@ if has("gui_macvim") && has("gui_running")
   nmap <D-/> <Plug>CommentaryLine
 else
   nmap <leader>/ <Plug>CommentaryLine
-  xmap <leader>/ <Plug>Commentary
+  xmap / <Plug>Commentary
 endif
 
 " Dont fold foldable files by default
@@ -522,7 +522,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
+xmap f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
 augroup mygroup
@@ -535,7 +535,7 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
+xmap a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
