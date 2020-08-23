@@ -410,7 +410,7 @@ function LC_maps()
     nnoremap <buffer> <silent>gd :call LanguageClient#textDocument_definition()<CR>
     nnoremap <buffer> <silent><F2> :call LanguageClient#textDocument_rename()<CR>
 
-    nnoremap <buffer> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+    " nnoremap <buffer> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
     nnoremap <buffer> <Leader>lb :call LanguageClient#textDocument_references()<CR>
     nnoremap <buffer> <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
     nnoremap <buffer> <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
