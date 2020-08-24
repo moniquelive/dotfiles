@@ -1,15 +1,13 @@
+# BENCHMARKING
+# zmodload zsh/zprof
+#----------------------------------------------------------------------------
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-#!/usr/bin/env zsh
-
-# BENCHMARKING
-# zmodload zsh/zprof
-#----------------------------------------------------------------------------
 
 ## Interactive shell ##
 
@@ -87,9 +85,9 @@ export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
 export EDITOR=vim
-export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
-export CUCUMBER_FORMAT=progress
-export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
+# export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
+# export CUCUMBER_FORMAT=progress
+# export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
 
 # zshlovers(https://grml.org/zsh/zsh-lovers.html)
 zstyle ':completion:*' use-cache on
@@ -197,13 +195,6 @@ autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
-#-------------------------------------------------------- Spaceship Prompt ---
-# autoload -Uz promptinit; promptinit
-# prompt spaceship
-SPACESHIP_PACKAGE_SHOW=false
-SPACESHIP_NODE_SHOW=false
-SPACESHIP_DOCKER_SHOW=false
-
 #---------------------------------------------------------------- ZSH opts ---
 setopt auto_resume
 setopt no_beep
@@ -284,14 +275,6 @@ listen() {
   lsof -nP -iTCP:$1 | grep LISTEN
 }
 
-if [[ -f "$HOME/.local/bin/virtualenvwrapper.sh" ]]; then
-  export WORKON_HOME=$HOME/.virtualenvs
-  export PROJECT_HOME=$HOME/Projects/python
-  source $HOME/.local/bin/virtualenvwrapper.sh
-fi
-
-[ -e ${HOME}/.iterm2_shell_integration.zsh ] && source "${HOME}/.iterm2_shell_integration.zsh"
-
 # Base16 Shell
 BASE16_SHELL="$HOME/.base16-shell/"
 [ -n "$PS1" ] && \
@@ -305,9 +288,13 @@ BASE16_SHELL="$HOME/.base16-shell/"
 # The next line enables shell command completion for gcloud.
 [ -f "${HOME}/prj/google-cloud-sdk/completion.zsh.inc" ] && source "${HOME}/prj/google-cloud-sdk/completion.zsh.inc"
 
-#----------------------------------------------------------------------------
-# BENCHMARKING (END)
-# zprof
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+#----------------------------------------------------------------------------
+# BENCHMARKING (END)
+# zprof
