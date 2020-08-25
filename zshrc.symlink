@@ -57,9 +57,9 @@ plugins=(
   cp colored-man-pages common-aliases
   dirpersist docker docker-compose
   fzf
-  gem git gnu-utils github gitignore golang
+  gem git gnu-utils github gitignore golang gpg-agent
   rails rake-fast ripgrep rsync
-  stack sudo
+  stack sudo ssh-agent
   tig tmux
   z
 )
@@ -69,7 +69,7 @@ plugins=(
 [[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
 [[ -x "/usr/bin/pacman" ]] && plugins+=(archlinux)
 [[ "$OSTYPE" = linux* ]] && plugins+=(systemd)
-[[ "$OSTYPE" = darwin* ]] && plugins+=(brew gpg-agent ssh-agent osx)
+[[ "$OSTYPE" = darwin* ]] && plugins+=(brew osx)
 
 ZSH_THEME="powerlevel10k"
 
