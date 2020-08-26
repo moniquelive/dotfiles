@@ -1,12 +1,7 @@
-" set guifont=Panic\ Sans:h18
-" set guifont=Menlo:h20
-" set guifont=Mononoki:h16
-" set guifont=Roboto\ Mono\ Light\ for\ Powerline:h18
-" set guifont=Ubuntu\ Mono\ 14
 if has('macunix')
-  set guifont=RobotoMonoNerdFontComplete-Regular:h18
+  set guifont=JetBrainsMono\ Nerd\ Font:h14
 else
-  set guifont=RobotoMono\ Nerd\ Font\ 16
+  set guifont=JetBrainsMono\ Nerd\ Font 14
 endif
 
 set guioptions=aAce

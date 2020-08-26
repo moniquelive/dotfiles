@@ -167,7 +167,7 @@ endif
 set termguicolors
 set background=dark " for the dark version
 
-let g:miramare_transparent_background=1
+let g:miramare_transparent_background=0
 " let g:miramare_current_word="underline"
 colorscheme miramare
 
