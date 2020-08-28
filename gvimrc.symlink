@@ -1,7 +1,7 @@
 if has('macunix')
   set guifont=JetBrainsMono\ Nerd\ Font:h14
 else
-  set guifont=JetBrainsMono\ Nerd\ Font 14
+  set guifont=JetBrainsMono\ Nerd\ Font\ 12
 endif
 
 set guioptions=aAce
@@ -11,7 +11,7 @@ highlight Search guibg=black guifg=yellow gui=underline
 set lines=45
 set columns=120
 
-if has("gui_macvim")
+if has('gui_macvim')
   macmenu &File.New\ Tab key=<D-T>
 
   set transparency=1
