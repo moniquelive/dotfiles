@@ -31,7 +31,7 @@ fi
 [[ -d "${GEM_HOME}/bin" ]] && path=($GEM_HOME/bin $path)
 
 #----------------------------------------------------------------- exports ---
-export LANG=pt_BR
+export LANG=en_US
 export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
