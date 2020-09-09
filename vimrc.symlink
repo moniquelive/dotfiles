@@ -407,7 +407,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <F5> <plug>(lsp-code-lens)
 
     " buffer format on save
-    autocmd BufWritePre <buffer> LspDocumentFormatSync
+    " autocmd BufWritePre <buffer> LspDocumentFormatSync
 endfunction
 
 augroup lsp_install
