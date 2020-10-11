@@ -43,13 +43,14 @@ Plug 'editorconfig/editorconfig-vim'
 " coding
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
-Plug 'liuchengxu/vista.vim'
 
 " languages
 Plug 'sheerun/vim-polyglot'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 
 " Auto-complete
+Plug 'ervandew/supertab'
+Plug 'liuchengxu/vista.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
@@ -427,5 +428,11 @@ augroup lsp_install
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
+
+" supertab
+let g:SuperTabDefaultCompletionType = "context"
+" let g:SuperTabMappingForward = '<s-tab>'
+" let g:SuperTabMappingBackward = '<tab>'
+
 "}}}
 
