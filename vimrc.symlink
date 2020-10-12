@@ -91,7 +91,7 @@ set visualbell noerrorbells
 set splitbelow splitright
 set tags^=./.git/tags;
 
-set clipboard=unnamed,unnamedplus
+"set clipboard=unnamed,unnamedplus
 
 " Autosave on focus lost
 autocmd FocusLost * silent! wa
