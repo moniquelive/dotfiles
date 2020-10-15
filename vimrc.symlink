@@ -53,7 +53,6 @@ Plug 'ervandew/supertab'
 Plug 'liuchengxu/vista.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " FZF
@@ -390,6 +389,14 @@ nnoremap <leader>fw    :<C-u>Windows<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
 
 "---------------------------------------------------------- vim-lsp {{{
+if (executable('haskell-language-server-wrapper'))
+  au User lsp_setup call lsp#register_server({
+      \ 'name': 'haskell-language-server-wrapper',
+      \ 'cmd': {server_info->['haskell-language-server-wrapper', '--lsp']},
+      \ 'whitelist': ['haskell'],
+      \ })
+endif
+
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=yes
@@ -423,7 +430,6 @@ augroup lsp_install
     highlight clear LspWarningLine
     " highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
     highlight lspReference guibg=#303010
-
 
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
