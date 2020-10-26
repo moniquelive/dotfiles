@@ -51,8 +51,9 @@ Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 " Auto-complete
 Plug 'ervandew/supertab'
 Plug 'liuchengxu/vista.vim'
-Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 
 " FZF
