@@ -51,10 +51,10 @@ Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 " Auto-complete
 Plug 'ervandew/supertab'
 Plug 'liuchengxu/vista.vim'
-Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
