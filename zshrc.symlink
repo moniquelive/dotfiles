@@ -268,7 +268,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
 fzfrmimage() {
-  docker image rm $(docker image ls | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
+  docker image rm $(docker image ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
 }
 
 listen() {
