@@ -54,7 +54,7 @@ COMPLETION_WAITING_DOTS="true"
 plugins=(
   aws
   bundler
-  cp colored-man-pages common-aliases
+  cp colored-man-pages command-not-found common-aliases
   dirpersist docker docker-compose
   fzf
   gem git gnu-utils github gitignore golang gpg-agent
