@@ -21,6 +21,7 @@ Plug 'embark-theme/vim', { 'as': 'embark' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
+Plug 'mhinz/vim-startify'
 
 " tpope fandom
 Plug 'tpope/vim-repeat'
@@ -36,7 +37,6 @@ Plug 'tpope/vim-rails'
 " misc
 Plug 'wincent/terminus'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'dhruvasagar/vim-prosession'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'editorconfig/editorconfig-vim'
 
@@ -346,9 +346,6 @@ map <Leader>ra :call RunAllSpecs()<CR>
 let g:rspec_command = "Dispatch rspec {spec}"
 "let g:rspec_runner = "os_x_iterm2"
 "}}}
-
-"-------------------------------------------------------------- Prosession ---
-let g:prosession_tmux_title = 1
 
 "--------------------------------------------------------------- SplitJoin ---
 let g:splitjoin_align = 1
