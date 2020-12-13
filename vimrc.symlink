@@ -17,7 +17,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-Plug 'embark-theme/vim', { 'as': 'embark' }
+Plug 'lifepillar/vim-gruvbox8'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -174,9 +174,12 @@ if exists('+termguicolors')
 endif
 set background=dark " for the dark version
 
-colorscheme embark
+let g:gruvbox_filetype_hi_groups = 1
+let g:gruvbox_plugin_hi_groups = 1
+colorscheme gruvbox8_hard
 
 "------------------------------------------------------------------ airline ---
+let g:airline_theme = 'fruit_punch'
 let g:airline_powerline_fonts = 1
 
 " Mappings to easily toggle fold levels

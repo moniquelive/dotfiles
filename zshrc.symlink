@@ -272,7 +272,7 @@ fzfrmimage() {
 }
 
 listen() {
-  lsof -nP -iTCP:$1 | grep LISTEN
+  lsof -nP -i":$1" | grep LISTEN
 }
 
 # Base16 Shell
