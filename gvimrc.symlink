@@ -16,6 +16,7 @@ if has('gui_macvim')
 
   set transparency=1
   set macmeta
+  set macligatures
 
   " CtrlP clone
   " CMD-t

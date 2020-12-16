@@ -17,7 +17,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-Plug 'lifepillar/vim-gruvbox8'
+Plug 'morhetz/gruvbox'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -224,9 +224,17 @@ if exists('+termguicolors')
 endif
 set background=dark " for the dark version
 
-let g:gruvbox_filetype_hi_groups = 1
-let g:gruvbox_plugin_hi_groups = 1
-colorscheme gruvbox8_hard
+let g:gruvbox_contrast_dark = 'hard'
+colorscheme gruvbox
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+let g:haskell_indent_disable = 1
 
 "---------------------------------------------------------------- airline {{{2
 "let g:airline_theme = 'fruit_punch'
@@ -430,7 +438,7 @@ augroup lsp_install
     highlight link LspErrorText GruvboxRedSign " requires gruvbox
     highlight clear LspWarningLine
     " highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
-    highlight lspReference guibg=#303010
+    highlight lspReference guibg=#303010 ctermbg=black ctermfg=yellow term=underline
 
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
