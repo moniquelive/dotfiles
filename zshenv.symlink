@@ -4,6 +4,7 @@
 [[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
 [[ -d "$HOME/.local/bin" ]] && path=($HOME/.local/bin $path)
 [[ -d "/usr/local/sbin" ]] && path+=(/usr/local/sbin)
+[[ -d "/usr/local/go/bin" ]] && path+=(/usr/local/go/bin)
 
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
@@ -49,3 +50,4 @@ if [[ -s "/usr/local/bin/pyenv" ]]; then
 fi
 
 [[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
+source "$HOME/.cargo/env"
