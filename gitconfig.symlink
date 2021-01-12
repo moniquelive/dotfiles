@@ -18,6 +18,12 @@
   interactive = auto
   ui          = auto
 
+[fetch]
+  parallel = 0
+
+[submodule]
+  fetchJobs = 0
+
 [alias]
   aa          = add --all
   br          = branch
