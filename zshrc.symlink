@@ -78,7 +78,7 @@ ZSH_THEME="powerlevel10k"
 # unalias fd
 
 # set these after omz
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
 export BAT_THEME="base16"
 export BAT_STYLE="plain"
@@ -136,7 +136,7 @@ alias cp='nocorrect cp'
 alias mkdir='nocorrect mkdir'
 alias createiso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
-[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
+#[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 [ -f /usr/local/bin/lsd -o -f /usr/bin/lsd ] && alias ls='lsd --group-dirs=first'
 [ -f /usr/local/bin/emacs ] && alias emacs='/usr/local/bin/emacs -nw $*'
 [ -f /usr/bin/fdfind ] && alias fd='fdfind'
@@ -273,6 +273,37 @@ fzfrmimage() {
 
 listen() {
   lsof -nP -i":$1" | grep LISTEN
+}
+
+n ()
+{
+    export FZF_DEFAULT_COMMAND='fdfind -t d'
+    export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:nmount;v:preview-tui'
+
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, remove the "export" as in:
+    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    # NOTE: NNN_TMPFILE is fixed, should not be modified
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    nnn -Rda -Pv "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
 }
 
 # Base16 Shell
