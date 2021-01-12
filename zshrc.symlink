@@ -277,9 +277,6 @@ listen() {
 
 n ()
 {
-    export FZF_DEFAULT_COMMAND='fdfind -t d'
-    export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:nmount;v:preview-tui'
-
     # Block nesting of nnn in subshells
     if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
         echo "nnn is already running"
@@ -298,7 +295,10 @@ n ()
     # stty lwrap undef
     # stty lnext undef
 
-    nnn -Rda -Pv "$@"
+    export FZF_DEFAULT_COMMAND='fdfind -t d'
+    export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:nmount;v:preview-tui'
+
+    nnn -A -Ra -Te -Pv "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
