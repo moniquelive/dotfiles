@@ -1,8 +1,9 @@
-*.iml
-*~
-.*.swp
 .DS_Store
 /.idea
-custom_plan.rb
-zeus.json
+/venv
+.*.swp
+
+*.iml
+*~
+
 .rake_tasks
