@@ -41,13 +41,8 @@ export MAKEFLAGS=-j$(nproc)
 #export HIGHLIGHT_OPTIONS="--style=${hltheme:-base16/ashes} --out-format=truecolor"
 export TIG_DIFF_OPTS="--patience --ignore-all-space"
 
-if [[ -s "/usr/local/bin/pyenv" ]]; then
-  export PYENV_ROOT="$HOME/.pyenv"
-  path=(
-    ${PYENV_ROOT}/bin
-    $path
-  )
-fi
+[[ -d "${HOME}/.pyenv" ]] && export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "${PYENV_ROOT}/bin" ]] && path=($PYENV_ROOT/bin $path)
 
 [[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
 source "$HOME/.cargo/env"
