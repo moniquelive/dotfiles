@@ -73,7 +73,7 @@ augroup END " }
 
 let g:netrw_altfile = 1 " <C-6> returns to files
 
-" global defaults {{{
+"-------------------------------------------------------- global defaults {{{1
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
 set noswapfile hlsearch cursorline noshowmode
 set ignorecase smartcase
@@ -105,7 +105,7 @@ autocmd VimResized * :wincmd =
 set t_ti= t_te=
 
 " keep more context when scrolling off the end of a buffer
-set scrolloff=2
+set scrolloff=1
 
 " Store temporary files in a central spot
 set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -146,7 +146,48 @@ set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 
-" create intermediary directories
+"---------------------------------------------------------------- helpers {{{1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""" RENAME CURRENT FILE {{{2
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+" map <leader>n :call RenameFile()<cr>
+command! RenameFile :call RenameFile()
+
+""""""""""""""""""""""""""""""""""""""""""" RemoveFancyCharacters COMMAND {{{2
+function! RemoveFancyCharacters()
+    let typo = {}
+    let typo["“"] = '"'
+    let typo["”"] = '"'
+    let typo["‘"] = "'"
+    let typo["’"] = "'"
+    let typo["–"] = '--'
+    let typo["—"] = '---'
+    let typo["…"] = '...'
+    :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
+endfunction
+command! RemoveFancyCharacters :call RemoveFancyCharacters()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Reg COMMAND {{{2
+function! Reg()
+    reg
+    echo "Register: "
+    let char = nr2char(getchar())
+    if char != "\<Esc>"
+        execute "normal! \"".char."p"
+    endif
+    redraw
+endfunction
+command! -nargs=0 Reg call Reg()
+
+""""""""""""""""""""""""""""""""""""""""" create intermediary directories {{{2
 fun! <SID>AutoMakeDirectory()
   let s:directory = expand("<afile>:p:h")
   if !isdirectory(s:directory)
@@ -158,7 +199,7 @@ autocmd BufWritePre,FileWritePre * :call <SID>AutoMakeDirectory()
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<cr>
 noremap Q !!sh<CR>
 
-"------------------------------- Use 24-bit (true-color) mode in Vim/Neovim ---
+"----------------------------- Use 24-bit (true-color) mode in Vim/Neovim {{{2
 if exists("$TMUX") || exists("$SSH_TTY")
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -178,7 +219,7 @@ let g:gruvbox_filetype_hi_groups = 1
 let g:gruvbox_plugin_hi_groups = 1
 colorscheme gruvbox8_hard
 
-"------------------------------------------------------------------ airline ---
+"---------------------------------------------------------------- airline {{{2
 let g:airline_theme = 'fruit_punch'
 let g:airline_powerline_fonts = 1
 
@@ -193,7 +234,7 @@ nnoremap z5 :setlocal foldlevel=5<cr>
 if 0 " if 0 / endif HACK
 i
 
-" Folding rules {{{
+" Folding rules {{{2
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
 set foldmethod=marker           " detect triple-{ style fold markers
@@ -216,8 +257,6 @@ function! MyFoldText()
     return line . ' …' . repeat(" ",fillcharcount) . foldedlinecount . ' '
 endfunction
 set foldtext=MyFoldText()
-
-" }}}
 
 .
 endif
@@ -294,66 +333,14 @@ if ! has('gui_running')
     augroup END
 endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""" RENAME CURRENT FILE
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-" map <leader>n :call RenameFile()<cr>
-command! RenameFile :call RenameFile()
-
-""""""""""""""""""""""""""""""""""""""""""""""" RemoveFancyCharacters COMMAND
-function! RemoveFancyCharacters()
-    let typo = {}
-    let typo["“"] = '"'
-    let typo["”"] = '"'
-    let typo["‘"] = "'"
-    let typo["’"] = "'"
-    let typo["–"] = '--'
-    let typo["—"] = '---'
-    let typo["…"] = '...'
-    :exe ":%s/".join(keys(typo), '\|').'/\=typo[submatch(0)]/ge'
-endfunction
-command! RemoveFancyCharacters :call RemoveFancyCharacters()
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" Reg COMMAND
-function! Reg()
-    reg
-    echo "Register: "
-    let char = nr2char(getchar())
-    if char != "\<Esc>"
-        execute "normal! \"".char."p"
-    endif
-    redraw
-endfunction
-command! -nargs=0 Reg call Reg()
-
-"------------------------------------------------------------ editorconfig {{{
+"----------------------------------------------------------- editorconfig {{{1
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
 if executable('editorconfig')
   let g:EditorConfig_exec_path = exepath('editorconfig')
   let g:EditorConfig_core_mode = 'external_command'
 endif
-" }}}
 
-"--------------------------------------------------------------- RSpec.vim {{{
-map <Leader>rt :call RunCurrentSpecFile()<CR>
-map <Leader>rs :call RunNearestSpec()<CR>
-map <Leader>rl :call RunLastSpec()<CR>
-map <Leader>ra :call RunAllSpecs()<CR>
-let g:rspec_command = "Dispatch rspec {spec}"
-"let g:rspec_runner = "os_x_iterm2"
-"}}}
-
-"--------------------------------------------------------------- SplitJoin ---
-let g:splitjoin_align = 1
-
-"--------------------------------------------------------------------- FZF ---
+"-------------------------------------------------------------------- FZF {{{1
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
       \ { 'fg':    ['fg', 'Normal'],
@@ -393,7 +380,7 @@ nnoremap <leader>fw    :<C-u>Windows<cr>
 " nnoremap <leader>fs    :<C-u>Snippets<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
 
-"---------------------------------------------------------- vim-lsp {{{
+"---------------------------------------------------------------- vim-lsp {{{1
 if (executable('haskell-language-server-wrapper'))
   au User lsp_setup call lsp#register_server({
       \ 'name': 'haskell-language-server-wrapper',
@@ -440,10 +427,8 @@ augroup lsp_install
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
 augroup END
 
-" supertab
+"--------------------------------------------------------------- supertab {{{1
 let g:SuperTabDefaultCompletionType = "context"
 " let g:SuperTabMappingForward = '<s-tab>'
 " let g:SuperTabMappingBackward = '<tab>'
-
-"}}}
 
