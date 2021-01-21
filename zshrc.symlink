@@ -52,24 +52,33 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(
-  aws
-  bundler
   cp colored-man-pages command-not-found common-aliases
-  dirpersist docker docker-compose
-  fzf
-  gem git gnu-utils github gitignore golang gpg-agent
-  rails rake-fast ripgrep rsync
-  stack sudo ssh-agent
-  tig tmux
+  dirpersist
+  gnu-utils github gitignore gpg-agent
+  sudo ssh-agent
   z
 )
-
-[[ -x "/usr/local/bin/aws" ]] && plugins+=(aws)
-[[ -x "/usr/bin/yum" ]] && plugins+=(yum)
-[[ -x "/usr/bin/dpkg" ]] && plugins+=(ubuntu)
-[[ -x "/usr/bin/pacman" ]] && plugins+=(archlinux)
-[[ "$OSTYPE" = linux* ]] && plugins+=(systemd)
-[[ "$OSTYPE" = darwin* ]] && plugins+=(brew osx)
+[[ -x "/usr/local/bin/aws" ]]            && plugins+=(aws)
+[[ -x "/usr/bin/yum" ]]                  && plugins+=(yum)
+[[ -x "/usr/bin/dpkg" ]]                 && plugins+=(ubuntu)
+[[ -x "/usr/bin/pacman" ]]               && plugins+=(archlinux)
+[[ ( $commands[bundle] ) ]]              && plugins+=(bundler)
+[[ ( $commands[fzf] ) ]]                 && plugins+=(fzf)
+[[ ( $commands[docker] ) ]]              && plugins+=(docker)
+[[ ( $commands[docker-compose] ) ]]      && plugins+=(docker-compose)
+[[ ( $commands[gem] ) ]]                 && plugins+=(gem)
+[[ ( $commands[git] ) ]]                 && plugins+=(git)
+[[ ( $commands[go] ) ]]                  && plugins+=(golang)
+[[ ( $commands[rails] ) ]]               && plugins+=(rails)
+[[ ( $commands[rake] ) ]]                && plugins+=(rake-fast)
+[[ ( $commands[rg] ) ]]                  && plugins+=(ripgrep)
+[[ ( $commands[rsync] ) ]]               && plugins+=(rsync)
+[[ ( $commands[ssh-agent] ) ]]           && plugins+=(ssh-agent)
+[[ ( $commands[stack] ) ]]               && plugins+=(stack)
+[[ ( $commands[tig] ) ]]                 && plugins+=(tig)
+[[ ( $commands[tmux] ) ]]                && plugins+=(tmux)
+[[ "$OSTYPE" = linux* ]]                 && plugins+=(systemd)
+[[ "$OSTYPE" = darwin* ]]                && plugins+=(brew osx)
 
 ZSH_THEME="powerlevel10k"
 
@@ -103,13 +112,13 @@ zstyle :omz:plugins:ssh-agent agent-forwarding on
 zstyle :omz:plugins:ssh-agent identities id_rsa
 
 # .ssh/config FTW!
-h=()
 if [[ -r ~/.ssh/config ]]; then
   h=($h $(awk '/^[hH]ost/ {for(i=2;i<=NF;++i) print $i}' ~/.ssh/config))
-fi
-if [[ $#h -gt 0 ]]; then
-  zstyle ':completion:*:ssh:*' hosts $h
-  zstyle ':completion:*:slogin:*' hosts $h
+  if [[ $#h -gt 0 ]]; then
+    zstyle ':completion:*:ssh:*' hosts $h
+    zstyle ':completion:*:slogin:*' hosts $h
+  fi
+  unset h
 fi
 
 unset SCRIPT_NAME
@@ -132,17 +141,17 @@ alias gs='git status -sb'
 alias od='od -Ax -tx1z'
 alias hexdump='hexdump -C'
 alias where="command -v"
-alias mv='nocorrect mv'
-alias cp='nocorrect cp'
+alias mv='nocorrect mv -v'
+alias cp='nocorrect cp -v'
 alias mkdir='nocorrect mkdir'
-alias createiso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
+alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
-[ -f /usr/local/bin/lsd -o -f /usr/bin/lsd ] && alias ls='lsd --group-dirs=first'
-[ -f /usr/local/bin/emacs ] && alias emacs='/usr/local/bin/emacs -nw $*'
-[ -f /usr/bin/fdfind ] && alias fd='fdfind'
+[[ -x /usr/local/bin/lsd || -x /usr/bin/lsd ]] && alias ls='lsd --group-dirs=first'
+[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
+[[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 
-#------------------------------------------------------------------ global ---
+#---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
 alias -g G="| grep"
 alias -g GV="| grep -v"
@@ -157,8 +166,7 @@ alias -g U=' --help | head'
 alias -g W="| wc"
 alias -g Z='| fzf'
 
-
-#------------------------------------------------------------------ suffix ---
+#---------------------------------------------------------- suffix aliases ---
 alias -s zip=zipinfo
 alias -s tgz=gzcat
 alias -s gz=gzcat
@@ -241,6 +249,7 @@ unsetopt correctall
 unsetopt hist_verify
 unsetopt print_exit_value
 
+#--------------------------------------------------------------------- FZF ---
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f'
@@ -272,10 +281,12 @@ fzfrmimage() {
   docker image rm $(docker image ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
 }
 
+#-----------------------------------------------------------------------------
 listen() {
   lsof -nP -i":$1" | grep LISTEN
 }
 
+#-----------------------------------------------------------------------------
 n ()
 {
     # Block nesting of nnn in subshells
@@ -288,7 +299,7 @@ n ()
     # To cd on quit only on ^G, remove the "export" as in:
     #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
     # NOTE: NNN_TMPFILE is fixed, should not be modified
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
 
     # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
     # stty start undef
@@ -307,30 +318,30 @@ n ()
     fi
 }
 
-# Base16 Shell
+#------------------------------------------------------------ Base16 Shell ---
 BASE16_SHELL="$HOME/.base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-[ -e ${HOME}/.dircolors ] && eval $(dircolors -b $HOME/.dircolors)
+[[ -e ${HOME}/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 
+#-------------------------------------------------------------- gcloud sdk ---
 # The next line updates PATH for the Google Cloud SDK.
-[ -f "${HOME}/prj/google-cloud-sdk/path.zsh.inc" ] && source "${HOME}/prj/google-cloud-sdk/path.zsh.inc"
+[[ -f "${HOME}/prj/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/prj/google-cloud-sdk/path.zsh.inc"
 # The next line enables shell command completion for gcloud.
-[ -f "${HOME}/prj/google-cloud-sdk/completion.zsh.inc" ] && source "${HOME}/prj/google-cloud-sdk/completion.zsh.inc"
+[[ -f "${HOME}/prj/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/prj/google-cloud-sdk/completion.zsh.inc"
 
+#------------------------------------------------------------------- pyenv ---
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+#------------------------------------------------------------- p10k prompt ---
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ -f $HOME/.p10k.zsh ]] && source $HOME/.p10k.zsh
 
 #----------------------------------------------------------------------------
 # BENCHMARKING (END)
 # zprof
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "${HOME}/prj/google-cloud-sdk/path.zsh.inc" ]; then . "${HOME}/prj/google-cloud-sdk/path.zsh.inc"; fi
 

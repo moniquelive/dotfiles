@@ -1,11 +1,35 @@
-## Non-interactive shell ##
+## All (login/non/interactive) shells ##
 
-[[ -d "${HOME}/bin" ]] && path+=($HOME/bin)
-[[ -d "${HOME}/.yarn/bin" ]] && path+=($HOME/.yarn/bin)
-[[ -d "$HOME/.local/bin" ]] && path=($HOME/.local/bin $path)
-[[ -d "/usr/local/sbin" ]] && path+=(/usr/local/sbin)
+#----------------------------------------------------------------- exports ---
+export LANG=en_US
+export LANGUAGE=${LANG}.UTF-8
+export LC_ALL=${LANG}.UTF-8
+export LC_CTYPE=${LANG}.UTF-8
+export MAKEFLAGS=-j$(nproc)
+export TIG_DIFF_OPTS="--patience --ignore-all-space"
+#export HIGHLIGHT_OPTIONS="--style=${hltheme:-base16/ashes} --out-format=truecolor"
+
+# binaries
+[[ -d "$HOME/.local/bin" ]]  && path=($HOME/.local/bin $path)
+[[ -d "$HOME/bin" ]]         && path+=($HOME/bin)
+[[ -d "$HOME/.yarn/bin" ]]   && path+=($HOME/.yarn/bin)
+[[ -d "/usr/local/sbin" ]]   && path+=(/usr/local/sbin)
+
+# ruby
+[[ -d "$GEM_HOME/bin" ]]     && path=($GEM_HOME/bin $path)
+
+# golang
 [[ -d "/usr/local/go/bin" ]] && path+=(/usr/local/go/bin)
+[[ -d "$HOME/go/bin" ]]      && path+=($HOME/go/bin)
 
+# pyenv
+[[ -d "$HOME/.pyenv" ]]      && export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "$PYENV_ROOT/bin" ]]   && path=($PYENV_ROOT/bin $path)
+
+# vimrc
+[[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
+
+# nVidia - CUDA
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
   export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
@@ -13,6 +37,7 @@ if [[ -d /usr/local/cuda ]]; then
   path+=($CUDA_HOME/bin)
 fi
 
+# macOS - Homebrew
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(/usr/local/bin/brew --prefix)
 
@@ -29,20 +54,4 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
-[[ -d "${GEM_HOME}/bin" ]] && path=($GEM_HOME/bin $path)
-
-#----------------------------------------------------------------- exports ---
-export LANG=en_US
-export LANGUAGE=${LANG}.UTF-8
-export LC_ALL=${LANG}.UTF-8
-export LC_CTYPE=${LANG}.UTF-8
-export MAKEFLAGS=-j$(nproc)
-[[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
-#export HIGHLIGHT_OPTIONS="--style=${hltheme:-base16/ashes} --out-format=truecolor"
-export TIG_DIFF_OPTS="--patience --ignore-all-space"
-
-[[ -d "${HOME}/.pyenv" ]] && export PYENV_ROOT="$HOME/.pyenv"
-[[ -d "${PYENV_ROOT}/bin" ]] && path=($PYENV_ROOT/bin $path)
-
-[[ -d "${HOME}/go/bin" ]] && path=($HOME/go/bin $path)
 source "$HOME/.cargo/env"
