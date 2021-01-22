@@ -1,6 +1,6 @@
 ## All (login/non/interactive) shells ##
 
-#----------------------------------------------------------------- exports ---
+# exports
 export LANG=en_US
 export LANGUAGE=${LANG}.UTF-8
 export LC_ALL=${LANG}.UTF-8
