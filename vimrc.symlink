@@ -271,6 +271,13 @@ cmap w!! w !sudo tee > /dev/null %
 " Alternate buffer (easier than <C-^>)
 nmap <leader><leader> <c-^>
 
+" system clipboard's copy/paste
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
 vnoremap / /\v
@@ -361,6 +368,7 @@ let g:fzf_colors =
 " Blines
 " Btags
 " Files
+let $FZF_DEFAULT_COMMAND=''
 nnoremap <c-p> :Files<CR>
 nnoremap <leader>fc    :<C-u>Colors<cr>
 nnoremap <leader>fcmd  :<C-u>Commands<cr>
