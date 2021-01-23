@@ -29,9 +29,6 @@ zman() { MANPAGER="less -g -s '+/^       "$1"'" man zshall }
 autoload -Uz zmv
 alias mmv='noglob zmv -W'
 
-# unique these arrays
-typeset -U path manpath
-
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 
@@ -49,40 +46,40 @@ DISABLE_AUTO_TITLE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Example format: plugins=(rails git textmate ruby lighthouse)
+#-------------------------------------------------------------- gcloud sdk ---
+# The next line updates PATH for the Google Cloud SDK.
+[[ -f "${HOME}/prj/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/prj/google-cloud-sdk/path.zsh.inc"
+# The next line enables shell command completion for gcloud.
+[[ -f "${HOME}/prj/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/prj/google-cloud-sdk/completion.zsh.inc"
+
+#----------------------------------------------------------------- plugins ---
 plugins=(
-  cp colored-man-pages command-not-found common-aliases
+  cp colored-man-pages command-not-found common-aliases copybuffer
   dirpersist
-  gnu-utils github gitignore gpg-agent
-  sudo ssh-agent
+  history
+  jsontools
+  sudo
   z
 )
-[[ -x "/usr/local/bin/aws" ]]            && plugins+=(aws)
-[[ -x "/usr/bin/yum" ]]                  && plugins+=(yum)
-[[ -x "/usr/bin/dpkg" ]]                 && plugins+=(ubuntu)
-[[ -x "/usr/bin/pacman" ]]               && plugins+=(archlinux)
-[[ ( $commands[bundle] ) ]]              && plugins+=(bundler)
-[[ ( $commands[fzf] ) ]]                 && plugins+=(fzf)
-[[ ( $commands[docker] ) ]]              && plugins+=(docker)
-[[ ( $commands[docker-compose] ) ]]      && plugins+=(docker-compose)
-[[ ( $commands[gem] ) ]]                 && plugins+=(gem)
-[[ ( $commands[git] ) ]]                 && plugins+=(git)
-[[ ( $commands[go] ) ]]                  && plugins+=(golang)
-[[ ( $commands[rails] ) ]]               && plugins+=(rails)
-[[ ( $commands[rake] ) ]]                && plugins+=(rake-fast)
-[[ ( $commands[rg] ) ]]                  && plugins+=(ripgrep)
-[[ ( $commands[rsync] ) ]]               && plugins+=(rsync)
-[[ ( $commands[ssh-agent] ) ]]           && plugins+=(ssh-agent)
-[[ ( $commands[stack] ) ]]               && plugins+=(stack)
-[[ ( $commands[tig] ) ]]                 && plugins+=(tig)
-[[ ( $commands[tmux] ) ]]                && plugins+=(tmux)
-[[ "$OSTYPE" = linux* ]]                 && plugins+=(systemd)
-[[ "$OSTYPE" = darwin* ]]                && plugins+=(brew osx)
+# plugins for binaries
+for p in aws fzf gcloud docker docker-compose gem gpg-agent pyenv rails redis-cli rsync ssh-agent stack tig tmux yum; do
+  (( $+commands[$p] )) && plugins+=($p)
+done
 
-ZSH_THEME="powerlevel10k"
+# conditional plugins
+(( $+commands[brew] ))      && plugins+=(brew osx gnu-utils)
+(( $+commands[bundle] ))    && plugins+=(bundler)
+(( $+commands[dpkg] ))      && plugins+=(ubuntu)
+(( $+commands[git] ))       && plugins+=(git git-escape-magic github gitignore)
+(( $+commands[go] ))        && plugins+=(golang)
+(( $+commands[pacman] ))    && plugins+=(archlinux)
+(( $+commands[rake] ))      && plugins+=(rake-fast)
+(( $+commands[rg] ))        && plugins+=(ripgrep)
+(( $+commands[systemctl] )) && plugins+=(systemd)
 
 #---------------------------------------------------------------- load OMZ ---
+ZSH_THEME="powerlevel10k"
+
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 # unalias fd
 
@@ -97,7 +94,6 @@ export EDITOR=vim
 # export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 # export CUCUMBER_FORMAT=progress
 # export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
-
 
 # zshlovers(https://grml.org/zsh/zsh-lovers.html)
 zstyle ':completion:*' use-cache on
@@ -147,8 +143,8 @@ alias mkdir='nocorrect mkdir'
 alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
+#[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
 [[ -x /usr/local/bin/lsd || -x /usr/bin/lsd ]] && alias ls='lsd --group-dirs=first'
-[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 
 #---------------------------------------------------------- global aliases ---
@@ -205,44 +201,43 @@ zle -N edit-command-line
 bindkey "^X^E" edit-command-line
 
 #---------------------------------------------------------------- ZSH opts ---
+setopt auto_cd
+setopt auto_list
+setopt auto_param_keys
+setopt auto_param_slash
+setopt auto_pushd
 setopt auto_resume
-setopt no_beep
-setopt hist_ignore_dups
-setopt hist_reduce_blanks
+setopt brace_ccl
+#setopt complete_aliases
+setopt extended_glob
 setopt extended_history
+setopt hash_cmds
 setopt hist_expand
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_no_store
+setopt hist_reduce_blanks
+setopt inc_append_history
+setopt list_packed
+setopt list_rows_first
+setopt list_types
 setopt long_list_jobs
 setopt magic_equal_subst
 setopt mark_dirs
-setopt no_menu_complete
-setopt list_rows_first
 setopt multios
-setopt path_dirs
-setopt print_eightbit
-setopt pushd_ignore_dups
-setopt pushd_silent
-setopt hist_no_store
-setopt transient_rprompt
-setopt hash_cmds
+setopt no_beep
+setopt no_hup
+#setopt no_clobber
+setopt no_menu_complete
 setopt numeric_glob_sort
-setopt rm_star_wait
-setopt auto_list
-setopt auto_param_slash
-setopt auto_param_keys
-setopt list_types
-setopt list_packed
-setopt auto_cd
-setopt auto_pushd
-setopt pushd_minus
+setopt path_dirs
+setopt print_eight_bit
 setopt pushd_ignore_dups
-#setopt complete_aliases
-setopt numericglobsort
-setopt braceccl
-#setopt noclobber
-setopt extendedglob
-setopt HIST_IGNORE_SPACE
-setopt inc_append_history
+setopt pushd_minus
+setopt pushd_silent
+setopt rm_star_wait
 setopt share_history
+setopt transient_rprompt
 
 unsetopt promptcr
 unsetopt correctall
@@ -326,16 +321,8 @@ BASE16_SHELL="$HOME/.base16-shell/"
 
 [[ -e ${HOME}/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 
-#-------------------------------------------------------------- gcloud sdk ---
-# The next line updates PATH for the Google Cloud SDK.
-[[ -f "${HOME}/prj/google-cloud-sdk/path.zsh.inc" ]] && source "${HOME}/prj/google-cloud-sdk/path.zsh.inc"
-# The next line enables shell command completion for gcloud.
-[[ -f "${HOME}/prj/google-cloud-sdk/completion.zsh.inc" ]] && source "${HOME}/prj/google-cloud-sdk/completion.zsh.inc"
-
-#------------------------------------------------------------------- pyenv ---
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+#------------------------------------------------------------------- vimrc ---
+[[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
 
 #------------------------------------------------------------- p10k prompt ---
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

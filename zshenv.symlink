@@ -1,5 +1,8 @@
 ## All (login/non/interactive) shells ##
 
+# unique these arrays
+typeset -U path manpath
+
 # exports
 export LANG=en_US
 export LANGUAGE=${LANG}.UTF-8
@@ -25,9 +28,6 @@ export TIG_DIFF_OPTS="--patience --ignore-all-space"
 # pyenv
 [[ -d "$HOME/.pyenv" ]]      && export PYENV_ROOT="$HOME/.pyenv"
 [[ -d "$PYENV_ROOT/bin" ]]   && path=($PYENV_ROOT/bin $path)
-
-# vimrc
-[[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
 
 # nVidia - CUDA
 if [[ -d /usr/local/cuda ]]; then
