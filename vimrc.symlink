@@ -1,7 +1,6 @@
 " This is MoniqueLive's .vimrc file
 " vim:set ts=2 sts=2 sw=2 expandtab foldenable foldmethod=marker:
 
-"----------------------------------------------------------------- plugins ---
 set nocompatible
 
 filetype off
@@ -14,6 +13,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+"---------------------------------------------------------------- plugins {{{1
 call plug#begin('~/.vim/plugged')
 
 " color schemes
@@ -64,6 +64,7 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 packadd! matchit
+packadd! editexisting
 
 "-------------------------------------------------------- CYBERAMA - begin ---
 augroup reload_vimrc " {
@@ -220,7 +221,7 @@ let g:gruvbox_plugin_hi_groups = 1
 colorscheme gruvbox8_hard
 
 "---------------------------------------------------------------- airline {{{2
-let g:airline_theme = 'fruit_punch'
+"let g:airline_theme = 'fruit_punch'
 let g:airline_powerline_fonts = 1
 
 " Mappings to easily toggle fold levels
