@@ -250,6 +250,8 @@ unsetopt print_exit_value
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fd --hidden --follow --exclude '.git' --exclude 'node_modules'"
 export FZF_DEFAULT_OPTS="-m --cycle --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="--hidden --follow --exclude '.git' --exclude 'node_modules' --type d"
 
 # for more info see fzf/shell/completion.zsh
 _fzf_compgen_path() {
@@ -265,12 +267,6 @@ z() {
     [ $# -gt 0 ] && _z "$*" && return
     cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
-
-# To apply the command to CTRL-T as well
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# ALT-C's command
-export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND --type d"
 
 fzfrmimage() {
   docker image rm $(docker image ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
