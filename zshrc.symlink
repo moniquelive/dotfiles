@@ -299,9 +299,9 @@ n ()
     # stty lnext undef
 
     export FZF_DEFAULT_COMMAND='fdfind -t d'
-    export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:nmount;v:preview-tui'
+    export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:preview-tui;v:preview-tabbed'
 
-    nnn -A -Ra -Te -Pv "$@"
+    nnn -A -Ra -Te -Pt "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
