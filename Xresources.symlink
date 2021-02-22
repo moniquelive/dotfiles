@@ -1,8 +1,10 @@
+#include ".gruvbox-dark.xresources"
+
 ! URxvt
 URxvt.perl-lib: /home/cyber/.urxvt/perls
-URxvt.perl-ext-common: clipboard
+URxvt.clipboard.autocopy: true
 
-URxvt.font: xft:Ubuntu Mono derivative Powerline:antialias=false:size=20:Regular
+URxvt.font: xft:JetBrainsMono NF:size=20
 URxvt.letterSpace: -1
 
 URxvt.urgentOnBell: off
@@ -33,59 +35,12 @@ URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 URxvt.intensityStyles: false
 
 ! *background:              #002b36
-*foreground:              #839496
+! *foreground:              #839496
 *fading:                  40
 *fadeColor:               #002b36
 *cursorColor:             #93a1a1
 *pointerColorBackground:  #586e75
 *pointerColorForeground:  #93a1a1
-
-! solarized:
-! *color0:                  #073642
-! *color1:                  #dc322f
-! *color2:                  #859900
-! *color3:                  #b58900
-! *color4:                  #268bd2
-! *color5:                  #d33682
-! *color6:                  #2aa198
-! *color7:                  #eee8d5
-! *color8:                  #002b36
-! *color9:                  #cb4b16
-! *color10:                 #586e75
-! *color11:                 #657b83
-! *color12:                 #839496
-! *color13:                 #6c71c4
-! *color14:                 #93a1a1
-! *color15:                 #fdf6e3
-
-! from: https://wiki.archlinux.org/index.php/X_resources
-! tangoesque scheme
-! *background: #111111
-*foreground: #babdb6
-! Black (not tango) + DarkGrey
-*color0:  #000000
-*color8:  #555753
-! DarkRed + Red
-*color1:  #ff6565
-*color9:  #ff8d8d
-! DarkGreen + Green
-*color2:  #93d44f
-*color10: #c8e7a8
-! DarkYellow + Yellow
-*color3:  #eab93d
-*color11: #ffc123
-! DarkBlue + Blue
-*color4:  #204a87
-*color12: #3465a4
-! DarkMagenta + Magenta
-*color5:  #ce5c00
-*color13: #f57900
-!DarkCyan + Cyan (both not tango)
-*color6:  #89b6e2
-*color14: #46a4ff
-! LightGrey + White
-*color7:  #cccccc
-*color15: #ffffff
 
 ! Xterm
 !!! xterm*termName: xterm-256color
@@ -95,63 +50,9 @@ xterm*faceName:           Ubuntu Mono derivative Powerline:style=Regular:size=18
 ! #include ".Xresources.d/xterm"
 
 ! Xft settings ---------------------------------------------------------------
-Xft.dpi:        96
+! Xft.dpi:        96
 ! Xft.antialias:  true
 Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
-
-
-! Base16 Default Dark
-! Scheme: Chris Kempson (http://chriskempson.com)
-
-#define base00 #181818
-#define base01 #282828
-#define base02 #383838
-#define base03 #585858
-#define base04 #b8b8b8
-#define base05 #d8d8d8
-#define base06 #e8e8e8
-#define base07 #f8f8f8
-#define base08 #ab4642
-#define base09 #dc9656
-#define base0A #f7ca88
-#define base0B #a1b56c
-#define base0C #86c1b9
-#define base0D #7cafc2
-#define base0E #ba8baf
-#define base0F #a16946
-
-*.foreground:   base05
-! *.background:   base00
-*.cursorColor:  base05
-
-*.color0:       base00
-*.color1:       base08
-*.color2:       base0B
-*.color3:       base0A
-*.color4:       base0D
-*.color5:       base0E
-*.color6:       base0C
-*.color7:       base05
-
-*.color8:       base03
-*.color9:       base08
-*.color10:      base0B
-*.color11:      base0A
-*.color12:      base0D
-*.color13:      base0E
-*.color14:      base0C
-*.color15:      base07
-
-! Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
-! use 'shell' template to set these if necessary
-*.color16:      base09
-*.color17:      base0F
-*.color18:      base01
-*.color19:      base02
-*.color20:      base04
-*.color21:      base06
-
-*.background: rgba:0000/0000/0200/c800
 
