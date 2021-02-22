@@ -37,6 +37,14 @@ if [[ -d /usr/local/cuda ]]; then
   path+=($CUDA_HOME/bin)
 fi
 
+# CUDA @ PopOS
+if [[ -d /usr/lib/cuda ]]; then
+  export CUDA_HOME=/usr/lib/cuda
+  export DYLD_LIBRARY_PATH="$DYLD_LIBRARY_PATH:$CUDA_HOME/lib"
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$CUDA_HOME/lib"
+  path+=($CUDA_HOME/bin)
+fi
+
 # macOS - Homebrew
 if [[ -s "/usr/local/bin/brew" ]]; then
   brew_prefix=$(/usr/local/bin/brew --prefix)
