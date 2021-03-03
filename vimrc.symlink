@@ -65,6 +65,7 @@ call plug#end()
 
 packadd! matchit
 packadd! editexisting
+runtime ftplugin/man.vim
 
 "-------------------------------------------------------- CYBERAMA - begin ---
 augroup reload_vimrc " {
