@@ -103,9 +103,6 @@
 [gui]
   warndetachedcommit = true
 
-; [init]
-;   templatedir = ~/.git_template
-
 [filter "lfs"]
   clean = git-lfs clean %f
   smudge = git-lfs smudge %f
@@ -128,3 +125,7 @@
 	gpgsign = true
 [gpg]
 	program = gpg2
+[init]
+	defaultBranch = main
+;   templatedir = ~/.git_template
+
