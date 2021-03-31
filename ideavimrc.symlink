@@ -14,5 +14,5 @@ nnoremap <c-l> <c-w>l
 set surround
 set ignorecase smartcase
 set ideajoin
-set clipboard+=ideaput
+" set clipboard+=ideaput,unnamedplus
 
