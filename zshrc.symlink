@@ -144,7 +144,7 @@ alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 #[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
-[[ -x /usr/local/bin/lsd || -x /usr/bin/lsd ]] && alias ls='lsd --group-dirs=first'
+[[ -x /usr/local/bin/exa || -x /usr/bin/exa ]] && alias ls='exa --group-directories-first'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 
 #---------------------------------------------------------- global aliases ---
