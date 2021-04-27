@@ -62,4 +62,3 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
-source "$HOME/.cargo/env"
