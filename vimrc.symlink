@@ -74,6 +74,11 @@ augroup reload_vimrc " {
   au BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
 
+augroup nasm " {
+  au!
+  au BufRead,BufNewFile *.asm set filetype=nasm
+augroup END " }
+
 let g:netrw_altfile = 1 " <C-6> returns to files
 
 "-------------------------------------------------------- global defaults {{{1
