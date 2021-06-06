@@ -149,6 +149,7 @@ alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/doc
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 #[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
+[[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
