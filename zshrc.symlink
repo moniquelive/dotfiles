@@ -310,8 +310,8 @@ n ()
 }
 
 # gave up on gnome autostart...
-(( $+commands[amixer] )) && amixer sset Speaker '90%' > /dev/null 2>&1
-(( $+commands[amixer] )) && amixer sset Speaker '100%' > /dev/null 2>&1
+# (( $+commands[amixer] )) && amixer sset Speaker '90%' > /dev/null 2>&1
+# (( $+commands[amixer] )) && amixer sset Speaker '100%' > /dev/null 2>&1
 
 #------------------------------------------------------------ Base16 Shell ---
 BASE16_SHELL="$HOME/.base16-shell/"
