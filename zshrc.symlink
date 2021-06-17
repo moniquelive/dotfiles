@@ -74,6 +74,7 @@ done
 (( $+commands[go] ))        && plugins+=(golang)
 (( $+commands[pacman] ))    && plugins+=(archlinux)
 (( $+commands[rake] ))      && plugins+=(rake-fast)
+(( $+commands[rvm] ))       && plugins+=(rvm)
 (( $+commands[rg] ))        && plugins+=(ripgrep)
 (( $+commands[systemctl] )) && plugins+=(systemd)
 
@@ -333,7 +334,3 @@ BASE16_SHELL="$HOME/.base16-shell/"
 #----------------------------------------------------------------------------
 # BENCHMARKING (END)
 # zprof
-
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"

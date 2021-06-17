@@ -62,3 +62,6 @@ if [[ -s "/usr/local/bin/brew" ]]; then
   manpath=(${brew_prefix}/opt/coreutils/libexec/gnuman $manpath)
 fi
 
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+[ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
+
