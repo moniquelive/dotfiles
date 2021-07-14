@@ -24,6 +24,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 
 " tpope fandom
+Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
