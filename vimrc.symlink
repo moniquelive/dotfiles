@@ -40,7 +40,6 @@ Plug 'wincent/terminus'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/vim-peekaboo'
 
 " coding
 Plug 'AndrewRadev/splitjoin.vim'
