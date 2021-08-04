@@ -40,6 +40,11 @@ bind -n M-J resize-pane -D 5
 bind -n M-K resize-pane -U 5
 bind -n M-L resize-pane -R 5
 
+# Use unprefixed meta keys to mark / join panes
+bind -n M-m select-pane -m # mark
+bind -n M-M select-pane -m # unmark
+bind -n M-< join-pane
+
 # MOUSE & CLIPBOARD
 set -g mouse on
 set -g set-clipboard on
