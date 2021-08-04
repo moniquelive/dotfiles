@@ -62,7 +62,10 @@ plugins=(
   z
 )
 # plugins for binaries
-for p in aws fzf gcloud docker docker-compose gem gpg-agent pyenv rails redis-cli rsync ssh-agent stack tig tmux yum; do
+for p in aws fzf gcloud docker docker-compose gem git \
+          gpg-agent pyenv rails redis-cli rsync rvm \
+                  ssh-agent stack tig tmux yum
+do
   (( $+commands[$p] )) && plugins+=($p)
 done
 
@@ -70,11 +73,10 @@ done
 (( $+commands[brew] ))      && plugins+=(brew osx gnu-utils)
 (( $+commands[bundle] ))    && plugins+=(bundler)
 (( $+commands[dpkg] ))      && plugins+=(ubuntu)
-(( $+commands[git] ))       && plugins+=(git git-escape-magic github gitignore)
+(( $+commands[git] ))       && plugins+=(git-escape-magic github gitignore)
 (( $+commands[go] ))        && plugins+=(golang)
 (( $+commands[pacman] ))    && plugins+=(archlinux)
 (( $+commands[rake] ))      && plugins+=(rake-fast)
-(( $+commands[rvm] ))       && plugins+=(rvm)
 (( $+commands[rg] ))        && plugins+=(ripgrep)
 (( $+commands[systemctl] )) && plugins+=(systemd)
 
@@ -145,7 +147,6 @@ alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias ctop='docker run --rm -ti --name=ctop -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 #[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
-[[ -x /usr/local/bin/exa || -x /usr/bin/exa ]] && alias ls='exa --group-directories-first'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 
 #---------------------------------------------------------- global aliases ---
