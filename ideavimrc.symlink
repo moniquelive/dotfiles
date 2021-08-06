@@ -11,6 +11,13 @@ nnoremap <c-l> <c-w>l
 " nnoremap <c-k> :action VimWindowUp<CR>
 " nnoremap <c-l> :action VimWindowRight<CR>
 
+" system clipboard's copy/paste
+vnoremap <leader>y "+y
+nnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+
 set surround
 set ignorecase smartcase
 set ideajoin
