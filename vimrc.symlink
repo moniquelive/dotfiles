@@ -236,7 +236,7 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 let g:haskell_indent_disable = 1
 
 "---------------------------------------------------------------- airline {{{2
-"let g:airline_theme = 'fruit_punch'
+let g:airline_theme = 'base16_gruvbox_dark_hard'
 let g:airline_powerline_fonts = 1
 
 " Mappings to easily toggle fold levels
@@ -380,6 +380,8 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
+let g:fzf_preview_window = []
+
 " Bcommits
 " Blines
 " Btags
@@ -437,7 +439,7 @@ augroup lsp_install
     highlight link LspErrorText GruvboxRedSign " requires gruvbox
     highlight clear LspWarningLine
     " highlight lspReference ctermfg=red guifg=red ctermbg=green guibg=green
-    highlight lspReference guibg=#303010 ctermbg=black ctermfg=yellow term=underline
+    highlight lspReference guibg=#505030 ctermbg=black ctermfg=yellow term=underline
 
     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
