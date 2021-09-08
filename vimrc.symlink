@@ -34,6 +34,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-rake'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-rsi'
 
 " misc
 Plug 'wincent/terminus'
@@ -347,6 +348,13 @@ if has("autocmd")
   augroup END
 endif
 
+if has("autocmd")
+  augroup RubyFrozenStringLiteral
+    autocmd!
+    autocmd FileType ruby iabbrev fsl # frozen_string_literal: true
+  augroup END
+endif
+
 if ! has('gui_running')
     set ttimeoutlen=10 lazyredraw
     augroup FastEscape
@@ -424,7 +432,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <F5> <plug>(lsp-code-lens)
 
     " buffer format on save
-    autocmd FileType go autocmd BufWritePre <buffer> LspDocumentFormatSync
+    au! BufWritePre *.go,*.rs,*.elm,*.hs call execute('LspDocumentFormatSync')
 endfunction
 
 augroup lsp_install
