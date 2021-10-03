@@ -432,7 +432,7 @@ function! s:on_lsp_buffer_enabled() abort
     nmap <buffer> <F5> <plug>(lsp-code-lens)
 
     " buffer format on save
-    au! BufWritePre *.go,*.rs,*.elm,*.hs call execute('LspDocumentFormatSync')
+    au! BufWritePre *.go,*.rs,*.py,*.elm,*.hs call execute('LspDocumentFormatSync')
 endfunction
 
 augroup lsp_install
