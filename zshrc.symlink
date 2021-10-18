@@ -64,12 +64,13 @@ plugins=(
 # plugins for binaries
 for p in aws fzf gcloud docker docker-compose gem git \
           gpg-agent pyenv rails redis-cli rsync rvm \
-                  ssh-agent stack tig tmux yum
+                  stack tig tmux yum
 do
   (( $+commands[$p] )) && plugins+=($p)
 done
 
 # conditional plugins
+[[ `hostname` != "ip-172-31-37-67" ]] && plugins+=(ssh-agent)
 (( $+commands[brew] ))      && plugins+=(brew osx gnu-utils)
 (( $+commands[bundle] ))    && plugins+=(bundler)
 (( $+commands[dpkg] ))      && plugins+=(ubuntu)
@@ -108,8 +109,10 @@ zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # loadup ssh-agent (<3)
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-zstyle :omz:plugins:ssh-agent identities id_rsa
+if [[ `hostname` != "ip-172-31-37-67" ]]; then
+  zstyle :omz:plugins:ssh-agent agent-forwarding on
+  zstyle :omz:plugins:ssh-agent identities id_rsa
+fi
 
 # .ssh/config FTW!
 if [[ -r ~/.ssh/config ]]; then
