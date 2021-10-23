@@ -455,6 +455,8 @@ augroup coc_install
 
   " buffer format on save
   au! BufWritePre *.go,*.rs,*.py,*.elm,*.hs call CocAction('format')
+
+  au! CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
 "--------------------------------------------------------------- supertab {{{1
