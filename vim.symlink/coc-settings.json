@@ -1,28 +1,25 @@
 {
-  "list.source.files.args": ["--hidden", "--files"],
-  "list.source.grep.defaultArgs": ["-S"],
-  "codeLens.enable": true,
-  "solargraph.useBundler": true,
   "languageserver": {
+    "elmLS": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"]
+    },
+    "fortran": {
+      "command": "fortls",
+      "filetypes": ["fortran"],
+      "rootPatterns": [".fortls", ".git/"]
+    },
     "haskell": {
-      "command": "hie-wrapper",
-      "args": ["--lsp"],
-      "rootPatterns": [
-        "stack.yaml",
-        "cabal.config",
-        "package.yaml"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell",
-        "lhaskell"
-      ],
-      "initializationOptions": {
-        "languageServerHaskell": {
-          "hlintOn": true
-        }
+      "command": "ghcide-lsp-via-stack-exec",
+      "args": [ "" ],
+      "rootPatterns": [ "*.cabal", "cabal.config", "cabal.project", "package.yaml", "stack.yaml" ],
+      "filetypes": [ "hs", "lhs", "haskell" ],
+      "initializationOptions": { "languageServerHaskell": { "hlintOn": true }
       }
     }
-  }
+  },
+  // If you use neovim you can enable codelenses with this
+  "codeLens.enable": true
 }
+
