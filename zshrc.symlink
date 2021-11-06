@@ -114,12 +114,16 @@ zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # loadup ssh-agent (<3)
-if (( $+commands[hostname] )) && [[ `hostname` != "ip-172-31-37-67" ]]; then
-  zstyle :omz:plugins:ssh-agent agent-forwarding on
-  zstyle :omz:plugins:ssh-agent identities id_rsa
-elif (( $+commands[hostnamectl] )) && [[ `hostnamectl hostname` != "ip-172-31-37-67" ]]; then
-  zstyle :omz:plugins:ssh-agent agent-forwarding on
-  zstyle :omz:plugins:ssh-agent identities id_rsa
+if (( $+commands[hostname] )); then
+  if [[ `hostname` != "ip-172-31-37-67" ]]; then
+    zstyle :omz:plugins:ssh-agent agent-forwarding on
+    zstyle :omz:plugins:ssh-agent identities id_rsa
+  fi
+elif (( $+commands[hostnamectl] )); then
+  if [[ `hostnamectl hostname` != "ip-172-31-37-67" ]]; then
+    zstyle :omz:plugins:ssh-agent agent-forwarding on
+    zstyle :omz:plugins:ssh-agent identities id_rsa
+  fi
 fi
 
 # .ssh/config FTW!
