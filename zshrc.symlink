@@ -70,7 +70,7 @@ do
 done
 
 # conditional plugins
-[[ `hostname` != "ip-172-31-37-67" ]] && plugins+=(ssh-agent)
+[[ `hostnamectl hostname` != "ip-172-31-37-67" ]] && plugins+=(ssh-agent)
 (( $+commands[brew] ))      && plugins+=(brew osx gnu-utils)
 (( $+commands[bundle] ))    && plugins+=(bundler)
 (( $+commands[dpkg] ))      && plugins+=(ubuntu)
@@ -109,7 +109,7 @@ zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX
 zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # loadup ssh-agent (<3)
-if [[ `hostname` != "ip-172-31-37-67" ]]; then
+if [[ `hostnamectl hostname` != "ip-172-31-37-67" ]]; then
   zstyle :omz:plugins:ssh-agent agent-forwarding on
   zstyle :omz:plugins:ssh-agent identities id_rsa
 fi
