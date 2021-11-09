@@ -344,6 +344,7 @@ BASE16_SHELL="$HOME/.base16-shell/"
 [[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
 
 [[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
+[[ -f $HOME/.ghcup/env ]] && source $HOME/.ghcup/env
 
 #------------------------------------------------------------- p10k prompt ---
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
