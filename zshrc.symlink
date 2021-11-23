@@ -63,7 +63,7 @@ plugins=(
 )
 # plugins for binaries
 for p in aws fzf gcloud docker docker-compose gem git \
-          gpg-agent pyenv rails redis-cli rsync rvm \
+          gpg-agent pyenv rails redis-cli ros rsync rvm \
                   stack tig tmux yum
 do
   (( $+commands[$p] )) && plugins+=($p)
@@ -84,7 +84,6 @@ fi
 (( $+commands[pacman] ))    && plugins+=(archlinux)
 (( $+commands[rake] ))      && plugins+=(rake-fast)
 (( $+commands[rg] ))        && plugins+=(ripgrep)
-(( $+commands[ros] ))       && plugins+=(ros)
 (( $+commands[systemctl] )) && plugins+=(systemd)
 
 #---------------------------------------------------------------- load OMZ ---
