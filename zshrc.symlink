@@ -76,7 +76,7 @@ elif (( $+commands[hostnamectl] )); then
   [[ `hostnamectl hostname` != "ip-172-31-37-67" ]] && plugins+=(ssh-agent)
 fi
 
-(( $+commands[brew] ))      && plugins+=(brew osx gnu-utils)
+(( $+commands[brew] ))      && plugins+=(brew macos gnu-utils)
 (( $+commands[bundle] ))    && plugins+=(bundler)
 (( $+commands[dpkg] ))      && plugins+=(ubuntu)
 (( $+commands[git] ))       && plugins+=(git-escape-magic github gitignore)
