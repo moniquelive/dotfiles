@@ -438,8 +438,10 @@ augroup coc_install
   nmap <buffer> <F2> <plug>(coc-rename)
   nmap <buffer> [g <Plug>(coc-diagnostic-previous)
   nmap <buffer> ]g <Plug>(coc-diagnostic-next)
-  xmap <buffer> f <plug>(coc-format-selected)
+  vmap <buffer> f <plug>(coc-format-selected)
   nmap <buffer> <leader>f <plug>(coc-format)
+  nmap <buffer> <leader>r <plug>(coc-refactor)
+  vmap <buffer> <leader>r <plug>(coc-refactor)
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
