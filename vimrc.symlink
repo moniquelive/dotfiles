@@ -442,6 +442,7 @@ augroup coc_install
   nmap <buffer> <leader>f <plug>(coc-format)
   nmap <buffer> <leader>r <plug>(coc-refactor)
   vmap <buffer> <leader>r <plug>(coc-refactor)
+  nnoremap <silent> gF :CocFix<CR>
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
