@@ -319,7 +319,7 @@ n ()
     export FZF_DEFAULT_COMMAND='fdfind -t d'
     export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:preview-tui;v:preview-tabbed'
 
-    nnn -A -Ra -Te -Pt "$@"
+    nnn -a -A -R -Te -Pv "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
