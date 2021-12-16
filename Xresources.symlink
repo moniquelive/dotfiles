@@ -4,13 +4,14 @@
 URxvt.perl-lib: /home/cyber/.urxvt/perls
 URxvt.clipboard.autocopy: true
 
-URxvt.font: xft:JetBrainsMono NF:size=20
-URxvt.letterSpace: -1
+URxvt.font: xft:JetBrainsMono NF:size=18:style=Regular
+!URxvt.letterSpace: -1
 
+URxvt.fading: 0
 URxvt.urgentOnBell: off
 URxvt.visualBell: off
-URxvt.iso14755: off
-URxvt.iso14755_52: off
+!URxvt.iso14755: off
+!URxvt.iso14755_52: off
 URxvt.meta8: true
 URxvt.depth: 32
 
@@ -20,7 +21,7 @@ URxvt.scrollTtyOutput:   false
 URxvt.scrollWithBuffer:  true
 URxvt.scrollTtyKeypress: true
 
-URxvt.inheritPixmap: false
+!URxvt.inheritPixmap: false
 
 ! Disable screen printing by overriding the default print pipe.
 URxvt.print-pipe: "cat >/dev/null"
@@ -32,7 +33,7 @@ URxvt.keysym.Control-Shift-C: perl:clipboard:copy
 URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 
 ! Colors
-URxvt.intensityStyles: false
+!URxvt.intensityStyles: false
 
 ! *background:              #002b36
 ! *foreground:              #839496
