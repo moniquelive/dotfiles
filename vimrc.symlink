@@ -457,7 +457,7 @@ augroup coc_install
   endfunction
 
   " buffer format on save
-  au! BufWritePre *.go,*.rs,*.py,*.elm,*.hs call CocAction('format')
+  au! BufWritePre *.go,*.rs,*.py,*.elm,*.hs,*.html call CocAction('format')
 
   au! CursorHold * silent call CocActionAsync('highlight')
 augroup END
