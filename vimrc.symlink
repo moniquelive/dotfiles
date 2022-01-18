@@ -60,8 +60,10 @@ Plug 'junegunn/fzf.vim'
 " Initialize plugin system
 call plug#end()
 
+if ! has("nvim")
+  packadd! editexisting
+endif
 packadd! matchit
-packadd! editexisting
 runtime ftplugin/man.vim
 
 "-------------------------------------------------------- CYBERAMA - begin ---
@@ -112,9 +114,9 @@ set t_ti= t_te=
 set scrolloff=1
 
 " Store temporary files in a central spot
-set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set undodir=~/tmp,/var/tmp,/tmp
+set backupdir=~/tmp,/var/tmp,/tmp
+set directory=~/tmp,/var/tmp,/tmp
 " set backup                  " Backups are nice ...
 if has('persistent_undo')
     set undofile                " So is persistent undo ...
