@@ -99,7 +99,7 @@ export BAT_THEME="base16"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
-export EDITOR=nvim
+export EDITOR=vim
 # export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 # export CUCUMBER_FORMAT=progress
 # export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
