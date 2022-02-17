@@ -318,6 +318,9 @@ nnoremap <c-w>V :let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>
 nnoremap _ <c-w>-
 nnoremap + <c-w>+
 
+" neovim, dont reinvent the wheel <3
+nnoremap Y yy
+
 if has("gui_macvim") && has("gui_running")
   "-------------------------------------------------------------- vitality ---
   let g:vitality_always_assume_iterm = 1
@@ -416,15 +419,18 @@ augroup coc_install
   au!
   set cmdheight=2 shortmess+=c updatetime=300 signcolumn=yes
 
-  inoremap <silent><expr> <TAB>
-        \ pumvisible() ? "\<C-n>" :
-        \ <SID>check_back_space() ? "\<TAB>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
   function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
   endfunction
+
+  inoremap <silent><expr> <TAB>
+        \ pumvisible() ? "\<C-n>" :
+        \ <SID>check_back_space() ? "\<TAB>" :
+        \ coc#refresh()
+
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
   inoremap <silent><expr> <c-@> coc#refresh()
 
   " Make <CR> auto-select the first completion item and notify coc.nvim to
@@ -433,18 +439,27 @@ augroup coc_install
                                 \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
   nmap <buffer> gd <plug>(coc-definition)
+  nmap <buffer> gt <plug>(coc-type-definition)
+  nmap <buffer> gi <plug>(coc-implementation)
   nmap <buffer> gr <plug>(coc-references)
   nmap <buffer> gf <plug>(coc-fix-current)
-  nmap <buffer> gi <plug>(coc-implementation)
-  nmap <buffer> gt <plug>(coc-type-definition)
+  nmap <buffer> gF <plug>(coc-codeaction)
   nmap <buffer> <F2> <plug>(coc-rename)
   nmap <buffer> [g <Plug>(coc-diagnostic-previous)
   nmap <buffer> ]g <Plug>(coc-diagnostic-next)
-  vmap <buffer> f <plug>(coc-format-selected)
+  vmap <buffer> <leader>f <plug>(coc-format-selected)
   nmap <buffer> <leader>f <plug>(coc-format)
   nmap <buffer> <leader>r <plug>(coc-refactor)
   vmap <buffer> <leader>r <plug>(coc-refactor)
-  nnoremap <silent> gF :CocFix<CR>
+
+	xmap if <Plug>(coc-funcobj-i)
+	xmap af <Plug>(coc-funcobj-a)
+	xmap ic <Plug>(coc-classobj-i)
+	xmap ac <Plug>(coc-classobj-a)
+	omap if <Plug>(coc-funcobj-i)
+	omap af <Plug>(coc-funcobj-a)
+	omap ic <Plug>(coc-classobj-i)
+	omap ac <Plug>(coc-classobj-a)
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -457,9 +472,6 @@ augroup coc_install
       execute '!' . &keywordprg . " " . expand('<cword>')
     endif
   endfunction
-
-  " buffer format on save
-  au! BufWritePre *.go,*.rs,*.py,*.elm,*.hs,*.html call CocAction('format')
 
   au! CursorHold * silent call CocActionAsync('highlight')
 augroup END
