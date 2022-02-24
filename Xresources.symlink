@@ -57,3 +57,4 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
+sxiv.background: #808080
