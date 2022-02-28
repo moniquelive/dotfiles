@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+PREFIX=$(dirname $(realpath -s $0))
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
@@ -87,9 +88,13 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink'); do
+  for src in $(find "$DOTFILES_ROOT" -maxdepth 3 -name '*.symlink'); do
+    src2=${src#$PREFIX/} 
+    dst2="$HOME/.${src2%.*}"
+
     dst="$HOME/.$(basename "${src%.*}")"
-    link_file "$src" "$dst"
+    #echo "$src" "$dst2"
+    link_file "$src" "$dst2"
   done
 }
 
