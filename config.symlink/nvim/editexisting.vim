@@ -1,0 +1,1 @@
+/usr/share/nvim/runtime/macros/editexisting.vim
