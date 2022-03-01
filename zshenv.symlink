@@ -26,8 +26,9 @@ export TIG_DIFF_OPTS="--patience --ignore-all-space"
 [[ -d "$HOME/go/bin" ]]      && path+=($HOME/go/bin)
 
 # pyenv
-[[ -d "$HOME/.pyenv" ]]      && export PYENV_ROOT="$HOME/.pyenv"
-[[ -d "$PYENV_ROOT/bin" ]]   && path=($PYENV_ROOT/bin $path)
+[[ -d "$HOME/.pyenv" ]]     && export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "$HOME/.pyenv/bin" ]] && path=($PYENV_ROOT/bin $path)
+[[ -d "$HOME/.pyenv/bin" ]] && eval "$(pyenv init -)"
 
 # nVidia - CUDA
 if [[ -d /usr/local/cuda ]]; then
