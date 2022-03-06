@@ -99,6 +99,7 @@ export BAT_THEME="base16"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
+export PAGER="less ${LESS}"
 export EDITOR=vim
 # export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 # export CUCUMBER_FORMAT=progress
@@ -316,10 +317,11 @@ n ()
     # stty lwrap undef
     # stty lnext undef
 
+    export ICONLOOKUP=1
     export FZF_DEFAULT_COMMAND='fdfind -t d'
     export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:preview-tui;v:preview-tabbed'
 
-    nnn -a -A -R -Te "$@"
+    nnn -a -A -R -Te -Pt "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
