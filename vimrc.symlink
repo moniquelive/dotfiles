@@ -320,6 +320,7 @@ nnoremap + <c-w>+
 
 " neovim, dont reinvent the wheel <3
 nnoremap Y yy
+set nohidden
 
 if has("gui_macvim") && has("gui_running")
   "-------------------------------------------------------------- vitality ---
