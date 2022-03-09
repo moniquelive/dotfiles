@@ -49,6 +49,7 @@ Plug 'tommcdo/vim-lion'
 " languages
 Plug 'sheerun/vim-polyglot'
 Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Auto-complete / LSP
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -232,6 +233,10 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 let g:haskell_indent_disable = 1
+
+let g:go_def_mapping_enabled = 0
+let g:go_doc_balloon = 1
+let g:go_doc_popup_window = 1
 
 "---------------------------------------------------------------- airline {{{2
 let g:airline_theme = 'base16_gruvbox_dark_hard'
