@@ -48,7 +48,7 @@
     [keys.widget.config]
       icon = "/home/cyber/Pictures/icons/72/Large/windows.brands.png"
   [keys.action]
-      exec = "sh /home/cyber/.local/share/pop-launcher/scripts/windows"
+      exec = "systemctl reboot --boot-loader-entry=auto-windows"
 
 [[keys]]
   index = 11
@@ -57,7 +57,7 @@
     [keys.widget.config]
       icon = "/home/cyber/Pictures/icons/72/Large/wrench.solid.png"
   [keys.action]
-      exec = "sh /home/cyber/.local/share/pop-launcher/scripts/bios"
+      exec = "systemctl reboot --firmware-setup"
 
 [[keys]]
   index = 14
