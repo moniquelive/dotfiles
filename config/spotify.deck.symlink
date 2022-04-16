@@ -1,0 +1,102 @@
+# vim:ft=toml
+[[keys]]
+  index = 0
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/StreamDeck-Icons-master/Back.png"
+  [keys.action]
+    deck = "main.deck"
+
+[[keys]]
+  index = 1
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Multimedia - Previous.png"
+  [keys.action.dbus]
+    object = "org.mpris.MediaPlayer2.spotify"
+    path = "/org/mpris/MediaPlayer2"
+    method = "org.mpris.MediaPlayer2.Player.Previous"
+    #value = ""
+
+[[keys]]
+  index = 2
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Multimedia - Play+Pause.png"
+  [keys.action.dbus]
+    object = "org.mpris.MediaPlayer2.spotify"
+    path = "/org/mpris/MediaPlayer2"
+    method = "org.mpris.MediaPlayer2.Player.PlayPause"
+    #value = ""
+
+[[keys]]
+  index = 3
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Multimedia - Next.png"
+  [keys.action.dbus]
+    object = "org.mpris.MediaPlayer2.spotify"
+    path = "/org/mpris/MediaPlayer2"
+    method = "org.mpris.MediaPlayer2.Player.Next"
+    #value = ""
+
+[[keys]]
+  index = 5
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Multimedia - Previous.png"
+  [keys.action]
+    exec = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
+
+[[keys]]
+  index = 6
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Multimedia - Play+Pause.png"
+  [keys.action]
+    exec = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+
+[[keys]]
+  index = 7
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Multimedia - Next.png"
+  [keys.action]
+    exec = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"
+
+[[keys]]
+  index = 10
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "Weekly"
+      icon = "/home/cyber/Pictures/icons/72/Small/calendar-alt.regular.png"
+  [keys.action]
+    exec = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri string:spotify:playlist:37i9dQZEVXcIbxw3tMGRxI"
+
+[[keys]]
+  index = 11
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "Zone"
+      icon = "/home/cyber/Pictures/icons/72/Large/skull.solid.png"
+  [keys.action]
+    exec = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri string:spotify:playlist:2R2B4B3v4EJTRTB1HV4Ntb"
+
+[[keys]]
+  index = 12
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "Monique"
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Game-Music.png"
+  [keys.action]
+    exec = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.OpenUri string:spotify:playlist:6tPcPBeTEoPqaZcR03IzwN"

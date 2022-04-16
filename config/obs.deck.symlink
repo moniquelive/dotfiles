@@ -1,0 +1,57 @@
+[[keys]]
+  index = 0
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/StreamDeck-Icons-master/Back.png"
+  [keys.action]
+    deck = "main.deck"
+
+[[keys]]
+  index = 1
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - OBS.png"
+  [keys.action]
+    exec = "wmctrl -a OBS"
+
+[[keys]]
+  index = 5
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "Intro"
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/Emote - Cursed Lit.jpg"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num0"
+
+[[keys]]
+  index = 6
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "Main"
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Stream-On.png"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num1"
+
+[[keys]]
+  index = 7
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "BRB"
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Stream-Off.png"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num2"
+
+[[keys]]
+  index = 8
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "Oops"
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Clean.png"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num3"

@@ -1,0 +1,81 @@
+[[keys]]
+  index = 0
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/StreamDeck-Icons-master/Back.png"
+  [keys.action]
+    deck = "main.deck"
+
+[[keys]]
+  index = 5
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Discord.png"
+  [keys.action]
+    exec = "wmctrl -a discord"
+
+[[keys]]
+  index = 6
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Microsoft-Teams.png"
+  [keys.action]
+    exec = "wmctrl -a Teams"
+
+[[keys]]
+  index = 7
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Google.png"
+  [keys.action]
+    exec = "wmctrl -a Meet:"
+
+[[keys]]
+  index = 8
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Zoom.png"
+  [keys.action]
+    exec = "wmctrl -a Meeting"
+
+[[keys]]
+  index = 10
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - Voice Mod - Mute On_off.png"
+  [keys.action]
+    keycode = "Leftctrl-Leftshift-M"
+
+[[keys]]
+  index = 11
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - Voice Mod - Mute On_off.png"
+  [keys.action]
+    keycode = "Leftctrl-Leftshift-M"
+
+[[keys]]
+  index = 12
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - Voice Mod - Mute On_off.png"
+  [keys.action]
+    keycode = "Leftctrl-D"
+
+[[keys]]
+  index = 13
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - Voice Mod - Mute On_off.png"
+  [keys.action]
+    keycode = "Leftalt-A"
+

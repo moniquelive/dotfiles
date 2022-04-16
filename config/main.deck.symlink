@@ -1,0 +1,69 @@
+[[keys]]
+  index = 0
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/App-OBS.png"
+  [keys.action]
+    deck = "obs.deck"
+
+[[keys]]
+  index = 1
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/App-Spotify.png"
+  [keys.action]
+    deck = "spotify.deck"
+
+[[keys]]
+  index = 2
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Record-On.png"
+  [keys.action]
+    deck = "conf.deck"
+
+[[keys]]
+  index = 4
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Lights-On.png"
+  [keys.action]
+      exec = "sh /home/cyber/.local/share/pop-launcher/scripts/elgato"
+
+[[keys]]
+  index = 9
+  [keys.widget]
+    id = "command"
+  [keys.widget.config]
+    command = "echo 'Ping:'; ping6 -c 1 -n whatsapp.com | awk '/time=/ {print $7}' | awk -F= '{print $2}'"
+
+[[keys]]
+  index = 10
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/72/Large/windows.brands.png"
+  [keys.action]
+      exec = "sh /home/cyber/.local/share/pop-launcher/scripts/windows"
+
+[[keys]]
+  index = 11
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/72/Large/wrench.solid.png"
+  [keys.action]
+      exec = "sh /home/cyber/.local/share/pop-launcher/scripts/bios"
+
+[[keys]]
+  index = 14
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - Power Off.png"
+  [keys.action]
+      exec = "systemctl suspend"
