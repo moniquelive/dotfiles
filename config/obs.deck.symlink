@@ -14,7 +14,7 @@
     [keys.widget.config]
       icon = "/home/cyber/Pictures/icons/Aurora_Stream_Deck_Icon_Pack-By_Nerd_Or_Die/256x256 Icons/App - OBS.png"
   [keys.action]
-    exec = "wmctrl -a OBS"
+    exec = "wmctrl -x -a obs"
 
 [[keys]]
   index = 5
@@ -55,3 +55,39 @@
       icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Normal/Clean.png"
   [keys.action]
     keycode = "Leftctrl-Leftalt-Leftshift-Num3"
+
+[[keys]]
+  index = 10
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "1"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num1"
+
+[[keys]]
+  index = 11
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "2"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num2"
+
+[[keys]]
+  index = 12
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "3"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num3"
+
+[[keys]]
+  index = 13
+  [keys.widget]
+    id = "button"
+    [keys.widget.config]
+      label = "4"
+  [keys.action]
+    keycode = "Leftctrl-Leftalt-Leftshift-Num4"
