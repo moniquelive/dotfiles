@@ -14,7 +14,7 @@
     [keys.widget.config]
       icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Discord.png"
   [keys.action]
-    exec = "wmctrl -a discord"
+    exec = "wmctrl -x -a discord"
 
 [[keys]]
   index = 6
@@ -32,7 +32,7 @@
     [keys.widget.config]
       icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Google.png"
   [keys.action]
-    exec = "wmctrl -a Meet:"
+    exec = "wmctrl -a Meet"
 
 [[keys]]
   index = 8
@@ -41,7 +41,7 @@
     [keys.widget.config]
       icon = "/home/cyber/Pictures/icons/Standard-Clarity-Icons/Inverse/App-Zoom.png"
   [keys.action]
-    exec = "wmctrl -a Meeting"
+    exec = 'wmctrl -F -a "Zoom Meeting"'
 
 [[keys]]
   index = 10
