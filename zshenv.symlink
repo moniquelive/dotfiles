@@ -47,11 +47,12 @@ if [[ -d /usr/lib/cuda ]]; then
 fi
 
 # macOS - Homebrew
-if [[ -s "/usr/local/bin/brew" ]]; then
-  brew_prefix=$(/usr/local/bin/brew --prefix)
+if [[ -s "/opt/homebrew/bin/brew" ]]; then
+  brew_prefix=$(/opt/homebrew/bin/brew --prefix)
 
   # On OSX edit /etc/paths to really change the order
   path=(
+    ${brew_prefix}/bin
     ${brew_prefix}/opt/node/bin
     ${brew_prefix}/opt/coreutils/bin
     ${brew_prefix}/opt/coreutils/libexec/gnubin
