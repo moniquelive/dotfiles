@@ -84,7 +84,7 @@ let g:netrw_altfile = 1 " <C-6> returns to files
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
 set noswapfile hlsearch cursorline noshowmode
 set ignorecase smartcase
-set textwidth=80 colorcolumn=+1
+set textwidth=0 colorcolumn=+1
 
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2
