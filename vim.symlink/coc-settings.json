@@ -15,6 +15,15 @@
       "args": ["--lsp"],
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
       "filetypes": ["haskell", "lhaskell", "hs", "lhs", "haskell"]
+    },
+    "prolog-lsp": {
+      "command": "swipl",
+      "args": ["-g", "use_module(library(lsp_server)).",
+        "-g", "lsp_server:main",
+        "-t", "halt",
+        "--", "stdio"
+      ],
+      "filetypes": ["prolog"]
     }
   },
   "codeLens.enable": true,
@@ -55,6 +64,7 @@
   "coc.preferences.formatOnSaveFiletypes": [
     "c",
     "cpp",
+    "css",
     "elm",
     "fortran",
     "go",
@@ -64,6 +74,7 @@
     "lisp",
     "lua",
     "nasm",
+    "prolog",
     "python",
     "ruby",
     "rust"
