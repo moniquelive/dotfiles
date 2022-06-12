@@ -1,1 +1,1 @@
-/usr/share/nvim/runtime/macros/editexisting.vim
+/usr/share/vim/vim82/pack/dist/opt/editexisting/plugin/editexisting.vim

@@ -1,1 +1,1 @@
-/home/cyber/.vimrc
+../../vimrc.symlink
