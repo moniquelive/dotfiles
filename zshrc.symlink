@@ -166,6 +166,7 @@ alias ssh='TERM=xterm ssh'
 (( $+commands[defaults] )) && alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 [[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
+(( $+commands[nvim] )) && alias vim=nvim
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
