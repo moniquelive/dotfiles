@@ -312,6 +312,12 @@ nnoremap <c-l> <c-w>l
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <leader>l <C-l>
 
+" Resize splits
+nnoremap <C-S-j> <c-w>+
+nnoremap <C-S-k> <c-w>-
+nnoremap <m-,> <c-w><
+nnoremap <m-.> <c-w>>
+
 " Open window below instead of above"
 nnoremap <c-w>N :let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>
 
