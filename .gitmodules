@@ -7,9 +7,6 @@
 [submodule "spaceship-prompt"]
 	path = spaceship-prompt
 	url = https://github.com/denysdovhan/spaceship-prompt.git
-[submodule "base16-shell.symlink"]
-	path = base16-shell.symlink
-	url = https://github.com/chriskempson/base16-shell.git
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = git@github.com:romkatv/powerlevel10k.git
