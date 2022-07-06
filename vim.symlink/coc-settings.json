@@ -77,7 +77,8 @@
     "prolog",
     "python",
     "ruby",
-    "rust"
+    "rust",
+    "xml"
   ],
   "coc.preferences.extensionUpdateCheck": "daily",
   "semanticTokens.filetypes": ["*"],
@@ -133,5 +134,6 @@
       "args": ["-"]
     }
   },
-  "go.checkForUpdates":"ask"
+  "go.checkForUpdates":"ask",
+  "prettier.onlyUseLocalVersion":true
 }
