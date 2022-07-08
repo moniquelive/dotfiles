@@ -8,5 +8,5 @@ echo initting submodules:
 git submodule update --init --recursive
 
 echo pulling latest:
-git submodule foreach "git checkout -q main; git checkout -q master; git pull -q"
+git submodule foreach "git checkout -q main || git checkout -q master && git pull -q"
 
