@@ -104,6 +104,8 @@ export EDITOR=vim
 # export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
 # export CUCUMBER_FORMAT=progress
 # export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 
 # zshlovers(https://grml.org/zsh/zsh-lovers.html)
 zstyle ':completion:*' use-cache on

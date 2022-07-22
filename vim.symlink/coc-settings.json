@@ -135,5 +135,6 @@
     }
   },
   "go.checkForUpdates":"ask",
-  "prettier.onlyUseLocalVersion":true
+  "prettier.onlyUseLocalVersion":true,
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }
