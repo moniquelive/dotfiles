@@ -65,6 +65,7 @@
     "c",
     "cpp",
     "css",
+    "elixir",
     "elm",
     "fortran",
     "go",
@@ -136,5 +137,6 @@
   },
   "go.checkForUpdates":"ask",
   "prettier.onlyUseLocalVersion":true,
+  "prettier.disableLanguages":["elixir"],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh"
 }
