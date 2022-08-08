@@ -58,6 +58,12 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+" Tree
+if has('nvim')
+Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+endif
+
 " Initialize plugin system
 call plug#end()
 
@@ -490,8 +496,10 @@ augroup coc_install
   au! CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
-"--------------------------------------------------------------- supertab {{{1
-let g:SuperTabDefaultCompletionType = "context"
-" let g:SuperTabMappingForward = '<s-tab>'
-" let g:SuperTabMappingBackward = '<tab>'
-
+"------------------------------------------------------------ Tree plugin {{{1
+if has("nvim")
+lua <<EOF
+  require("nvim-tree").setup()
+EOF
+nnoremap <silent> <tab> :NvimTreeToggle<cr>
+endif
