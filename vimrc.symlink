@@ -499,7 +499,10 @@ augroup END
 "------------------------------------------------------------ Tree plugin {{{1
 if has("nvim")
 lua <<EOF
-  require("nvim-tree").setup()
+  require("nvim-tree").setup({
+  hijack_netrw = false,
+  respect_buf_cwd = true
+  })
 EOF
 nnoremap <silent> <tab> :NvimTreeToggle<cr>
 endif
