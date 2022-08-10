@@ -10,6 +10,3 @@
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = git@github.com:romkatv/powerlevel10k.git
-[submodule "base16-shell.symlink"]
-	path = base16-shell.symlink
-	url = git@github.com:base16-project/base16-shell.git
