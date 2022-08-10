@@ -412,7 +412,7 @@ let g:fzf_preview_window = []
 " Blines
 " Btags
 " Files
-let $FZF_DEFAULT_COMMAND=''
+let $FZF_DEFAULT_COMMAND='fdfind'
 nnoremap <c-p> :Files<CR>
 nnoremap <leader>fc    :<C-u>Colors<cr>
 nnoremap <leader>fcmd  :<C-u>Commands<cr>
