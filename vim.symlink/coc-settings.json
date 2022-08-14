@@ -83,8 +83,10 @@
   ],
   "coc.preferences.extensionUpdateCheck": "daily",
   "semanticTokens.filetypes": ["*"],
-    "diagnostic-languageserver.filetypes": {
-    "python": "flake8"
+  "diagnostic-languageserver.filetypes": {
+    "python": "flake8",
+    "elixir": ["mix_credo", "mix_credo_compile"],
+    "eelixir": ["mix_credo", "mix_credo_compile"],
   },
   "diagnostic-languageserver.linters": {
     "flake8": {
@@ -119,7 +121,9 @@
     }
   },
   "diagnostic-languageserver.formatFiletypes": {
-    "python": ["black", "isort", "docformatter"]
+    "python": ["black", "isort", "docformatter"],
+    "elixir": "mix_format",
+    "eelixir": "mix_format",
   },
   "diagnostic-languageserver.formatters": {
     "black": {
