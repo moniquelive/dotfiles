@@ -496,6 +496,8 @@ augroup coc_install
   endfunction
 
   au! CursorHold * silent call CocActionAsync('highlight')
+
+  autocmd FileType elixir silent call coc#config('codeLens', {'enable': v:false})
 augroup END
 
 "------------------------------------------------------------ Tree plugin {{{1
