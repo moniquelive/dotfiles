@@ -55,6 +55,7 @@ Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 Plug 'elixir-editors/vim-elixir'
+Plug 'prettier/vim-prettier', { 'do': 'npm install --frozen-lockfile --production' }
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -460,28 +461,28 @@ augroup coc_install
   inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm()
 				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-  nmap <buffer> gd <plug>(coc-definition)
-  nmap <buffer> gt <plug>(coc-type-definition)
-  nmap <buffer> gi <plug>(coc-implementation)
-  nmap <buffer> gr <plug>(coc-references)
-  nmap <buffer> <F3> <plug>(coc-codeaction)
-  nmap <buffer> <F4> <plug>(coc-fix-current)
-  nmap <buffer> <F2> <plug>(coc-rename)
-  nmap <buffer> [g <Plug>(coc-diagnostic-previous)
-  nmap <buffer> ]g <Plug>(coc-diagnostic-next)
-  vmap <buffer> <leader>f <plug>(coc-format-selected)
-  nmap <buffer> <leader>f <plug>(coc-format)
-  nmap <buffer> <leader>r <plug>(coc-refactor)
-  vmap <buffer> <leader>r <plug>(coc-refactor)
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gt <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> <F3> <Plug>(coc-codeaction)
+  nmap <silent> <F4> <Plug>(coc-fix-current)
+  nmap <silent> <F2> <Plug>(coc-rename)
+  nmap <silent> [g <Plug>(coc-diagnostic-previous)
+  nmap <silent> ]g <Plug>(coc-diagnostic-next)
+  vmap <silent> <leader>f <Plug>(coc-format-selected)
+  nmap <silent> <leader>f <Plug>(coc-format)
+  nmap <silent> <leader>r <Plug>(coc-refactor)
+  vmap <silent> <leader>r <Plug>(coc-refactor)
 
-	xmap if <Plug>(coc-funcobj-i)
-	xmap af <Plug>(coc-funcobj-a)
-	xmap ic <Plug>(coc-classobj-i)
-	xmap ac <Plug>(coc-classobj-a)
-	omap if <Plug>(coc-funcobj-i)
-	omap af <Plug>(coc-funcobj-a)
-	omap ic <Plug>(coc-classobj-i)
-	omap ac <Plug>(coc-classobj-a)
+	xmap <silent> if <Plug>(coc-funcobj-i)
+	xmap <silent> af <Plug>(coc-funcobj-a)
+	xmap <silent> ic <Plug>(coc-classobj-i)
+	xmap <silent> ac <Plug>(coc-classobj-a)
+	omap <silent> if <Plug>(coc-funcobj-i)
+	omap <silent> af <Plug>(coc-funcobj-a)
+	omap <silent> ic <Plug>(coc-classobj-i)
+	omap <silent> ac <Plug>(coc-classobj-a)
 
   " Use K to show documentation in preview window.
   nnoremap <silent> K :call <SID>show_documentation()<CR>

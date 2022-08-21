@@ -123,7 +123,7 @@
   "diagnostic-languageserver.formatFiletypes": {
     "python": ["black", "isort", "docformatter"],
     "elixir": "mix_format",
-    "eelixir": "mix_format",
+    "eelixir": "mix_format"
   },
   "diagnostic-languageserver.formatters": {
     "black": {

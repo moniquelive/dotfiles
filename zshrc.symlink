@@ -81,6 +81,7 @@ fi
 (( $+commands[dpkg] ))      && plugins+=(ubuntu)
 (( $+commands[git] ))       && plugins+=(git-escape-magic github gitignore)
 (( $+commands[go] ))        && plugins+=(golang)
+[[ -d "$HOME/.nvm" ]]       && plugins+=(nvm)
 (( $+commands[pacman] ))    && plugins+=(archlinux)
 (( $+commands[rake] ))      && plugins+=(rake-fast)
 (( $+commands[rg] ))        && plugins+=(ripgrep)
@@ -99,12 +100,12 @@ if (( $+commands[hostname] )); then
   if [[ `hostname` != "ip-172-31-37-67" ]]; then
     zstyle :omz:plugins:ssh-agent agent-forwarding yes
     zstyle :omz:plugins:ssh-agent ssh-add-args --apple-load-keychain
-    zstyle :omz:plugins:ssh-agent identities id_rsa github_rsa
+    zstyle :omz:plugins:ssh-agent identities id_ed25519 id_rsa github_rsa
   fi
 elif (( $+commands[hostnamectl] )); then
   if [[ `hostnamectl hostname` != "ip-172-31-37-67" ]]; then
     zstyle :omz:plugins:ssh-agent agent-forwarding yes
-    zstyle :omz:plugins:ssh-agent identities id_rsa
+    zstyle :omz:plugins:ssh-agent identities id_ed25519 id_rsa
   fi
 fi
 
@@ -169,7 +170,11 @@ alias ssh='TERM=xterm ssh'
 (( $+commands[defaults] )) && alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 [[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
+if (( $+commands[nvim] )) && [[ -d "$HOME/.nvm" ]]; then
+vim() { nvm exec 16 nvim $1 }
+else
 (( $+commands[nvim] )) && alias vim=nvim
+fi
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
