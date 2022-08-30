@@ -417,6 +417,7 @@ let g:fzf_preview_window = []
 " Files
 let $FZF_DEFAULT_COMMAND='fdfind'
 nnoremap <c-p> :Files<CR>
+nnoremap <leader>b    :<C-u>Buffers<cr>
 nnoremap <leader>fc    :<C-u>Colors<cr>
 nnoremap <leader>fcmd  :<C-u>Commands<cr>
 nnoremap <leader>fgc   :<C-u>Commits<cr>
@@ -462,7 +463,7 @@ augroup coc_install
 				\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
   nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gt <Plug>(coc-type-definition)
+  nmap <silent> gT <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
   nmap <silent> <F3> <Plug>(coc-codeaction)
