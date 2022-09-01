@@ -376,6 +376,18 @@ if has("autocmd")
   augroup END
 endif
 
+if has("autocmd")
+  augroup VimHelpNavigation
+    autocmd!
+    autocmd FileType help nnoremap <buffer> <CR> <C-]>
+    autocmd FileType help nnoremap <buffer> <BS> <C-T>
+    autocmd FileType help nnoremap <buffer> o /'\l\{2,\}'<CR>
+    autocmd FileType help nnoremap <buffer> O ?'\l\{2,\}'<CR>
+    autocmd FileType help nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
+    autocmd FileType help nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
+  augroup END
+endif
+
 if ! has('gui_running')
     set ttimeoutlen=10 lazyredraw
     augroup FastEscape
@@ -409,13 +421,13 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
-let g:fzf_preview_window = []
+" let g:fzf_preview_window = []
+" let $FZF_DEFAULT_COMMAND='fdfind'
 
 " Bcommits
 " Blines
 " Btags
 " Files
-let $FZF_DEFAULT_COMMAND='fdfind'
 nnoremap <c-p> :Files<CR>
 nnoremap <leader>b    :<C-u>Buffers<cr>
 nnoremap <leader>fc    :<C-u>Colors<cr>
