@@ -92,6 +92,7 @@ let g:netrw_altfile = 1 " <C-6> returns to files
 "-------------------------------------------------------- global defaults {{{1
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
 set noswapfile hlsearch cursorline noshowmode
+set number relativenumber
 set ignorecase smartcase
 set textwidth=0 colorcolumn=+1
 
