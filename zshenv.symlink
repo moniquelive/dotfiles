@@ -30,6 +30,9 @@ export TIG_DIFF_OPTS="--patience --ignore-all-space"
 [[ -d "$HOME/.pyenv/bin" ]] && path=($PYENV_ROOT/bin $path)
 [[ -d "$HOME/.pyenv/bin" ]] && eval "$(pyenv init -)"
 
+# elixir
+[[ -d "$HOME/.mix/escripts" ]] && path=($HOME/.mix/escripts $path)
+
 # nVidia - CUDA
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
