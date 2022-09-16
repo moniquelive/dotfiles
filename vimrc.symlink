@@ -24,17 +24,18 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 
 " tpope fandom
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-obsession'
-Plug 'tpope/vim-fugitive'
+"Plug 'tpope/vim-obsession'
+"Plug 'tpope/vim-rails'
+"Plug 'tpope/vim-rake'
+"Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
 
 " misc
 Plug 'wincent/terminus'
@@ -316,6 +317,8 @@ nnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
+nnoremap <D-v> "+p
+nnoremap <D-V> "+P
 
 " See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -352,6 +355,9 @@ nnoremap + <c-w>+
 " neovim, dont reinvent the wheel <3
 nnoremap Y yy
 set nohidden
+
+"---------------------------------------------------------------- startify ---
+let g:startify_session_autoload = 1
 
 if has("gui_macvim") && has("gui_running")
   "-------------------------------------------------------------- vitality ---
