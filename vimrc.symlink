@@ -357,7 +357,8 @@ nnoremap Y yy
 set nohidden
 
 "---------------------------------------------------------------- startify ---
-let g:startify_session_autoload = 1
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
 
 if has("gui_macvim") && has("gui_running")
   "-------------------------------------------------------------- vitality ---
