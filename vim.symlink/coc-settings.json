@@ -82,11 +82,11 @@
     "xml"
   ],
   "coc.preferences.extensionUpdateCheck": "daily",
-  "semanticTokens.filetypes": ["*"],
+  "semanticTokens.enable": true,
   "diagnostic-languageserver.filetypes": {
     "python": "flake8",
     "elixir": ["mix_credo", "mix_credo_compile"],
-    "eelixir": ["mix_credo", "mix_credo_compile"],
+    "eelixir": ["mix_credo", "mix_credo_compile"]
   },
   "diagnostic-languageserver.linters": {
     "flake8": {
