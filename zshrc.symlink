@@ -170,10 +170,9 @@ alias ssh='TERM=xterm ssh'
 (( $+commands[defaults] )) && alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 [[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
-if (( $+commands[nvim] )) && [[ -d "$HOME/.nvm" ]]; then
-vim() { nvm exec 16 nvim $* }
-else
 (( $+commands[nvim] )) && alias vim=nvim
+if (( $+commands[nvim] )) && [[ -d "$HOME/.nvm" ]]; then
+  velm() { nvm exec 16 nvim $* }
 fi
 
 #---------------------------------------------------------- global aliases ---

@@ -142,11 +142,6 @@ set backspace=indent,eol,start
 " display incomplete commands
 set showcmd
 
-" make tab completion for files/buffers act like bash
-set wildmenu
-set wildmode=full "list:full
-set wildignore=*.swp,*.bak,*.pyc,*.class,*/.git/*,*/tmp/*
-
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
@@ -414,6 +409,12 @@ if ! has('gui_running')
         au InsertLeave * set timeoutlen=1000
     augroup END
 endif
+
+augroup RememberCursorPosition
+  autocmd!
+  autocmd BufRead * autocmd FileType <buffer> ++once
+        \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+augroup END
 
 "----------------------------------------------------------- editorconfig {{{1
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
