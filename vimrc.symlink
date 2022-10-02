@@ -416,6 +416,11 @@ augroup RememberCursorPosition
         \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 augroup END
 
+augroup PrettierAsync
+  autocmd!
+  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.heex,*.exs PrettierAsync
+augroup END
+
 "----------------------------------------------------------- editorconfig {{{1
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
 if executable('editorconfig')
