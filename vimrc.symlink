@@ -544,5 +544,5 @@ lua <<EOF
   respect_buf_cwd = true
   })
 EOF
-nnoremap <silent> <tab> :NvimTreeToggle<cr>
+nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
 endif
