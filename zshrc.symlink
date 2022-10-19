@@ -283,17 +283,17 @@ export FZF_ALT_C_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'n
 
 # for more info see fzf/shell/completion.zsh
 _fzf_compgen_path() {
-    fd . "$1"
+    fdfind . "$1"
 }
 _fzf_compgen_dir() {
-    fd --type d . "$1"
+    fdfind --type d . "$1"
 }
 
 # like normal z when used with arguments but displays an fzf prompt when used without.
 unalias z 2> /dev/null
 z() {
-    [ $# -gt 0 ] && _z "$*" && return
-    cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+    [ $# -gt 0 ] && zshz "$*" && return
+    cd "$(zshz -l 2>&1 | fzf --no-preview --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 }
 
 fzfrmimage() {
