@@ -53,7 +53,6 @@
   s           = status -sb
   sh          = show --color-words --minimal
   show        = show -b
-  st          = status -s
   ribbon      = tag --force _ribbon origin/master
   catchup     = log --patch --reverse --topo-order _ribbon..origin/master
   statcatchup = log --stat --reverse --topo-order _ribbon..origin/master
