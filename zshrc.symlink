@@ -164,6 +164,7 @@ alias mkdir='nocorrect mkdir'
 alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias icat='kitty +kitten icat'
 alias ssh='TERM=xterm ssh'
+alias yt="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 #[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
 (( $+commands[defaults] )) && alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
