@@ -165,6 +165,7 @@ alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias icat='kitty +kitten icat'
 alias ssh='TERM=xterm ssh'
 alias yt="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
+alias afd='aws --profile akad_front_dev'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 #[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
 (( $+commands[defaults] )) && alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
@@ -278,7 +279,7 @@ unsetopt print_exit_value
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
-export FZF_DEFAULT_OPTS="-m --cycle --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS="-m --cycle --preview-window wrap --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules' --type d ."
 
