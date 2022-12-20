@@ -24,10 +24,6 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 
 " tpope fandom
-"Plug 'tpope/vim-obsession'
-"Plug 'tpope/vim-rails'
-"Plug 'tpope/vim-rake'
-"Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
@@ -39,7 +35,7 @@ Plug 'tpope/vim-vinegar'
 
 " misc
 Plug 'wincent/terminus'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'editorconfig/editorconfig-vim'
 
@@ -52,11 +48,11 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " languages
 Plug 'sheerun/vim-polyglot'
-Plug 'thoughtbot/vim-rspec', { 'for': 'ruby' }
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
-Plug 'elixir-editors/vim-elixir'
-Plug 'prettier/vim-prettier', { 'do': 'npm install --frozen-lockfile --production' }
+Plug 'thoughtbot/vim-rspec'     , { 'for': 'ruby' }
+Plug 'fatih/vim-go'             , { 'do': ':GoUpdateBinaries' }
+Plug 'elixir-lsp/coc-elixir'    , {'do': 'yarn install && yarn prepack', 'for': ['elixir','eelixir']}
+Plug 'elixir-editors/vim-elixir', { 'for': ['elixir','eelixir']}
+Plug 'prettier/vim-prettier'    , { 'do': 'npm install --frozen-lockfile --production' }
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -64,8 +60,8 @@ Plug 'junegunn/fzf.vim'
 
 " Tree
 if has('nvim')
-Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
-Plug 'kyazdani42/nvim-tree.lua'
+  Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
+  Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 endif
 
 " Initialize plugin system
@@ -92,17 +88,15 @@ let g:netrw_altfile = 1 " <C-6> returns to files
 
 "-------------------------------------------------------- global defaults {{{1
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
-set noswapfile hlsearch cursorline noshowmode
-set number
-set ignorecase smartcase
+set noswapfile nohlsearch incsearch cursorline noshowmode
 set textwidth=0 colorcolumn=+1
+set ignorecase smartcase
+set number
 
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2
 
 set switchbuf=useopen
-set showfulltag
-set incsearch
 
 set termencoding=utf-8 encoding=utf-8
 set visualbell noerrorbells
@@ -120,7 +114,9 @@ autocmd VimResized * :wincmd =
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
+if ! has('nvim')
+  set t_ti= t_te=
+endif
 
 " keep more context when scrolling off the end of a buffer
 set scrolloff=1
@@ -160,19 +156,6 @@ set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 
 "---------------------------------------------------------------- helpers {{{1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""" RENAME CURRENT FILE {{{2
-function! RenameFile()
-    let old_name = expand('%')
-    let new_name = input('New file name: ', expand('%'), 'file')
-    if new_name != '' && new_name != old_name
-        exec ':saveas ' . new_name
-        exec ':silent !rm ' . old_name
-        redraw!
-    endif
-endfunction
-" map <leader>n :call RenameFile()<cr>
-command! RenameFile :call RenameFile()
 
 """"""""""""""""""""""""""""""""""""""""""" RemoveFancyCharacters COMMAND {{{2
 function! RemoveFancyCharacters()
@@ -221,7 +204,7 @@ else
   let &t_ZR = "\<Esc>[23m"
 endif
 
-if (has("termguicolors"))
+if has("termguicolors")
   set termguicolors
 endif
 
@@ -360,24 +343,18 @@ if has("autocmd")
     autocmd!
     autocmd BufRead * normal zR
   augroup END
-endif
 
-" Spell checking for git commit messages
-if has("autocmd")
   augroup GitCommitSpellCheck
+" Spell checking for git commit messages
     autocmd!
     autocmd FileType gitcommit set spell
   augroup END
-endif
 
-if has("autocmd")
   augroup RubyFrozenStringLiteral
     autocmd!
     autocmd FileType ruby iabbrev fsl # frozen_string_literal: true
   augroup END
-endif
 
-if has("autocmd")
   augroup VimHelpNavigation
     autocmd!
     autocmd FileType help nnoremap <buffer> <CR> <C-]>
@@ -387,27 +364,27 @@ if has("autocmd")
     autocmd FileType help nnoremap <buffer> s /\|\zs\S\+\ze\|<CR>
     autocmd FileType help nnoremap <buffer> S ?\|\zs\S\+\ze\|<CR>
   augroup END
-endif
 
-if ! has('gui_running')
+  if ! has('gui_running')
     set ttimeoutlen=10 lazyredraw
     augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
+      autocmd!
+      au InsertEnter * set timeoutlen=0
+      au InsertLeave * set timeoutlen=1000
     augroup END
+  endif
+
+  augroup RememberCursorPosition
+    autocmd!
+    autocmd BufRead * autocmd FileType <buffer> ++once
+          \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+  augroup END
+
+  augroup PrettierAsync
+    autocmd!
+    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.heex,*.exs PrettierAsync
+  augroup END
 endif
-
-augroup RememberCursorPosition
-  autocmd!
-  autocmd BufRead * autocmd FileType <buffer> ++once
-        \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-augroup END
-
-augroup PrettierAsync
-  autocmd!
-  autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.heex,*.exs PrettierAsync
-augroup END
 
 "----------------------------------------------------------- editorconfig {{{1
 " from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
@@ -417,37 +394,17 @@ if executable('editorconfig')
 endif
 
 "-------------------------------------------------------------------- FZF {{{1
-" Customize fzf colors to match your color scheme
-" let g:fzf_colors =
-"       \ { 'fg':    ['fg', 'Normal'],
-"       \ 'bg':      ['bg', 'Normal'],
-"       \ 'hl':      ['fg', 'Comment'],
-"       \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-"       \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-"       \ 'hl+':     ['fg', 'Statement'],
-"       \ 'info':    ['fg', 'PreProc'],
-"       \ 'border':  ['fg', 'Ignore'],
-"       \ 'prompt':  ['fg', 'Conditional'],
-"       \ 'pointer': ['fg', 'Exception'],
-"       \ 'marker':  ['fg', 'Keyword'],
-"       \ 'spinner': ['fg', 'Label'],
-"       \ 'header':  ['fg', 'Comment'] }
-
-" let g:fzf_preview_window = []
-" let $FZF_DEFAULT_COMMAND='fdfind'
-
 " Bcommits
 " Blines
 " Btags
-" Files
 nnoremap <c-p> :Files<CR>
 nnoremap <leader>b    :<C-u>Buffers<cr>
 nnoremap <leader>fc    :<C-u>Colors<cr>
 nnoremap <leader>fcmd  :<C-u>Commands<cr>
 nnoremap <leader>fgc   :<C-u>Commits<cr>
 nnoremap <leader>fft   :<C-u>Filetypes<cr>
-" nnoremap <leader>fgf   :<C-u>Gfiles<cr>
-" nnoremap <leader>fgfd  :<C-u>Gfiles-diff<cr>
+nnoremap <leader>fgf   :<C-u>GFiles<cr>
+nnoremap <leader>fgfd  :<C-u>GFiles-diff<cr>
 nnoremap <leader>fht   :<C-u>Helptags<cr>
 nnoremap <leader>fh    :<C-u>History-command<cr>
 nnoremap <leader>fhf   :<C-u>History-files<cr>
@@ -455,7 +412,7 @@ nnoremap <leader>fhs   :<C-u>History-search<cr>
 nnoremap <leader>fmap  :<C-u>Maps<cr>
 nnoremap <leader>fmark :<C-u>Marks<cr>
 nnoremap <leader>fw    :<C-u>Windows<cr>
-" nnoremap <leader>fl    :<C-u>Lines<cr>
+nnoremap <leader>fl    :<C-u>Lines<cr>
 " nnoremap <leader>floc  :<C-u>Locate<cr>
 " nnoremap <leader>fs    :<C-u>Snippets<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
@@ -528,8 +485,13 @@ augroup END
 if has("nvim")
 lua <<EOF
   require("nvim-tree").setup({
-  hijack_netrw = false,
-  respect_buf_cwd = true
+    hijack_netrw = false,
+    respect_buf_cwd = true,
+    sort_by = 'extension',
+    reload_on_bufenter = true,
+    update_focused_file = {
+      enable = true
+    }
   })
 EOF
 nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
