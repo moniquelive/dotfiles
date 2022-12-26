@@ -17,7 +17,7 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " color schemes
-Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
@@ -43,29 +43,41 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 
+if has('nvim')
 " Auto-complete / LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
-" languages
-Plug 'sheerun/vim-polyglot'
-Plug 'thoughtbot/vim-rspec'     , { 'for': 'ruby' }
-Plug 'fatih/vim-go'             , { 'do': ':GoUpdateBinaries' }
-Plug 'elixir-lsp/coc-elixir'    , {'do': 'yarn install && yarn prepack', 'for': ['elixir','eelixir']}
-Plug 'elixir-editors/vim-elixir', { 'for': ['elixir','eelixir']}
-Plug 'prettier/vim-prettier'    , { 'do': 'npm install --frozen-lockfile --production' }
+Plug 'nvim-lua/plenary.nvim'
+Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'jayp0521/mason-null-ls.nvim'
+
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+
+" Tree
+Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
+nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
+endif
 
 " FZF
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Tree
-if has('nvim')
-  Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
-  Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
-endif
-
 " Initialize plugin system
 call plug#end()
+
+if has('nvim')
+lua require 'plugins'
+endif
 
 if ! has("nvim")
   packadd! editexisting
@@ -74,14 +86,11 @@ packadd! matchit
 runtime ftplugin/man.vim
 
 "-------------------------------------------------------- CYBERAMA - begin ---
-augroup reload_vimrc " {
+augroup file_types " {
   au!
   au BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
-
-augroup nasm " {
-  au!
   au BufRead,BufNewFile *.asm set filetype=nasm
+  au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
 augroup END " }
 
 let g:netrw_altfile = 1 " <C-6> returns to files
@@ -92,6 +101,7 @@ set noswapfile nohlsearch incsearch cursorline noshowmode
 set textwidth=0 colorcolumn=+1
 set ignorecase smartcase
 set number
+set signcolumn=yes
 
 set laststatus=2 " Always display the statusline in all windows
 set showtabline=2
@@ -209,24 +219,13 @@ if has("termguicolors")
 endif
 
 set background=dark " for the dark version
-let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
-
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-let g:haskell_indent_disable = 1
-
-let g:go_def_mapping_enabled = 0
-let g:go_doc_balloon = 1
-let g:go_doc_popup_window = 1
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_foreground = 'mix'
+let g:gruvbox_material_background = 'hard'
+colorscheme gruvbox-material
 
 "---------------------------------------------------------------- airline {{{2
-let g:airline_theme = 'base16_gruvbox_dark_hard'
+let g:airline_theme = 'gruvbox_material'
 let g:airline_powerline_fonts = 1
 
 " Mappings to easily toggle fold levels
@@ -379,11 +378,6 @@ if has("autocmd")
     autocmd BufRead * autocmd FileType <buffer> ++once
           \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
   augroup END
-
-  augroup PrettierAsync
-    autocmd!
-    autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html,*.heex,*.exs PrettierAsync
-  augroup END
 endif
 
 "----------------------------------------------------------- editorconfig {{{1
@@ -413,86 +407,7 @@ nnoremap <leader>fmap  :<C-u>Maps<cr>
 nnoremap <leader>fmark :<C-u>Marks<cr>
 nnoremap <leader>fw    :<C-u>Windows<cr>
 nnoremap <leader>fl    :<C-u>Lines<cr>
+nnoremap <leader>fs    :<C-u>Snippets<cr>
 " nnoremap <leader>floc  :<C-u>Locate<cr>
-" nnoremap <leader>fs    :<C-u>Snippets<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
 
-"---------------------------------------------------------------- vim-lsp {{{1
-augroup coc_install
-  au!
-  set cmdheight=2 shortmess+=c updatetime=300 signcolumn=yes
-
-  function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~# '\s'
-  endfunction
-
-  " Insert <tab> when previous text is space, refresh completion if not.
-  inoremap <silent><expr> <TAB>
-        \ coc#pum#visible() ? coc#pum#next(1):
-        \ <SID>check_back_space() ? "\<Tab>" :
-        \ coc#refresh()
-  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-  if has('nvim')
-    inoremap <silent><expr> <c-space> coc#refresh()
-  else
-    inoremap <silent><expr> <c-@> coc#refresh()
-  endif
-
-  inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                                \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-  nmap <silent> gd <Plug>(coc-definition)
-  nmap <silent> gT <Plug>(coc-type-definition)
-  nmap <silent> gi <Plug>(coc-implementation)
-  nmap <silent> gr <Plug>(coc-references)
-  nmap <silent> <F3> <Plug>(coc-codeaction)
-  nmap <silent> <F4> <Plug>(coc-fix-current)
-  nmap <silent> <F2> <Plug>(coc-rename)
-  nmap <silent> [g <Plug>(coc-diagnostic-previous)
-  nmap <silent> ]g <Plug>(coc-diagnostic-next)
-  vmap <silent> <leader>f <Plug>(coc-format-selected)
-  nmap <silent> <leader>f <Plug>(coc-format)
-  nmap <silent> <leader>r <Plug>(coc-refactor)
-  vmap <silent> <leader>r <Plug>(coc-refactor)
-
-	xmap <silent> if <Plug>(coc-funcobj-i)
-	xmap <silent> af <Plug>(coc-funcobj-a)
-	xmap <silent> ic <Plug>(coc-classobj-i)
-	xmap <silent> ac <Plug>(coc-classobj-a)
-	omap <silent> if <Plug>(coc-funcobj-i)
-	omap <silent> af <Plug>(coc-funcobj-a)
-	omap <silent> ic <Plug>(coc-classobj-i)
-	omap <silent> ac <Plug>(coc-classobj-a)
-
-  " Use K to show documentation in preview window.
-  nnoremap <silent> K :call <SID>show_documentation()<CR>
-  function! s:show_documentation()
-    if CocAction('hasProvider', 'hover')
-      call CocActionAsync('doHover')
-    else
-      call feedkeys('K', 'in')
-    endif
-  endfunction
-
-  au! CursorHold * silent call CocActionAsync('highlight')
-
-  autocmd FileType elixir,elm silent call coc#config('codeLens', {'enable': v:false})
-augroup END
-
-"------------------------------------------------------------ Tree plugin {{{1
-if has("nvim")
-lua <<EOF
-  require("nvim-tree").setup({
-    hijack_netrw = false,
-    respect_buf_cwd = true,
-    sort_by = 'extension',
-    reload_on_bufenter = true,
-    update_focused_file = {
-      enable = true
-    }
-  })
-EOF
-nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
-endif

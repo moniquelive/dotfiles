@@ -4,9 +4,6 @@
 [submodule "urxvt.symlink/perls"]
 	path = urxvt.symlink/perls
 	url = https://github.com/muennich/urxvt-perls.git
-[submodule "spaceship-prompt"]
-	path = spaceship-prompt
-	url = https://github.com/denysdovhan/spaceship-prompt.git
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = git@github.com:romkatv/powerlevel10k.git

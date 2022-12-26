@@ -54,6 +54,7 @@ COMPLETION_WAITING_DOTS="true"
 
 #----------------------------------------------------------------- plugins ---
 plugins=(
+  base16-shell
   cp colored-man-pages command-not-found common-aliases copybuffer
   dirpersist
   history
@@ -174,9 +175,6 @@ alias afp='aws --profile akad_front_prod'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
 [[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
 (( $+commands[nvim] )) && alias vim=nvim
-if (( $+commands[nvim] )) && [[ -d "$HOME/.nvm" ]]; then
-  velm() { nvm exec 16 nvim $* }
-fi
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
@@ -351,12 +349,6 @@ autoload -U add-zsh-hook
 add-zsh-hook chpwd python_venv
 
 python_venv
-
-#------------------------------------------------------------ Base16 Shell ---
-BASE16_SHELL="$HOME/.base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 [[ -e ${HOME}/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 
