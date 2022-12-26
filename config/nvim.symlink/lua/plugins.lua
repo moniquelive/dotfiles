@@ -18,6 +18,11 @@ require("mason-null-ls").setup({
   automatic_setup = true,
 })
 
+-- You will likely want to reduce updatetime which affects CursorHold
+-- note: this setting is global and should be set only once
+vim.o.updatetime = 250
+vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
 local lspconfig_on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
@@ -40,6 +45,31 @@ local lspconfig_on_attach = function(client, bufnr)
   -- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   -- end, bufopts)
   -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+
+  if client.server_capabilities.documentHighlightProvider then
+    vim.cmd [[
+      hi! LspReferenceRead cterm=bold ctermbg=red guibg=#403000
+      hi! LspReferenceText cterm=bold ctermbg=red guibg=#403000
+      hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#403000
+    ]]
+    vim.api.nvim_create_augroup('lsp_document_highlight', {
+      clear = false
+    })
+    vim.api.nvim_clear_autocmds({
+      buffer = bufnr,
+      group = 'lsp_document_highlight',
+    })
+    vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+      group = 'lsp_document_highlight',
+      buffer = bufnr,
+      callback = vim.lsp.buf.document_highlight,
+    })
+    vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+      group = 'lsp_document_highlight',
+      buffer = bufnr,
+      callback = vim.lsp.buf.clear_references,
+    })
+  end
 end
 
 require "mason-lspconfig".setup_handlers {
