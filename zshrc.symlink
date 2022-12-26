@@ -54,6 +54,9 @@ COMPLETION_WAITING_DOTS="true"
 
 #----------------------------------------------------------------- plugins ---
 plugins=(
+  # mkdir $HOME/.oh-my-zsh/custom/plugins/base16-shell
+  # ln -s $HOME/.config/base16-shell/base16-shell.plugin.zsh \
+  #   $HOME/.oh-my-zsh/custom/plugins/base16-shell/base16-shell.plugin.zsh
   base16-shell
   cp colored-man-pages command-not-found common-aliases copybuffer
   dirpersist
