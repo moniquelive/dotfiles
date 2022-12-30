@@ -1,3 +1,38 @@
+------------------------------------------------------------- ToggleTerm {{{1
+require("toggleterm").setup {
+  direction = 'horizontal',
+  open_mapping = '<leader>tt',
+}
+function _G.set_terminal_keymaps()
+  local opts = { buffer = 0 }
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+end
+
+vim.cmd('autocmd! TermOpen term://*toggleterm#* lua set_terminal_keymaps()')
+
+local Terminal  = require('toggleterm.terminal').Terminal
+local gotestsum = Terminal:new {
+  cmd = "gotestsum --watch -f dots-v2",
+  hidden = true,
+  direction = 'horizontal',
+  on_open = function(_term)
+    local winnr = vim.fn['winnr']('#')
+    local winid = vim.fn['win_getid'](winnr)
+    vim.fn['win_gotoid'](winid)
+    vim.cmd('stopinsert')
+  end
+}
+function _G._gotestsum_toggle()
+  gotestsum:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>gt", [[<cmd>lua _gotestsum_toggle()<CR>]], { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap("n", "<leader>tt", [[<cmd>ToggleTerm<CR>]], { noremap = true, silent = true })
+
 ------------------------------------------------------------ Refactoring {{{1
 require 'refactoring'.setup {
 }
@@ -141,6 +176,7 @@ require('mason-tool-installer').setup {
     'elixir-ls',
     'elm-format',
     'elm-language-server',
+    'emmet-ls',
     'flake8',
     'gitlint',
     'gofumpt',
@@ -148,6 +184,7 @@ require('mason-tool-installer').setup {
     'gopls',
     'gotests',
     'gotestsum',
+    'html-lsp',
     'iferr',
     'jedi-language-server',
     'json-lsp',

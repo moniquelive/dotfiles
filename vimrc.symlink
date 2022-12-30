@@ -43,6 +43,10 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 
+" FZF
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
 if has('nvim')
 " Refactoring
 Plug 'ThePrimeagen/refactoring.nvim'
@@ -70,11 +74,11 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
-endif
 
-" FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Better Terminal
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
+
+endif
 
 " Initialize plugin system
 call plug#end()
@@ -386,6 +390,7 @@ if executable('editorconfig')
 endif
 
 "-------------------------------------------------------------------- FZF {{{1
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " Bcommits
 " Blines
 " Btags
