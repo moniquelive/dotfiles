@@ -44,6 +44,9 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 
 if has('nvim')
+" Refactoring
+Plug 'ThePrimeagen/refactoring.nvim'
+
 " Auto-complete / LSP
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -54,6 +57,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 
 Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
@@ -76,7 +80,7 @@ Plug 'junegunn/fzf.vim'
 call plug#end()
 
 if has('nvim')
-lua require 'plugins'
+lua require 'init'
 endif
 
 if ! has("nvim")
@@ -89,15 +93,15 @@ runtime ftplugin/man.vim
 augroup file_types " {
   au!
   au BufWritePost $MYVIMRC source $MYVIMRC
-  au BufRead,BufNewFile *.asm set filetype=nasm
-  au BufRead,BufNewFile *.gohtml set filetype=gohtmltmpl
+  au BufRead,BufNewFile *.asm setlocal filetype=nasm
+  au BufRead,BufNewFile *.gohtml setlocal filetype=template
 augroup END " }
 
 let g:netrw_altfile = 1 " <C-6> returns to files
 
 "-------------------------------------------------------- global defaults {{{1
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
-set noswapfile nohlsearch incsearch cursorline noshowmode
+set noswapfile incsearch cursorline noshowmode
 set textwidth=0 colorcolumn=+1
 set ignorecase smartcase
 set number
@@ -132,9 +136,9 @@ endif
 set scrolloff=1
 
 " Store temporary files in a central spot
-set undodir=~/tmp,/var/tmp,/tmp
-set backupdir=~/tmp,/var/tmp,/tmp
-set directory=~/tmp,/var/tmp,/tmp
+set undodir=~/.vim/tmp/undo//
+set backupdir=~/.vim/tmp/backup//
+set directory=~/.vim/tmp/swap//
 " set backup                  " Backups are nice ...
 if has('persistent_undo')
     set undofile                " So is persistent undo ...
@@ -372,12 +376,6 @@ if has("autocmd")
       au InsertLeave * set timeoutlen=1000
     augroup END
   endif
-
-  augroup RememberCursorPosition
-    autocmd!
-    autocmd BufRead * autocmd FileType <buffer> ++once
-          \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-  augroup END
 endif
 
 "----------------------------------------------------------- editorconfig {{{1

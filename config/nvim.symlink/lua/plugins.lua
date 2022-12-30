@@ -1,3 +1,30 @@
+------------------------------------------------------------ Refactoring {{{1
+require 'refactoring'.setup {
+}
+-- Remaps for the refactoring operations currently offered by the plugin
+vim.api.nvim_set_keymap("v", "<leader>re",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
+  { noremap = true, silent = true, expr = false })
+vim.api.nvim_set_keymap("v", "<leader>rf",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
+  { noremap = true, silent = true, expr = false })
+vim.api.nvim_set_keymap("v", "<leader>rv",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
+  { noremap = true, silent = true, expr = false })
+vim.api.nvim_set_keymap("v", "<leader>ri",
+  [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+  { noremap = true, silent = true, expr = false })
+
+-- Extract block doesn't need visual mode
+vim.api.nvim_set_keymap("n", "<leader>rb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]],
+  { noremap = true, silent = true, expr = false })
+vim.api.nvim_set_keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
+  { noremap = true, silent = true, expr = false })
+
+-- Inline variable can also pick up the identifier currently under the cursor without visual mode
+vim.api.nvim_set_keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
+  { noremap = true, silent = true, expr = false })
+
 ------------------------------------------------------------ Tree plugin {{{1
 require "nvim-tree".setup {
   hijack_netrw = false,
@@ -96,6 +123,53 @@ require "mason-lspconfig".setup_handlers {
   ["rust_analyzer"] = function()
     require("rust-tools").setup {}
   end
+}
+
+require('mason-tool-installer').setup {
+
+  -- a list of all tools you want to ensure are installed upon
+  -- start; they should be the names Mason uses for each tool
+  ensure_installed = {
+    -- you can pin a tool to a particular version
+    { 'haskell-language-server', version = '1.8.0.0' },
+
+    'autopep8',
+    'css-lsp',
+    'diagnostic-languageserver',
+    'djlint',
+    'dockerfile-language-server',
+    'elixir-ls',
+    'elm-format',
+    'elm-language-server',
+    'flake8',
+    'gitlint',
+    'gofumpt',
+    'goimports',
+    'gopls',
+    'gotests',
+    'gotestsum',
+    'iferr',
+    'jedi-language-server',
+    'json-lsp',
+    'lua-language-server',
+    'luacheck',
+    'markdownlint',
+    'prettierd',
+    'pylint',
+    'python-lsp-server',
+    'revive',
+    'semgrep',
+    'solargraph',
+    'standardrb',
+    'staticcheck',
+    'stylua',
+    'tailwindcss-language-server',
+    'vim-language-server',
+    'yaml-language-server',
+    'yamlfmt',
+    'yamllint',
+    'yapf',
+  },
 }
 
 ------------------------------------------------------------- Treesitter {{{1
