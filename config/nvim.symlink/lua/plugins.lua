@@ -165,8 +165,7 @@ require('mason-tool-installer').setup {
   -- a list of all tools you want to ensure are installed upon
   -- start; they should be the names Mason uses for each tool
   ensure_installed = {
-    -- you can pin a tool to a particular version
-    { 'haskell-language-server', version = '1.8.0.0' },
+    -- { '' , version = '1.8.0.0' }, you can pin a tool to a particular version
 
     'autopep8',
     'css-lsp',
@@ -184,7 +183,7 @@ require('mason-tool-installer').setup {
     'gopls',
     'gotests',
     'gotestsum',
-    'html-lsp',
+    'haskell-language-server', 'html-lsp',
     'iferr',
     'jedi-language-server',
     'json-lsp',
@@ -255,37 +254,55 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }, { "i", "s", "c" }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     ['<TAB>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       else
         fallback()
       end
-    end, {
-      "i",
-      "s",
-    }),
+    end, { "i", "s", "c" }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       else
         fallback()
       end
-    end, {
-      "i",
-      "s",
-    }),
+    end, { "i", "s", "c" }),
   }),
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
+    { name = 'nvim_lsp',
+      entry_filter = function(entry, ctx)
+        return require('cmp.types').lsp.CompletionItemKind[entry:get_kind()] ~= 'Text'
+      end
+    },
+    { name = 'emoji' },
     { name = 'luasnip' }, -- For luasnip users.
   }, {
     { name = 'buffer' },
   })
 }
+
+-- `/` cmdline setup.
+cmp.setup.cmdline({ '/', '?' }, {
+  mapping = cmp.mapping.preset.cmdline(),
+  completion = { autocomplete = false },
+  sources = {
+    {
+      name = 'buffer',
+      option = {
+        keyword_pattern = [=[[^(\v)?[:blank:]].*]=]
+      }
+    }
+  }
+})
+-- `:` cmdline setup.
+cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
+  sources = cmp.config.sources({ { name = 'path' } }, { { name = 'cmdline' } })
+})
 
 --------------------------------------------------------------- Prettier {{{1
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
