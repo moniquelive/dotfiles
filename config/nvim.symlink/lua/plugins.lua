@@ -92,6 +92,7 @@ do
   vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 end
 
+-------------------------------------------------------- Mason-LspConfig {{{1
 do
   local lspconfig_on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>

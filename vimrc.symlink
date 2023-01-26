@@ -73,7 +73,6 @@ Plug 'jayp0521/mason-null-ls.nvim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
-
 " Tree
 Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
