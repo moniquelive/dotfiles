@@ -150,9 +150,12 @@ do
         settings = {
           Lua = {
             diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { 'vim' },
+              globals = { 'vim' }, -- Get the language server to recognize the `vim` global
             },
+          },
+          haskell = {
+            hlintOn = true,
+            formattingProvider = "fourmolu"
           },
         },
       }
