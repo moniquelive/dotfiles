@@ -79,7 +79,7 @@ Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
 
 " Better Terminal
-Plug 'akinsho/toggleterm.nvim', {'tag' : '2.3.0'}
+Plug 'akinsho/toggleterm.nvim'
 
 endif
 
