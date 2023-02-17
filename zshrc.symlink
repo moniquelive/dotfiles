@@ -304,6 +304,10 @@ fzfrmimage() {
   docker image rm $(docker image ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
 }
 
+fzfrmservice() {
+  docker service rm $(docker service ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s ", $2}'; done)
+}
+
 #-----------------------------------------------------------------------------
 listen() {
   lsof -nP -i":$1" | grep LISTEN
