@@ -73,6 +73,8 @@ Plug 'jayp0521/mason-null-ls.nvim'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'rafamadriz/friendly-snippets'
 
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+
 " Tree
 Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
@@ -85,10 +87,6 @@ endif
 
 " Initialize plugin system
 call plug#end()
-
-if has('nvim')
-lua require 'init'
-endif
 
 if ! has("nvim")
   packadd! editexisting
@@ -416,4 +414,9 @@ nnoremap <leader>fl    :<C-u>Lines<cr>
 nnoremap <leader>fs    :<C-u>Snippets<cr>
 " nnoremap <leader>floc  :<C-u>Locate<cr>
 " nnoremap <leader>ft    :<C-u>Tags<cr>
+
+"------------------------------------------------------- last line please {{{1
+if has('nvim')
+lua require 'init'
+endif
 
