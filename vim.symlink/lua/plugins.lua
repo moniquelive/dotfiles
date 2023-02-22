@@ -110,7 +110,7 @@ end
 
 -------------------------------------------------------- Mason-LspConfig {{{1
 do
-	local lspconfig_on_attach = function(client, bufnr)
+	local on_attach = function(client, bufnr)
 		-- Enable completion triggered by <c-x><c-o>
 		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -132,26 +132,31 @@ do
 
 		if client.server_capabilities.documentHighlightProvider then
 			vim.cmd([[
-      hi! LspReferenceRead cterm=bold ctermbg=red guibg=#403000
-      hi! LspReferenceText cterm=bold ctermbg=red guibg=#403000
-      hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#403000
+      hi! LspReferenceText cterm=bold ctermbg=red guibg=#403040
+      hi! LspReferenceRead cterm=bold ctermbg=red guibg=#106010
+      hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#601010
     ]])
-			vim.api.nvim_create_augroup("lsp_document_highlight", {
-				clear = false,
-			})
-			vim.api.nvim_clear_autocmds({
+			local augroup = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
+			vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
+			vim.api.nvim_create_autocmd(
+				{ "CursorHold", "CursorHoldI" },
+				{ group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight }
+			)
+			vim.api.nvim_create_autocmd(
+				{ "CursorMoved", "CursorMovedI" },
+				{ group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references }
+			)
+		end
+
+		if client.supports_method("textDocument/formatting") then
+			local augroup = vim.api.nvim_create_augroup("lsp_document_formatting", { clear = false })
+			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = augroup,
 				buffer = bufnr,
-				group = "lsp_document_highlight",
-			})
-			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-				group = "lsp_document_highlight",
-				buffer = bufnr,
-				callback = vim.lsp.buf.document_highlight,
-			})
-			vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-				group = "lsp_document_highlight",
-				buffer = bufnr,
-				callback = vim.lsp.buf.clear_references,
+				callback = function()
+					vim.lsp.buf.format({ bufnr = bufnr })
+				end,
 			})
 		end
 	end
@@ -163,7 +168,7 @@ do
 		function(server_name) -- default handler (optional)
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 			require("lspconfig")[server_name].setup({
-				on_attach = lspconfig_on_attach,
+				on_attach = on_attach,
 				capabilities = capabilities,
 				settings = {
 					Lua = {
@@ -185,21 +190,6 @@ do
 		end,
 	})
 
-	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-	local null_ls_on_attach = function(client, bufnr)
-		if client.supports_method("textDocument/formatting") then
-			vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-			vim.api.nvim_create_autocmd("BufWritePre", {
-				group = augroup,
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.format({ bufnr = bufnr })
-				end,
-			})
-		end
-		lspconfig_on_attach(client, bufnr)
-	end
-
 	local null_ls = require("null-ls")
 	null_ls.setup({
 		sources = {
@@ -212,7 +202,7 @@ do
 			null_ls.builtins.formatting.prettierd,
 			null_ls.builtins.formatting.stylua,
 		},
-		on_attach = null_ls_on_attach,
+		on_attach = on_attach,
 	})
 end
 
