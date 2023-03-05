@@ -358,7 +358,8 @@ add-zsh-hook chpwd python_venv
 
 python_venv
 
-[[ -e ${HOME}/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
+[[ -e $HOME/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
+[[ -f $HOME/.config/op/plugins.sh ]] && source $HOME/.config/op/plugins.sh
 
 #------------------------------------------------------------------- vimrc ---
 [[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
