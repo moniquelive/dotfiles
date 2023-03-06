@@ -37,46 +37,20 @@ end
 
 ------------------------------------------------------------ Refactoring {{{1
 do
-	require("refactoring").setup({})
+	require("refactoring").setup()
+	-- local opts = { noremap = true, silent = true, expr = false }
 	-- Remaps for the refactoring operations currently offered by the plugin
-	vim.api.nvim_set_keymap(
-		"v",
-		"<leader>re",
-		[[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>]],
-		{ noremap = true, silent = true, expr = false }
-	)
-	vim.api.nvim_set_keymap(
-		"v",
-		"<leader>rf",
-		[[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>]],
-		{ noremap = true, silent = true, expr = false }
-	)
-	vim.api.nvim_set_keymap(
-		"v",
-		"<leader>rv",
-		[[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>]],
-		{ noremap = true, silent = true, expr = false }
-	)
-	vim.api.nvim_set_keymap(
-		"v",
-		"<leader>ri",
-		[[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
-		{ noremap = true, silent = true, expr = false }
-	)
+	-- vim.api.nvim_set_keymap( "v", "<leader>ref", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR> ]], opts)
+	-- vim.api.nvim_set_keymap( "v", "<leader>rff", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR> ]], opts)
+	-- vim.api.nvim_set_keymap( "v", "<leader>rev", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR> ]], opts)
+	-- vim.api.nvim_set_keymap( "v", "<leader>riv", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR> ]], opts)
 
 	-- Inline variable can also pick up the identifier currently under the cursor without visual mode
-	vim.api.nvim_set_keymap(
-		"n",
-		"<leader>ri",
-		[[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]],
-		{ noremap = true, silent = true, expr = false }
-	)
+	-- vim.api.nvim_set_keymap( "n", "<leader>riv", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR> ]], opts)
 
 	-- -- Extract block doesn't need visual mode
-	-- vim.api.nvim_set_keymap("n", "<leader>rb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]],
-	--   { noremap = true, silent = true, expr = false })
-	-- vim.api.nvim_set_keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]],
-	--   { noremap = true, silent = true, expr = false })
+	-- vim.api.nvim_set_keymap( "n", "<leader>reb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]], opts)
+	-- vim.api.nvim_set_keymap( "n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]], opts)
 end
 
 ------------------------------------------------------------ Tree plugin {{{1
@@ -107,27 +81,39 @@ do
 		automatic_setup = true,
 	})
 
-	local on_attach = function(client, bufnr)
-		-- Enable completion triggered by <c-x><c-o>
-		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-		-- Mappings.
+	local keymaps = function(bufnr)
 		-- See `:help vim.lsp.*` for documentation on any of the below functions
 		local bufopts = { noremap = true, silent = true, buffer = bufnr }
 		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
 		vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
 		vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+		vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, bufopts)
+		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, bufopts)
+		vim.keymap.set("n", "]d", vim.diagnostic.goto_next, bufopts)
 		-- vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 		vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", bufopts)
-		vim.keymap.set("n", "<F4>", vim.lsp.buf.signature_help, bufopts)
 		vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, bufopts)
 		vim.keymap.set("n", "<F3>", vim.lsp.buf.code_action, bufopts)
 		-- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 		vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
+		vim.keymap.set(
+			"v",
+			"<leader>frr",
+			[[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]],
+			{}
+		)
 		vim.keymap.set("n", "<leader>f", function()
 			vim.lsp.buf.format()
 		end, bufopts)
 		-- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
+	end
+
+	local on_attach = function(client, bufnr)
+		-- Enable completion triggered by <c-x><c-o>
+		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+		-- Mappings.
+		keymaps(bufnr)
 
 		if client.server_capabilities.documentHighlightProvider then
 			vim.cmd([[
@@ -404,6 +390,7 @@ do
 			},
 		},
 	})
+	telescope.load_extension("refactoring")
 	telescope.load_extension("fzf")
 	--telescope.load_extension("file_browser")
 
@@ -413,7 +400,7 @@ do
 	vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
 	vim.keymap.set("n", "<leader>ft", builtin.tags, {})
 	vim.keymap.set("n", "<leader>fl", builtin.live_grep, {})
-	vim.keymap.set("n", "<leader>fr", builtin.registers, {})
+	vim.keymap.set("n", "<leader>freg", builtin.registers, {})
 	vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 	vim.keymap.set("n", "<leader>fm", builtin.keymaps, {})
 	vim.keymap.set("n", "<leader>fgc", builtin.git_commits, {})
