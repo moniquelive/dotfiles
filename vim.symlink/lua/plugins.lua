@@ -102,9 +102,7 @@ do
 			[[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]],
 			{}
 		)
-		vim.keymap.set("n", "<leader>f", function()
-			vim.lsp.buf.format()
-		end, bufopts)
+		vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
 		-- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
 	end
 
@@ -292,7 +290,7 @@ end
 --------------------------------------------------------------- nvim-cmp {{{1
 do
 	vim.o.completeopt = "menu,menuone,noselect"
-	-- Set up nvim-cmp.
+	local types = require("cmp.types")
 	local cmp = require("cmp")
 	cmp.setup({
 		snippet = {
@@ -330,11 +328,10 @@ do
 			{
 				name = "nvim_lsp",
 				---@diagnostic disable-next-line: unused-local
-				entry_filter = function(entry, ctx)
-					return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+				entry_filter = function(entry, _ctx)
+					return types.lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
 				end,
 			},
-			{ name = "emoji" },
 		}, {
 			{ name = "path" },
 			{ name = "buffer", keyword_length = 5 },
@@ -380,24 +377,17 @@ do
 				},
 			},
 		},
-		extensions = {
-			fzf = {
-				fuzzy = true, -- false will only do exact matching
-				override_generic_sorter = true, -- override the generic sorter
-				override_file_sorter = true, -- override the file sorter
-				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
-				-- the default case_mode is "smart_case"
-			},
-		},
+		extensions = {},
 	})
 	telescope.load_extension("refactoring")
 	telescope.load_extension("fzf")
-	--telescope.load_extension("file_browser")
+	telescope.load_extension("emoji")
 
 	local builtin = require("telescope.builtin")
 	vim.keymap.set("n", "<c-p>", builtin.find_files, {})
 	vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
 	vim.keymap.set("n", "<leader>fd", builtin.diagnostics, {})
+	vim.keymap.set("n", "<leader>fe", "<cmd>Telescope emoji<CR>", {})
 	vim.keymap.set("n", "<leader>ft", builtin.tags, {})
 	vim.keymap.set("n", "<leader>fl", builtin.live_grep, {})
 	vim.keymap.set("n", "<leader>freg", builtin.registers, {})

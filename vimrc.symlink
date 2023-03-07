@@ -44,6 +44,8 @@ Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 
 if has('nvim')
+Plug 'nvim-lua/plenary.nvim'
+
 " Refactoring
 Plug 'ThePrimeagen/refactoring.nvim'
 
@@ -52,17 +54,15 @@ Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
-Plug 'hrsh7th/cmp-emoji'
-Plug 'hrsh7th/nvim-cmp'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
 
-Plug 'nvim-lua/plenary.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'jayp0521/mason-null-ls.nvim'
 
@@ -71,6 +71,7 @@ Plug 'rafamadriz/friendly-snippets'
 
 Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'xiyaowong/telescope-emoji.nvim', { 'on': 'Telescope' }
 
 " Tree
 Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
