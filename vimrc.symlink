@@ -46,6 +46,9 @@ Plug 'tommcdo/vim-lion'
 if has('nvim')
 Plug 'nvim-lua/plenary.nvim'
 
+" Notifications
+Plug 'rcarriga/nvim-notify'
+
 " Refactoring
 Plug 'ThePrimeagen/refactoring.nvim'
 
