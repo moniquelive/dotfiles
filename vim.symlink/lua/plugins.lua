@@ -10,7 +10,11 @@ end
 
 ------------------------------------------------------------- ToggleTerm {{{1
 do
-  require("toggleterm").setup({
+  local ok, toggleterm = pcall(require, "toggleterm")
+  if not ok then
+    return
+  end
+  toggleterm.setup({
     direction = "horizontal",
     open_mapping = "<leader>tt",
   })
@@ -47,7 +51,11 @@ end
 
 ------------------------------------------------------------ Refactoring {{{1
 do
-  require("refactoring").setup()
+  local ok, refactoring = pcall(require, "refactoring")
+  if not ok then
+    return
+  end
+  refactoring.setup()
   -- local opts = { noremap = true, silent = true, expr = false }
   -- Remaps for the refactoring operations currently offered by the plugin
   -- vim.api.nvim_set_keymap( "v", "<leader>ref", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR> ]], opts)
@@ -65,7 +73,11 @@ end
 
 ------------------------------------------------------------ Tree plugin {{{1
 do
-  require("nvim-tree").setup({
+  local ok, nvim_tree = pcall(require, "nvim-tree")
+  if not ok then
+    return
+  end
+  nvim_tree.setup({
     hijack_netrw = false,
     respect_buf_cwd = true,
     sort_by = "extension",
@@ -83,7 +95,11 @@ do
   vim.o.updatetime = 250
   vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 
-  require("mason").setup()
+  local ok, mason = pcall(require, "mason")
+  if not ok then
+    return
+  end
+  mason.setup()
   require("mason-lspconfig").setup()
   require("mason-null-ls").setup({
     -- ensure_installed = nil,
@@ -106,7 +122,8 @@ do
     vim.keymap.set("n", "<F3>", vim.lsp.buf.code_action, bufopts)
     -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
-    vim.keymap.set("v", "<leader>frr", [[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]], {})
+    vim.keymap.set("v", "<leader>frr", [[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]],
+    {})
     vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
     -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   end
@@ -126,8 +143,10 @@ do
     ]])
       local augroup = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
       vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, { group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" },
+      { group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" },
+      { group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references })
     end
 
     if client.supports_method("textDocument/formatting") then
@@ -182,7 +201,10 @@ do
     end,
   })
 
-  local null_ls = require("null-ls")
+  local ok_, null_ls = pcall(require, "null-ls")
+  if not ok_ then
+    return
+  end
   null_ls.setup({
     sources = {
       null_ls.builtins.completion.spell,
@@ -362,11 +384,11 @@ end
 
 --------------------------------------------------------------- telescope {{{1
 do
-  if not pcall(require, "telescope") then
+  local ok, telescope = pcall(require, "telescope")
+  if not ok then
     return
   end
   local actions = require("telescope.actions")
-  local telescope = require("telescope")
   telescope.setup({
     defaults = {
       mappings = {

@@ -107,27 +107,38 @@ let g:netrw_altfile = 1 " <C-6> returns to files
 
 "-------------------------------------------------------- global defaults {{{1
 set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
-set noswapfile incsearch cursorline noshowmode
-set textwidth=0 colorcolumn=+1
-set ignorecase smartcase
-set number
-set signcolumn=yes
+      \ noswapfile incsearch cursorline noshowmode
+      \ textwidth=0 colorcolumn=+1
+      \ ignorecase smartcase
+      \ number
+      \ signcolumn=yes
+      \ laststatus=2
+      \ showtabline=2
+      \ switchbuf=useopen
+      \ termencoding=utf-8 encoding=utf-8
+      \ visualbell noerrorbells
+      \ splitbelow splitright
+      \ tags^=./.git/tags;
+      \ autowriteall
+      \ scrolloff=1
+      \ backspace=indent,eol,start
+      \ showcmd
+      \ nojoinspaces
+      \ autoread
+      \ autoindent copyindent smartindent
+      \ mouse=a mousehide
+      \ viewoptions=folds,options,cursor,unix,slash
+      \ history=1000
+      \ iskeyword-=.                    " '.' is an end of word designator
+      \ iskeyword-=#                    " '#' is an end of word designator
+      \ iskeyword-=-                    " '-' is an end of word designator
 
-set laststatus=2 " Always display the statusline in all windows
-set showtabline=2
-
-set switchbuf=useopen
-
-set termencoding=utf-8 encoding=utf-8
-set visualbell noerrorbells
-set splitbelow splitright
-set tags^=./.git/tags;
+scriptencoding utf-8
 
 "set clipboard+=unnamedplus
 
 " Autosave on focus lost
 autocmd FocusLost * silent! wa
-set autowriteall
 
 " let terminal resize scale the internal windows
 autocmd VimResized * :wincmd =
@@ -137,9 +148,6 @@ autocmd VimResized * :wincmd =
 if ! has('nvim')
   set t_ti= t_te=
 endif
-
-" keep more context when scrolling off the end of a buffer
-set scrolloff=1
 
 " Store temporary files in a central spot
 set undodir=~/.vim/tmp/undo//
@@ -151,29 +159,6 @@ if has('persistent_undo')
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
-
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-" display incomplete commands
-set showcmd
-
-" Insert only one space when joining lines that contain sentence-terminating
-" punctuation like `.`.
-set nojoinspaces
-
-" If a file is changed outside of vim, automatically reload it without asking
-set autoread
-set autoindent copyindent smartindent
-
-" copied from spf13
-set mouse=a mousehide
-scriptencoding utf-8
-set viewoptions=folds,options,cursor,unix,slash
-set history=1000
-set iskeyword-=.                    " '.' is an end of word designator
-set iskeyword-=#                    " '#' is an end of word designator
-set iskeyword-=-                    " '-' is an end of word designator
 
 "---------------------------------------------------------------- helpers {{{1
 
@@ -390,31 +375,6 @@ if executable('editorconfig')
   let g:EditorConfig_exec_path = exepath('editorconfig')
   let g:EditorConfig_core_mode = 'external_command'
 endif
-
-"-------------------------------------------------------------------- FZF {{{1
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" Bcommits
-" Blines
-" Btags
-nnoremap <c-p> :Files<CR>
-nnoremap <leader>b    :<C-u>Buffers<cr>
-nnoremap <leader>fc    :<C-u>Colors<cr>
-nnoremap <leader>fcmd  :<C-u>Commands<cr>
-nnoremap <leader>fgc   :<C-u>Commits<cr>
-nnoremap <leader>fft   :<C-u>Filetypes<cr>
-nnoremap <leader>fgf   :<C-u>GFiles<cr>
-nnoremap <leader>fgfd  :<C-u>GFiles-diff<cr>
-nnoremap <leader>fht   :<C-u>Helptags<cr>
-nnoremap <leader>fh    :<C-u>History-command<cr>
-nnoremap <leader>fhf   :<C-u>History-files<cr>
-nnoremap <leader>fhs   :<C-u>History-search<cr>
-nnoremap <leader>fmap  :<C-u>Maps<cr>
-nnoremap <leader>fmark :<C-u>Marks<cr>
-nnoremap <leader>fw    :<C-u>Windows<cr>
-nnoremap <leader>fl    :<C-u>Lines<cr>
-nnoremap <leader>fs    :<C-u>Snippets<cr>
-" nnoremap <leader>floc  :<C-u>Locate<cr>
-" nnoremap <leader>ft    :<C-u>Tags<cr>
 
 "------------------------------------------------------- last line please {{{1
 if has('nvim')
