@@ -64,7 +64,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'WhoIsSethDaniel/mason-tool-installer.nvim'
+Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsUpdate'}
 
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'jayp0521/mason-null-ls.nvim'
