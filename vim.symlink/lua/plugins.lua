@@ -122,8 +122,7 @@ do
     vim.keymap.set("n", "<F3>", vim.lsp.buf.code_action, bufopts)
     -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
-    vim.keymap.set("v", "<leader>frr", [[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]],
-    {})
+    vim.keymap.set("v", "<leader>frr", [[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]], {})
     vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
     -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   end
@@ -143,10 +142,8 @@ do
     ]])
       local augroup = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
       vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" },
-      { group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" },
-      { group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, { group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references })
     end
 
     if client.supports_method("textDocument/formatting") then
@@ -388,13 +385,14 @@ do
   if not ok then
     return
   end
-  local actions = require("telescope.actions")
   telescope.setup({
     defaults = {
       mappings = {
         i = {
-          ["<esc>"] = actions.close,
+          ["<esc>"] = "close",
           ["<C-u>"] = false,
+          ["<C-j>"] = "preview_scrolling_down",
+          ["<C-k>"] = "preview_scrolling_up",
         },
       },
     },

@@ -316,6 +316,10 @@ nnoremap + <c-w>+
 nnoremap Y yy
 set nohidden
 
+" keep my pasteboard clean when using the visual mode trick
+vnoremap p "_dP
+vnoremap P "_dP
+
 "---------------------------------------------------------------- startify ---
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
