@@ -18,8 +18,6 @@ call plug#begin('~/.vim/plugged')
 
 " color schemes
 Plug 'sainnhe/gruvbox-material'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 
@@ -45,6 +43,10 @@ Plug 'tommcdo/vim-lion'
 
 if has('nvim')
 Plug 'nvim-lua/plenary.nvim'
+
+" airline
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-lualine/lualine.nvim'
 
 " Notifications
 Plug 'rcarriga/nvim-notify'
@@ -77,9 +79,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'xiyaowong/telescope-emoji.nvim', { 'on': 'Telescope' }
 
 " Tree
-Plug 'kyazdani42/nvim-web-devicons', { 'on': 'NvimTreeToggle' } " optional, for file icons
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
-nnoremap <silent> <s-tab> :NvimTreeToggle<cr>
 
 " Better Terminal
 Plug 'akinsho/toggleterm.nvim'
@@ -132,6 +132,7 @@ set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
       \ iskeyword-=.                    " '.' is an end of word designator
       \ iskeyword-=#                    " '#' is an end of word designator
       \ iskeyword-=-                    " '-' is an end of word designator
+      \ laststatus=3
 
 scriptencoding utf-8
 
@@ -219,11 +220,7 @@ let g:gruvbox_material_foreground = 'mix'
 let g:gruvbox_material_background = 'hard'
 colorscheme gruvbox-material
 
-"---------------------------------------------------------------- airline {{{2
-let g:airline_theme = 'gruvbox_material'
-let g:airline_powerline_fonts = 1
-
-" Mappings to easily toggle fold levels
+"---------------------------------------------------------------- folding {{{2
 nnoremap z0 :setlocal foldlevel=0<cr>
 nnoremap z1 :setlocal foldlevel=1<cr>
 nnoremap z2 :setlocal foldlevel=2<cr>

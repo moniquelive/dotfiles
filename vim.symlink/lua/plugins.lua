@@ -1,3 +1,17 @@
+---------------------------------------------------------------- LuaLine {{{1
+do
+  local ok, lualine = pcall(require, "lualine")
+  if not ok then
+    return
+  end
+  lualine.setup({
+    options = {
+      -- theme = "gruvbox-material",
+      theme = "powerline",
+    },
+  })
+end
+
 ----------------------------------------------------------------- Notify {{{1
 do
   local ok, notify = pcall(require, "notify")
@@ -85,7 +99,13 @@ do
     update_focused_file = {
       enable = true,
     },
+    view = {
+      width = 40,
+    },
   })
+  local api = require("nvim-tree.api")
+  local bufopts = { noremap = true, silent = true }
+  vim.keymap.set("n", "<s-tab>", api.tree.toggle, bufopts)
 end
 
 ------------------------------------------------------------------ Mason {{{1
@@ -122,8 +142,11 @@ do
     vim.keymap.set("n", "<F3>", vim.lsp.buf.code_action, bufopts)
     -- vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
     vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", bufopts)
-    vim.keymap.set("v", "<leader>frr", [[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]], {})
-    vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, bufopts)
+    vim.keymap.set("v", "<leader>frr", [[ <ESC><cmd>lua require("telescope").extensions.refactoring.refactors()<CR> ]],
+    {})
+    vim.keymap.set("n", "<leader>f", function()
+      vim.lsp.buf.format({ timeout = 15000 })
+    end, bufopts)
     -- vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
   end
 
@@ -142,8 +165,10 @@ do
     ]])
       local augroup = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
       vim.api.nvim_clear_autocmds({ buffer = bufnr, group = augroup })
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, { group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" },
+      { group = augroup, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" },
+      { group = augroup, buffer = bufnr, callback = vim.lsp.buf.clear_references })
     end
 
     if client.supports_method("textDocument/formatting") then
@@ -153,7 +178,7 @@ do
         group = augroup,
         buffer = bufnr,
         callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 5000 })
+          vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = 15000 })
         end,
       })
     end
