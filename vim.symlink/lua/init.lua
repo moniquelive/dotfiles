@@ -1,2 +1,11 @@
-require "plugins"
-require "restore_cursor"
+require("restore_cursor")
+
+require("plugins.lualine")
+require("plugins.notify")
+require("plugins.toggleterm")
+require("plugins.refactoring")
+require("plugins.tree")
+require("plugins.mason")
+require("plugins.treesitter")
+require("plugins.cmp")
+require("plugins.telescope")
