@@ -309,6 +309,10 @@ fzfrmservice() {
   docker service rm $(docker service ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s ", $2}'; done)
 }
 
+fzfbrew() {
+  brew rm `brew ls | fzf --preview='brew info {}'`
+}
+
 #-----------------------------------------------------------------------------
 listen() {
   lsof -nP -i":$1" | grep LISTEN
