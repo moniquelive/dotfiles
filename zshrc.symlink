@@ -171,6 +171,7 @@ alias ssh='TERM=xterm ssh'
 alias yt="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 alias afd='aws --profile akad_front_dev'
 alias afp='aws --profile akad_front_prod'
+alias afh='aws --profile akad_front_homol'
 alias ass='aws --profile akad_shared_services'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 #[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
@@ -378,3 +379,6 @@ python_venv
 #----------------------------------------------------------------------------
 # BENCHMARKING (END)
 # zprof
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
