@@ -13,6 +13,13 @@ nvim_tree.setup({
   view = {
     width = 40,
   },
+  renderer = {
+    group_empty = true,
+    highlight_git = true,
+  },
+  diagnostics = {
+    enable = true,
+  },
 })
 local api = require("nvim-tree.api")
 local bufopts = { noremap = true, silent = true }
