@@ -1,24 +1,25 @@
 local ok, telescope = pcall(require, "telescope")
 if not ok then
-  return
+	return
 end
 telescope.setup({
-  defaults = {
-    mappings = {
-      i = {
-        ["<esc>"] = "close",
-        ["<C-u>"] = false,
-        ["<C-j>"] = "preview_scrolling_down",
-        ["<C-k>"] = "preview_scrolling_up",
-      },
-    },
-  },
-  extensions = {},
+	defaults = {
+		mappings = {
+			i = {
+				["<esc>"] = "close",
+				["<C-u>"] = false,
+				["<C-j>"] = "preview_scrolling_down",
+				["<C-k>"] = "preview_scrolling_up",
+			},
+		},
+	},
+	extensions = {},
 })
 telescope.load_extension("refactoring")
 telescope.load_extension("fzf")
 telescope.load_extension("emoji")
 telescope.load_extension("notify")
+telescope.load_extension("ht")
 
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<c-p>", builtin.find_files, {})

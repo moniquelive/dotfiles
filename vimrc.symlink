@@ -1,5 +1,5 @@
 " This is MoniqueLive's .vimrc file
-" vim:set ts=2 sts=2 sw=2 expandtab foldenable foldmethod=marker:
+" vim:set ts=2 sts=2 sw=2 expandtab foldenable:
 
 set nocompatible
 
@@ -16,8 +16,7 @@ endif
 "---------------------------------------------------------------- plugins {{{1
 call plug#begin('~/.vim/plugged')
 
-" color schemes
-Plug 'sainnhe/gruvbox-material'
+" startup
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 
@@ -41,8 +40,13 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tommcdo/vim-lion'
 
+Plug 'andymass/vim-matchup'
+
 if has('nvim')
 Plug 'nvim-lua/plenary.nvim'
+
+" colorscheme
+Plug 'ellisonleao/gruvbox.nvim'
 
 " airline
 Plug 'kyazdani42/nvim-web-devicons'
@@ -55,10 +59,14 @@ Plug 'rcarriga/nvim-notify'
 Plug 'ThePrimeagen/refactoring.nvim'
 
 " Auto-complete / LSP
-Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason.nvim', {'do': ':MasonUpdate'}
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'HiPhish/nvim-ts-rainbow2'
 
 Plug 'onsails/lspkind.nvim'
 Plug 'hrsh7th/nvim-cmp'
@@ -80,21 +88,23 @@ Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'xiyaowong/telescope-emoji.nvim', { 'on': 'Telescope' }
 
+" Haskell
+Plug 'mrcjkb/haskell-tools.nvim'
+
 " Tree
 Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 
 " Better Terminal
 Plug 'akinsho/toggleterm.nvim'
 
+else
+Plug 'sainnhe/gruvbox-material'
+packadd! editexisting
 endif
 
 " Initialize plugin system
 call plug#end()
 
-if ! has("nvim")
-  packadd! editexisting
-endif
-packadd! matchit
 runtime ftplugin/man.vim
 
 "-------------------------------------------------------- CYBERAMA - begin ---
@@ -217,10 +227,14 @@ if has("termguicolors")
 endif
 
 set background=dark " for the dark version
-let g:gruvbox_material_better_performance = 1
-let g:gruvbox_material_foreground = 'mix'
-let g:gruvbox_material_background = 'hard'
-colorscheme gruvbox-material
+if has('nvim')
+  colorscheme gruvbox
+else
+  let g:gruvbox_material_better_performance = 1
+  let g:gruvbox_material_foreground = 'mix'
+  let g:gruvbox_material_background = 'hard'
+  colorscheme gruvbox-material
+endif
 
 "---------------------------------------------------------------- folding {{{2
 nnoremap z0 :setlocal foldlevel=0<cr>
