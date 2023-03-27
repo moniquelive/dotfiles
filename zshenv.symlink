@@ -33,6 +33,9 @@ export TIG_DIFF_OPTS="--patience --ignore-all-space"
 # elixir
 [[ -d "$HOME/.mix/escripts" ]] && path=($HOME/.mix/escripts $path)
 
+# haskell
+[[ -d "$HOME/.cabal/bin" ]] && path=($HOME/.cabal/bin $path)
+
 # nVidia - CUDA
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
