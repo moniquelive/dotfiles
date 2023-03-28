@@ -119,15 +119,30 @@ require("mason-lspconfig").setup_handlers({
 			},
 		})
 	end,
-	["hls"] = function()
-		-- require("lspconfig").hls.setup({
-		-- 	settings = {
-		-- 		haskell = {
-		-- 			hlintOn = true,
-		-- 			formattingProvider = "fourmolu",
-		-- 		},
-		-- 	},
-		-- })
+	["hls"] = function() end,
+	["elixir-ls"] = function()
+		require("lspconfig").elixirls.setup({
+			settings = {
+				elixirLS = {
+					dialyzerEnabled = true,
+				},
+			},
+		})
+	end,
+	["tailwindcss"] = function()
+		require("lspconfig").tailwindcss.setup({
+			filetypes = { "html", "elixir", "eelixir", "heex" },
+			init_options = {
+				userLanguages = { elixir = "html-eex", eelixir = "html-eex", heex = "html-eex" },
+			},
+			settings = {
+				tailwindCSS = {
+					experimental = {
+						classRegex = { 'class[:]\\s*"([^"]*)"' },
+					},
+				},
+			},
+		})
 	end,
 })
 
