@@ -120,7 +120,7 @@ require("mason-lspconfig").setup_handlers({
 		})
 	end,
 	["hls"] = function() end,
-	["elixir-ls"] = function()
+	["elixirls"] = function()
 		require("lspconfig").elixirls.setup({
 			settings = {
 				elixirLS = {
