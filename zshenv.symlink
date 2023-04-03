@@ -10,7 +10,6 @@ export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 [[ -x nproc ]] && export MAKEFLAGS=-j$(nproc)
 export TIG_DIFF_OPTS="--patience --ignore-all-space"
-#export HIGHLIGHT_OPTIONS="--style=${hltheme:-base16/ashes} --out-format=truecolor"
 
 # binaries
 [[ -d "$HOME/.local/bin" ]]  && path=($HOME/.local/bin $path)

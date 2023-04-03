@@ -45,9 +45,6 @@ Plug 'andymass/vim-matchup'
 if has('nvim')
 Plug 'nvim-lua/plenary.nvim'
 
-" colorscheme
-Plug 'ellisonleao/gruvbox.nvim'
-
 " airline
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-lualine/lualine.nvim'
@@ -97,8 +94,10 @@ Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
 " Better Terminal
 Plug 'akinsho/toggleterm.nvim'
 
+" colorscheme
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+
 else
-Plug 'sainnhe/gruvbox-material'
 packadd! editexisting
 endif
 
@@ -227,14 +226,7 @@ if has("termguicolors")
 endif
 
 set background=dark " for the dark version
-if has('nvim')
-  colorscheme gruvbox
-else
-  let g:gruvbox_material_better_performance = 1
-  let g:gruvbox_material_foreground = 'mix'
-  let g:gruvbox_material_background = 'hard'
-  colorscheme gruvbox-material
-endif
+colorscheme catppuccin-mocha
 
 "---------------------------------------------------------------- folding {{{2
 nnoremap z0 :setlocal foldlevel=0<cr>

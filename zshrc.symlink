@@ -54,10 +54,6 @@ COMPLETION_WAITING_DOTS="true"
 
 #----------------------------------------------------------------- plugins ---
 plugins=(
-  # mkdir $HOME/.oh-my-zsh/custom/plugins/base16-shell
-  # ln -s $HOME/.config/base16-shell/base16-shell.plugin.zsh \
-  #   $HOME/.oh-my-zsh/custom/plugins/base16-shell/base16-shell.plugin.zsh
-  base16-shell
   cp colored-man-pages command-not-found common-aliases copybuffer
   dirpersist
   history
@@ -134,7 +130,7 @@ ZSH_THEME="powerlevel10k"
 # set these after omz
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="Catppuccin-mocha"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
@@ -283,7 +279,12 @@ unsetopt print_exit_value
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
-export FZF_DEFAULT_OPTS="-m --cycle --preview-window wrap --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS="\
+  -m --cycle --preview-window wrap \
+  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
+  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
+  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
+  --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules' --type d ."
 
@@ -365,9 +366,6 @@ python_venv
 
 [[ -e $HOME/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
 [[ -f $HOME/.config/op/plugins.sh ]] && source $HOME/.config/op/plugins.sh
-
-#------------------------------------------------------------------- vimrc ---
-[[ -f ~/.vimrc_background ]] && hltheme=$(awk '/colorscheme/ {sub(/-/,"/"); print $2}' ~/.vimrc_background)
 
 [[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
 [[ -f $HOME/.ghcup/env ]] && source $HOME/.ghcup/env
