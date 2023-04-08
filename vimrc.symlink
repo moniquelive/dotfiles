@@ -85,6 +85,8 @@ Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'xiyaowong/telescope-emoji.nvim', { 'on': 'Telescope' }
 
+Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+
 " Haskell
 Plug 'mrcjkb/haskell-tools.nvim'
 
@@ -240,7 +242,7 @@ if 0 " if 0 / endif HACK
 i
 
 " Folding rules {{{2
-set foldenable                  " enable folding
+set nofoldenable                " enable folding
 set foldcolumn=2                " add a fold column
 set foldmethod=marker           " detect triple-{ style fold markers
 set foldlevelstart=99           " start out with everything unfolded

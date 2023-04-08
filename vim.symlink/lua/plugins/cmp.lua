@@ -33,6 +33,7 @@ cmp.setup({
     end, { "i", "s", "c" }),
   }),
   sources = cmp.config.sources({
+    { name = "cmp_tabnine" },
     { name = "nvim_lua" },
     {
       name = "nvim_lsp",
@@ -52,6 +53,7 @@ cmp.setup({
   formatting = {
     format = lspkind.cmp_format({
       menu = {
+        tabnine = "[tn]",
         buffer = "[buf]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[api]",
