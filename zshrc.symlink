@@ -341,7 +341,7 @@ n ()
     # stty lwrap undef
     # stty lnext undef
 
-    export ICONLOOKUP=1
+    #export ICONLOOKUP=1
     export FZF_DEFAULT_COMMAND='fdfind -t d'
     export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:preview-tui;v:preview-tabbed'
 
