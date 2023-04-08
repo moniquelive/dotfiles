@@ -2,3 +2,4 @@
 /vim.symlink/autoload
 /vim.symlink/plugged
 /vim.symlink/tmp
+.luarc.json
