@@ -3,8 +3,7 @@ if not ok then
   return
 end
 lualine.setup({
-  options = {
-    -- theme = "gruvbox-material",
-    theme = "powerline",
+  sections = {
+    lualine_c = { "filename", "buffers" },
   },
 })

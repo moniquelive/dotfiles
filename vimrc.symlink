@@ -85,8 +85,6 @@ Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'xiyaowong/telescope-emoji.nvim', { 'on': 'Telescope' }
 
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-
 " Haskell
 Plug 'mrcjkb/haskell-tools.nvim'
 
@@ -142,10 +140,11 @@ set tabstop=2 softtabstop=2 shiftwidth=2 shiftround expandtab nowrap
       \ mouse=a mousehide
       \ viewoptions=folds,options,cursor,unix,slash
       \ history=1000
-      \ iskeyword-=.                    " '.' is an end of word designator
-      \ iskeyword-=#                    " '#' is an end of word designator
-      \ iskeyword-=-                    " '-' is an end of word designator
+      \ iskeyword-=.
+      \ iskeyword-=#
+      \ iskeyword-=-
       \ laststatus=3
+      \ equalalways
 
 scriptencoding utf-8
 
@@ -323,17 +322,11 @@ nnoremap + <c-w>+
 nnoremap Y yy
 set nohidden
 
-" keep my pasteboard clean when using the visual mode trick
-vnoremap p "_dP
-vnoremap P "_dP
-
 "---------------------------------------------------------------- startify ---
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 
 if has("gui_macvim") && has("gui_running")
-  "-------------------------------------------------------------- vitality ---
-  let g:vitality_always_assume_iterm = 1
   xmap <D-/> <Plug>Commentary
   imap <D-/> <Plug>Commentary
   nmap <D-/> <Plug>CommentaryLine
