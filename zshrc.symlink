@@ -135,10 +135,7 @@ export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
 export PAGER="less ${LESS}"
-export EDITOR=vim
-# export TM_BUNDLE_SUPPORT="${HOME}/Library/Application Support/TextMate/Managed/Bundles/Ruby on Rails.tmbundle/Support"
-# export CUCUMBER_FORMAT=progress
-# export _JAVA_OPTIONS='-Dsun.java2d.opengl=true -Dawt.useSystemAAFontSettings=on'
+export EDITOR=$( (( $+commands[nvim] )) && echo nvim || echo vim )
 export ERL_AFLAGS="-kernel shell_history enabled"
 
 

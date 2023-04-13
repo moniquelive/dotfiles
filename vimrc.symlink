@@ -34,7 +34,6 @@ Plug 'tpope/vim-vinegar'
 Plug 'wincent/terminus'
 "Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'editorconfig/editorconfig-vim'
 
 " coding
 Plug 'AndrewRadev/splitjoin.vim'
@@ -42,64 +41,11 @@ Plug 'tommcdo/vim-lion'
 
 Plug 'andymass/vim-matchup'
 
-if has('nvim')
-Plug 'nvim-lua/plenary.nvim'
+Plug 'editorconfig/editorconfig-vim'
 
-" airline
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'nvim-lualine/lualine.nvim'
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 
-" Notifications
-Plug 'rcarriga/nvim-notify'
-
-" Refactoring
-Plug 'ThePrimeagen/refactoring.nvim'
-
-" Auto-complete / LSP
-Plug 'williamboman/mason.nvim', {'do': ':MasonUpdate'}
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'nvim-treesitter/nvim-treesitter-context'
-Plug 'HiPhish/nvim-ts-rainbow2'
-
-Plug 'onsails/lspkind.nvim'
-Plug 'hrsh7th/nvim-cmp'
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/cmp-cmdline'
-Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', {'do': ':MasonToolsUpdate'}
-
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'jayp0521/mason-null-ls.nvim'
-
-Plug 'L3MON4D3/LuaSnip'
-Plug 'rafamadriz/friendly-snippets'
-
-Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'xiyaowong/telescope-emoji.nvim', { 'on': 'Telescope' }
-
-" Haskell
-Plug 'mrcjkb/haskell-tools.nvim'
-
-" Tree
-Plug 'kyazdani42/nvim-tree.lua', { 'on': 'NvimTreeToggle' }
-
-" Better Terminal
-Plug 'akinsho/toggleterm.nvim'
-
-" colorscheme
-Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-
-else
 packadd! editexisting
-endif
 
 " Initialize plugin system
 call plug#end()
@@ -158,9 +104,7 @@ autocmd VimResized * :wincmd =
 
 " Prevent Vim from clobbering the scrollback buffer. See
 " http://www.shallowsky.com/linux/noaltscreen.html
-if ! has('nvim')
-  set t_ti= t_te=
-endif
+set t_ti= t_te=
 
 " Store temporary files in a central spot
 set undodir=~/.vim/tmp/undo//
@@ -227,7 +171,7 @@ if has("termguicolors")
 endif
 
 set background=dark " for the dark version
-colorscheme catppuccin-mocha
+colorscheme catppuccin_mocha
 
 "---------------------------------------------------------------- folding {{{2
 nnoremap z0 :setlocal foldlevel=0<cr>
@@ -372,16 +316,3 @@ if has("autocmd")
     augroup END
   endif
 endif
-
-"----------------------------------------------------------- editorconfig {{{1
-" from https://zerokspot.com/weblog/2016/07/10/editorconfig-in-neovim/
-if executable('editorconfig')
-  let g:EditorConfig_exec_path = exepath('editorconfig')
-  let g:EditorConfig_core_mode = 'external_command'
-endif
-
-"------------------------------------------------------- last line please {{{1
-if has('nvim')
-lua require 'init'
-endif
-
