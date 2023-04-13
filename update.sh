@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-PREFIX=$(dirname $(realpath -s $0))
+REALPATH=$( command -v grealpath || echo realpath )
+PREFIX=$(dirname $($REALPATH -s $0))
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 
