@@ -22,6 +22,7 @@ local opts = {
 	equalalways = true,
 	errorbells = false,
 	expandtab = true,
+	foldenable = false,
 	hidden = false,
 	history = 1000,
 	ignorecase = true,
@@ -49,6 +50,7 @@ local opts = {
 	termencoding = "utf-8",
 	termguicolors = true,
 	textwidth = 0,
+	undofile = true,
 	viewoptions = "folds,options,cursor,unix,slash",
 	visualbell = true,
 	wrap = false,
@@ -128,7 +130,6 @@ local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 local au = vim.api.nvim_create_autocmd
 local myvimrc = vim.fn.expand("$MYVIMRC")
 local cmds = {
-	{ "BufWinEnter", "*", [[normal zi]] },
 	{ "FileType", "help", [[wincmd L]] },
 	{ "FileType", "gitcommit", [[set spell]] },
 	{ "FileType", "ruby", [[ia fsl # frozen_string_literal: true]] },
@@ -152,6 +153,8 @@ au("FileType", {
 			["O"] = [[?'\l\{2,\}'<CR>]],
 			["s"] = [[/\|\zs\S\+\ze\|<CR>]],
 			["S"] = [[?\|\zs\S\+\ze\|<CR>]],
+			["<ESC>"] = [[:close<cr>]],
+			["q"] = [[:close<cr>]],
 		}
 		for key, value in pairs(kv) do
 			k.set("n", key, value, { noremap = true, silent = true, buffer = true })
@@ -177,8 +180,8 @@ au("TextYankPost", {
 	group = init_lua_grp,
 })
 
-require("plugins")
 require("restore_cursor")
+require("plugins")
 
 require("user.lualine")
 require("user.notify")
@@ -186,6 +189,7 @@ require("user.toggleterm")
 require("user.refactoring")
 require("user.tree")
 require("user.mason")
+require("user.null-ls")
 require("user.treesitter-refactor")
 require("user.treesitter-textobjects")
 require("user.treesitter-rainbow")
