@@ -164,7 +164,8 @@ alias cp='nocorrect cp -v'
 alias mkdir='nocorrect mkdir'
 alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias icat='kitty +kitten icat'
-alias ssh='TERM=xterm ssh'
+#alias ssh='TERM=xterm ssh'
+#alias ssh="kitty +kitten ssh"
 alias yt="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 alias afd='aws --profile akad_front_dev'
 alias afp='aws --profile akad_front_prod'
