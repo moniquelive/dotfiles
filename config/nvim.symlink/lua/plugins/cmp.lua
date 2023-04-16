@@ -1,11 +1,31 @@
-local function config()
+local function opts()
 	vim.o.completeopt = "menu,menuone,noselect"
 
 	local lspkind = require("lspkind")
 	local types = require("cmp.types")
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
-	cmp.setup({
+
+	-- `/` cmdline setup.
+	cmp.setup.cmdline({ "/", "?" }, {
+		mapping = cmp.mapping.preset.cmdline(),
+		completion = { autocomplete = false },
+		sources = {
+			{
+				name = "buffer",
+				option = {
+					keyword_pattern = [=[[^(\v)?[:blank:]].*]=],
+				},
+			},
+		},
+	})
+	-- `:` cmdline setup.
+	cmp.setup.cmdline(":", {
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+	})
+
+	return {
 		window = {
 			-- completion = cmp.config.window.bordered(),
 			documentation = cmp.config.window.bordered(),
@@ -68,32 +88,13 @@ local function config()
 		experimental = {
 			ghost_text = true,
 		},
-	})
-
-	-- `/` cmdline setup.
-	cmp.setup.cmdline({ "/", "?" }, {
-		mapping = cmp.mapping.preset.cmdline(),
-		completion = { autocomplete = false },
-		sources = {
-			{
-				name = "buffer",
-				option = {
-					keyword_pattern = [=[[^(\v)?[:blank:]].*]=],
-				},
-			},
-		},
-	})
-	-- `:` cmdline setup.
-	cmp.setup.cmdline(":", {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-	})
+	}
 end
 
 return {
 	{
 		"hrsh7th/nvim-cmp",
-		config = config,
+		opts = opts,
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-nvim-lsp",

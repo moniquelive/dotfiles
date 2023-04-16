@@ -3,7 +3,7 @@
 vim.o.updatetime = 250
 vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 
-local function config()
+local function mason_lsp_config()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
 	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
@@ -48,6 +48,7 @@ local function config()
 		["hls"] = function() end,
 		["elixirls"] = function()
 			require("lspconfig").elixirls.setup({
+				cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
 				settings = {
 					elixirLS = {
 						dialyzerEnabled = true,
@@ -76,15 +77,17 @@ end
 return {
 	{
 		"williamboman/mason.nvim",
-		opts = {},
+		config = true,
+		cmd = "Mason",
 		build = ":MasonUpdate",
 		dependencies = {
+			"neovim/nvim-lspconfig",
+
 			{
 				"williamboman/mason-lspconfig.nvim",
-				config = config,
+				config = mason_lsp_config,
 				dependencies = { "folke/neodev.nvim", config = true },
 			},
-			"neovim/nvim-lspconfig",
 
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",

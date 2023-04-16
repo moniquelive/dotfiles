@@ -1,17 +1,18 @@
 return {
 	-- startup
+	{ "nvim-lua/plenary.nvim", lazy = true },
+	{ "kyazdani42/nvim-web-devicons", lazy = true },
 	"ryanoasis/vim-devicons",
-	"kyazdani42/nvim-web-devicons",
 	"mhinz/vim-startify",
 
 	-- tpope fandom
-	"tpope/vim-characterize",
-	"tpope/vim-commentary",
-	"tpope/vim-fugitive",
+	{ "tpope/vim-characterize", keys = "ga" },
+	{ "tpope/vim-commentary", keys = { "gc" } },
+	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
 	"tpope/vim-repeat",
 	"tpope/vim-rsi",
 	"tpope/vim-surround",
-	"tpope/vim-unimpaired",
+	{ "tpope/vim-unimpaired", keys = { "[", "]" } },
 	"tpope/vim-vinegar",
 
 	-- misc
@@ -19,16 +20,17 @@ return {
 	"bronson/vim-trailing-whitespace",
 
 	-- coding
-	"AndrewRadev/splitjoin.vim",
-	"tommcdo/vim-lion",
-	"andymass/vim-matchup",
-	"nvim-lua/plenary.nvim",
+	{ "AndrewRadev/splitjoin.vim", keys = { "<leader>s", "<leader>j" } },
+	{ "tommcdo/vim-lion", keys = { "gl", "gL" } },
+	{ "andymass/vim-matchup", keys = "%" },
 
 	-- Notifications
 	{
 		"rcarriga/nvim-notify",
 		config = function()
-			vim.notify = require("notify")
+			local notify = require("notify")
+			notify.setup({ fps = 60 })
+			vim.notify = notify
 		end,
 	},
 

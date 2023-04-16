@@ -1,19 +1,22 @@
 local opts = { noremap = true, silent = true, expr = false }
-local k = vim.api.nvim_set_keymap
-
--- Remaps for the refactoring operations currently offered by the plugin
-k("v", "<leader>ref", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR> ]], opts)
-k("v", "<leader>rff", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR> ]], opts)
-k("v", "<leader>rev", [[ <Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR> ]], opts)
-k("v", "<leader>riv", [[ <Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR> ]], opts)
-
--- Inline variable can also pick up the identifier currently under the cursor without visual mode
-k("n", "<leader>riv", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR> ]], opts)
-
--- -- Extract block doesn't need visual mode
-k("n", "<leader>reb", [[ <Cmd>lua require('refactoring').refactor('Extract Block')<CR>]], opts)
-k("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').refactor('Extract Block To File')<CR>]], opts)
+local call = [[ lua require('refactoring').refactor ]]
 
 return {
-	{ "ThePrimeagen/refactoring.nvim", config = true },
+	{
+		"ThePrimeagen/refactoring.nvim",
+		keys = {
+			-- Remaps for the refactoring operations currently offered by the plugin
+			{ "<leader>ref", [[ <Esc><Cmd> ]] .. call .. [[ ('Extract Function')<CR> ]], mode = "v", opts },
+			{ "<leader>rff", [[ <Esc><Cmd> ]] .. call .. [[ ('Extract Function To File')<CR> ]], mode = "v", opts },
+			{ "<leader>rev", [[ <Esc><Cmd> ]] .. call .. [[ ('Extract Variable')<CR> ]], mode = "v", opts },
+			{ "<leader>riv", [[ <Esc><Cmd> ]] .. call .. [[ ('Inline Variable')<CR> ]], mode = "v", opts },
+
+			-- Inline variable can also pick up the identifier currently under the cursor without visual mode
+			{ "<leader>riv", [[ <Cmd> ]] .. call .. [[ ('Inline Variable')<CR> ]], opts },
+
+			-- -- Extract block doesn't need visual mode
+			{ "<leader>reb", [[ <Cmd> ]] .. call .. [[ ('Extract Block')<CR>]], opts },
+			{ "<leader>rbf", [[ <Cmd> ]] .. call .. [[ ('Extract Block To File')<CR>]], opts },
+		},
+	},
 }

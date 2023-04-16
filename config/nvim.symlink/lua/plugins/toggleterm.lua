@@ -3,6 +3,7 @@ local function config()
 		direction = "horizontal",
 		open_mapping = "<leader>tt",
 	})
+
 	---@diagnostic disable-next-line: duplicate-set-field
 	function _G.set_terminal_keymaps()
 		local opts = { buffer = 0 }
@@ -37,5 +38,12 @@ local function config()
 end
 
 return {
-	{ "akinsho/toggleterm.nvim", config = config },
+	{
+		"akinsho/toggleterm.nvim",
+		config = config,
+		keys = {
+			"<leader>tt",
+			"<leader>gt",
+		},
+	},
 }

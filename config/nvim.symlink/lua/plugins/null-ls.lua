@@ -1,6 +1,5 @@
 local function opts()
 	local null_ls = require("null-ls")
-
 	return {
 		sources = {
 			-- null_ls.builtins.completion.spell,
