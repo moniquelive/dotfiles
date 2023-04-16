@@ -1,6 +1,29 @@
 -- This is MoniqueLive's init.lua file
 -- vim:set ts=2 sts=2 sw=2 expandtab:
 
+require("restore_cursor")
+
+-----------------------------------------------------------------------------
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins", {
+	checker = {
+		enabled = true,
+	},
+})
+-----------------------------------------------------------------------------
+
 vim.g.startify_change_to_dir = 0
 vim.g.startify_change_to_vcs_root = 1
 vim.g.netrw_altfile = 1 -- <C-6> returns to files
@@ -179,22 +202,3 @@ au("TextYankPost", {
 	end,
 	group = init_lua_grp,
 })
-
-require("restore_cursor")
-require("plugins")
-
-require("user.lualine")
-require("user.notify")
-require("user.toggleterm")
-require("user.refactoring")
-require("user.tree")
-require("user.mason")
-require("user.null-ls")
-require("user.treesitter-refactor")
-require("user.treesitter-textobjects")
-require("user.treesitter-rainbow")
-require("user.treesitter-context")
-require("user.treesitter")
-require("user.cmp")
-require("user.haskell-tools")
-require("user.telescope")
