@@ -4,20 +4,21 @@ return {
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 	"ryanoasis/vim-devicons",
 	"mhinz/vim-startify",
+	{ "folke/neodev.nvim", config = true, event = "BufRead" },
 
 	-- tpope fandom
 	{ "tpope/vim-characterize", keys = "ga" },
-	{ "tpope/vim-commentary", keys = { "gc" } },
+	{ "tpope/vim-commentary", keys = { { "gc", mode = { "v", "n" } } } },
 	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
-	"tpope/vim-repeat",
-	"tpope/vim-rsi",
-	"tpope/vim-surround",
+	{ "tpope/vim-repeat", event = "BufRead" },
+	{ "tpope/vim-rsi", event = "CmdlineEnter" },
+	{ "tpope/vim-surround", event = "BufRead" },
 	{ "tpope/vim-unimpaired", keys = { "[", "]" } },
-	"tpope/vim-vinegar",
+	{ "tpope/vim-vinegar", event = "VimEnter" },
 
 	-- misc
-	"wincent/terminus",
-	"bronson/vim-trailing-whitespace",
+	{ "wincent/terminus", event = "BufRead" },
+	{ "bronson/vim-trailing-whitespace", event = "BufRead" },
 
 	-- coding
 	{ "AndrewRadev/splitjoin.vim", keys = { "<leader>s", "<leader>j" } },
@@ -37,6 +38,7 @@ return {
 	-- Lua Line
 	{
 		"nvim-lualine/lualine.nvim",
+		event = "BufRead",
 		opts = {
 			sections = {
 				lualine_c = { "filename", "buffers" },

@@ -17,7 +17,7 @@ local function opts()
 			}),
 			null_ls.builtins.formatting.stylua,
 		},
-		on_attach = require("user.on-attach-keymaps").on_attach,
+		default_timeout = 15000,
 	}
 end
 
@@ -25,6 +25,7 @@ return {
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		opts = opts,
+		event = "BufRead",
 		dependencies = { "jayp0521/mason-null-ls.nvim", opts = { automatic_setup = true } },
 	},
 }

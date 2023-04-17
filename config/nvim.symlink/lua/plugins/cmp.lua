@@ -76,7 +76,7 @@ local function opts()
 		formatting = {
 			format = lspkind.cmp_format({
 				menu = {
-					tabnine = "[tn]",
+					-- tabnine = "[tn]",
 					buffer = "[buf]",
 					nvim_lsp = "[LSP]",
 					nvim_lua = "[api]",
@@ -95,6 +95,7 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		opts = opts,
+		event = "BufRead",
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-nvim-lsp",
