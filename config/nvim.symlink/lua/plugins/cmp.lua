@@ -9,7 +9,6 @@ local function opts()
 	-- `/` cmdline setup.
 	cmp.setup.cmdline({ "/", "?" }, {
 		mapping = cmp.mapping.preset.cmdline(),
-		completion = { autocomplete = false },
 		sources = {
 			{
 				name = "buffer",

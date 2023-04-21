@@ -128,6 +128,11 @@ local function mason_lspconfig_opts()
 				},
 			})
 		end,
+		["powershell_es"] = function()
+			require("lspconfig").powershell_es.setup({
+				bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
+			})
+		end,
 	}
 end
 

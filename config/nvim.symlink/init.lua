@@ -65,6 +65,7 @@ local opts = {
 	smartcase = true,
 	smartindent = true,
 	softtabstop = 2,
+	spelllang = "pt_br,en_us",
 	splitbelow = true,
 	splitright = true,
 	swapfile = false,

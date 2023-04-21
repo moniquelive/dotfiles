@@ -13,7 +13,7 @@ return {
 	{ "tpope/vim-repeat", event = "BufRead" },
 	{ "tpope/vim-rsi", event = "CmdlineEnter" },
 	{ "tpope/vim-surround", event = "BufRead" },
-	{ "tpope/vim-unimpaired", keys = { "[", "]" } },
+	{ "tpope/vim-unimpaired", keys = { "[", "]", "yo" } },
 	{ "tpope/vim-vinegar", event = "VimEnter" },
 
 	-- misc

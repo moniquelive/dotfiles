@@ -1,25 +1,5 @@
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-local function opts()
-	return {
-		ensure_installed = "all",
-		highlight = { enable = true },
-		indent = { enable = true, disable = { "python", "ruby" } },
-		textobjects = { enable = true },
-		incremental_selection = {
-			enable = true,
-			keymaps = {
-				init_selection = "gnn", -- set to `false` to disable one of the mappings
-				node_incremental = "gnn",
-				scope_incremental = "grc",
-				node_decremental = "gnN",
-			},
-		},
-		matchup = {
-			enable = true, -- mandatory, false will disable the whole extension
-		},
-	}
-end
 
 local function textobjects_keys()
 	local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
@@ -40,7 +20,24 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		main = "nvim-treesitter.configs",
-		opts = opts,
+		opts = {
+			ensure_installed = "all",
+			highlight = { enable = true },
+			indent = { enable = true, disable = { "python", "ruby" } },
+			textobjects = { enable = true },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "gnn", -- set to `false` to disable one of the mappings
+					node_incremental = "gnn",
+					scope_incremental = "grc",
+					node_decremental = "gnN",
+				},
+			},
+			matchup = {
+				enable = true, -- mandatory, false will disable the whole extension
+			},
+		},
 		build = ":TSUpdate",
 		event = "BufRead",
 		dependencies = {
