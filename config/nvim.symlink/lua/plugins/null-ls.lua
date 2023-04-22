@@ -25,7 +25,7 @@ return {
 	{
 		"jose-elias-alvarez/null-ls.nvim",
 		opts = opts,
-		event = "BufRead",
+		event = { "BufRead", "BufNewFile" },
 		dependencies = { "jayp0521/mason-null-ls.nvim", opts = { automatic_setup = true } },
 	},
 }

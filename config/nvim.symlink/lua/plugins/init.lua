@@ -3,27 +3,33 @@ return {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 	"ryanoasis/vim-devicons",
-	"mhinz/vim-startify",
-	{ "folke/neodev.nvim", config = true, event = "BufRead" },
+	{ "folke/neodev.nvim", config = true, event = { "BufRead", "BufNewFile" } },
 
-	-- tpope fandom
+	-- tpope goodies
 	{ "tpope/vim-characterize", keys = "ga" },
 	{ "tpope/vim-commentary", keys = { { "gc", mode = { "v", "n" } } } },
 	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
-	{ "tpope/vim-repeat", event = "BufRead" },
+	{ "tpope/vim-repeat", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-rsi", event = "CmdlineEnter" },
-	{ "tpope/vim-surround", event = "BufRead" },
+	{ "tpope/vim-surround", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-unimpaired", keys = { "[", "]", "yo" } },
-	{ "tpope/vim-vinegar", event = "VimEnter" },
+	{ "tpope/vim-vinegar", event = "VeryLazy" },
 
 	-- misc
-	{ "wincent/terminus", event = "BufRead" },
-	{ "bronson/vim-trailing-whitespace", event = "BufRead" },
+	{ "wincent/terminus", event = { "BufRead", "BufNewFile" } },
+	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
 
 	-- coding
-	{ "AndrewRadev/splitjoin.vim", keys = { "<leader>s", "<leader>j" } },
 	{ "tommcdo/vim-lion", keys = { "gl", "gL" } },
 	{ "andymass/vim-matchup", keys = "%" },
+
+	-- Lua Line
+	{
+		"nvim-lualine/lualine.nvim",
+		config = true,
+		event = { "BufRead", "BufNewFile" },
+		ft = "",
+	},
 
 	-- Notifications
 	{
@@ -33,16 +39,5 @@ return {
 			notify.setup({ fps = 60 })
 			vim.notify = notify
 		end,
-	},
-
-	-- Lua Line
-	{
-		"nvim-lualine/lualine.nvim",
-		event = "BufRead",
-		opts = {
-			sections = {
-				lualine_c = { "filename", "buffers" },
-			},
-		},
 	},
 }
