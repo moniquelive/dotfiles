@@ -1,10 +1,7 @@
 local function opts()
 	vim.o.completeopt = "menu,menuone,noselect"
 
-	local lspkind = require("lspkind")
-	local types = require("cmp.types")
 	local cmp = require("cmp")
-	local luasnip = require("luasnip")
 
 	-- `/` cmdline setup.
 	cmp.setup.cmdline({ "/", "?" }, {
@@ -24,6 +21,7 @@ local function opts()
 		sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 	})
 
+	local luasnip = require("luasnip")
 	return {
 		window = {
 			-- completion = cmp.config.window.bordered(),
@@ -60,7 +58,7 @@ local function opts()
 			{
 				name = "nvim_lsp",
 				entry_filter = function(entry)
-					return types.lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
+					return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
 				end,
 			},
 			{ name = "path" },
@@ -73,7 +71,7 @@ local function opts()
 			end,
 		},
 		formatting = {
-			format = lspkind.cmp_format({
+			format = require("lspkind").cmp_format({
 				menu = {
 					-- tabnine = "[tn]",
 					buffer = "[buf]",
