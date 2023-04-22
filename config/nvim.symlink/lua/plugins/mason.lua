@@ -194,7 +194,7 @@ return {
 						"revive",
 						"semgrep",
 						"solargraph",
-						"standardrb",
+						-- "standardrb",
 						"staticcheck",
 						"stylua",
 						"tailwindcss-language-server",

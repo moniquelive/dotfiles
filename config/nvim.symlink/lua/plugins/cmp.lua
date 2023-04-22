@@ -94,7 +94,7 @@ return {
 	{
 		"hrsh7th/nvim-cmp",
 		opts = opts,
-		event = "BufRead",
+		event = "InsertEnter",
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-nvim-lsp",
