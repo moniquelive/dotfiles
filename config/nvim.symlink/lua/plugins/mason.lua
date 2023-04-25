@@ -62,6 +62,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if client.name == "solargraph" then
 			client.server_capabilities.documentHighlightProvider = false
 		end
+		require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
 	end,
 })
 
@@ -108,6 +109,14 @@ return {
 										enable = true,
 									},
 								},
+							},
+						})
+					end,
+					["omnisharp"] = function()
+						require("lspconfig").omnisharp.setup({
+							cmd = {
+								"/usr/local/share/dotnet/dotnet",
+								"/Users/cyber/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll",
 							},
 						})
 					end,
