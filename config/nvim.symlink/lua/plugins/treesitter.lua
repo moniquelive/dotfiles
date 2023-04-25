@@ -28,10 +28,10 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "gnn", -- set to `false` to disable one of the mappings
-					node_incremental = "gnn",
-					scope_incremental = "grc",
-					node_decremental = "gnN",
+					init_selection = "<M-UP>", -- set to `false` to disable one of the mappings
+					node_incremental = "<M-UP>",
+					scope_incremental = "<M-RIGHT>",
+					node_decremental = "<M-DOWN>",
 				},
 			},
 			matchup = {
