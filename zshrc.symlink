@@ -281,12 +281,20 @@ unsetopt print_exit_value
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
+BACKGROUND="#171A1A"
+FOREGROUND="#EBDBB2"
+COMMENT="#665C54"
+MILK="#E7D7AD"
+ERROR_RED="#CC241D"
+ORANGE="#D65D0E"
+BRIGHT_YELLOW="#FABD2F"
+SOFT_YELLOW="#EEBD35"
+LIGHT_BLUE="#7FA2AC"
+FZF_THEME="--color=fg:${FOREGROUND} --color=bg:${BACKGROUND} --color=hl:${BRIGHT_YELLOW} --color=fg+:bold:${FOREGROUND} --color=bg+:${COMMENT} --color=hl+:${BRIGHT_YELLOW} --color=gutter:${BACKGROUND} --color=info:${ORANGE} --color=separator:${BACKGROUND} --color=border:${MILK} --color=label:${SOFT_YELLOW} --color=prompt:${LIGHT_BLUE} --color=spinner:${BRIGHT_YELLOW} --color=pointer:bold:${BRIGHT_YELLOW} --color=marker:${ERROR_RED} --color=header:${ORANGE} --color=preview-fg:${FOREGROUND} --color=preview-bg:${BACKGROUND}"
 export FZF_DEFAULT_OPTS="\
   -m --cycle --preview-window wrap \
-  --color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
-  --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
-  --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8 \
   --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} ${FZF_THEME}"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules' --type d ."
 

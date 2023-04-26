@@ -50,20 +50,21 @@ local function formatting(client, bufnr)
 	end
 end
 
+local function on_attach(args)
+	local bufnr = args.buf
+	local client = vim.lsp.get_client_by_id(args.data.client_id)
+	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+	keymaps(bufnr)
+	highlighting(client, bufnr)
+	formatting(client, bufnr)
+	if client.name == "solargraph" then
+		client.server_capabilities.documentHighlightProvider = false
+	end
+	--require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
+end
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-	callback = function(args)
-		local bufnr = args.buf
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-		keymaps(bufnr)
-		highlighting(client, bufnr)
-		formatting(client, bufnr)
-		if client.name == "solargraph" then
-			client.server_capabilities.documentHighlightProvider = false
-		end
-		require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
-	end,
+	callback = on_attach,
 })
 
 return {
@@ -83,6 +84,9 @@ return {
 					-- a dedicated handler.
 					function(server_name) -- default handler (optional)
 						require("lspconfig")[server_name].setup({
+							on_attach = function(client, bufnr)
+								on_attach({ buf = bufnr, data = { client_id = client.id } })
+							end,
 							capabilities = require("cmp_nvim_lsp").default_capabilities(
 								vim.lsp.protocol.make_client_capabilities()
 							),

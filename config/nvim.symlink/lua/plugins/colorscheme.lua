@@ -1,18 +1,13 @@
 return {
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"luisiacc/gruvbox-baby",
+		name = "gruvbox",
 		lazy = false,
 		priority = 1000,
-		opts = {
-			flavor = "mocha",
-			show_end_of_buffer = true,
-			dim_inactive = { enabled = true, percentage = 0 },
-			integrations = { notify = true, treesitter_context = true, ts_rainbow2 = true },
-		},
-		config = function(_, opts)
-			require("catppuccin").setup(opts)
-			vim.cmd.colorscheme("catppuccin")
+		config = function()
+			vim.o.background = "dark"
+			vim.g.gruvbox_baby_background_color = "dark"
+			vim.cmd.colorscheme("gruvbox-baby")
 		end,
 	},
 }
