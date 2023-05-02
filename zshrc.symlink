@@ -134,7 +134,7 @@ ZSH_THEME="powerlevel10k"
 # set these after omz
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="Catppuccin-mocha"
+export BAT_THEME="gruvbox-dark"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
