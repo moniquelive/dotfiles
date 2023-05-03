@@ -35,6 +35,9 @@ export TIG_DIFF_OPTS="--patience --ignore-all-space"
 # haskell
 [[ -d "$HOME/.cabal/bin" ]] && path=($HOME/.cabal/bin $path)
 
+# rust
+[[ -d "$HOME/.cargo/bin" ]] && path=($HOME/.cargo/bin $path)
+
 # nVidia - CUDA
 if [[ -d /usr/local/cuda ]]; then
   export CUDA_HOME=/usr/local/cuda
