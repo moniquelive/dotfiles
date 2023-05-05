@@ -22,6 +22,7 @@ return {
 		main = "nvim-treesitter.configs",
 		opts = {
 			ensure_installed = "all",
+			endwise = { enable = true },
 			highlight = { enable = true, additional_vim_regex_highlighting = false },
 			indent = { enable = true, disable = { "python", "ruby" } },
 			textobjects = { enable = true },

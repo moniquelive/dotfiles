@@ -3,6 +3,7 @@ return {
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 	"ryanoasis/vim-devicons",
+	"RRethy/nvim-treesitter-endwise",
 	{ "folke/neodev.nvim", config = true, event = { "BufRead", "BufNewFile" } },
 
 	-- tpope goodies

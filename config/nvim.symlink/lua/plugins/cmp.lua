@@ -1,28 +1,13 @@
-local function opts()
+local function config()
 	vim.o.completeopt = "menu,menuone,noselect"
 
 	local cmp = require("cmp")
-
-	-- `/` cmdline setup.
-	cmp.setup.cmdline({ "/", "?" }, {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = {
-			{
-				name = "buffer",
-				option = {
-					keyword_pattern = [=[[^(\v)?[:blank:]].*]=],
-				},
-			},
-		},
-	})
-	-- `:` cmdline setup.
-	cmp.setup.cmdline(":", {
-		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
-	})
-
 	local luasnip = require("luasnip")
-	return {
+	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+
+	cmp.setup({
+		view = { entries = "native" },
 		window = {
 			-- completion = cmp.config.window.bordered(),
 			documentation = cmp.config.window.bordered(),
@@ -53,7 +38,6 @@ local function opts()
 			end, { "i", "s", "c" }),
 		}),
 		sources = cmp.config.sources({
-			--{ name = "cmp_tabnine" },
 			{ name = "nvim_lua" },
 			{
 				name = "nvim_lsp",
@@ -61,8 +45,9 @@ local function opts()
 					return require("cmp.types").lsp.CompletionItemKind[entry:get_kind()] ~= "Text"
 				end,
 			},
+			{ name = "nvim_lsp_signature_help" },
+			{ name = "luasnip" },
 			{ name = "path" },
-			{ name = "luasnip" }, -- For luasnip users.
 			{ name = "buffer", keyword_length = 5 },
 		}),
 		snippet = {
@@ -73,7 +58,6 @@ local function opts()
 		formatting = {
 			format = require("lspkind").cmp_format({
 				menu = {
-					-- tabnine = "[tn]",
 					buffer = "[buf]",
 					nvim_lsp = "[LSP]",
 					nvim_lua = "[api]",
@@ -85,13 +69,32 @@ local function opts()
 		experimental = {
 			ghost_text = true,
 		},
-	}
+	})
+	-- `/` cmdline setup.
+	cmp.setup.cmdline({ "/", "?" }, {
+		view = { entries = "custom" },
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = {
+			{
+				name = "buffer",
+				option = {
+					keyword_pattern = [=[[^(\v)?[:blank:]].*]=],
+				},
+			},
+		},
+	})
+	-- `:` cmdline setup.
+	cmp.setup.cmdline(":", {
+		view = { entries = "custom" },
+		mapping = cmp.mapping.preset.cmdline(),
+		sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+	})
 end
 
 return {
 	{
 		"hrsh7th/nvim-cmp",
-		opts = opts,
+		config = config,
 		event = "InsertEnter",
 		dependencies = {
 			"onsails/lspkind.nvim",
@@ -100,6 +103,8 @@ return {
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
+			"hrsh7th/cmp-nvim-lsp-signature-help",
+			"windwp/nvim-autopairs",
 			"saadparwaiz1/cmp_luasnip",
 			{
 				"L3MON4D3/LuaSnip",

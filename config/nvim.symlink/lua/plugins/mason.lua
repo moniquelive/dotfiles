@@ -1,7 +1,7 @@
 -- You will likely want to reduce updatetime which affects CursorHold
 -- note: this setting is global and should be set only once
 vim.o.updatetime = 250
-vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+-- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 local format_timeout = 15000
 
 local function keymaps(bufnr)
@@ -50,21 +50,20 @@ local function formatting(client, bufnr)
 	end
 end
 
-local function on_attach(args)
-	local bufnr = args.buf
-	local client = vim.lsp.get_client_by_id(args.data.client_id)
-	vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-	keymaps(bufnr)
-	highlighting(client, bufnr)
-	formatting(client, bufnr)
-	if client.name == "solargraph" then
-		client.server_capabilities.documentHighlightProvider = false
-	end
-	--require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
-end
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-	callback = on_attach,
+	callback = function(args)
+		local bufnr = args.buf
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+		keymaps(bufnr)
+		highlighting(client, bufnr)
+		formatting(client, bufnr)
+		if client.name == "solargraph" then
+			client.server_capabilities.documentHighlightProvider = false
+		end
+		--require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
+	end,
 })
 
 return {
@@ -74,6 +73,7 @@ return {
 		cmd = "Mason",
 		build = ":MasonUpdate",
 		dependencies = {
+			"hrsh7th/nvim-cmp",
 			"neovim/nvim-lspconfig",
 
 			{
@@ -83,13 +83,10 @@ return {
 					-- and will be called for each installed server that doesn't have
 					-- a dedicated handler.
 					function(server_name) -- default handler (optional)
+						local capa =
+							require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 						require("lspconfig")[server_name].setup({
-							on_attach = function(client, bufnr)
-								on_attach({ buf = bufnr, data = { client_id = client.id } })
-							end,
-							capabilities = require("cmp_nvim_lsp").default_capabilities(
-								vim.lsp.protocol.make_client_capabilities()
-							),
+							capabilities = capa,
 						})
 					end,
 					-- Next, you can provide a dedicated handler for specific servers.
@@ -101,6 +98,24 @@ return {
 										globals = { "vim" }, -- Get the language server to recognize the `vim` global
 									},
 								},
+							},
+						})
+					end,
+					["gopls"] = function()
+						require("lspconfig").gopls.setup({
+							cmd = { "gopls" },
+							settings = {
+								gopls = {
+									experimentalPostfixCompletions = true,
+									analyses = {
+										unusedparams = true,
+										shadow = true,
+									},
+									staticcheck = true,
+								},
+							},
+							init_options = {
+								usePlaceholders = true,
 							},
 						})
 					end,
