@@ -1,4 +1,5 @@
 local function opts()
+	local trouble = require("trouble.providers.telescope")
 	local telescope = require("telescope")
 	telescope.load_extension("fzf")
 	telescope.load_extension("emoji")
@@ -12,6 +13,10 @@ local function opts()
 					["<C-u>"] = false,
 					["<C-j>"] = "preview_scrolling_down",
 					["<C-k>"] = "preview_scrolling_up",
+					["<c-t>"] = trouble.open_with_trouble,
+				},
+				n = {
+					["<c-t>"] = trouble.open_with_trouble,
 				},
 			},
 		},

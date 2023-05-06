@@ -3,6 +3,7 @@ local def_opts = { noremap = true, silent = true }
 return {
 	{
 		"mrcjkb/haskell-tools.nvim",
+		dependencies = { "akinsho/toggleterm.nvim" },
 		opts = {
 			tools = {
 				repl = { handler = "toggleterm" },
