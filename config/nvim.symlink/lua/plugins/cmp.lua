@@ -4,6 +4,7 @@ local function config()
 	local cmp = require("cmp")
 	local luasnip = require("luasnip")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	require("luasnip.loaders.from_vscode").lazy_load()
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 	cmp.setup({
@@ -108,7 +109,9 @@ return {
 			"saadparwaiz1/cmp_luasnip",
 			{
 				"L3MON4D3/LuaSnip",
+				version = "1.*",
 				keys = "<tab>",
+				build = "make install_jsregexp",
 				dependencies = { "rafamadriz/friendly-snippets" },
 			},
 		},
