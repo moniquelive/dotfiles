@@ -2,6 +2,12 @@
 -- note: this setting is global and should be set only once
 vim.o.updatetime = 250
 -- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+vim.diagnostic.config({
+	float = { border = "single" },
+	underline = false,
+	virtual_text = false,
+	virtual_lines = false,
+})
 local format_timeout = 15000
 
 local function keymaps(bufnr)
@@ -38,27 +44,16 @@ local function highlighting(client, bufnr)
 	end
 end
 
-local function formatting(client, bufnr)
-	if client.supports_method("textDocument/formatting") then
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = vim.api.nvim_create_augroup("lsp_document_formatting", {}),
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({ bufnr = bufnr, timeout_ms = format_timeout })
-			end,
-		})
-	end
-end
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
 		local bufnr = args.buf
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+		vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+
 		keymaps(bufnr)
 		highlighting(client, bufnr)
-		formatting(client, bufnr)
 		if client.name == "solargraph" then
 			client.server_capabilities.documentHighlightProvider = false
 		end
@@ -103,19 +98,20 @@ return {
 					end,
 					["gopls"] = function()
 						require("lspconfig").gopls.setup({
-							cmd = { "gopls" },
 							settings = {
 								gopls = {
+									completeUnimported = true,
+									usePlaceholders = true,
+									semanticTokens = true,
 									experimentalPostfixCompletions = true,
+									staticcheck = true,
 									analyses = {
 										unusedparams = true,
 										shadow = true,
+										nilness = true,
+										unusedvariable = true,
 									},
-									staticcheck = true,
 								},
-							},
-							init_options = {
-								usePlaceholders = true,
 							},
 						})
 					end,
@@ -182,7 +178,8 @@ return {
 						"flake8",
 						"gitlint",
 						"gofumpt",
-						"goimports",
+						"goimports-reviser",
+						"golines",
 						"gopls",
 						"gotests",
 						"gotestsum",
