@@ -78,10 +78,10 @@ return {
 					-- and will be called for each installed server that doesn't have
 					-- a dedicated handler.
 					function(server_name) -- default handler (optional)
-						local capa =
-							require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 						require("lspconfig")[server_name].setup({
-							capabilities = capa,
+							capabilities = require("cmp_nvim_lsp").default_capabilities(
+								vim.lsp.protocol.make_client_capabilities()
+							),
 						})
 					end,
 					-- Next, you can provide a dedicated handler for specific servers.
@@ -135,7 +135,6 @@ return {
 							},
 						})
 					end,
-					["hls"] = function() end,
 					["elixirls"] = function()
 						require("lspconfig").elixirls.setup({
 							cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
@@ -183,7 +182,7 @@ return {
 						"gopls",
 						"gotests",
 						"gotestsum",
-						"haskell-language-server",
+						--"haskell-language-server",
 						"html-lsp",
 						"iferr",
 						"isort",

@@ -2,7 +2,7 @@ return {
 	-- startup
 	{ "nvim-lua/plenary.nvim", lazy = true },
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
-	"ryanoasis/vim-devicons",
+	{ "ryanoasis/vim-devicons", lazy = true },
 	{ "RRethy/nvim-treesitter-endwise", lazy = true },
 	{ "folke/neodev.nvim", config = true, event = { "BufRead", "BufNewFile" } },
 
@@ -14,7 +14,7 @@ return {
 	{ "tpope/vim-rsi", event = "CmdlineEnter" },
 	{ "tpope/vim-surround", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-unimpaired", keys = { "[", "]", "yo" } },
-	{ "tpope/vim-vinegar", event = "VeryLazy" },
+	{ "tpope/vim-vinegar", lazy = true, keys = "-" },
 
 	-- misc
 	{ "wincent/terminus", event = { "BufRead", "BufNewFile" } },
@@ -29,7 +29,7 @@ return {
 		"nvim-lualine/lualine.nvim",
 		config = true,
 		event = { "BufRead", "BufNewFile" },
-		ft = "",
+		lazy = true,
 	},
 
 	-- Notifications
