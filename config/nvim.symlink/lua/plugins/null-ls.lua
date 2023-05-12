@@ -6,12 +6,15 @@ local function opts()
 			null_ls.builtins.completion.spell,
 			null_ls.builtins.diagnostics.eslint,
 			null_ls.builtins.diagnostics.credo,
-			-- null_ls.builtins.diagnostics.semgrep,
+			null_ls.builtins.diagnostics.revive,
 			null_ls.builtins.formatting.autopep8,
 			null_ls.builtins.formatting.elm_format,
-			null_ls.builtins.formatting.gofumpt,
-			null_ls.builtins.formatting.goimports_reviser,
-			null_ls.builtins.formatting.golines,
+			null_ls.builtins.formatting.golines.with({
+				extra_args = {
+					"--max-len=180",
+					"--base-formatter=gofumpt",
+				},
+			}),
 			null_ls.builtins.formatting.isort,
 			null_ls.builtins.formatting.mix,
 			null_ls.builtins.formatting.prettierd.with({
@@ -19,6 +22,9 @@ local function opts()
 				extra_filetypes = { "toml" },
 			}),
 			null_ls.builtins.formatting.stylua,
+			require("go.null_ls").gotest(),
+			require("go.null_ls").gotest_action(),
+			--require("go.null_ls").golangci_lint(),
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
