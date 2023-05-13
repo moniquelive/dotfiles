@@ -10,6 +10,21 @@ vim.diagnostic.config({
 })
 local format_timeout = 15000
 
+-- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
+local grp_diag_hold = vim.api.nvim_create_augroup("cursor_hold_diagnostic", {})
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+	group = grp_diag_hold,
+	callback = function()
+		local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
+		if not next(diagnostics) then
+			return
+		end
+		-- vim.print(diagnostics[1])
+		vim.api.nvim_echo({ { diagnostics[1].message } }, false, {})
+	end,
+})
+vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = grp_diag_hold, command = [[echo ""]] })
+
 local function keymaps(bufnr)
 	local keys = {
 		["gD"] = vim.lsp.buf.declaration,

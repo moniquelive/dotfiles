@@ -168,6 +168,7 @@ for _, c in ipairs(cmds) do
 	au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
 end
 
+vim.cmd([[autocmd FileType help,qf,fugitive,fugitiveblame,netrw nnoremap <buffer><silent> q <cmd>close<CR>]])
 au("FileType", {
 	pattern = "help",
 	callback = function()
@@ -178,8 +179,8 @@ au("FileType", {
 			["O"] = [[?'\l\{2,\}'<CR>]],
 			["s"] = [[/\|\zs\S\+\ze\|<CR>]],
 			["S"] = [[?\|\zs\S\+\ze\|<CR>]],
-			["<ESC>"] = [[:close<cr>]],
-			["q"] = [[:close<cr>]],
+			["<ESC>"] = [[<cmd>close<cr>]],
+			["q"] = [[<cmd>close<cr>]],
 		}
 		for key, value in pairs(kv) do
 			k.set("n", key, value, { noremap = true, silent = true, buffer = true })
