@@ -1,0 +1,7 @@
+right_format = "$cmd_duration"
+
+[os]
+disabled = false
+
+[aws]
+disabled = true
