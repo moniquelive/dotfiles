@@ -20,7 +20,11 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 			return
 		end
 		-- vim.print(diagnostics[1])
-		vim.api.nvim_echo({ { diagnostics[1].message } }, false, {})
+		if string.find(diagnostics[1].message, "\n") then
+			vim.notify(diagnostics[1].message, "", { render = "minimal", max_width = 0, max_height = 0 })
+		else
+			vim.api.nvim_echo({ { diagnostics[1].message } }, false, {})
+		end
 	end,
 })
 vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = grp_diag_hold, command = [[echo ""]] })
