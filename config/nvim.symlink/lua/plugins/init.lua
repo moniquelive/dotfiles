@@ -14,7 +14,6 @@ return {
 	{ "tpope/vim-rsi", event = "CmdlineEnter" },
 	{ "tpope/vim-surround", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-unimpaired", keys = { "[", "]", "yo" } },
-	{ "tpope/vim-vinegar", lazy = true, keys = "-" },
 
 	-- misc
 	{ "wincent/terminus", event = { "BufRead", "BufNewFile" } },
