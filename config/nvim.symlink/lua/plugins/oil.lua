@@ -6,6 +6,7 @@ return {
 			["<C-x>"] = "actions.select_split",
 		},
 	},
+	event = "Syntax",
 	cmd = "Oil",
 	keys = { {
 		"-",
