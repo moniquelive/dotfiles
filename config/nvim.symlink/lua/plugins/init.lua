@@ -39,5 +39,6 @@ return {
 			notify.setup({ fps = 60 })
 			vim.notify = notify
 		end,
+		lazy = true,
 	},
 }
