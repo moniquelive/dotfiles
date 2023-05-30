@@ -4,7 +4,11 @@ return {
 	{ "kyazdani42/nvim-web-devicons", lazy = true },
 	{ "ryanoasis/vim-devicons", lazy = true },
 	{ "RRethy/nvim-treesitter-endwise", lazy = true },
-	{ "folke/neodev.nvim", config = true, event = { "BufRead", "BufNewFile" } },
+	{
+		"folke/neodev.nvim",
+		config = true,
+		event = { "BufRead", "BufNewFile" },
+	},
 
 	-- tpope goodies
 	{ "tpope/vim-characterize", keys = "ga" },
@@ -18,6 +22,7 @@ return {
 	-- misc
 	{ "wincent/terminus", event = { "BufRead", "BufNewFile" } },
 	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
+	{ "lukas-reineke/indent-blankline.nvim", event = { "BufRead", "BufNewFile" } },
 
 	-- coding
 	{ "tommcdo/vim-lion", keys = { "gl", "gL" } },
