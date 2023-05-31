@@ -25,7 +25,8 @@ local function opts()
 end
 
 local function keys()
-	local builtin = require("telescope.builtin")
+	local ok, builtin = pcall(require, "telescope.builtin")
+	if not ok then return end
 	local o = { noremap = true, silent = true, expr = false }
 	return {
 		{ "<c-p>", builtin.find_files, o },

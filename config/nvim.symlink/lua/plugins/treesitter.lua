@@ -2,7 +2,10 @@ vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 local function textobjects_keys()
-	local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+	local ok, ts_repeat_move = pcall(require, "nvim-treesitter.textobjects.repeatable_move")
+	if not ok then
+		return
+	end
 	return {
 		-- Repeat movement with ; and ,
 		-- ensure ; goes forward and , goes backward regardless of the last direction

@@ -21,7 +21,8 @@ return {
 		},
 		ft = "haskell",
 		keys = function()
-			local repl = require("haskell-tools.repl")
+			local ok, repl = pcall(require, "haskell-tools.repl")
+			if not ok then return end
 			local buffnr = vim.api.nvim_get_current_buf()
 			local opts = vim.tbl_extend("keep", def_opts, { buffer = buffnr })
 			return {
