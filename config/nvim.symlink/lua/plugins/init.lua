@@ -25,7 +25,7 @@ return {
 	{ "lukas-reineke/indent-blankline.nvim", event = { "BufRead", "BufNewFile" } },
 
 	-- coding
-	{ "tommcdo/vim-lion", keys = { "gl", "gL" } },
+	{ "tommcdo/vim-lion", keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
 	{ "andymass/vim-matchup", keys = "%" },
 
 	-- Lua Line
