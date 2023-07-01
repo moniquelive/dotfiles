@@ -1,9 +1,9 @@
 return {
 	-- startup
-	{ "nvim-lua/plenary.nvim", lazy = true },
-	{ "kyazdani42/nvim-web-devicons", lazy = true },
-	{ "ryanoasis/vim-devicons", lazy = true },
-	{ "RRethy/nvim-treesitter-endwise", lazy = true },
+	{ "nvim-lua/plenary.nvim" },
+	{ "kyazdani42/nvim-web-devicons" },
+	{ "ryanoasis/vim-devicons" },
+	{ "RRethy/nvim-treesitter-endwise" },
 	{
 		"folke/neodev.nvim",
 		config = true,
@@ -31,14 +31,24 @@ return {
 	-- Lua Line
 	{
 		"nvim-lualine/lualine.nvim",
-		config = true,
 		event = { "BufRead", "BufNewFile" },
-		lazy = true,
+		opts = {
+			sections = {
+				lualine_x = {
+					{
+						require("lazy.status").updates,
+						cond = require("lazy.status").has_updates,
+						color = { fg = "#ff9e64" },
+					},
+				},
+			},
+		},
 	},
 
 	-- Notifications
 	{
 		"rcarriga/nvim-notify",
+		event = "VeryLazy",
 		config = function()
 			local notify = require("notify")
 			notify.setup({ fps = 60 })
