@@ -37,6 +37,9 @@ local function keymaps(bufnr)
 		["<F3>"] = vim.lsp.buf.code_action,
 		["gr"] = "<cmd>Telescope lsp_references<CR>",
 		["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
+		["<leader>e"] = function()
+			vim.diagnostic.open_float({ source = "if_many" })
+		end,
 		["<leader>f"] = function()
 			vim.lsp.buf.format({ timeout = format_timeout })
 		end,
