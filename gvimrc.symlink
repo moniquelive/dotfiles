@@ -12,10 +12,10 @@ endif
 if exists('g:GuiLoaded')
   GuiAdaptativeColor 1
   GuiAdaptativeFont 1
-  GuiLinespace 2
+  GuiLinespace 1
   GuiTabline 0
   GuiScrollBar 1
-  GuiFont JetBrains\ Mono:h12
+  GuiFont JetBrains_Mono:h12
 endif
 
 " Right Click Context Menu (Copy-Cut-Paste)
@@ -25,8 +25,8 @@ xnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>gv
 snoremap <silent><RightMouse> <C-G>:call GuiShowContextMenu()<CR>gv
 
 if has('macunix')
-  set guifont=JetBrains\ Mono:h12
-  set guifontwide=Symbols\ Nerd\ Font\ Mono:h1000-em
+  set guifont=JetBrains_Mono:h12
+  set guifontwide=Symbols_Nerd_Font_Mono:h1000-em
 
   set transparency=1
   set macmeta
