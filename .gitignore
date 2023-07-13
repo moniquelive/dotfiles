@@ -2,4 +2,8 @@
 /vim.symlink/autoload
 /vim.symlink/plugged
 /vim.symlink/tmp
+
+/config/emacs.symlink/elpa
+/config/emacs.symlink/.last-package-update-day
+
 .luarc.json
