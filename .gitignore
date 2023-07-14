@@ -4,6 +4,7 @@
 /vim.symlink/tmp
 
 /config/emacs.symlink/elpa
+/config/emacs.symlink/places
 /config/emacs.symlink/.last-package-update-day
 
 .luarc.json
