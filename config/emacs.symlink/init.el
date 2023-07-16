@@ -147,3 +147,16 @@
   :bind (:map projectile-mode-map
 	      ("s-p" . projectile-command-map)
 	      ("C-c p" . projectile-command-map)))
+
+(use-package dashboard
+  :init (setq dashboard-projects-backend 'projectile
+	      dashboard-items '((recents . 5)
+				(bookmarks . 5)
+				(projects . 5)
+				(registers . 5))
+	      dashboard-set-navigator t
+	      dashboard-center-content t
+	      dashboard-display-icons-p t
+	      dashboard-set-heading-icons t
+	      dashboard-icon-type 'nerd-icons)
+  :config (dashboard-setup-startup-hook))

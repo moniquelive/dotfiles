@@ -10,5 +10,6 @@
 /config/emacs.symlink/.lsp-session-*
 /config/emacs.symlink/projectile-*
 /config/emacs.symlink/projects
+/config/emacs.symlink/recentf
 
 .luarc.json
