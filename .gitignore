@@ -6,5 +6,9 @@
 /config/emacs.symlink/elpa
 /config/emacs.symlink/places
 /config/emacs.symlink/.last-package-update-day
+/config/emacs.symlink/.cache
+/config/emacs.symlink/.lsp-session-*
+/config/emacs.symlink/projectile-*
+/config/emacs.symlink/projects
 
 .luarc.json

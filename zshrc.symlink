@@ -55,7 +55,7 @@ plugins=(
   z
 )
 # plugins for binaries
-for p in aws fzf gcloud docker docker-compose gem git \
+for p in aws emacs fzf gcloud docker docker-compose gem git \
           gpg-agent pyenv rails redis-cli ros rsync rvm \
                   stack tig tmux yum
 do

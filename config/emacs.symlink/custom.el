@@ -4,9 +4,9 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(make-backup-files nil)
- '(package-selected-packages '(elisp-autofmt helm evil counsel use-package))
- '(save-place-mode t)
- '(use-package-always-ensure t))
+ '(package-selected-packages
+   '(elixir-mode evil-surround evil-leader lsp-pyright which-key helm-lsp modus-themes projectile evil-collection lsp-ui company-box company lsp-haskell go-mode elisp-autofmt nerd-icons doom-modeline auto-package-update helm evil use-package))
+ '(save-place-mode t))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -14,4 +14,3 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
