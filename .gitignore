@@ -11,5 +11,7 @@
 /config/emacs.symlink/projectile-*
 /config/emacs.symlink/projects
 /config/emacs.symlink/recentf
+/config/emacs.symlink/transient
+/config/emacs.symlink/url
 
 .luarc.json
