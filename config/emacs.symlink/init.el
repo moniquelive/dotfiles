@@ -1,3 +1,6 @@
+;; first line please
+(setq gc-cons-threshold (* 50 1000 1000))
+
 (require 'package)
 (add-to-list 'package-archives '("gnu-devel" . "https://elpa.gnu.org/devel/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -17,7 +20,11 @@
 		      :height 150) ;; default font size (point * 10)
   )
 
+;; Make ESC quit prompts
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 (setq use-package-always-ensure t)
+(setq use-package-verbose t)
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -37,6 +44,7 @@
 	auto-package-update-hide-results t)
   (auto-package-update-maybe))
 
+(use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
 (use-package nerd-icons)
 (use-package modus-themes
   :config
@@ -53,13 +61,27 @@
   :config (doom-modeline-mode 1))
 
 (use-package which-key
+  :defer 0
+  :diminish which-key-mode
   :config
   (which-key-setup-side-window-right-bottom)
   (which-key-mode))
 
+(use-package helpful
+  :commands (helpful-callable helpful-variable helpful-command helpful-key)
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :init
+  (global-set-key (kbd "C-h f") #'helpful-callable)
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key)
+  (global-set-key (kbd "C-h x") #'helpful-command))
+
 (use-package evil
   :after lsp-mode
   :init
+  (setq evil-want-integration t)
   (setq evil-want-keybinding nil)
   :custom
   (evil-split-window-below t)
@@ -83,10 +105,10 @@
 (use-package evil-collection
   :after evil
   :config
-  (evil-collection-init)
-  (evil-collection-unimpaired-mode))
+  (evil-collection-init))
 
 (use-package helm
+  :diminish
   :init
   (global-set-key (kbd "M-x") #'helm-M-x)
   (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
@@ -101,57 +123,57 @@
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
   :hook (emacs-lisp-mode . elisp-autofmt-mode))
 
-(use-package company
-  :after lsp-mode
-  :hook (prog-mode . company-mode)
-  :bind (:map company-active-map
-	      ("C-n" . company-select-next)
-	      ("C-p" . company-select-previous)
-	      ("<tab>" . company-complete-selection))
-	(:map lsp-mode-map
-		("<tab>" . company-indent-or-complete-common))
-  :config
-  (setq company-idle-delay 0.3
-	company-minimum-prefix-length 3)
-  (global-company-mode t))
-(use-package company-box
-  :hook (company-mode . company-box-mode))
-
 (use-package lsp-mode
   :init (setq lsp-keymap-prefix "C-c l") ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  :custom
-  (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
-  (lsp-csharp-omnisharp-roslyn-binary-path "/Users/cyber/.dotnet/omnisharp/OmniSharp")
-  :hook ((haskell-mode . lsp-deferred)
-	 (go-mode . lsp-deferred)
-	 (elixir-mode . lsp-deferred)
-	 (csharp-mode . lsp-deferred))
-         ;; if you want which-key integration
-         ;;(lsp-mode . lsp-enable-which-key-integration))
+  :config (lsp-enable-which-key-integration t)
   :commands (lsp lsp-deferred))
 (use-package lsp-ui
   :custom (lsp-ui-doc-position 'at-point)
   :hook (lsp-mode . lsp-ui-mode))
 (use-package helm-lsp
   :after lsp-mode
-  :init
-  (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
-(use-package csharp-mode)
-(use-package elixir-mode)
-(use-package go-mode)
-(use-package lsp-haskell)
+  :init (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+(use-package csharp-mode
+  :custom (lsp-csharp-omnisharp-roslyn-binary-path "/Users/cyber/.dotnet/omnisharp/OmniSharp")
+  :hook (csharp-mode . lsp-deferred))
+(use-package elixir-mode
+  :custom (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
+  :hook (elixir-mode . lsp-deferred))
+(use-package go-mode
+  :hook (go-mode . lsp-deferred))
+(use-package lsp-haskell
+  :hook (haskell-mode . lsp-deferred))
 (use-package lsp-pyright
   :hook (python-mode . (lambda ()
 			 (require 'lsp-pyright)
 			 (lsp-deferred))))
+(use-package pyvenv
+  :after python-mode
+  :config (pyvenv-mode 1))
+(use-package company
+  :after lsp-mode
+  :hook (lsp-mode . company-mode)
+  :bind (:map company-active-map
+	      ("C-n" . company-select-next)
+	      ("C-p" . company-select-previous)
+	      ("<tab>" . company-complete-selection))
+  (:map lsp-mode-map
+	("<tab>" . company-indent-or-complete-common))
+  :custom
+  (company-idle-delay 0.3)
+  (company-minimum-prefix-length 3))
+(use-package company-box
+  :hook (company-mode . company-box-mode))
 
 (use-package projectile
-  :init (projectile-mode +1)
-  :custom
-  (projectile-project-search-path '(("~/prj" . 3)))
-  :bind (:map projectile-mode-map
-	      ("s-p" . projectile-command-map)
-	      ("C-c p" . projectile-command-map)))
+  :diminish projectile-mode
+  :init
+  (when (file-directory-p "~/prj")
+    (setq projectile-project-search-path '("~/prj")))
+  (setq projectile-switch-project-action #'projectile-dired)
+  :bind-keymap (("s-p" . projectile-command-map)
+		("C-c p" . projectile-command-map))
+  :config (projectile-mode))
 
 (use-package dashboard
   :init (setq dashboard-projects-backend 'projectile
@@ -168,12 +190,13 @@
 
 ;; Magit
 (use-package magit
+  :commands magit-status
   :bind (("C-x g" . magit-status)
          ("C-x C-g" . magit-status)))
 
 ;; Treemacs
 (use-package treemacs
-  :defer t
+  :commands (treemacs treemacs-select-window)
   :init
   (with-eval-after-load 'winum
     (define-key winum-keymap (kbd "M-0") #'treemacs-select-window))
@@ -266,3 +289,7 @@
 (use-package treemacs-projectile :after (treemacs projectile))
 (use-package treemacs-icons-dired :hook (dired-mode . treemacs-icons-dired-enable-once))
 (use-package treemacs-magit :after (treemacs magit))
+
+;; Make gc pauses faster by decreasing the threshold.
+;; last line please
+(setq gc-cons-threshold (* 2 1000 1000))

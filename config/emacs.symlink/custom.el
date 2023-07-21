@@ -4,9 +4,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(desktop-save-mode t)
+ '(helm-minibuffer-history-key "M-p")
  '(make-backup-files nil)
  '(package-selected-packages
-   '(treemacs-magit magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs csharp-mode dashboard elixir-mode evil-surround evil-leader lsp-pyright which-key helm-lsp modus-themes projectile evil-collection lsp-ui company-box company lsp-haskell go-mode elisp-autofmt nerd-icons doom-modeline auto-package-update helm evil use-package))
+   '(pyvenv helpful treemacs-magit magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs csharp-mode dashboard elixir-mode evil-surround evil-leader lsp-pyright which-key helm-lsp modus-themes projectile evil-collection lsp-ui company-box company lsp-haskell go-mode elisp-autofmt nerd-icons doom-modeline auto-package-update helm evil use-package))
  '(save-place-mode t))
 
 (custom-set-faces
