@@ -1,6 +1,6 @@
-[submodule "oh-my-zsh.symlink"]
-	path = oh-my-zsh.symlink
+[submodule ".oh-my-zsh"]
+	path = .oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
-[submodule "urxvt.symlink/perls"]
-	path = urxvt.symlink/perls
+[submodule ".urxvt/perls"]
+	path = .urxvt/perls
 	url = https://github.com/muennich/urxvt-perls.git

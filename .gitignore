@@ -1,18 +1,18 @@
-/vim.symlink/.netrwhist
-/vim.symlink/autoload
-/vim.symlink/plugged
-/vim.symlink/tmp
+/.vim/.netrwhist
+/.vim/autoload
+/.vim/plugged
+/.vim/tmp
 
-/config/emacs.symlink/elpa
-/config/emacs.symlink/places
-/config/emacs.symlink/.last-package-update-day
-/config/emacs.symlink/.cache
-/config/emacs.symlink/.lsp-session-*
-/config/emacs.symlink/projectile-*
-/config/emacs.symlink/projects
-/config/emacs.symlink/recentf
-/config/emacs.symlink/transient
-/config/emacs.symlink/url
-/config/emacs.symlink/eshell
+/.config/emacs/elpa
+/.config/emacs/places
+/.config/emacs/.last-package-update-day
+/.config/emacs/.cache
+/.config/emacs/.lsp-session-*
+/.config/emacs/projectile-*
+/.config/emacs/projects
+/.config/emacs/recentf
+/.config/emacs/transient
+/.config/emacs/url
+/.config/emacs/eshell
 
 .luarc.json

@@ -114,19 +114,18 @@
   :config (evil-collection-init))
 
 (use-package helm
-  :diminish
   :bind
-    (( "M-x" . helm-M-x)
-    ( "C-x b" . helm-buffers-list)
-    ( "C-x c o" . helm-occur)		;SC
-    ( "M-y" . helm-show-kill-ring)	;SC
-    ( "C-x r b" . helm-filtered-bookmarks)
-    ( "C-x C-f" . helm-find-files))
+  (("M-x" . helm-M-x)
+   ("C-x b" . helm-buffers-list)
+   ("C-x c o" . helm-occur)		;SC
+   ("M-y" . helm-show-kill-ring)	;SC
+   ("C-x r b" . helm-filtered-bookmarks)
+   ("C-x C-f" . helm-find-files))
   :custom
-    (helm-minibuffer-history-key "M-p")
+  (helm-minibuffer-history-key "M-p")
   :config
-    (setq completion-styles '(flex))
-    (helm-mode 1))
+  (setq completion-styles '(flex))
+  (helm-mode 1))
 
 (use-package elisp-autofmt
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
@@ -159,7 +158,10 @@
   :custom (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
   :hook (elixir-mode . lsp-deferred))
 (use-package go-mode
-  :hook (go-mode . lsp-deferred))
+  :mode ("\\.go\\'" . go-mode)
+  :hook (go-mode . lsp-deferred)
+	(before-save . lsp-format-buffer)
+	(before-save . lsp-organize-imports))
 (use-package lsp-haskell
   :hook (haskell-mode . lsp-deferred))
 (use-package python

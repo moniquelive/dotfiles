@@ -2,4 +2,10 @@
 
 # dotfiles
 
-Giving back
+## Giving back
+
+### Just
+
+- `clone` it
+- `cd` into it
+- gnu `stow .` it
