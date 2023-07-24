@@ -107,7 +107,7 @@
 
 ## Launchers
 cmd + ctrl + alt - t : /Applications/Kitty.app/Contents/MacOS/kitty -d ~
-cmd + ctrl + alt - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+cmd + ctrl + alt - r : /opt/homebrew/bin/yabai --restart-service
 
 ## Display
 cmd + ctrl + alt - 1 : yabai -m display --focus west
@@ -133,5 +133,6 @@ hyper - l : yabai -m window --swap east
 cmd + ctrl + alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
 cmd + ctrl + alt - p : yabai -m window --toggle zoom-parent
 cmd + ctrl + alt - m : yabai -m window --toggle zoom-fullscreen
+hyper - m : yabai -m window --grid 1:1:0:0:1:1
 cmd + ctrl + alt - left : yabai -m window --display west; yabai -m display --focus west
 cmd + ctrl + alt - right : yabai -m window --display east; yabai -m display --focus east
