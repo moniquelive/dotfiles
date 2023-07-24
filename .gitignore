@@ -13,5 +13,6 @@
 /config/emacs.symlink/recentf
 /config/emacs.symlink/transient
 /config/emacs.symlink/url
+/config/emacs.symlink/eshell
 
 .luarc.json
