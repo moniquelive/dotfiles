@@ -161,7 +161,8 @@ return {
 					end,
 					["elixirls"] = function()
 						require("lspconfig").elixirls.setup({
-							cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
+							-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
+							cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
 							settings = {
 								elixirLS = {
 									dialyzerEnabled = true,
@@ -200,12 +201,12 @@ return {
 						"emmet-ls",
 						"flake8",
 						"gitlint",
-						-- "gofumpt",
-						-- "goimports-reviser",
-						-- "golines",
-						-- "gopls",
-						-- "gotests",
-						-- "gotestsum",
+						"gofumpt",
+						"goimports-reviser",
+						"golines",
+						"gopls",
+						"gotests",
+						"gotestsum",
 						--"haskell-language-server",
 						"html-lsp",
 						"iferr",
