@@ -14,5 +14,6 @@
 /.config/emacs/transient
 /.config/emacs/url
 /.config/emacs/eshell
+/.config/emacs/history
 
 .luarc.json

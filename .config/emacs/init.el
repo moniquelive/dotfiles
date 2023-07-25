@@ -20,6 +20,7 @@
 (load custom-file)
 
 ;; GLOBAL settings
+(file-name-shadow-mode 1)
 (global-hl-line-mode 1)
 (global-auto-revert-mode 1)
 (tool-bar-mode -1)
@@ -27,7 +28,10 @@
   (set-face-attribute 'default nil
 		      :family "JetBrains Mono"
 		      :height 150) ;; default font size (point * 10)
-  )
+  (setq dired-use-ls-dired t
+        insert-directory-program "/opt/homebrew/bin/gls"
+        dired-listing-switches "-aBhl --group-directories-first"))
+(add-hook 'dired-mode-hook 'dired-hide-details-mode)
 
 ;; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
@@ -39,7 +43,9 @@
   (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
   (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
+;;
 ;; Packages
+;;
 (setq use-package-always-ensure t)
 ;; (setq use-package-verbose t)
 (unless (package-installed-p 'use-package)
@@ -98,6 +104,7 @@
     (evil-want-keybinding nil)
   :config
     (evil-mode 1)
+    (evil-global-set-key 'normal "-" 'dired-jump)
     (evil-set-undo-system 'undo-redo))
 (use-package evil-leader
   :after evil
@@ -113,19 +120,55 @@
   :after evil
   :config (evil-collection-init))
 
-(use-package helm
-  :bind
-  (("M-x" . helm-M-x)
-   ("C-x b" . helm-buffers-list)
-   ("C-x c o" . helm-occur)		;SC
-   ("M-y" . helm-show-kill-ring)	;SC
-   ("C-x r b" . helm-filtered-bookmarks)
-   ("C-x C-f" . helm-find-files))
-  :custom
-  (helm-minibuffer-history-key "M-p")
-  :config
-  (setq completion-styles '(flex))
-  (helm-mode 1))
+(use-package vertico
+  :init
+  (vertico-mode 1)
+  (setq vertico-scroll-margin 0)
+  (setq vertico-count 20)
+  (setq vertico-resize nil)
+  (setq vertico-cycle t)
+  :hook
+  (rfn-eshadow-update-overlay . vertico-directory-tidy))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(use-package savehist :init (savehist-mode))
+
+;; A few more useful configurations...
+(use-package emacs
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+        '(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  (setq read-extended-command-predicate #'command-completion-default-include-p)
+  (setq enable-recursive-minibuffers t))
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+	orderless-component-separator #'orderless-escapable-split-on-space
+        completion-category-defaults nil
+        completion-category-overrides '((file (styles partial-completion)))))
+
+(use-package marginalia
+  :bind (:map minibuffer-local-map
+         ("M-A" . marginalia-cycle))
+  :init
+  (marginalia-mode))
 
 (use-package elisp-autofmt
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
@@ -148,9 +191,6 @@
 (use-package lsp-ui
   :custom (lsp-ui-doc-position 'at-point)
   :hook (lsp-mode . lsp-ui-mode))
-(use-package helm-lsp
-  :after lsp
-  :config (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
 (use-package csharp-mode
   :custom (lsp-csharp-omnisharp-roslyn-binary-path "/Users/cyber/.dotnet/omnisharp/OmniSharp")
   :hook (csharp-mode . lsp-deferred))
