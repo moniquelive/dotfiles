@@ -1,5 +1,5 @@
-(load "~/.config/emacs/gcmh.el")
-(gcmh-mode 1)
+(with-eval-after-load "~/.config/emacs/gcmh.el"
+  (gcmh-mode 1))
 
 (defun my-message-with-timestamp (old-func fmt-string &rest args)
    "Prepend current timestamp (with microsecond precision) to a message"
@@ -52,6 +52,9 @@
   (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile (require 'use-package)) ;; This is only needed once, near the top of the file
+
+;; first one please
+(use-package no-littering)
 
 (use-package auto-package-update
   :config

@@ -8,12 +8,9 @@
 /.config/emacs/.last-package-update-day
 /.config/emacs/.cache
 /.config/emacs/.lsp-session-*
-/.config/emacs/projectile-*
 /.config/emacs/projects
-/.config/emacs/recentf
-/.config/emacs/transient
 /.config/emacs/url
-/.config/emacs/eshell
 /.config/emacs/history
+/.config/emacs/var
 
 .luarc.json
