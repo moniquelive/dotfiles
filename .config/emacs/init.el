@@ -100,11 +100,13 @@
 
 (use-package evil
   :custom
-    (evil-split-window-below t)
-    (evil-undo-system 'undo-redo)
-    (evil-vsplit-window-right t)
-    (evil-want-integration t)
     (evil-want-keybinding nil)
+    (evil-want-integration t)
+    (evil-undo-system 'undo-redo)
+    (evil-split-window-below t)
+    (evil-vsplit-window-right t)
+    (evil-cross-lines t)
+    (evil-start-of-line t)
   :config
     (evil-mode 1)
     (evil-global-set-key 'normal "-" 'dired-jump)
@@ -206,6 +208,8 @@
 	(before-save . lsp-format-buffer)
 	(before-save . lsp-organize-imports))
 (use-package lsp-haskell
+  :custom
+  (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
   :hook (haskell-mode . lsp-deferred))
 (use-package python
   :mode ("\\.py\\'" . python-mode)
