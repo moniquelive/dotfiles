@@ -130,9 +130,9 @@ hyper - h : yabai -m window --swap west
 hyper - j : yabai -m window --swap south
 hyper - k : yabai -m window --swap north
 hyper - l : yabai -m window --swap east
-cmd + ctrl + alt - f : yabai -m window --toggle float --grid 4:4:1:1:2:2
+hyper - m : yabai -m window --grid 1:1:0:0:1:1
+cmd + ctrl + alt - f : yabai -m window --toggle float --grid 5:5:1:0:3:5
 cmd + ctrl + alt - p : yabai -m window --toggle zoom-parent
 cmd + ctrl + alt - m : yabai -m window --toggle zoom-fullscreen
-hyper - m : yabai -m window --grid 1:1:0:0:1:1
 cmd + ctrl + alt - left : yabai -m window --display west; yabai -m display --focus west
 cmd + ctrl + alt - right : yabai -m window --display east; yabai -m display --focus east
