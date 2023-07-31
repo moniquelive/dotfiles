@@ -97,8 +97,6 @@
   :config
   (set-language-environment "UTF-8")
   (load custom-file)
-  (delight '((eldoc-mode nil "eldoc")
-	     (flymake-mode nil "Flymake")))
   (file-name-shadow-mode 1)
   (mouse-wheel-mode 1)
   (global-hl-line-mode 1)
@@ -112,7 +110,10 @@
   :custom (auto-package-update-delete-old-versions t)
   :config (auto-package-update-maybe))
 
-(use-package delight)
+(use-package delight
+  :config
+  (delight '((eldoc-mode nil "eldoc")
+	     (flymake-mode nil "Flymake"))))
 (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
 (use-package nerd-icons)
 (use-package doom-themes
