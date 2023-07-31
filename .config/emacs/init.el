@@ -1,3 +1,4 @@
+(toggle-debug-on-error)
 (with-eval-after-load "~/.config/emacs/gcmh.el"
   (gcmh-mode 1))
 
@@ -15,18 +16,10 @@
 (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
 (package-initialize)
 
-(setq image-types (cons 'svg image-types))
-(setq custom-file "~/.config/emacs/custom.el")
-(load custom-file)
-
-;; GLOBAL settings
-(file-name-shadow-mode 1)
-(global-hl-line-mode 1)
-(global-auto-revert-mode 1)
-(tool-bar-mode -1)
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil
 		      :family "JetBrains Mono"
+		      :weight 'light
 		      :height 150) ;; default font size (point * 10)
   (defconst jetbrains-ligature-mode--ligatures
     '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
@@ -56,20 +49,6 @@
   (setq dired-use-ls-dired t
         insert-directory-program "/opt/homebrew/bin/gls"
         dired-listing-switches "-aBhl --group-directories-first"))
-(add-hook 'dired-mode-hook 'dired-hide-details-mode)
-
-;; autosave on buffer focus lost
-(add-hook 'focus-out-hook (lambda () (save-some-buffers t)))
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-;;;; Mouse scrolling in terminal emacs
-(unless (display-graphic-p)
-  ;; activate mouse-based scrolling
-  (xterm-mouse-mode 1)
-  (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
-  (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
 
 ;;
 ;; Packages
@@ -84,36 +63,84 @@
 ;; first one please
 (use-package no-littering)
 
-(use-package auto-package-update
-  :config
-  (setq auto-package-update-delete-old-versions t
-        auto-package-update-hide-results t)
-  (auto-package-update-maybe))
+;; A few more useful configurations...
+(use-package emacs
+  :delight
+  (auto-fill-function " AF")
+  (visual-line-mode)
+  :custom
+  (make-backup-files nil)
+  :hook
+  (dired-mode . dired-hide-details-mode)
+  (minibuffer-setup . cursor-intangible-mode)
+  (focus-out . (lambda () (save-some-buffers t))) ;; autosave on buffer focus lost
+  :init
+  ;; Add prompt indicator to `completing-read-multiple'.
+  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
 
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  (setq read-extended-command-predicate #'command-completion-default-include-p
+	;; Do not allow the cursor in the minibuffer prompt
+	minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt)
+	enable-recursive-minibuffers t
+	image-types (cons 'svg image-types)
+	custom-file "~/.config/emacs/custom.el")
+  :config
+  (set-language-environment "UTF-8")
+  (load custom-file)
+  (delight '((eldoc-mode nil "eldoc")
+	     (flymake-mode nil "Flymake")))
+  (file-name-shadow-mode 1)
+  (mouse-wheel-mode 1)
+  (global-hl-line-mode 1)
+  (global-auto-revert-mode 1)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; Make ESC quit prompts
+  (tool-bar-mode -1)
+  (toggle-truncate-lines nil)
+  )
+
+(use-package auto-package-update
+  :custom (auto-package-update-delete-old-versions t)
+  :config (auto-package-update-maybe))
+
+(use-package delight)
 (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
 (use-package nerd-icons)
-(use-package modus-themes
+(use-package doom-themes
   :config
-  (setq modus-themes-italic-constructs t
-        modus-themes-bold-constructs t
-        modus-themes-mixed-fonts t
-        modus-themes-prompts '(italic bold))
-  (load-theme 'modus-vivendi-tinted :no-confirm)
-  (define-key global-map (kbd "<f5>") #'modus-themes-toggle))
+  (setq doom-themes-enable-bold t
+	doom-themes-enable-italic t
+	doom-themes-padded-modeline nil
+	doom-rouge-brighter-tabs t
+	doom-rouge-comment-bg t)
+  (load-theme 'doom-rouge t)
+  (doom-themes-visual-bell-config))
+  ;; Corrects (and improves) org-mode's native fontification.
+  ;; (doom-themes-org-config))
 
 (use-package doom-modeline
-  :config (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
+  :custom
+  (doom-modeline-height 25)
+  (doom-modeline-minor-modes t)
+  :config (doom-modeline-mode 1))
 
 (use-package which-key
+  :delight
   :defer 0
-  :diminish which-key-mode
   :custom
-    ((which-key-popup-type 'side-window)
-     (which-key-side-window-location '(right bottom))
-     (which-key-side-window-max-width 0.5))
-  :config
-    (which-key-mode))
+  ((which-key-popup-type 'side-window)
+   (which-key-side-window-location '(right bottom))
+   (which-key-side-window-max-width 0.5))
+  :config (which-key-mode))
 
 (use-package helpful
   :commands (helpful-callable helpful-variable helpful-command helpful-key)
@@ -135,24 +162,24 @@
          ("C-c i" . consult-info)
          ([remap Info-search] . consult-info)
          ;; C-x bindings in `ctl-x-map'
-         ("C-x M-:" . consult-complex-command)     ;; orig. repeat-complex-command
-         ("C-x b" . consult-buffer)                ;; orig. switch-to-buffer
+         ("C-x M-:" . consult-complex-command) ;; orig. repeat-complex-command
+         ("C-x b" . consult-buffer) ;; orig. switch-to-buffer
          ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-         ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
-         ("C-x r b" . consult-bookmark)            ;; orig. bookmark-jump
-         ("C-x p b" . consult-project-buffer)      ;; orig. project-switch-to-buffer
+         ("C-x 5 b" . consult-buffer-other-frame) ;; orig. switch-to-buffer-other-frame
+         ("C-x r b" . consult-bookmark)	;; orig. bookmark-jump
+         ("C-x p b" . consult-project-buffer) ;; orig. project-switch-to-buffer
          ;; Custom M-# bindings for fast register access
          ("M-#" . consult-register-load)
-         ("M-'" . consult-register-store)          ;; orig. abbrev-prefix-mark (unrelated)
+         ("M-'" . consult-register-store) ;; orig. abbrev-prefix-mark (unrelated)
          ("C-M-#" . consult-register)
          ;; Other custom bindings
-         ("M-y" . consult-yank-pop)                ;; orig. yank-pop
+         ("M-y" . consult-yank-pop) ;; orig. yank-pop
          ;; M-g bindings in `goto-map'
          ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake)               ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)             ;; orig. goto-line
-         ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-         ("M-g o" . consult-outline)               ;; Alternative: consult-org-heading
+         ("M-g f" . consult-flymake) ;; Alternative: consult-flycheck
+         ("M-g g" . consult-goto-line)	 ;; orig. goto-line
+         ("M-g M-g" . consult-goto-line) ;; orig. goto-line
+         ("M-g o" . consult-outline) ;; Alternative: consult-org-heading
          ("M-g m" . consult-mark)
          ("M-g k" . consult-global-mark)
          ("M-g i" . consult-imenu)
@@ -170,14 +197,14 @@
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
          :map isearch-mode-map
-         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)            ;; needed by consult-line to detect isearch
+         ("M-e" . consult-isearch-history) ;; orig. isearch-edit-string
+         ("M-s e" . consult-isearch-history) ;; orig. isearch-edit-string
+         ("M-s l" . consult-line) ;; needed by consult-line to detect isearch
+         ("M-s L" . consult-line-multi)	;; needed by consult-line to detect isearch
          ;; Minibuffer history
          :map minibuffer-local-map
-         ("M-s" . consult-history)                 ;; orig. next-matching-history-element
-         ("M-r" . consult-history))                ;; orig. previous-matching-history-element
+         ("M-s" . consult-history) ;; orig. next-matching-history-element
+         ("M-r" . consult-history)) ;; orig. previous-matching-history-element
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI.
@@ -201,20 +228,12 @@
 
   :config
 
-  ;; Optionally configure preview. The default value
-  ;; is 'any, such that any key triggers the preview.
-  ;; (setq consult-preview-key 'any)
-  ;; (setq consult-preview-key "M-.")
-  ;; (setq consult-preview-key '("S-<down>" "S-<up>"))
-  ;; For some commands and buffer sources it is useful to configure the
-  ;; :preview-key on a per-command basis using the `consult-customize' macro.
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
    consult--source-bookmark consult--source-file-register
    consult--source-recent-file consult--source-project-recent-file
-   ;; :preview-key "M-."
    :preview-key '(:debounce 0.4 any))
 
   ;; Optionally configure the narrowing key.
@@ -229,35 +248,41 @@
   (setq consult-project-function (lambda (_) (projectile-project-root))))
 
 (use-package evil
+  :delight
   :custom
-    (evil-want-keybinding nil)
-    (evil-want-integration t)
-    (undo-tree-auto-save-history t)
-    (evil-undo-system 'undo-redo)
-    (evil-split-window-below t)
-    (evil-vsplit-window-right t)
-    (evil-cross-lines t)
-    (evil-start-of-line t)
+  (evil-want-keybinding nil)
+  (evil-want-integration t)
+  (undo-tree-auto-save-history t)
+  (evil-undo-system 'undo-redo)
+  (evil-split-window-below t)
+  (evil-vsplit-window-right t)
+  (evil-cross-lines t)
+  (evil-start-of-line t)
   :config
-    (evil-mode 1)
-    (evil-global-set-key 'normal "-" 'dired-jump)
-    (evil-define-key 'normal 'prog-mode-map "gcc" 'evilnc-comment-or-uncomment-lines)
-    (evil-define-key 'visual 'prog-mode-map "gc" 'evilnc-comment-or-uncomment-lines))
+  (evil-mode 1)
+  (evil-global-set-key 'normal "-" 'dired-jump))
 (use-package evil-leader
-  :after evil
+  :after (evil evil-search-highlight-persist)
   :config
-    (global-evil-leader-mode)
-    (evil-leader/set-key
-    (kbd "RET") 'evil-ex-nohighlight
+  (global-evil-leader-mode)
+  (evil-leader/set-key
+    (kbd "RET") 'evil-search-highlight-persist-remove-all
     "\\" 'evil-buffer))
+(use-package evil-search-highlight-persist
+  :after evil
+  :config (global-evil-search-highlight-persist t))
 (use-package evil-surround
   :after evil
   :config (global-evil-surround-mode 1))
 (use-package evil-collection
+  :delight evil-collection-unimpaired-mode
   :after evil
   :config (evil-collection-init))
 (use-package evil-nerd-commenter
-  :after evil)
+  :after evil
+  :config
+  (evil-define-key 'normal 'prog-mode-map "gcc" 'evilnc-comment-or-uncomment-lines)
+  (evil-define-key 'visual 'prog-mode-map "gc" 'evilnc-comment-or-uncomment-lines))
 
 (use-package vertico
   :init
@@ -272,99 +297,94 @@
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist :init (savehist-mode))
 
-;; A few more useful configurations...
-(use-package emacs
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-        '(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  (setq read-extended-command-predicate #'command-completion-default-include-p)
-  (setq enable-recursive-minibuffers t))
-
 (use-package orderless
-  :init
+  :config
   (setq completion-styles '(orderless basic)
 	orderless-component-separator #'orderless-escapable-split-on-space
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+        completion-category-overrides '((file (styles partial-completion))
+					;; enable initialism by default for symbols
+                                        (command (styles +orderless-with-initialism))
+                                        (variable (styles +orderless-with-initialism))
+                                        (symbol (styles +orderless-with-initialism)))))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
-  :init
-  (marginalia-mode))
+              ("M-A" . marginalia-cycle))
+  :init (marginalia-mode))
 
 (use-package elisp-autofmt
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
   :hook (emacs-lisp-mode . elisp-autofmt-mode))
 
 (use-package lsp-mode
+  :delight lsp-mode
+  :delight lsp-lens-mode nil lsp-lens
   :commands (lsp lsp-deferred)
   :init (setq lsp-keymap-prefix "C-c l")
-  :hook
-  (go-mode . lsp)
-  (haskell-mode . lsp)
-  (elixir-mode . lsp)
-  (csharp-mode . lsp)
-  (python-mode . lsp)
-  (lsp-mode . lsp-enable-which-key-integration)
+  :hook (lsp-mode . lsp-enable-which-key-integration)
   :config
   (lsp-enable-which-key-integration t)
   (evil-define-minor-mode-key 'normal 'lsp-mode "K" 'lsp-ui-doc-glance)
   (evil-define-minor-mode-key 'normal 'lsp-mode "gr" 'lsp-find-references))
 (use-package lsp-ui
+  :delight
   :custom
     (lsp-ui-doc-position 'at-point)
     (lsp-ui-sideline-enable t)
     (lsp-ui-sideline-show-diagnostics t)
     (lsp-ui-sideline-show-hover nil)
   :hook (lsp-mode . lsp-ui-mode))
+(use-package tree-sitter
+  :delight
+  :hook (tree-sitter-after-on . tree-sitter-hl-mode)
+  :config (global-tree-sitter-mode))
+(use-package tree-sitter-langs)
+(use-package dockerfile-mode
+  :delight
+  :hook (dockerfile-mode . lsp-deferred))
 (use-package csharp-mode
+  :delight
   :custom (lsp-csharp-omnisharp-roslyn-binary-path "/Users/cyber/.dotnet/omnisharp/OmniSharp")
   :hook (csharp-mode . lsp-deferred))
 (use-package elixir-mode
+  :delight
   :custom (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
   :hook (elixir-mode . lsp-deferred))
 (use-package go-mode
+  :delight
   :mode ("\\.go\\'" . go-mode)
   :hook (go-mode . lsp-deferred)
 	(before-save . lsp-format-buffer)
 	(before-save . lsp-organize-imports))
 (use-package lsp-haskell
+  :delight
   :custom
   (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
   :hook (haskell-mode . lsp-deferred))
 (use-package elm-mode
+  :delight elm-format-on-save-mode
+  :delight elm-indent-mode
   :mode ("\\.elm\\'" . elm-mode)
   :hook (elm-mode . lsp-deferred)
-	(elm-mode . elm-format-on-save-mode))
+  (elm-mode . elm-format-on-save-mode))
 (use-package python
+  :delight
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode))
 (use-package lsp-pyright
+  :delight
   :after python-mode
   :hook (python-mode . (lambda ()
 			 (require 'lsp-pyright)
 			 (lsp-deferred))))
 (use-package pyvenv
+  :delight
   :after python-mode
   :config (pyvenv-mode 1))
+
 (use-package company
+  :delight
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
@@ -376,18 +396,18 @@
   :custom
     (company-idle-delay 0.3)
     (company-minimum-prefix-length 3))
-(use-package company-box
-  :hook (company-mode . company-box-mode))
+(use-package company-box :delight :hook (company-mode . company-box-mode))
 
 (use-package projectile
-  :diminish projectile-mode
+  :delight
+  :delight '(:eval (concat " " (projectile-project-name)))
   :init
-    (when (file-directory-p "~/prj")
-      (setq projectile-project-search-path '("~/prj")))
-    (setq projectile-switch-project-action #'projectile-dired)
+  (when (file-directory-p "~/prj")
+    (setq projectile-project-search-path '("~/prj")))
+  (setq projectile-switch-project-action #'projectile-dired)
   :bind-keymap
-    (("s-p" . projectile-command-map)
-		 ("C-c p" . projectile-command-map))
+  (("s-p" . projectile-command-map)
+   ("C-c p" . projectile-command-map))
   :config (projectile-mode))
 
 (use-package dashboard
@@ -506,3 +526,4 @@
 (use-package treemacs-magit :after (treemacs magit))
 
 (advice-remove 'message #'my-message-with-timestamp)
+(toggle-debug-on-error)
