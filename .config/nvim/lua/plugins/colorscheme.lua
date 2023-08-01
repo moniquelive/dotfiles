@@ -1,13 +1,11 @@
 return {
-	{
-		"luisiacc/gruvbox-baby",
-		name = "gruvbox",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.o.background = "dark"
-			vim.g.gruvbox_baby_background_color = "dark"
-			vim.cmd.colorscheme("gruvbox-baby")
-		end,
-	},
+  {
+    "RRethy/nvim-base16",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.o.background = "dark"
+      vim.cmd.colorscheme("base16-rose-pine-moon")
+    end,
+  },
 }

@@ -26,7 +26,9 @@ end
 
 local function keys()
 	local ok, builtin = pcall(require, "telescope.builtin")
-	if not ok then return end
+	if not ok then
+		return
+	end
 	local o = { noremap = true, silent = true, expr = false }
 	return {
 		{ "<c-p>", builtin.find_files, o },
@@ -73,6 +75,15 @@ return {
 		opts = opts,
 		cmd = "Telescope",
 		keys = keys,
+		config = function()
+			require("telescope").setup({
+				pickers = {
+					colorscheme = {
+						enable_preview = true,
+					},
+				},
+			})
+		end,
 		dependencies = {
 			"xiyaowong/telescope-emoji.nvim",
 			{
