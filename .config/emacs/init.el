@@ -70,6 +70,8 @@
   (visual-line-mode)
   :custom
   (make-backup-files nil)
+  (mouse-wheel-tilt-scroll t)
+  (truncate-lines nil)
   :hook
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
@@ -103,7 +105,6 @@
   (global-auto-revert-mode 1)
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; Make ESC quit prompts
   (tool-bar-mode -1)
-  (toggle-truncate-lines nil)
   )
 
 (use-package auto-package-update
@@ -303,11 +304,11 @@
   (setq completion-styles '(orderless basic)
 	orderless-component-separator #'orderless-escapable-split-on-space
         completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion))
-					;; enable initialism by default for symbols
-                                        (command (styles +orderless-with-initialism))
-                                        (variable (styles +orderless-with-initialism))
-                                        (symbol (styles +orderless-with-initialism)))))
+        completion-category-overrides '((file (styles partial-completion)))))
+					;; ;; enable initialism by default for symbols
+                                        ;; (command (styles +orderless-with-initialism))
+                                        ;; (variable (styles +orderless-with-initialism))
+                                        ;; (symbol (styles +orderless-with-initialism)))))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map

@@ -8,3 +8,6 @@ disabled = true
 
 [gcloud]
 disabled = true
+
+[battery]
+disabled = true
