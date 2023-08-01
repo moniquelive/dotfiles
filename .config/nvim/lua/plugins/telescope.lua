@@ -20,6 +20,11 @@ local function opts()
 				},
 			},
 		},
+		pickers = {
+			colorscheme = {
+				enable_preview = true,
+			},
+		},
 		extensions = {},
 	}
 end
@@ -75,17 +80,9 @@ return {
 		opts = opts,
 		cmd = "Telescope",
 		keys = keys,
-		config = function()
-			require("telescope").setup({
-				pickers = {
-					colorscheme = {
-						enable_preview = true,
-					},
-				},
-			})
-		end,
 		dependencies = {
 			"xiyaowong/telescope-emoji.nvim",
+			"nvim-lua/plenary.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
