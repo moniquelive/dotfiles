@@ -117,6 +117,23 @@
 	     (flymake-mode nil "Flymake"))))
 (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
 (use-package nerd-icons)
+(use-package nerd-icons-completion
+  :after (nerd-icons marginalia)
+  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+  :config (nerd-icons-completion-mode))
+
+(use-package keycast
+  :config
+  (define-minor-mode keycast-mode
+    "Show current command and its key binding in the mode line."
+    :global t
+    (if keycast-mode
+        (add-hook 'pre-command-hook 'keycast--update t)
+      (remove-hook 'pre-command-hook 'keycast--update)))
+
+  (add-to-list 'global-mode-string '("" keycast-mode-line))
+  (keycast-mode))
+
 (use-package doom-themes
   :config
   (setq doom-themes-enable-bold t
@@ -130,6 +147,7 @@
   ;; (doom-themes-org-config))
 
 (use-package doom-modeline
+  :after doom-themes
   :custom
   (doom-modeline-height 25)
   (doom-modeline-minor-modes t)
@@ -262,7 +280,8 @@
   (evil-start-of-line t)
   :config
   (evil-mode 1)
-  (evil-global-set-key 'normal "-" 'dired-jump))
+  (evil-global-set-key 'normal "-" 'dired-jump)
+  (evil-global-set-key 'normal (kbd "C-.") nil))
 (use-package evil-leader
   :after (evil evil-search-highlight-persist)
   :config
@@ -302,18 +321,70 @@
 (use-package orderless
   :config
   (setq completion-styles '(orderless basic)
+	orderless-matching-styles '(orderless-initialism orderless-flex orderless-regexp)
 	orderless-component-separator #'orderless-escapable-split-on-space
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
-					;; ;; enable initialism by default for symbols
-                                        ;; (command (styles +orderless-with-initialism))
-                                        ;; (variable (styles +orderless-with-initialism))
-                                        ;; (symbol (styles +orderless-with-initialism)))))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map
               ("M-A" . marginalia-cycle))
   :init (marginalia-mode))
+
+(use-package embark
+  :bind
+  (("C-." . embark-act)         ;; pick some comfortable binding
+   ("C-;" . embark-dwim)        ;; good alternative: M-.
+   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command)
+  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
+  ;; strategy, if you want to see the documentation from multiple providers.
+  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
+  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+
+  :config
+  (defun embark-which-key-indicator ()
+    "An embark indicator that displays keymaps using which-key.
+    The which-key help message will show the type and value of the
+    current target followed by an ellipsis if there are further
+    targets."
+    (lambda (&optional keymap targets prefix)
+      (if (null keymap)
+          (which-key--hide-popup-ignore-command)
+	(which-key--show-keymap
+	 (if (eq (plist-get (car targets) :type) 'embark-become)
+             "Become"
+           (format "Act on %s '%s'%s"
+                   (plist-get (car targets) :type)
+                   (embark--truncate-target (plist-get (car targets) :target))
+                   (if (cdr targets) "…" "")))
+	 (if prefix
+             (pcase (lookup-key keymap prefix 'accept-default)
+               ((and (pred keymapp) km) km)
+               (_ (key-binding prefix 'accept-default)))
+           keymap)
+	 nil nil t (lambda (binding)
+                     (not (string-suffix-p "-argument" (cdr binding))))))))
+
+  (setq embark-indicators
+	'(embark-which-key-indicator
+	  embark-highlight-indicator
+	  embark-isearch-highlight-indicator))
+
+  (defun embark-hide-which-key-indicator (fn &rest args)
+    "Hide the which-key indicator immediately when using the completing-read prompter."
+    (which-key--hide-popup-ignore-command)
+    (let ((embark-indicators
+           (remq #'embark-which-key-indicator embark-indicators)))
+      (apply fn args)))
+
+  (advice-add #'embark-completing-read-prompter
+              :around #'embark-hide-which-key-indicator))
+(use-package embark-consult
+  :after embark
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package elisp-autofmt
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
@@ -428,8 +499,7 @@
 ;; Magit
 (use-package magit
   :commands magit-status
-  :bind (("C-x g" . magit-status)
-         ("C-x C-g" . magit-status)))
+  :bind (("C-x g" . magit-status)))
 
 ;; Treemacs
 (use-package treemacs
