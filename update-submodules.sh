@@ -17,3 +17,6 @@ git submodule foreach zsh -c '
   git branch
   git pull -q
 '
+
+echo "--- stowing:"
+stow .
