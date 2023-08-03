@@ -158,8 +158,9 @@
   :defer 0
   :custom
   ((which-key-popup-type 'side-window)
-   (which-key-side-window-location '(right bottom))
-   (which-key-side-window-max-width 0.5))
+   (which-key-side-window-location 'bottom)
+   (which-key-side-window-max-width 0.5)
+   (which-key-side-window-max-height 0.5))
   :config (which-key-mode))
 
 (use-package helpful
