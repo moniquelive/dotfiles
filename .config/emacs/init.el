@@ -67,11 +67,10 @@
 (use-package emacs
   :delight
   (auto-fill-function " AF")
-  (visual-line-mode)
   :custom
   (make-backup-files nil)
   (mouse-wheel-tilt-scroll t)
-  (truncate-lines nil)
+  (truncate-lines t)
   :hook
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
@@ -101,9 +100,10 @@
   (load custom-file)
   (file-name-shadow-mode 1)
   (mouse-wheel-mode 1)
-  (global-hl-line-mode 1)
   (global-auto-revert-mode 1)
+  (global-hl-line-mode 1)
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; Make ESC quit prompts
+  (global-visual-line-mode -1)
   (tool-bar-mode -1)
   )
 
@@ -219,8 +219,8 @@
          :map isearch-mode-map
          ("M-e" . consult-isearch-history) ;; orig. isearch-edit-string
          ("M-s e" . consult-isearch-history) ;; orig. isearch-edit-string
-         ("M-s l" . consult-line) ;; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi)	;; needed by consult-line to detect isearch
+         ;; ("M-s l" . consult-line) ;; needed by consult-line to detect isearch
+         ;; ("M-s L" . consult-line-multi)	;; needed by consult-line to detect isearch
          ;; Minibuffer history
          :map minibuffer-local-map
          ("M-s" . consult-history) ;; orig. next-matching-history-element
@@ -321,7 +321,7 @@
 (use-package orderless
   :config
   (setq completion-styles '(orderless basic)
-	orderless-matching-styles '(orderless-initialism orderless-flex orderless-regexp)
+	orderless-matching-styles '(orderless-literal orderless-initialism orderless-regexp)
 	orderless-component-separator #'orderless-escapable-split-on-space
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
