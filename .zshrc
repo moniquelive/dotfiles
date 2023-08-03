@@ -125,7 +125,7 @@ unset SCRIPT_NAME
 # set these after omz
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="base16"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
@@ -273,15 +273,16 @@ unsetopt print_exit_value
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
-BACKGROUND="#171A1A"
-FOREGROUND="#EBDBB2"
-COMMENT="#665C54"
-MILK="#E7D7AD"
-ERROR_RED="#CC241D"
-ORANGE="#D65D0E"
-BRIGHT_YELLOW="#FABD2F"
-SOFT_YELLOW="#EEBD35"
-LIGHT_BLUE="#7FA2AC"
+# Rose Pine Moon - https://rosepinetheme.com/palette/ingredients/
+BACKGROUND="#2a273f"
+FOREGROUND="#e0def4"
+COMMENT="#56526e"
+MILK="#ea9a97"
+ERROR_RED="#eb6f92"
+ORANGE="#eb6f92"
+BRIGHT_YELLOW="#f6c177"
+SOFT_YELLOW="#6e6a86"
+LIGHT_BLUE="#3e8fb0"
 FZF_THEME="--color=fg:${FOREGROUND} --color=bg:${BACKGROUND} --color=hl:${BRIGHT_YELLOW} --color=fg+:bold:${FOREGROUND} --color=bg+:${COMMENT} --color=hl+:${BRIGHT_YELLOW} --color=gutter:${BACKGROUND} --color=info:${ORANGE} --color=separator:${BACKGROUND} --color=border:${MILK} --color=label:${SOFT_YELLOW} --color=prompt:${LIGHT_BLUE} --color=spinner:${BRIGHT_YELLOW} --color=pointer:bold:${BRIGHT_YELLOW} --color=marker:${ERROR_RED} --color=header:${ORANGE} --color=preview-fg:${FOREGROUND} --color=preview-bg:${BACKGROUND}"
 export FZF_DEFAULT_OPTS="\
   -m --cycle --preview-window wrap \
