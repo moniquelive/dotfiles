@@ -125,7 +125,7 @@ unset SCRIPT_NAME
 # set these after omz
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="base16"
+export BAT_THEME="rose-pine"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
@@ -274,16 +274,23 @@ unsetopt print_exit_value
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
 # Rose Pine Moon - https://rosepinetheme.com/palette/ingredients/
-BACKGROUND="#2a273f"
+BACKGROUND="#232136"
 FOREGROUND="#e0def4"
-COMMENT="#56526e"
-MILK="#ea9a97"
-ERROR_RED="#eb6f92"
-ORANGE="#eb6f92"
-BRIGHT_YELLOW="#f6c177"
-SOFT_YELLOW="#6e6a86"
-LIGHT_BLUE="#3e8fb0"
-FZF_THEME="--color=fg:${FOREGROUND} --color=bg:${BACKGROUND} --color=hl:${BRIGHT_YELLOW} --color=fg+:bold:${FOREGROUND} --color=bg+:${COMMENT} --color=hl+:${BRIGHT_YELLOW} --color=gutter:${BACKGROUND} --color=info:${ORANGE} --color=separator:${BACKGROUND} --color=border:${MILK} --color=label:${SOFT_YELLOW} --color=prompt:${LIGHT_BLUE} --color=spinner:${BRIGHT_YELLOW} --color=pointer:bold:${BRIGHT_YELLOW} --color=marker:${ERROR_RED} --color=header:${ORANGE} --color=preview-fg:${FOREGROUND} --color=preview-bg:${BACKGROUND}"
+BG_PLUS="#393552"
+BORDER="#9ccfd8"
+MARKER="#eb6f92"
+INFO="#eb6f92"
+HL="#f6c177"
+LABEL="#6e6a86"
+PROMPT="#3e8fb0"
+FZF_THEME="
+  --color=fg:${FOREGROUND},bg:${BACKGROUND},hl:${HL}
+  --color=fg+:bold:${FOREGROUND},bg+:${BG_PLUS},hl+:${HL}
+  --color=border:${BORDER},header:${INFO},gutter:${BACKGROUND}
+  --color=spinner:${HL},info:${INFO},separator:${BACKGROUND}
+  --color=pointer:bold:${HL},marker:${MARKER},prompt:${PROMPT}
+  --color=preview-fg:${FOREGROUND},preview-bg:${BACKGROUND}
+  --color=label:${LABEL}"
 export FZF_DEFAULT_OPTS="\
   -m --cycle --preview-window wrap \
   --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"

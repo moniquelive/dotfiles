@@ -71,6 +71,7 @@
   (make-backup-files nil)
   (mouse-wheel-tilt-scroll t)
   (truncate-lines t)
+  (save-place-mode t)
   :hook
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
@@ -139,9 +140,8 @@
   (setq doom-themes-enable-bold t
 	doom-themes-enable-italic t
 	doom-themes-padded-modeline nil
-	doom-rouge-brighter-tabs t
-	doom-rouge-comment-bg t)
-  (load-theme 'doom-rouge t)
+	doom-monokai-octagon-comment-bg t)
+  (load-theme 'doom-monokai-octagon t)
   (doom-themes-visual-bell-config))
   ;; Corrects (and improves) org-mode's native fontification.
   ;; (doom-themes-org-config))
