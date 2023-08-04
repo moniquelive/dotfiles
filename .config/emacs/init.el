@@ -260,10 +260,7 @@
   ;; Optionally configure the narrowing key.
   ;; Both < and C-+ work reasonably well.
   (setq consult-narrow-key "<") ;; "C-+"
-
-  ;; Optionally make narrowing help available in the minibuffer.
-  ;; You may want to use `embark-prefix-help-command' or which-key instead.
-  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
+  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'embark-prefix-help-command)
 
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root))))
@@ -384,7 +381,8 @@
   (advice-add #'embark-completing-read-prompter
               :around #'embark-hide-which-key-indicator))
 (use-package embark-consult
-  :after embark
+  :after (embark consult)
+  :demand t
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package elisp-autofmt
@@ -448,14 +446,26 @@
   :interpreter ("python" . python-mode))
 (use-package lsp-pyright
   :delight
-  :after python-mode
+  :custom
+  (lsp-pyright-disable-language-service nil)
+  (lsp-pyright-disable-organize-imports nil)
+  (lsp-pyright-auto-import-completions t)
+  (lsp-pyright-use-library-code-for-types t)
   :hook (python-mode . (lambda ()
-			 (require 'lsp-pyright)
-			 (lsp-deferred))))
+			 (require 'lsp-pyright) (lsp-deferred))))
 (use-package pyvenv
   :delight
-  :after python-mode
-  :config (pyvenv-mode 1))
+  :custom
+  (pyvenv-activate "./venv")
+  (pyvenv-menu t)
+  :config (pyvenv-mode 1)
+  (add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python)
+  :hook (python-mode . pyvenv-mode))
+(use-package auto-virtualenv
+  :after (pyvenv projectile)
+  :hook
+  (python-mode . auto-virtualenv-set-virtualenv)
+  (projectile-after-switch-project . auto-virtualenv-set-virtualenv))
 
 (use-package company
   :delight
