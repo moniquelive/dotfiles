@@ -164,15 +164,13 @@
   :config (which-key-mode))
 
 (use-package helpful
-  :commands (helpful-callable helpful-variable helpful-command helpful-key)
   :custom
   (counsel-describe-function-function #'helpful-callable)
   (counsel-describe-variable-function #'helpful-variable)
-  :config
-  (global-set-key (kbd "C-h f") #'helpful-callable)
-  (global-set-key (kbd "C-h v") #'helpful-variable)
-  (global-set-key (kbd "C-h k") #'helpful-key)
-  (global-set-key (kbd "C-h x") #'helpful-command))
+  :bind (("C-h f" . helpful-callable)
+	 ("C-h v" . helpful-variable)
+	 ("C-h k" . helpful-key)
+	 ("C-h x" . helpful-command)))
 
 (use-package consult
   :bind (;; C-c bindings in `mode-specific-map'
@@ -206,7 +204,7 @@
          ("M-g i" . consult-imenu)
          ("M-g I" . consult-imenu-multi)
          ;; M-s bindings in `search-map'
-         ("M-s d" . consult-find)
+         ("M-s d" . consult-fd)
          ("M-s D" . consult-locate)
          ("M-s g" . consult-grep)
          ("M-s G" . consult-git-grep)
@@ -248,6 +246,22 @@
         xref-show-definitions-function #'consult-xref)
 
   :config
+
+  (defun consult--fd-builder (input)
+    (let ((fd-command
+           (if (eq 0 (process-file-shell-command "fdfind")) "fdfind" "fd")))
+      (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
+                   (`(,re . ,hl) (funcall consult--regexp-compiler
+                                          arg 'extended t)))
+	(when re
+          (cons (append (list fd-command "--color=never" "--full-path" (consult--join-regexps re 'extended)) opts)
+		hl)))))
+
+  (defun consult-fd (&optional dir initial)
+    (interactive "P")
+    (pcase-let* ((`(,prompt ,paths ,dir) (consult--directory-prompt "Fd" dir))
+		 (default-directory dir))
+      (find-file (consult--find prompt #'consult--fd-builder initial))))
 
   (consult-customize
    consult-theme :preview-key '(:debounce 0.2 any)
@@ -307,7 +321,7 @@
   :init
   (vertico-mode 1)
   (setq vertico-scroll-margin 0)
-  (setq vertico-count 20)
+  (setq vertico-count 15)
   (setq vertico-resize nil)
   (setq vertico-cycle t)
   :hook
