@@ -157,7 +157,8 @@
   :delight
   :defer 0
   :custom
-  ((which-key-popup-type 'side-window)
+  ((which-key-use-C-h-commands nil)
+   (which-key-popup-type 'side-window)
    (which-key-side-window-location 'bottom)
    (which-key-side-window-max-width 0.5)
    (which-key-side-window-max-height 0.5))
@@ -348,15 +349,11 @@
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
-  :init
-  (setq prefix-help-command #'embark-prefix-help-command)
-  ;; Show the Embark target at point via Eldoc.  You may adjust the Eldoc
-  ;; strategy, if you want to see the documentation from multiple providers.
-  (add-hook 'eldoc-documentation-functions #'embark-eldoc-first-target)
-  ;; (setq eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-
+  :hook
+  (eldoc-documentation-functions . embark-eldoc-first-target)
   :config
+  (setq prefix-help-command #'embark-prefix-help-command
+	eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
     The which-key help message will show the type and value of the
