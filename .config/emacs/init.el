@@ -351,9 +351,10 @@
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
   :hook
   (eldoc-documentation-functions . embark-eldoc-first-target)
-  :config
+  :init
   (setq prefix-help-command #'embark-prefix-help-command
 	eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  :config
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
     The which-key help message will show the type and value of the
@@ -504,6 +505,7 @@
   (("s-p" . projectile-command-map)
    ("C-c p" . projectile-command-map))
   :config (projectile-mode))
+(use-package projectile-ripgrep :after projectile)
 
 (use-package dashboard
   :init (setq dashboard-projects-backend 'projectile
