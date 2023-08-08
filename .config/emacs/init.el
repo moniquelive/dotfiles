@@ -72,10 +72,14 @@
   (mouse-wheel-tilt-scroll t)
   (truncate-lines t)
   (save-place-mode t)
+  (ns-function-modifier 'hyper)
   :hook
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
   (focus-out . (lambda () (save-some-buffers t))) ;; autosave on buffer focus lost
+  :bind
+  (("s-k" . kill-this-buffer)
+   ("s-n" . next-buffer))
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -294,7 +298,8 @@
   :config
   (evil-mode 1)
   (evil-global-set-key 'normal "-" 'dired-jump)
-  (evil-global-set-key 'normal (kbd "C-.") nil))
+  (evil-global-set-key 'normal (kbd "C-.") nil)
+  (evil-global-set-key 'normal (kbd "C-6") nil))
 (use-package evil-leader
   :after (evil evil-search-highlight-persist)
   :config
@@ -476,22 +481,22 @@
 (use-package auto-virtualenv
   :after (pyvenv projectile)
   :hook
-  (python-mode . auto-virtualenv-set-virtualenv)
-  (projectile-after-switch-project . auto-virtualenv-set-virtualenv))
+  ((python-mode . auto-virtualenv-set-virtualenv)
+   (projectile-after-switch-project . auto-virtualenv-set-virtualenv)))
 
 (use-package company
   :delight
   :after lsp-mode
   :hook (lsp-mode . company-mode)
   :bind (:map company-active-map
-          ("C-n" . company-select-next)
-          ("C-p" . company-select-previous)
-          ("<tab>" . company-complete-selection))
-        (:map lsp-mode-map
-          ("<tab>" . company-indent-or-complete-common))
+	      ("C-n" . company-select-next)
+	      ("C-p" . company-select-previous)
+	      ("<tab>" . company-complete-selection)
+	      :map lsp-mode-map
+	      ("<tab>" . company-indent-or-complete-common))
   :custom
-    (company-idle-delay 0.3)
-    (company-minimum-prefix-length 3))
+  (company-idle-delay 0.3)
+  (company-minimum-prefix-length 3))
 (use-package company-box :delight :hook (company-mode . company-box-mode))
 
 (use-package projectile
