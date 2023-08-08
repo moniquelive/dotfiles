@@ -316,14 +316,14 @@
   (evil-define-key 'visual 'prog-mode-map "gc" 'evilnc-comment-or-uncomment-lines))
 
 (use-package vertico
-  :init
-  (vertico-mode 1)
-  (setq vertico-scroll-margin 0)
-  (setq vertico-count 15)
-  (setq vertico-resize nil)
-  (setq vertico-cycle t)
-  :hook
-  (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  :custom
+  (vertico-scroll-margin 0)
+  (vertico-count 15)
+  (vertico-resize nil)
+  (vertico-cycle t)
+  :init (vertico-mode 1)
+  :config (vertico-mouse-mode 1)
+  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (use-package savehist :init (savehist-mode))
@@ -336,10 +336,7 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package marginalia
-  :bind (:map minibuffer-local-map
-              ("M-A" . marginalia-cycle))
-  :init (marginalia-mode))
+(use-package marginalia :init (marginalia-mode))
 
 (use-package embark
   :bind
