@@ -137,21 +137,13 @@
       (remove-hook 'pre-command-hook 'keycast--update)))
 
   (add-to-list 'global-mode-string '("" keycast-mode-line))
-  (keycast-mode))
+  (keycast-mode 1))
 
-(use-package doom-themes
-  :config
-  (setq doom-themes-enable-bold t
-	doom-themes-enable-italic t
-	doom-themes-padded-modeline nil
-	doom-monokai-octagon-comment-bg t)
-  (load-theme 'doom-monokai-octagon t)
-  (doom-themes-visual-bell-config))
-  ;; Corrects (and improves) org-mode's native fontification.
-  ;; (doom-themes-org-config))
+(use-package base16-theme
+  :custom (base16-theme-highlight-mode-line 'box)
+  :config (load-theme 'base16-rose-pine-moon t))
 
 (use-package doom-modeline
-  :after doom-themes
   :custom
   (doom-modeline-height 25)
   (doom-modeline-minor-modes t)
