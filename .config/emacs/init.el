@@ -73,6 +73,7 @@
   (truncate-lines t)
   (save-place-mode t)
   (ns-function-modifier 'hyper)
+  (explicit-shell-file-name "/bin/zsh")
   :hook
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
