@@ -128,6 +128,9 @@
   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
   :config (nerd-icons-completion-mode))
 
+(use-package vterm
+  :custom
+  (vterm-kill-buffer-on-exit t))
 (use-package keycast
   :config
   (define-minor-mode keycast-mode
