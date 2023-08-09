@@ -79,7 +79,8 @@
   (minibuffer-setup . cursor-intangible-mode)
   (focus-out . (lambda () (save-some-buffers t))) ;; autosave on buffer focus lost
   :bind
-  (("s-k" . kill-this-buffer)
+  (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
+   ("s-k" . kill-this-buffer)
    ("s-n" . next-buffer))
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
@@ -108,7 +109,6 @@
   (mouse-wheel-mode 1)
   (global-auto-revert-mode 1)
   (global-hl-line-mode 1)
-  (global-set-key (kbd "<escape>") 'keyboard-escape-quit) ;; Make ESC quit prompts
   (global-visual-line-mode -1)
   (tool-bar-mode -1)
   )
@@ -277,13 +277,16 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root))))
 
-(use-package undo-tree :delight :config (global-undo-tree-mode 1))
+(use-package undo-tree
+  :delight
+  :custom
+  (undo-tree-auto-save-history t)
+  :config (global-undo-tree-mode 1))
 (use-package evil
   :delight
   :custom
   (evil-want-keybinding nil)
   (evil-want-integration t)
-  (undo-tree-auto-save-history t)
   (evil-undo-system 'undo-tree)
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
@@ -401,10 +404,9 @@
   :delight lsp-mode
   :delight lsp-lens-mode nil lsp-lens
   :commands (lsp lsp-deferred)
-  :init (setq lsp-keymap-prefix "C-c l")
+  :custom (lsp-keymap-prefix "C-c l")
   :hook (lsp-mode . lsp-enable-which-key-integration)
-  :config
-  (lsp-enable-which-key-integration t)
+  :config (lsp-enable-which-key-integration t)
   (evil-define-minor-mode-key 'normal 'lsp-mode "K" 'lsp-ui-doc-glance)
   (evil-define-minor-mode-key 'normal 'lsp-mode "gr" 'lsp-find-references))
 (use-package lsp-ui
