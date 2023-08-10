@@ -78,6 +78,10 @@
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
   (focus-out . (lambda () (save-some-buffers t))) ;; autosave on buffer focus lost
+  (ibuffer . (lambda ()
+	       (ibuffer-vc-set-filter-groups-by-vc-root)
+	       (unless (eq ibuffer-sorting-mode 'alphabetic)
+		 (ibuffer-do-sort-by-alphabetic))))
   :bind
   (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
    ("s-k" . kill-this-buffer)
@@ -131,6 +135,10 @@
 (use-package vterm
   :custom
   (vterm-kill-buffer-on-exit t))
+
+(use-package ibuffer-vc
+  :config (ibuffer-vc-set-filter-groups-by-vc-root))
+
 (use-package keycast
   :config
   (define-minor-mode keycast-mode
