@@ -84,6 +84,7 @@
 		 (ibuffer-do-sort-by-alphabetic))))
   :bind
   (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
+   ("s-b" . ibuffer)
    ("s-k" . kill-this-buffer)
    ("s-n" . next-buffer))
   :init
