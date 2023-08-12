@@ -77,9 +77,9 @@ fi
 # dotnet
 [[ -d "$HOME/.dotnet/tools" ]] && path=($HOME/.dotnet/tools $path)
 
-[ -s ${HOME}/.awskeys.sh ] && source ${HOME}/.awskeys.sh
+[[ -d "$HOME/.spicetify" ]] && path=($HOME/.spicetify $path)
 
-[ -s ${HOME}/.spicetify ] && source ${HOME}/.spicetify
+[ -s ${HOME}/.awskeys.sh ] && source ${HOME}/.awskeys.sh
 
 # # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
