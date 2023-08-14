@@ -115,6 +115,15 @@ return {
 							},
 						})
 					end,
+					["hls"] = function()
+						require("lspconfig").hls.setup({
+							settings = {
+								haskell = {
+									formattingProvider = "fourmolu",
+								},
+							},
+						})
+					end,
 					["gopls"] = function()
 						require("lspconfig").gopls.setup({
 							settings = {
@@ -134,11 +143,6 @@ return {
 							},
 						})
 					end,
-					-- ["gopls"] = function()
-					--   require("go").setup({ lsp_cfg = false, lsp_codelens = false })
-					--   local cfg = require("go.lsp").config()
-					--   require("lspconfig").gopls.setup(cfg)
-					-- end,
 					["yamlls"] = function()
 						require("lspconfig").yamlls.setup({
 							settings = {
