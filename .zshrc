@@ -164,7 +164,6 @@ alias abp='aws --profile akad_back_prod'
 alias afh='aws --profile akad_front_homol'
 alias ass='aws --profile akad_shared_services'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
-#[[ -x /usr/local/bin/emacs ]] && alias emacs='/usr/local/bin/emacs -nw $*'
 (( $+commands[defaults] )) && alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 (( $+commands[defaults] )) && alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 [[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
@@ -377,19 +376,19 @@ python_venv
 eval "$(starship init zsh)"
 
 #------------------------------------------------------------- emacs vterm ---
-vterm_printf() {
-  if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
-    # Tell tmux to pass the escape sequences through
-    printf "\ePtmux;\e\e]%s\007\e\\" "$1"
-  elif [ "${TERM%%-*}" = "screen" ]; then
-    # GNU screen (screen, screen-256color, screen-256color-bce)
-    printf "\eP\e]%s\007\e\\" "$1"
-  else
-    printf "\e]%s\e\\" "$1"
-  fi
-}
-
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+  vterm_printf() {
+    if [ -n "$TMUX" ] && ([ "${TERM%%-*}" = "tmux" ] || [ "${TERM%%-*}" = "screen" ]); then
+      # Tell tmux to pass the escape sequences through
+      printf "\ePtmux;\e\e]%s\007\e\\" "$1"
+    elif [ "${TERM%%-*}" = "screen" ]; then
+      # GNU screen (screen, screen-256color, screen-256color-bce)
+      printf "\eP\e]%s\007\e\\" "$1"
+    else
+      printf "\e]%s\e\\" "$1"
+    fi
+  }
+
   alias clear='vterm_printf "51;Evterm-clear-scrollback";tput clear'
   vterm_prompt_end() {
     vterm_printf "51;A$(whoami)@$(hostname):$(pwd)"
@@ -405,6 +404,10 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
   }
   f() { vterm_cmd find-file "$(realpath "${@:-.}")" }
   say() { vterm_cmd message "%s" "$*" }
+
+  autoload -U add-zsh-hook
+  add-zsh-hook -Uz chpwd (){ print -Pn "\e]2;%m:%2~\a" }
+
   setopt PROMPT_SUBST
   PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 fi
