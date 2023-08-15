@@ -520,9 +520,11 @@
 (use-package dashboard
   :init (setq dashboard-projects-backend 'projectile
 	      dashboard-items '((recents . 10)
-                          (bookmarks . 5)
-                          (projects . 5)
-                          (registers . 5))
+				(bookmarks . 5)
+				(projects . 5)
+				(registers . 5))
+	      initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
+	      dashboard-startup-banner 'logo
 	      dashboard-set-navigator t
 	      dashboard-center-content t
 	      dashboard-display-icons-p t
