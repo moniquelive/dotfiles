@@ -116,7 +116,7 @@
   (global-hl-line-mode 1)
   (global-visual-line-mode -1)
   (tool-bar-mode -1)
-  )
+  (server-mode 1))
 
 (use-package auto-package-update
   :custom (auto-package-update-delete-old-versions t)
