@@ -429,11 +429,14 @@
     (lsp-ui-sideline-show-diagnostics t)
     (lsp-ui-sideline-show-hover nil)
   :hook (lsp-mode . lsp-ui-mode))
-(use-package tree-sitter
-  :delight
-  :hook (tree-sitter-after-on . tree-sitter-hl-mode)
-  :config (global-tree-sitter-mode))
-(use-package tree-sitter-langs)
+(use-package treesit-auto
+  :custom (treesit-auto-install t)
+  :config (global-treesit-auto-mode))
+;; (use-package tree-sitter
+;;   :delight
+;;   :hook (tree-sitter-after-on . tree-sitter-hl-mode)
+;;   :config (global-tree-sitter-mode))
+;; (use-package tree-sitter-langs)
 (use-package dockerfile-mode
   :delight
   :hook (dockerfile-mode . lsp-deferred))
