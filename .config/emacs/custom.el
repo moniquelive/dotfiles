@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(treesit-auto undo-tree projectile-ripgrep auto-virtualenv embark-consult embark evil-search-highlight-persist dockerfile-mode lsp-docker tree-sitter-langs tree-sitter evil-nerd-commenter elm-mode consult orderless marginalia vertico lsp-mode pyvenv helpful treemacs-magit magit treemacs-icons-dired treemacs-projectile treemacs-evil treemacs csharp-mode dashboard elixir-mode evil-surround evil-leader lsp-pyright which-key helm-lsp modus-themes projectile evil-collection lsp-ui company-box company lsp-haskell go-mode elisp-autofmt nerd-icons doom-modeline auto-package-update helm evil use-package)))
+   '(auto-package-update auto-virtualenv company company-box consult csharp-mode dashboard dockerfile-mode doom-modeline elisp-autofmt elixir-mode elm-mode embark embark-consult evil evil-collection evil-leader evil-nerd-commenter evil-search-highlight-persist evil-surround go-mode helpful lsp-docker lsp-haskell lsp-mode lsp-pyright lsp-ui magit marginalia nerd-icons orderless projectile projectile-ripgrep pyvenv undo-tree vertico which-key)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

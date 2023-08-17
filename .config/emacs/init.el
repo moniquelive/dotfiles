@@ -61,7 +61,8 @@
 (eval-when-compile (require 'use-package)) ;; This is only needed once, near the top of the file
 
 ;; first one please
-(use-package no-littering)
+(use-package no-littering
+  :config (push (expand-file-name "tree-sitter/" no-littering-var-directory) treesit-extra-load-path))
 
 ;; A few more useful configurations...
 (use-package emacs
@@ -75,6 +76,7 @@
   (ns-function-modifier 'hyper)
   (explicit-shell-file-name "/bin/zsh")
   :hook
+  (prog-mode . display-line-numbers-mode)
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
   (focus-out . (lambda () (save-some-buffers t))) ;; autosave on buffer focus lost
@@ -118,6 +120,47 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
+(use-package tree-sitter
+  :delight
+  :hook
+  ((bash-mode 
+    c-sharp-mode 
+    c-mode 
+    cmake-mode 
+    cpp-mode 
+    css-mode 
+    dockerfile-mode 
+    elisp-mode 
+    elixir-mode 
+    elm-mode 
+    go-mod-mode 
+    go-mode 
+    heex-mode 
+    html-mode 
+    js-mode
+    js2-mode 
+    json-mode
+    lua-mode
+    make-mode
+    markdown-mode
+    org-mode
+    perl-mode
+    python-mode 
+    ruby-mode
+    rust-mode 
+    sh-mode
+    sql-mode
+    terraform-mode
+    toml-mode 
+    typescript-mode 
+    yaml-mode) . siren-tree-sitter-mode-enable)
+  :preface (defun siren-tree-sitter-mode-enable () (tree-sitter-mode t))
+  :defer t)
+
+(use-package tree-sitter-langs
+  ;; https://github.com/casouri/tree-sitter-module
+  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+
 (use-package auto-package-update
   :custom (auto-package-update-delete-old-versions t)
   :config (auto-package-update-maybe))
@@ -153,8 +196,19 @@
   (keycast-mode 1))
 
 (use-package base16-theme
-  :custom (base16-theme-highlight-mode-line 'box)
-  :config (load-theme 'base16-rose-pine-moon t))
+  :custom
+  (base16-theme-highlight-mode-line 'box)
+  (base16-theme-256-color-source 'colors)
+  :config
+  (load-theme 'base16-rose-pine-moon t)
+  ;; Set the cursor color based on the evil state
+  (defvar my/base16-colors base16-rose-pine-moon-theme-colors)
+  (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
+	evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
+	evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
+	evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
+	evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
+	evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box)))
 
 (use-package doom-modeline
   :custom
@@ -308,7 +362,15 @@
   (evil-mode 1)
   (evil-global-set-key 'normal "-" 'dired-jump)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (evil-global-set-key 'normal (kbd "C-6") nil))
+  (evil-global-set-key 'normal (kbd "C-6") nil)
+
+  (setq
+   original-background (face-attribute 'mode-line :background)
+   emacs-state-background "#31748f")
+  (add-hook 'evil-emacs-state-entry-hook
+	    (lambda () (set-face-attribute 'mode-line nil :background emacs-state-background)))
+  (add-hook 'evil-emacs-state-exit-hook
+	    (lambda () (set-face-attribute 'mode-line nil :background original-background))))
 (use-package evil-leader
   :after (evil evil-search-highlight-persist)
   :config
@@ -429,14 +491,6 @@
     (lsp-ui-sideline-show-diagnostics t)
     (lsp-ui-sideline-show-hover nil)
   :hook (lsp-mode . lsp-ui-mode))
-(use-package treesit-auto
-  :custom (treesit-auto-install t)
-  :config (global-treesit-auto-mode))
-;; (use-package tree-sitter
-;;   :delight
-;;   :hook (tree-sitter-after-on . tree-sitter-hl-mode)
-;;   :config (global-tree-sitter-mode))
-;; (use-package tree-sitter-langs)
 (use-package dockerfile-mode
   :delight
   :hook (dockerfile-mode . lsp-deferred))
@@ -446,6 +500,7 @@
   :hook (csharp-mode . lsp-deferred))
 (use-package elixir-mode
   :delight
+  :mode "\\.heex\\'"
   :custom (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
   :hook (elixir-mode . lsp-deferred))
 (use-package go-mode
