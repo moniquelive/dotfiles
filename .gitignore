@@ -3,14 +3,15 @@
 /.vim/plugged
 /.vim/tmp
 
-/.config/emacs/elpa
-/.config/emacs/places
-/.config/emacs/.last-package-update-day
 /.config/emacs/.cache
+/.config/emacs/.last-package-update-day
 /.config/emacs/.lsp-session-*
-/.config/emacs/projects
-/.config/emacs/url
+/.config/emacs/elpa
 /.config/emacs/history
+/.config/emacs/places
+/.config/emacs/projects
+/.config/emacs/tree-sitter
+/.config/emacs/url
 /.config/emacs/var
 
 .luarc.json
