@@ -121,6 +121,9 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
+(use-package simpleclip
+  :config (simpleclip-mode 1))
+
 (use-package tree-sitter
   :delight
   :hook
