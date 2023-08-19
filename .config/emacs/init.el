@@ -11,16 +11,37 @@
 (advice-add 'message :around #'my-message-with-timestamp)
 
 (require 'package)
-(add-to-list 'package-archives '("gnu-devel" . "https://elpa.gnu.org/devel/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+(when (version< emacs-version "28")
+  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(add-to-list 'package-archives '("stable" . "https://stable.melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(customize-set-variable 'package-archive-priorities
+                        '(("gnu"    . 99)   ; prefer GNU packages
+                          ("nongnu" . 80)   ; use non-gnu packages if
+                                            ; not found in GNU elpa
+                          ("stable" . 70)   ; prefer "released" versions
+                                            ; from melpa
+                          ("melpa"  . 0)))  ; if all else fails, get it
+                                            ; from melpa
 (package-initialize)
 
 (when (eq system-type 'darwin)
-  (set-face-attribute 'default nil
-		      :family "JetBrains Mono"
-		      :weight 'light
-		      :height 150) ;; default font size (point * 10)
+  (when (featurep 'ns)
+    (defun ns-raise-emacs () (ns-do-applescript "tell application \"Emacs\" to activate"))
+    (defun ns-raise-emacs-with-frame (frame)
+      (with-selected-frame frame
+	(when (display-graphic-p)
+          (ns-raise-emacs))))
+    (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
+    (when (display-graphic-p)
+      (ns-raise-emacs)))
+
+  (custom-set-faces
+   `(default ((t (:font "JetBrains Mono Light 15"))))
+   `(fixed-pitch ((t (:inherit (default)))))
+   `(fixed-pitch-serif ((t (:inherit (default)))))
+   `(variable-pitch ((t (:font "Arial 15")))))
+
   (defconst jetbrains-ligature-mode--ligatures
     '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
       "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
@@ -69,6 +90,14 @@
   :delight
   (auto-fill-function " AF")
   :custom
+  (whitespace-action '(cleanup auto-cleanup))
+  (fast-but-imprecise-scrolling t)
+  (scroll-conservatively 101)
+  (scroll-margin 0)
+  (scroll-preserve-screen-position t)
+  (global-auto-revert-non-file-buffers t)
+  (visible-bell 1)  ; turn off beeps, make them flash!
+  (large-file-warning-threshold 100000000) ;; change to ~100 MB
   (make-backup-files nil)
   (mouse-wheel-tilt-scroll t)
   (truncate-lines t)
@@ -88,7 +117,12 @@
   (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
    ("s-b" . ibuffer)
    ("s-k" . kill-this-buffer)
-   ("s-n" . next-buffer))
+   ("s-n" . next-buffer)
+   ("s-W" . delete-frame)		; ⌘-W = Close window
+   ("s-}" . tab-bar-switch-to-next-tab) ; ⌘-} = Next tab
+   ("s-{" . tab-bar-switch-to-prev-tab) ; ⌘-{ = Previous tab
+   ("s-t" . tab-bar-new-tab)		;⌘-t = New tab
+   ("s-w" . tab-bar-close-tab))		; ⌘-w = Close tab
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -108,14 +142,19 @@
 	minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt)
 	enable-recursive-minibuffers t
 	image-types (cons 'svg image-types)
-	custom-file "~/.config/emacs/custom.el")
+	custom-file "~/.config/emacs/custom.el"
+	auto-window-vscroll nil
+	bidi-paragraph-direction 'left-to-right
+	bidi-inhibit-bpa t)
   :config
   (set-language-environment "UTF-8")
+  (set-default-coding-systems 'utf-8)
   (load custom-file)
   (file-name-shadow-mode 1)
   (mouse-wheel-mode 1)
   (global-auto-revert-mode 1)
   (global-hl-line-mode 1)
+  (global-so-long-mode 1)
   (global-visual-line-mode -1)
   (tab-bar-mode 1)
   (tool-bar-mode -1)
@@ -419,7 +458,10 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package marginalia :init (marginalia-mode))
+(use-package marginalia
+  :custom
+  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :init (marginalia-mode))
 
 (use-package embark
   :bind
@@ -598,6 +640,9 @@
 (use-package magit
   :commands magit-status
   :bind (("C-x g" . magit-status)))
+
+;; Make GC pauses faster by decreasing the threshold.
+(setq gc-cons-threshold (* 2 1000 1000))
 
 (advice-remove 'message #'my-message-with-timestamp)
 (toggle-debug-on-error)
