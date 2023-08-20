@@ -1,8 +1,9 @@
 (setq gc-cons-threshold (* 50 1000 1000))
-(customize-set-variable 'load-prefer-newer t)
 
 (push '(background-color . "#222134") default-frame-alist)
 (push '(foreground-color . "#f0f0f0") default-frame-alist)
+
+(customize-set-variable 'load-prefer-newer t)
 
 (when (featurep 'native-compile)
   (setq native-comp-async-report-warnings-errors nil)

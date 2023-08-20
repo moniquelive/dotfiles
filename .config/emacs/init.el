@@ -94,9 +94,9 @@
   (fast-but-imprecise-scrolling t)
   (scroll-conservatively 101)
   (scroll-margin 0)
+  (visible-bell nil)
   (scroll-preserve-screen-position t)
   (global-auto-revert-non-file-buffers t)
-  (visible-bell 1)  ; turn off beeps, make them flash!
   (large-file-warning-threshold 100000000) ;; change to ~100 MB
   (make-backup-files nil)
   (mouse-wheel-tilt-scroll t)
@@ -121,7 +121,7 @@
    ("s-W" . delete-frame)		; ⌘-W = Close window
    ("s-}" . tab-bar-switch-to-next-tab) ; ⌘-} = Next tab
    ("s-{" . tab-bar-switch-to-prev-tab) ; ⌘-{ = Previous tab
-   ("s-t" . tab-bar-new-tab)		;⌘-t = New tab
+   ("s-t" . tab-bar-new-tab)		; ⌘-t = New tab
    ("s-w" . tab-bar-close-tab))		; ⌘-w = Close tab
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
@@ -145,7 +145,10 @@
 	custom-file "~/.config/emacs/custom.el"
 	auto-window-vscroll nil
 	bidi-paragraph-direction 'left-to-right
-	bidi-inhibit-bpa t)
+	bidi-inhibit-bpa t
+	ring-bell-function '(lambda ()
+			      (invert-face 'mode-line)
+			      (run-with-timer 0.1 nil #'invert-face 'mode-line)))
   :config
   (set-language-environment "UTF-8")
   (set-default-coding-systems 'utf-8)
@@ -627,8 +630,8 @@
 				(bookmarks . 5)
 				(projects . 5)
 				(registers . 5))
-	      initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))
-	      dashboard-startup-banner 'logo
+	      tab-bar-new-tab-choice (lambda () (get-buffer-create "*dashboard*"))
+	      dashboard-startup-banner (expand-file-name "logo.png" user-emacs-directory)
 	      dashboard-set-navigator t
 	      dashboard-center-content t
 	      dashboard-display-icons-p t
