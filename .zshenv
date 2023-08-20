@@ -83,3 +83,5 @@ fi
 
 # # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
+[[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
+[[ -f $HOME/.ghcup/env ]] && source $HOME/.ghcup/env

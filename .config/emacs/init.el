@@ -37,10 +37,10 @@
       (ns-raise-emacs)))
 
   (custom-set-faces
-   `(default ((t (:font "JetBrains Mono Light 15"))))
+   `(default ((t (:font "JetBrains Mono Light 14"))))
    `(fixed-pitch ((t (:inherit (default)))))
    `(fixed-pitch-serif ((t (:inherit (default)))))
-   `(variable-pitch ((t (:font "Arial 15")))))
+   `(variable-pitch ((t (:font "Arial 14")))))
 
   (defconst jetbrains-ligature-mode--ligatures
     '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
@@ -90,7 +90,6 @@
   :delight
   (auto-fill-function " AF")
   :custom
-  (whitespace-action '(cleanup auto-cleanup))
   (fast-but-imprecise-scrolling t)
   (scroll-conservatively 101)
   (scroll-margin 0)
@@ -117,6 +116,7 @@
   (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
    ("s-b" . ibuffer)
    ("s-k" . kill-this-buffer)
+   ("s-K" . delete-window)
    ("s-n" . next-buffer)
    ("s-W" . delete-frame)		; ⌘-W = Close window
    ("s-}" . tab-bar-switch-to-next-tab) ; ⌘-} = Next tab
@@ -142,7 +142,7 @@
 	minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt)
 	enable-recursive-minibuffers t
 	image-types (cons 'svg image-types)
-	custom-file "~/.config/emacs/custom.el"
+	custom-file (expand-file-name "custom.el" user-emacs-directory)
 	auto-window-vscroll nil
 	bidi-paragraph-direction 'left-to-right
 	bidi-inhibit-bpa t
@@ -523,6 +523,13 @@
   :commands (elisp-autofmt-mode elisp-autofmt-buffer)
   :hook (emacs-lisp-mode . elisp-autofmt-mode))
 
+(use-package flymake
+  :ensure nil
+  :bind
+  (:map flymake-mode-map
+   ("M-n" . flymake-goto-next-error)
+   ("M-p" . flymake-goto-prev-error)))
+  
 (use-package lsp-mode
   :delight lsp-mode
   :delight lsp-lens-mode nil lsp-lens
@@ -535,11 +542,11 @@
 (use-package lsp-ui
   :delight
   :custom
-    (lsp-ui-doc-position 'at-point)
-    (lsp-ui-sideline-enable t)
-    (lsp-ui-sideline-show-diagnostics t)
-    (lsp-ui-sideline-show-hover nil)
-  :hook (lsp-mode . lsp-ui-mode))
+  (lsp-ui-doc-position 'at-point)
+  (lsp-ui-sideline-enable t)
+  (lsp-ui-sideline-show-diagnostics t)
+  (lsp-ui-sideline-show-hover t)
+  :hook (lsp-mode))
 (use-package dockerfile-mode
   :delight
   :hook (dockerfile-mode . lsp-deferred))
@@ -639,7 +646,6 @@
 	      dashboard-icon-type 'nerd-icons)
   :config (dashboard-setup-startup-hook))
 
-;; Magit
 (use-package magit
   :commands magit-status
   :bind (("C-x g" . magit-status)))
