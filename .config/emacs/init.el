@@ -90,6 +90,7 @@
   :delight
   (auto-fill-function " AF")
   :custom
+  (tab-width 4)
   (fast-but-imprecise-scrolling t)
   (scroll-conservatively 101)
   (scroll-margin 0)
@@ -107,22 +108,23 @@
   (prog-mode . display-line-numbers-mode)
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
-  (focus-out . (lambda () (save-some-buffers t))) ;; autosave on buffer focus lost
+  (focus-out . (lambda () (save-some-buffers t) ;; autosave on buffer focus lost
+				 (delete-trailing-whitespace)))
   (ibuffer . (lambda ()
-	       (ibuffer-vc-set-filter-groups-by-vc-root)
-	       (unless (eq ibuffer-sorting-mode 'alphabetic)
-		 (ibuffer-do-sort-by-alphabetic))))
+			   (ibuffer-vc-set-filter-groups-by-vc-root)
+			   (unless (eq ibuffer-sorting-mode 'alphabetic)
+				 (ibuffer-do-sort-by-alphabetic))))
   :bind
   (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
    ("s-b" . ibuffer)
    ("s-k" . kill-this-buffer)
    ("s-K" . delete-window)
    ("s-n" . next-buffer)
-   ("s-W" . delete-frame)		; ⌘-W = Close window
+   ("s-W" . delete-frame)				; ⌘-W = Close window
    ("s-}" . tab-bar-switch-to-next-tab) ; ⌘-} = Next tab
    ("s-{" . tab-bar-switch-to-prev-tab) ; ⌘-{ = Previous tab
-   ("s-t" . tab-bar-new-tab)		; ⌘-t = New tab
-   ("s-w" . tab-bar-close-tab))		; ⌘-w = Close tab
+   ("s-t" . tab-bar-new-tab)			; ⌘-t = New tab
+   ("s-w" . tab-bar-close-tab))			; ⌘-w = Close tab
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
@@ -138,17 +140,17 @@
   ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
   ;; Vertico commands are hidden in normal buffers.
   (setq read-extended-command-predicate #'command-completion-default-include-p
-	;; Do not allow the cursor in the minibuffer prompt
-	minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt)
-	enable-recursive-minibuffers t
-	image-types (cons 'svg image-types)
-	custom-file (expand-file-name "custom.el" user-emacs-directory)
-	auto-window-vscroll nil
-	bidi-paragraph-direction 'left-to-right
-	bidi-inhibit-bpa t
-	ring-bell-function '(lambda ()
-			      (invert-face 'mode-line)
-			      (run-with-timer 0.1 nil #'invert-face 'mode-line)))
+		;; Do not allow the cursor in the minibuffer prompt
+		minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt)
+		enable-recursive-minibuffers t
+		image-types (cons 'svg image-types)
+		custom-file (expand-file-name "custom.el" user-emacs-directory)
+		auto-window-vscroll nil
+		bidi-paragraph-direction 'left-to-right
+		bidi-inhibit-bpa t
+		ring-bell-function '(lambda ()
+							  (invert-face 'mode-line)
+							  (run-with-timer 0.1 nil #'invert-face 'mode-line)))
   :config
   (set-language-environment "UTF-8")
   (set-default-coding-systems 'utf-8)
@@ -169,36 +171,36 @@
 (use-package tree-sitter
   :delight
   :hook
-  ((bash-mode 
-    c-sharp-mode 
-    c-mode 
-    cmake-mode 
-    cpp-mode 
-    css-mode 
-    dockerfile-mode 
-    elisp-mode 
-    elixir-mode 
-    elm-mode 
-    go-mod-mode 
-    go-mode 
-    heex-mode 
-    html-mode 
+  ((bash-mode
+    c-sharp-mode
+    c-mode
+    cmake-mode
+    cpp-mode
+    css-mode
+    dockerfile-mode
+    elisp-mode
+    elixir-mode
+    elm-mode
+    go-mod-mode
+    go-mode
+    heex-mode
+    html-mode
     js-mode
-    js2-mode 
+    js2-mode
     json-mode
     lua-mode
     make-mode
     markdown-mode
     org-mode
     perl-mode
-    python-mode 
+    python-mode
     ruby-mode
-    rust-mode 
+    rust-mode
     sh-mode
     sql-mode
     terraform-mode
-    toml-mode 
-    typescript-mode 
+    toml-mode
+    typescript-mode
     yaml-mode) . siren-tree-sitter-mode-enable)
   :preface (defun siren-tree-sitter-mode-enable () (tree-sitter-mode t))
   :defer t)
@@ -529,7 +531,7 @@
   (:map flymake-mode-map
    ("M-n" . flymake-goto-next-error)
    ("M-p" . flymake-goto-prev-error)))
-  
+
 (use-package lsp-mode
   :delight lsp-mode
   :delight lsp-lens-mode nil lsp-lens
