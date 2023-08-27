@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (toggle-debug-on-error)
 (with-eval-after-load "~/.config/emacs/gcmh.el"
   (gcmh-mode 1))
@@ -570,6 +572,8 @@
 (use-package lsp-haskell
   :delight
   :custom
+  (lsp-haskell-formatting-provider "fourmolu")
+  (lsp-haskell-plugin-tactics-config-timeout-duration 15)
   (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
   :hook (haskell-mode . lsp-deferred))
 (use-package elm-mode
@@ -651,6 +655,20 @@
 (use-package magit
   :commands magit-status
   :bind (("C-x g" . magit-status)))
+
+(use-package rcirc
+  :ensure nil
+  :custom
+  (rcirc-default-nick "moniquelive")
+  (rcirc-default-user-name "moniquelive")
+  (rcirc-default-full-name "MoniqueLive")
+  (rcirc-auto-authenticate-flag t)
+  (rcirc-reconnect-delay 5)
+  (rcirc-server-alist
+   '(("irc.chat.twitch.tv" :port 6697 :encryption tls
+	  :channels ("#moniquelive"))))
+  :hook
+  (rcirc-mode . (lambda () (rcirc-track-minor-mode 1))))
 
 ;; Make GC pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
