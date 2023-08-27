@@ -607,14 +607,14 @@
 
 (use-package company
   :delight
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  :hook
+  (after-init . global-company-mode)
   :bind (:map company-active-map
-	      ("C-n" . company-select-next)
-	      ("C-p" . company-select-previous)
-	      ("<tab>" . company-complete-selection)
-	      :map lsp-mode-map
-	      ("<tab>" . company-indent-or-complete-common))
+			  ("C-n" . company-select-next)
+			  ("C-p" . company-select-previous)
+			  ("<tab>" . company-complete-selection)
+			  :map lsp-mode-map
+			  ("<tab>" . company-indent-or-complete-common))
   :custom
   (company-idle-delay 0.3)
   (company-minimum-prefix-length 3))
