@@ -264,7 +264,14 @@
   :custom
   (doom-modeline-height 25)
   (doom-modeline-minor-modes t)
-  :config (doom-modeline-mode 1))
+  (doom-modeline-support-imenu t)
+  (doom-modeline-buffer-file-name-style 'relative-to-project)
+  (doom-modeline-unicode-fallback t)
+  (doom-modeline-battery t)
+  :hook
+  (after-init . (lambda ()
+				  (display-battery-mode)
+				  (doom-modeline-mode))))
 
 (use-package which-key
   :delight
