@@ -1,8 +1,16 @@
-;;; -*- lexical-binding: t -*-
-
 (toggle-debug-on-error)
 (with-eval-after-load "~/.config/emacs/gcmh.el"
   (gcmh-mode 1))
+
+(defun package-reinstall-all-activated-packages ()
+  "Refresh and reinstall all activated packages."
+  (interactive)
+  (package-refresh-contents)
+  (dolist (package-name package-activated-list)
+    (when (package-installed-p package-name)
+      (unless (ignore-errors		;some packages may fail to install
+                (package-reinstall package-name))
+        (warn "Package %s failed to reinstall" package-name)))))
 
 (defun my-message-with-timestamp (old-func fmt-string &rest args)
    "Prepend current timestamp (with microsecond precision) to a message"
@@ -25,7 +33,8 @@
                                             ; from melpa
                           ("melpa"  . 0)))  ; if all else fails, get it
                                             ; from melpa
-(package-initialize)
+(when (version< emacs-version "28")
+	(package-initialize))
 
 (when (eq system-type 'darwin)
   (when (featurep 'ns)
@@ -270,8 +279,8 @@
   (doom-modeline-battery t)
   :hook
   (after-init . (lambda ()
-				  (display-battery-mode)
-				  (doom-modeline-mode))))
+				  (display-battery-mode 1)
+				  (doom-modeline-mode 1))))
 
 (use-package which-key
   :delight
@@ -419,15 +428,15 @@
   (evil-mode 1)
   (evil-global-set-key 'normal "-" 'dired-jump)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (evil-global-set-key 'normal (kbd "C-6") nil)
+  (evil-global-set-key 'normal (kbd "C-6") nil))
 
-  (setq
-   original-background (face-attribute 'mode-line :background)
-   emacs-state-background "#31748f")
-  (add-hook 'evil-emacs-state-entry-hook
-	    (lambda () (set-face-attribute 'mode-line nil :background emacs-state-background)))
-  (add-hook 'evil-emacs-state-exit-hook
-	    (lambda () (set-face-attribute 'mode-line nil :background original-background))))
+  ;; (setq
+  ;;  original-background (face-attribute 'mode-line :background)
+  ;;  emacs-state-background "#31748f")
+  ;; (add-hook 'evil-emacs-state-entry-hook
+  ;; 	    (lambda () (set-face-attribute 'mode-line nil :background emacs-state-background)))
+  ;; (add-hook 'evil-emacs-state-exit-hook
+  ;; 	    (lambda () (set-face-attribute 'mode-line nil :background original-background))))
 (use-package evil-leader
   :after (evil evil-search-highlight-persist)
   :config
@@ -629,7 +638,7 @@
   :custom
   (company-idle-delay 0.3)
   (company-minimum-prefix-length 3))
-(use-package company-box :delight :hook (company-mode . company-box-mode))
+;; (use-package company-box :delight :hook (company-mode . company-box-mode))
 
 (use-package projectile
   :delight
@@ -673,7 +682,7 @@
   (rcirc-reconnect-delay 5)
   (rcirc-server-alist
    '(("irc.chat.twitch.tv" :port 6697 :encryption tls
-	  :channels ("#moniquelive"))))
+	  :channels ("#moniquelive" "#theprimeagen"))))
   :hook
   (rcirc-mode . (lambda () (rcirc-track-minor-mode 1))))
 
