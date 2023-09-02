@@ -1,41 +1,36 @@
-local def_opts = { noremap = true, silent = true }
-
 return {
-	{
-		"mrcjkb/haskell-tools.nvim",
-		dependencies = { "akinsho/toggleterm.nvim" },
-		opts = {
-			tools = {
-				repl = { handler = "toggleterm" },
-				definition = { hoogle_signature_fallback = true },
-			},
-			hls = {
-				on_attach = function(_, bufnr)
-					local opts = vim.tbl_extend("keep", def_opts, { buffer = bufnr })
-					local ht = require("haskell-tools")
-					vim.keymap.set("n", "<leader>ca", vim.lsp.codelens.run, opts)
-					vim.keymap.set("n", "<leader>hs", ht.hoogle.hoogle_signature, opts)
-					vim.keymap.set("n", "<leader>ea", ht.lsp.buf_eval_all, opts)
-				end,
-			},
-		},
-		ft = "haskell",
-		keys = function()
-			local ok, repl = pcall(require, "haskell-tools.repl")
-			if not ok then return end
-			local buffnr = vim.api.nvim_get_current_buf()
-			local opts = vim.tbl_extend("keep", def_opts, { buffer = buffnr })
-			return {
-				{ "<leader>hr", repl.toggle, opts },
-				{ "<leader>hq", repl.quit, opts },
-				{
-					"<leader>hf",
-					function()
-						repl.toggle(vim.api.nvim_buf_get_name(0))
-					end,
-					def_opts,
-				},
-			}
-		end,
-	},
+  {
+    "mrcjkb/haskell-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "akinsho/toggleterm.nvim", "nvim-telescope/telescope.nvim" },
+    branch = "2.x.x",
+    init = function()
+      vim.g.haskell_tools = {
+        tools = {
+          repl = { handler = "toggleterm" },
+          definition = { hoogle_signature_fallback = true },
+        },
+      }
+    end,
+    ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
+    keys = function()
+      local ht = require("haskell-tools")
+      local buffnr = vim.api.nvim_get_current_buf()
+      local def_opts = { noremap = true, silent = true }
+      local opts = vim.tbl_extend("keep", def_opts, { buffer = buffnr })
+      return {
+        { "<leader>ca", vim.lsp.codelens.run,       opts },
+        { "<leader>hs", ht.hoogle.hoogle_signature, opts },
+        { "<leader>ea", ht.lsp.buf_eval_all,        opts },
+        { "<leader>hr", ht.repl.toggle,             opts },
+        { "<leader>hq", ht.repl.quit,               opts },
+        {
+          "<leader>hf",
+          function()
+            ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+          end,
+          def_opts,
+        },
+      }
+    end,
+  },
 }

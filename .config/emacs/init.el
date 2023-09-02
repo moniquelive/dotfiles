@@ -177,7 +177,11 @@
   (server-mode 1))
 
 (use-package simpleclip
-  :config (simpleclip-mode 1))
+  :bind (:map simpleclip-mode-map
+			  ("s-C" . simpleclip-copy)
+			  ("s-X" . simpleclip-cut)
+			  ("s-P" . simpleclip-paste))
+  :init (simpleclip-mode 1))
 
 (use-package tree-sitter
   :delight
@@ -553,8 +557,9 @@
 (use-package lsp-mode
   :delight lsp-mode
   :delight lsp-lens-mode nil lsp-lens
+  :pin melpa
   :commands (lsp lsp-deferred)
-  :custom (lsp-keymap-prefix "C-c l")
+  :custom (lsp-keymap-prefix "s-l")
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :config (lsp-enable-which-key-integration t)
   (evil-define-minor-mode-key 'normal 'lsp-mode "K" 'lsp-ui-doc-glance)
@@ -566,7 +571,7 @@
   (lsp-ui-sideline-enable t)
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover t)
-  :hook (lsp-mode))
+  :commands lsp-ui-mode)
 (use-package dockerfile-mode
   :delight
   :hook (dockerfile-mode . lsp-deferred))
@@ -585,13 +590,6 @@
   :hook (go-mode . lsp-deferred)
 	(before-save . lsp-format-buffer)
 	(before-save . lsp-organize-imports))
-(use-package lsp-haskell
-  :delight
-  :custom
-  (lsp-haskell-formatting-provider "fourmolu")
-  (lsp-haskell-plugin-tactics-config-timeout-duration 15)
-  (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
-  :hook (haskell-mode . lsp-deferred))
 (use-package elm-mode
   :delight elm-format-on-save-mode
   :delight elm-indent-mode
@@ -624,6 +622,13 @@
   :hook
   ((python-mode . auto-virtualenv-set-virtualenv)
    (projectile-after-switch-project . auto-virtualenv-set-virtualenv)))
+(use-package lsp-haskell
+  :delight
+  :custom
+  (lsp-haskell-formatting-provider "fourmolu")
+  (lsp-haskell-plugin-tactics-config-timeout-duration 15)
+  (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
+  :hook (haskell-mode . lsp-deferred))
 
 (use-package company
   :delight
