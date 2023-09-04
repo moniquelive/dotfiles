@@ -79,6 +79,8 @@ fi
 
 [[ -d "$HOME/.spicetify" ]] && path=($HOME/.spicetify $path)
 
+[[ -d "/usr/local/texlive/2023basic/bin/universal-darwin" ]] && path=(/usr/local/texlive/2023basic/bin/universal-darwin $path)
+
 [ -s ${HOME}/.awskeys.sh ] && source ${HOME}/.awskeys.sh
 
 # # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.

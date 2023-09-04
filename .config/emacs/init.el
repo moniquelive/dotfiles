@@ -176,12 +176,9 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
-(use-package simpleclip
-  :bind (:map simpleclip-mode-map
-			  ("s-C" . simpleclip-copy)
-			  ("s-X" . simpleclip-cut)
-			  ("s-P" . simpleclip-paste))
-  :init (simpleclip-mode 1))
+;; (use-package simpleclip
+;;   :pin melpa
+;;   :hook (prog-mode . simpleclip-mode))
 
 (use-package tree-sitter
   :delight
@@ -689,7 +686,31 @@
    '(("irc.chat.twitch.tv" :port 6697 :encryption tls
 	  :channels ("#moniquelive" "#theprimeagen"))))
   :hook
-  (rcirc-mode . (lambda () (rcirc-track-minor-mode 1))))
+  (rcirc-mode . rcirc-track-minor-mode))
+
+(use-package org
+  :ensure nil
+  :custom
+  (org-latex-create-formula-image-program 'dvisvgm)
+  (org-startup-folded t)
+  (org-startup-indented t)
+  (org-startup-with-inline-images t))
+
+(use-package org-superstar
+  :custom (org-superstar-special-todo-items 'hide)
+  :hook (org-mode . org-superstar-mode))
+
+(use-package evil-org
+  :pin melpa
+  :after (evil org)
+  :hook
+  (org-mode . evil-org-mode)
+  (evil-org-mode . (lambda ()
+					 (evil-org-set-key-theme '(navigation
+											   insert
+											   textobjects
+											   additional
+											   calendar)))))
 
 ;; Make GC pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
