@@ -176,50 +176,23 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
-;; (use-package simpleclip
-;;   :pin melpa
-;;   :hook (prog-mode . simpleclip-mode))
-
 (use-package tree-sitter
   :delight
   :hook
-  ((bash-mode
-    c-sharp-mode
-    c-mode
-    cmake-mode
-    cpp-mode
-    css-mode
-    dockerfile-mode
-    elisp-mode
-    elixir-mode
-    elm-mode
-    go-mod-mode
-    go-mode
-    heex-mode
-    html-mode
-    js-mode
-    js2-mode
-    json-mode
-    lua-mode
-    make-mode
-    markdown-mode
-    org-mode
-    perl-mode
-    python-mode
-    ruby-mode
-    rust-mode
-    sh-mode
-    sql-mode
-    terraform-mode
-    toml-mode
-    typescript-mode
-    yaml-mode) . siren-tree-sitter-mode-enable)
+  ((bash-mode c-sharp-mode c-mode cmake-mode cpp-mode css-mode
+			  dockerfile-mode elisp-mode elixir-mode elm-mode
+			  go-mod-mode go-mode heex-mode html-mode
+			  js-mode js2-mode json-mode lua-mode
+			  make-mode markdown-mode org-mode
+			  perl-mode python-mode ruby-mode rust-mode
+			  sh-mode sql-mode terraform-mode toml-mode typescript-mode
+			  yaml-mode) . siren-tree-sitter-mode-enable)
   :preface (defun siren-tree-sitter-mode-enable () (tree-sitter-mode t))
   :defer t)
 
-(use-package tree-sitter-langs
-  ;; https://github.com/casouri/tree-sitter-module
-  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+;; (use-package tree-sitter-langs
+;;   ;; https://github.com/casouri/tree-sitter-module
+;;   :hook (tree-sitter-after-on . tree-sitter-hl-mode))
 
 (use-package auto-package-update
   :custom (auto-package-update-delete-old-versions t)
