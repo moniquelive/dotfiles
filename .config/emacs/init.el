@@ -667,6 +667,7 @@
   (org-startup-folded t)
   (org-startup-indented t)
   (org-startup-with-inline-images t)
+  (org-confirm-babel-evaluate nil)
   (org-latex-create-formula-image-program 'dvisvgm)
   (org-latex-src-block-backend 'minted)
   (org-latex-default-packages-alist
@@ -709,6 +710,11 @@
 											   textobjects
 											   additional
 											   calendar)))))
+
+(use-package pdf-tools
+  :config
+  (pdf-loader-install))
+
 
 ;; Make GC pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
