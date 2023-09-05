@@ -183,7 +183,7 @@
 			  dockerfile-mode elisp-mode elixir-mode elm-mode
 			  go-mod-mode go-mode heex-mode html-mode
 			  js-mode js2-mode json-mode lua-mode
-			  make-mode markdown-mode org-mode
+			  make-mode markdown-mode ;; org-mode
 			  perl-mode python-mode ruby-mode rust-mode
 			  sh-mode sql-mode terraform-mode toml-mode typescript-mode
 			  yaml-mode) . siren-tree-sitter-mode-enable)
@@ -664,10 +664,35 @@
 (use-package org
   :ensure nil
   :custom
-  (org-latex-create-formula-image-program 'dvisvgm)
   (org-startup-folded t)
   (org-startup-indented t)
-  (org-startup-with-inline-images t))
+  (org-startup-with-inline-images t)
+  (org-latex-create-formula-image-program 'dvisvgm)
+  (org-latex-src-block-backend 'minted)
+  (org-latex-default-packages-alist
+   '(("hidelinks" "hyperref" nil)))
+  (org-latex-pdf-process
+   '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+     "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  (org-latex-minted-langs '((awk "awk")
+							(emacs-lisp "emacs-lisp")
+							(haskell "haskell")
+							(python "python")
+							(ruby "ruby")
+							(sed "sed")
+							(eshell "shell")))
+
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages '((awk . t)
+							   (emacs-lisp . t)
+							   (haskell . t)
+							   (processing . t)
+							   (python . t)
+							   (ruby . t)
+							   (sed . t)
+							   (shell . t))))
 
 (use-package org-superstar
   :custom (org-superstar-special-todo-items 'hide)
