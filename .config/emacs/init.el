@@ -111,6 +111,7 @@
   (large-file-warning-threshold 100000000) ;; change to ~100 MB
   (make-backup-files nil)
   (mouse-wheel-tilt-scroll t)
+  (mouse-wheel-flip-direction t)
   (truncate-lines t)
   (save-place-mode t)
   (ns-function-modifier 'hyper)
@@ -168,6 +169,7 @@
   (load custom-file)
   (file-name-shadow-mode 1)
   (mouse-wheel-mode 1)
+  (pixel-scroll-precision-mode 1)
   (global-auto-revert-mode 1)
   (global-hl-line-mode 1)
   (global-so-long-mode 1)
