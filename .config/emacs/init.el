@@ -616,6 +616,11 @@
   (company-idle-delay 0.3)
   (company-minimum-prefix-length 3))
 ;; (use-package company-box :delight :hook (company-mode . company-box-mode))
+(use-package company-posframe
+  :custom
+  (company-tooltip-minimum-width 40)
+  :config
+  (company-posframe-mode 1))
 
 (use-package projectile
   :delight
