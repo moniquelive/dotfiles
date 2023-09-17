@@ -93,8 +93,7 @@
 (eval-when-compile (require 'use-package)) ;; This is only needed once, near the top of the file
 
 ;; first one please
-(use-package no-littering
-  :config (push (expand-file-name "tree-sitter/" no-littering-var-directory) treesit-extra-load-path))
+(use-package no-littering)
 
 ;; A few more useful configurations...
 (use-package emacs
@@ -180,21 +179,12 @@
 
 (use-package tree-sitter
   :delight
-  :hook
-  ((bash-mode c-sharp-mode c-mode cmake-mode cpp-mode css-mode
-			  dockerfile-mode elisp-mode elixir-mode elm-mode
-			  go-mod-mode go-mode heex-mode html-mode
-			  js-mode js2-mode json-mode lua-mode
-			  make-mode markdown-mode ;; org-mode
-			  perl-mode python-mode ruby-mode rust-mode
-			  sh-mode sql-mode terraform-mode toml-mode typescript-mode
-			  yaml-mode) . siren-tree-sitter-mode-enable)
-  :preface (defun siren-tree-sitter-mode-enable () (tree-sitter-mode t))
-  :defer t)
+  :custom (global-tree-sitter-mode t))
 
-;; (use-package tree-sitter-langs
-;;   ;; https://github.com/casouri/tree-sitter-module
-;;   :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+(use-package tree-sitter-langs
+  ;; https://github.com/casouri/tree-sitter-module
+  ;; https://github.com/jimeh/.emacs.d/
+  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
 
 (use-package auto-package-update
   :custom (auto-package-update-delete-old-versions t)
@@ -253,6 +243,7 @@
   (doom-modeline-buffer-file-name-style 'relative-to-project)
   (doom-modeline-unicode-fallback t)
   (doom-modeline-battery t)
+  (doom-modeline-enable-word-count nil)
   :hook
   (after-init . (lambda ()
 				  (display-battery-mode 1)
@@ -531,7 +522,9 @@
   :delight lsp-lens-mode nil lsp-lens
   :pin melpa
   :commands (lsp lsp-deferred)
-  :custom (lsp-keymap-prefix "s-l")
+  :custom
+  (lsp-keymap-prefix "s-l")
+  (lsp-semantic-tokens-enable t)
   :hook (lsp-mode . lsp-enable-which-key-integration)
   :config (lsp-enable-which-key-integration t)
   (evil-define-minor-mode-key 'normal 'lsp-mode "K" 'lsp-ui-doc-glance)
