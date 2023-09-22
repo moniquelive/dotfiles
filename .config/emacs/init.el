@@ -101,6 +101,7 @@
   (auto-fill-function " AF")
   :custom
   (tab-width 4)
+  (indent-tabs-mode nil)
   (fast-but-imprecise-scrolling t)
   (scroll-conservatively 101)
   (scroll-margin 0)
@@ -115,8 +116,17 @@
   (save-place-mode t)
   (ns-function-modifier 'hyper)
   (explicit-shell-file-name "/bin/zsh")
+  :preface
+  (defun infer-indentation-style ()
+    ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
+    ;; neither, we use the current indent-tabs-mode
+    (let ((space-count (how-many "^  " (point-min) (point-max)))
+          (tab-count (how-many "^\t" (point-min) (point-max))))
+      (if (> space-count tab-count) (setq indent-tabs-mode nil))
+      (if (> tab-count space-count) (setq indent-tabs-mode t))))
   :hook
   (prog-mode . display-line-numbers-mode)
+  (prog-mode . infer-indentation-style)
   (dired-mode . dired-hide-details-mode)
   (minibuffer-setup . cursor-intangible-mode)
   (focus-out . (lambda () (save-some-buffers t) ;; autosave on buffer focus lost
@@ -610,6 +620,7 @@
   (company-minimum-prefix-length 3))
 ;; (use-package company-box :delight :hook (company-mode . company-box-mode))
 (use-package company-posframe
+  :delight
   :custom
   (company-tooltip-minimum-width 40)
   :config
