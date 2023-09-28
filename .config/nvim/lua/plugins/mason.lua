@@ -80,6 +80,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 return {
 	{
 		"williamboman/mason.nvim",
@@ -97,11 +98,7 @@ return {
 					-- and will be called for each installed server that doesn't have
 					-- a dedicated handler.
 					function(server_name) -- default handler (optional)
-						require("lspconfig")[server_name].setup({
-							capabilities = require("cmp_nvim_lsp").default_capabilities(
-								vim.lsp.protocol.make_client_capabilities()
-							),
-						})
+						require("lspconfig")[server_name].setup({ capabilities = capabilities })
 					end,
 					-- Next, you can provide a dedicated handler for specific servers.
 					["lua_ls"] = function()
@@ -143,14 +140,35 @@ return {
 							},
 						})
 					end,
+					["jsonls"] = function()
+						require("lspconfig").jsonls.setup({
+							capabilities = vim.tbl_extend(
+								"force",
+								capabilities,
+								{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
+							),
+							settings = {
+								json = {
+									schemas = require("schemastore").json.schemas(),
+									validate = { enable = true },
+								},
+							},
+						})
+					end,
 					["yamlls"] = function()
 						require("lspconfig").yamlls.setup({
+							capabilities = vim.tbl_extend(
+								"force",
+								capabilities,
+								{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
+							),
 							settings = {
 								yaml = {
 									schemaStore = {
-										url = "https://www.schemastore.org/api/json/catalog.json",
-										enable = true,
+										url = "",
+										enable = false,
 									},
+									schemas = require("schemastore").yaml.schemas(),
 								},
 							},
 						})

@@ -46,6 +46,9 @@ return {
 		-- },
 	},
 
+	-- json schema store
+	{ "b0o/schemastore.nvim" },
+
 	-- Notifications
 	{
 		"rcarriga/nvim-notify",
