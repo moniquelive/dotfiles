@@ -56,7 +56,7 @@ plugins=(
 )
 # plugins for binaries
 for p in aws emacs fzf gcloud docker docker-compose gem git \
-          gpg-agent pyenv rails redis-cli ros rsync rvm \
+          gpg-agent pyenv rails redis-cli ros rsync \
                   stack tig tmux yum
 do
   (( $+commands[$p] )) && plugins+=($p)
@@ -418,6 +418,3 @@ fi
 #----------------------------------------------------------------------------
 # BENCHMARKING (END)
 # zprof
-
-# # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-# export PATH="$PATH:$HOME/.rvm/bin"

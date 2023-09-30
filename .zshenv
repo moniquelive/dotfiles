@@ -81,9 +81,6 @@ fi
 
 [[ -d "/usr/local/texlive/2023basic/bin/universal-darwin" ]] && path=(/usr/local/texlive/2023basic/bin/universal-darwin $path)
 
-[ -s ${HOME}/.awskeys.sh ] && source ${HOME}/.awskeys.sh
-
-# # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-[ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
+[[ -f ${HOME}/.awskeys.sh ]] && source ${HOME}/.awskeys.sh
 [[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
 [[ -f $HOME/.ghcup/env ]] && source $HOME/.ghcup/env
