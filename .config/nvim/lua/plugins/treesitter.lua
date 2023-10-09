@@ -130,6 +130,7 @@ return {
 		event = "BufRead",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-context",
+			"theHamsta/nvim-treesitter-pairs",
 			{
 				"nvim-treesitter/nvim-treesitter-textobjects",
 				main = "nvim-treesitter.configs",
