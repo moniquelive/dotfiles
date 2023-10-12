@@ -3,7 +3,7 @@ local function opts()
 	local null_ls = require("null-ls")
 	return {
 		sources = {
-			null_ls.builtins.completion.spell,
+			-- null_ls.builtins.completion.spell,
 			null_ls.builtins.diagnostics.eslint,
 			null_ls.builtins.diagnostics.credo,
 			null_ls.builtins.diagnostics.revive,
@@ -23,8 +23,8 @@ local function opts()
 				},
 			}),
 			null_ls.builtins.formatting.prettierd.with({
-				filetypes = { "html", "json", "yaml", "markdown" },
-				extra_filetypes = { "toml" },
+				filetypes = { "javascript", "html", "json", "yaml", "markdown" },
+				extra_filetypes = { "toml", "heex", "eelixir" },
 			}),
 			require("go.null_ls").gotest(),
 			require("go.null_ls").gotest_action(),

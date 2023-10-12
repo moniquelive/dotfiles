@@ -197,6 +197,48 @@ return {
 							bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
 						})
 					end,
+					["emmet_ls"] = function()
+						require("lspconfig").emmet_ls.setup({
+							capabilities = capabilities,
+							filetypes = { "html", "css", "heex", "eelixir" },
+						})
+					end,
+					["tailwindcss"] = function()
+						require("lspconfig").tailwindcss.setup({
+							capabilities = capabilities,
+							init_options = {
+								userLanguages = {
+									elixir = "html-eex",
+									eelixir = "html-eex",
+									heex = "html-eex",
+								},
+							},
+							root_dir = require("lspconfig.util").root_pattern(
+								"tailwind.config.js",
+								"tailwind.config.cjs",
+								"tailwind.config.mjs",
+								"tailwind.config.ts",
+								"postcss.config.js",
+								"postcss.config.cjs",
+								"postcss.config.mjs",
+								"postcss.config.ts",
+								"package.json",
+								"node_modules",
+								"mix.exs",
+								".git"
+							),
+							settings = {
+								experimental = {
+									classRegex = {
+										[[class= "([^"]*)]],
+										[[class: "([^"]*)]],
+										'~H""".*class="([^"]*)".*"""',
+										'~F""".*class="([^"]*)".*"""',
+									},
+								},
+							},
+						})
+					end,
 				},
 				config = function(_, opts)
 					require("mason-lspconfig").setup_handlers(opts)

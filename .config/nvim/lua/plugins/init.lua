@@ -46,6 +46,23 @@ return {
 		-- },
 	},
 
+	-- colorizer
+	{
+		"NvChad/nvim-colorizer.lua",
+		ft = { "css", "html", "heex" },
+		opts = {
+			-- filetypes = { "*", "!cmp_menu" },
+			user_default_options = { tailwind = true },
+		},
+	},
+
+	-- 	{
+	-- 		"roobert/tailwindcss-colorizer-cmp.nvim",
+	-- 		ft = { "css", "html", "heex" },
+	-- 		opts = { color_square_width = 2 },
+	-- 		config = true,
+	-- 	},
+
 	-- json schema store
 	{ "b0o/schemastore.nvim" },
 
