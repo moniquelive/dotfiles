@@ -616,8 +616,8 @@
 			  :map lsp-mode-map
 			  ("<tab>" . company-indent-or-complete-common))
   :custom
-  (company-idle-delay 0.3)
-  (company-minimum-prefix-length 3))
+  (company-idle-delay 0.1)
+  (company-minimum-prefix-length 1))
 ;; (use-package company-box :delight :hook (company-mode . company-box-mode))
 (use-package company-posframe
   :delight

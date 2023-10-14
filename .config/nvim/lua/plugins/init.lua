@@ -27,6 +27,7 @@ return {
 	-- coding
 	{ "tommcdo/vim-lion", keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
 	{ "andymass/vim-matchup", keys = "%" },
+	{ "elixir-tools/elixir-tools.nvim", ft = { "elixir", "heex", "eelixir" } },
 
 	-- Lua Line
 	{
