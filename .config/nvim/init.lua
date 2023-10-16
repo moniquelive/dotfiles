@@ -17,14 +17,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
-	checker = {
-		enabled = true,
-	},
-	defaults = {
-		lazy = true,
-	},
-})
 -----------------------------------------------------------------------------
 
 vim.g.startify_change_to_dir = 0
@@ -208,3 +200,6 @@ au("TextYankPost", {
 	end,
 	group = init_lua_grp,
 })
+
+-----------------------------------------------------------------------------
+require("lazy").setup("plugins", { defaults = { lazy = true } })

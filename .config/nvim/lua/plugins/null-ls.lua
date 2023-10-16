@@ -3,13 +3,15 @@ local function opts()
 	local null_ls = require("null-ls")
 	return {
 		sources = {
-			-- null_ls.builtins.completion.spell,
-			null_ls.builtins.diagnostics.eslint,
+			null_ls.builtins.code_actions.eslint,
+			null_ls.builtins.code_actions.refactoring,
+
 			null_ls.builtins.diagnostics.credo,
+			null_ls.builtins.diagnostics.eslint,
 			null_ls.builtins.diagnostics.revive,
-			null_ls.builtins.diagnostics.luacheck.with({
-				extra_args = { "--globals vim" },
-			}),
+			null_ls.builtins.diagnostics.luacheck.with({ extra_args = { "--globals vim" } }),
+			null_ls.builtins.diagnostics.zsh,
+
 			null_ls.builtins.formatting.autopep8,
 			null_ls.builtins.formatting.elm_format,
 			null_ls.builtins.formatting.stylua,
@@ -17,18 +19,14 @@ local function opts()
 			null_ls.builtins.formatting.mix,
 			null_ls.builtins.formatting.fourmolu,
 			null_ls.builtins.formatting.golines.with({
-				extra_args = {
-					"--max-len=180",
-					"--base-formatter=gofumpt",
-				},
+				extra_args = { "--max-len=180", "--base-formatter=gofumpt" },
 			}),
-			null_ls.builtins.formatting.prettierd.with({
+			null_ls.builtins.formatting.prettier.with({
 				filetypes = { "javascript", "html", "json", "yaml", "markdown" },
-				extra_filetypes = { "toml", "heex", "eelixir" },
+				extra_filetypes = { "toml", "prettier-plugin-tailwindcss" },
 			}),
 			require("go.null_ls").gotest(),
 			require("go.null_ls").gotest_action(),
-			--require("go.null_ls").golangci_lint(),
 		},
 		on_attach = function(client, bufnr)
 			if client.supports_method("textDocument/formatting") then
@@ -37,7 +35,7 @@ local function opts()
 					group = augroup,
 					buffer = bufnr,
 					callback = function()
-						vim.lsp.buf.format({ bufnr = bufnr })
+						vim.lsp.buf.format()
 					end,
 				})
 			end
@@ -51,6 +49,12 @@ return {
 		"jose-elias-alvarez/null-ls.nvim",
 		opts = opts,
 		event = { "BufRead", "BufNewFile" },
-		dependencies = { "jayp0521/mason-null-ls.nvim", opts = { automatic_setup = true } },
+		dependencies = {
+			"jayp0521/mason-null-ls.nvim",
+			opts = {
+				ensure_installed = nil,
+				automatic_installation = true,
+			},
+		},
 	},
 }

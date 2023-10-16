@@ -3,11 +3,10 @@ return {
 	{ "nvim-lua/plenary.nvim" },
 	{ "kyazdani42/nvim-web-devicons" },
 	{ "ryanoasis/vim-devicons" },
-	{ "RRethy/nvim-treesitter-endwise" },
 	{
 		"folke/neodev.nvim",
-		config = true,
 		event = { "BufRead", "BufNewFile" },
+		config = true,
 	},
 
 	-- tpope goodies
@@ -76,7 +75,12 @@ return {
 	-- 	},
 
 	-- json schema store
-	{ "b0o/schemastore.nvim" },
+	{ "b0o/schemastore.nvim", ft = { "json" } },
+
+	-- Treesitters
+	{ "RRethy/nvim-treesitter-endwise" },
+	{ "theHamsta/nvim-treesitter-pairs" },
+	{ "HiPhish/nvim-ts-rainbow2", main = "nvim-treesitter.configs", opts = { rainbow = { enable = true } } },
 
 	-- Notifications
 	{

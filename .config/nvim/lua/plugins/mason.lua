@@ -181,20 +181,22 @@ return {
 							},
 						})
 					end,
-					["elixirls"] = function()
-						require("lspconfig").elixirls.setup({
-							-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
-							cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
-							settings = {
-								elixirLS = {
-									dialyzerEnabled = true,
-								},
-							},
-						})
-					end,
 					["powershell_es"] = function()
 						require("lspconfig").powershell_es.setup({
 							bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
+						})
+					end,
+					["elixirls"] = function()
+						require("lspconfig").elixirls.setup({
+							-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
+							-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
+							cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
+							settings = {
+								elixirLS = {
+									dialyzerEnabled = false,
+									fetchDeps = false,
+								},
+							},
 						})
 					end,
 					["emmet_ls"] = function()
@@ -280,7 +282,7 @@ return {
 						"lua-language-server",
 						"luacheck",
 						"markdownlint",
-						"prettierd",
+						"prettier",
 						"pylint",
 						"python-lsp-server",
 						"revive",
