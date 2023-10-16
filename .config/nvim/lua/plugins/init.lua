@@ -27,13 +27,24 @@ return {
 	-- coding
 	{ "tommcdo/vim-lion", keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
 	{ "andymass/vim-matchup", keys = "%" },
-	{ "elixir-tools/elixir-tools.nvim", ft = { "elixir", "heex", "eelixir" } },
+	{
+		"simrat39/symbols-outline.nvim",
+		config = true,
+		keys = {
+			{ "<leader>o", "<cmd>SymbolsOutline<cr>" },
+		},
+	},
 
 	-- Lua Line
 	{
 		"nvim-lualine/lualine.nvim",
 		event = { "BufRead", "BufNewFile" },
 		config = true,
+		opts = {
+			sections = {
+				lualine_c = { { "filename", file_status = true, path = 1 } },
+			},
+		},
 		-- opts = {
 		-- 	sections = {
 		-- 		lualine_x = {
@@ -73,7 +84,7 @@ return {
 		event = "VeryLazy",
 		config = function()
 			local notify = require("notify")
-			notify.setup({ fps = 60 })
+			notify.setup({ fps = 60, render = "wrapped-compact", top_down = false })
 			vim.notify = notify
 		end,
 	},
