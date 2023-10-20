@@ -282,7 +282,7 @@ return {
 						"lua-language-server",
 						"luacheck",
 						"markdownlint",
-						"prettier",
+						"prettierd",
 						"pylint",
 						"python-lsp-server",
 						"revive",

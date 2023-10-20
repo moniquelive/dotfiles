@@ -16,13 +16,15 @@ local function opts()
 			null_ls.builtins.formatting.elm_format,
 			null_ls.builtins.formatting.stylua,
 			null_ls.builtins.formatting.isort,
-			null_ls.builtins.formatting.mix,
+			null_ls.builtins.formatting.mix.with({
+				filetypes = { "elixir", "eelixir", "heex" },
+			}),
 			null_ls.builtins.formatting.fourmolu,
 			null_ls.builtins.formatting.golines.with({
 				extra_args = { "--max-len=180", "--base-formatter=gofumpt" },
 			}),
-			null_ls.builtins.formatting.prettier.with({
-				filetypes = { "javascript", "html", "json", "yaml", "markdown" },
+			null_ls.builtins.formatting.prettierd.with({
+				filetypes = { "javascript", "css", "html", "json", "yaml", "markdown" },
 				extra_filetypes = { "toml", "prettier-plugin-tailwindcss" },
 			}),
 			require("go.null_ls").gotest(),

@@ -7,6 +7,7 @@ local function opts()
 			mappings = {
 				i = {
 					["<esc>"] = "close",
+					["<C-h>"] = "which_key",
 					["<C-u>"] = false,
 					["<C-j>"] = "preview_scrolling_down",
 					["<C-k>"] = "preview_scrolling_up",
@@ -55,10 +56,11 @@ return {
 		"nvim-telescope/telescope.nvim",
 		branch = "0.1.x",
 		opts = opts,
-		cmd = "Telescope",
+		-- cmd = "Telescope",
 		keys = keys,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+			"rcarriga/nvim-notify",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
