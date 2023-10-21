@@ -25,7 +25,7 @@ local function opts()
 			}),
 			null_ls.builtins.formatting.prettierd.with({
 				filetypes = { "javascript", "css", "html", "json", "yaml", "markdown" },
-				extra_filetypes = { "toml", "prettier-plugin-tailwindcss" },
+				extra_filetypes = { "toml" },
 			}),
 			require("go.null_ls").gotest(),
 			require("go.null_ls").gotest_action(),
