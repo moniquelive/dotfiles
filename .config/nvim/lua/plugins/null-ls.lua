@@ -48,7 +48,7 @@ end
 
 return {
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		opts = opts,
 		event = { "BufRead", "BufNewFile" },
 		dependencies = {
