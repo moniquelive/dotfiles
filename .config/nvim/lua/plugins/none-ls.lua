@@ -3,11 +3,9 @@ local function opts()
 	local null_ls = require("null-ls")
 	return {
 		sources = {
-			null_ls.builtins.code_actions.eslint,
 			null_ls.builtins.code_actions.refactoring,
 
 			null_ls.builtins.diagnostics.credo,
-			null_ls.builtins.diagnostics.eslint,
 			null_ls.builtins.diagnostics.revive,
 			null_ls.builtins.diagnostics.luacheck.with({ extra_args = { "--globals vim" } }),
 			null_ls.builtins.diagnostics.zsh,
@@ -24,7 +22,7 @@ local function opts()
 				extra_args = { "--max-len=180", "--base-formatter=gofumpt" },
 			}),
 			null_ls.builtins.formatting.prettierd.with({
-				filetypes = { "javascript", "css", "html", "json", "yaml", "markdown" },
+				filetypes = { "javascript", "typescript", "css", "html", "json", "yaml", "markdown" },
 				extra_filetypes = { "toml" },
 			}),
 			require("go.null_ls").gotest(),

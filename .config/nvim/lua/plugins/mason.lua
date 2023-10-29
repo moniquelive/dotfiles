@@ -219,6 +219,11 @@ return {
 							filetypes = { "html", "css", "heex", "eelixir" },
 						})
 					end,
+					["tsserver"] = function()
+						require("lspconfig").tsserver.setup({
+							capabilities = capabilities,
+						})
+					end,
 					["tailwindcss"] = function()
 						require("lspconfig").tailwindcss.setup({
 							capabilities = capabilities,
