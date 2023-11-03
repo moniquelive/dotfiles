@@ -21,7 +21,7 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 		end
 		-- vim.print(diagnostics[1])
 		local msg = vim.split(diagnostics[1].message, "\n")
-		vim.api.nvim_echo({ { msg[1] } }, false, {})
+		vim.api.nvim_echo({ { string.sub(msg[1], 1, vim.v.echospace) } }, false, {})
 	end,
 })
 vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = grp_diag_hold, command = [[echo ""]] })

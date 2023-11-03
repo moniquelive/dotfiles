@@ -40,7 +40,7 @@ return {
 				end,
 			},
 			{
-				"<leader>ha",
+				"<leader>hh",
 				function()
 					require("harpoon.mark").add_file()
 				end,
