@@ -201,5 +201,8 @@ au("TextYankPost", {
 	group = init_lua_grp,
 })
 
+-- Status Line
+vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]
+
 -----------------------------------------------------------------------------
 require("lazy").setup("plugins", { defaults = { lazy = true } })

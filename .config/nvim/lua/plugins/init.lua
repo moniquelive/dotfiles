@@ -43,28 +43,6 @@ return {
 		},
 	},
 
-	-- Lua Line
-	{
-		"nvim-lualine/lualine.nvim",
-		event = { "BufRead", "BufNewFile" },
-		opts = {
-			sections = {
-				lualine_c = { { "filename", file_status = true, path = 1 } },
-			},
-		},
-		-- opts = {
-		-- 	sections = {
-		-- 		lualine_x = {
-		-- 			{
-		-- 				require("lazy.status").updates,
-		-- 				cond = require("lazy.status").has_updates,
-		-- 				color = { fg = "#ff9e64" },
-		-- 			},
-		-- 		},
-		-- 	},
-		-- },
-	},
-
 	-- colorizer
 	{
 		"NvChad/nvim-colorizer.lua",
