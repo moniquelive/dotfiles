@@ -412,7 +412,7 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
   PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 fi
 
-[[ -e $HOME/.dircolors ]] && eval $(dircolors -b $HOME/.dircolors)
+[[ -f $HOME/lscolors.sh ]] && source $HOME/lscolors.sh
 [[ -f $HOME/.config/op/plugins.sh ]] && source $HOME/.config/op/plugins.sh
 
 #----------------------------------------------------------------------------
