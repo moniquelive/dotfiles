@@ -48,12 +48,12 @@
       (ns-raise-emacs)))
 
   (custom-set-faces
-   `(default ((t (:font "JetBrains Mono Light 14"))))
+   `(default ((t (:font "Monaspace Neon Var 14"))))
    `(fixed-pitch ((t (:inherit (default)))))
    `(fixed-pitch-serif ((t (:inherit (default)))))
    `(variable-pitch ((t (:font "Arial 14")))))
 
-  (defconst jetbrains-ligature-mode--ligatures
+  (defconst font-ligature-mode--ligatures
     '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
       "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
       "|||" "///" "&&&" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
@@ -69,9 +69,9 @@
       "|=" "||=" "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#="
       "&="))
 
-  (sort jetbrains-ligature-mode--ligatures (lambda (x y) (> (length x) (length y))))
+  (sort font-ligature-mode--ligatures (lambda (x y) (> (length x) (length y))))
 
-  (dolist (pat jetbrains-ligature-mode--ligatures)
+  (dolist (pat font-ligature-mode--ligatures)
     (set-char-table-range composition-function-table
 			  (aref pat 0)
 			  (nconc (char-table-range composition-function-table (aref pat 0))
