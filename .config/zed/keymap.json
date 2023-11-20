@@ -2,7 +2,8 @@
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
-      "shift-k": "editor::Hover"
+      "shift-k": "editor::Hover",
+      "g .": "editor::ToggleCodeActions" // zed specific
     }
   }
 ]
