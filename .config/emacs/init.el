@@ -36,48 +36,39 @@
 (when (version< emacs-version "28")
 	(package-initialize))
 
+(defconst font-ligature-mode--ligatures
+  '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
+    "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
+    "|||" "///" "&&&" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
+    "|||>" "<|||" ">>" "<<" "::=" "|]" "[|" "{|" "|}"
+    "[<" ">]" ":?>" ":?" "/=" "[||]" "!!" "?:" "?." "::"
+    "+++" "??" "###" "##" ":::" "####" ".?" "?=" "=!=" "<|>"
+    "<:" ":<" ":>" ">:" "<>" "***" ";;" "/==" ".=" ".-" "__"
+    "=/=" "<-<" "<<<" ">>>" "<=<" "<<=" "<==" "<==>" "==>" "=>>"
+    ">=>" ">>=" ">>-" ">-" "<~>" "-<" "-<<" "=<<" "---" "<-|"
+    "<=|" "/\\" "\\/" "|=>" "|~>" "<~~" "<~" "~~" "~~>" "~>"
+    "<$>" "<$" "$>" "<+>" "<+" "+>" "<*>" "<*" "*>" "</>" "</" "/>"
+    "<->" "..<" "~=" "~-" "-~" "~@" "^=" "-|" "_|_" "|-" "||-"
+    "|=" "||=" "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#="
+    "&="))
+(sort font-ligature-mode--ligatures (lambda (x y) (> (length x) (length y))))
+(dolist (pat font-ligature-mode--ligatures)
+  (set-char-table-range composition-function-table
+                        (aref pat 0)
+                        (nconc (char-table-range composition-function-table (aref pat 0))
+                               (list (vector (regexp-quote pat) 0
+                                             'compose-gstring-for-graphic)))))
+
 (when (eq system-type 'darwin)
   (when (featurep 'ns)
     (defun ns-raise-emacs () (ns-do-applescript "tell application \"Emacs\" to activate"))
     (defun ns-raise-emacs-with-frame (frame)
       (with-selected-frame frame
-	(when (display-graphic-p)
+        (when (display-graphic-p)
           (ns-raise-emacs))))
     (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
     (when (display-graphic-p)
       (ns-raise-emacs)))
-
-  (custom-set-faces
-   `(default ((t (:font "Monaspace Neon Var 14"))))
-   `(fixed-pitch ((t (:inherit (default)))))
-   `(fixed-pitch-serif ((t (:inherit (default)))))
-   `(variable-pitch ((t (:font "Arial 14")))))
-
-  (defconst font-ligature-mode--ligatures
-    '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
-      "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
-      "|||" "///" "&&&" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
-      "|||>" "<|||" ">>" "<<" "::=" "|]" "[|" "{|" "|}"
-      "[<" ">]" ":?>" ":?" "/=" "[||]" "!!" "?:" "?." "::"
-      "+++" "??" "###" "##" ":::" "####" ".?" "?=" "=!=" "<|>"
-      "<:" ":<" ":>" ">:" "<>" "***" ";;" "/==" ".=" ".-" "__"
-      "=/=" "<-<" "<<<" ">>>" "<=<" "<<=" "<==" "<==>" "==>" "=>>"
-      ">=>" ">>=" ">>-" ">-" "<~>" "-<" "-<<" "=<<" "---" "<-|"
-      "<=|" "/\\" "\\/" "|=>" "|~>" "<~~" "<~" "~~" "~~>" "~>"
-      "<$>" "<$" "$>" "<+>" "<+" "+>" "<*>" "<*" "*>" "</>" "</" "/>"
-      "<->" "..<" "~=" "~-" "-~" "~@" "^=" "-|" "_|_" "|-" "||-"
-      "|=" "||=" "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#="
-      "&="))
-
-  (sort font-ligature-mode--ligatures (lambda (x y) (> (length x) (length y))))
-
-  (dolist (pat font-ligature-mode--ligatures)
-    (set-char-table-range composition-function-table
-			  (aref pat 0)
-			  (nconc (char-table-range composition-function-table (aref pat 0))
-				 (list (vector (regexp-quote pat)
-                                               0
-					       'compose-gstring-for-graphic)))))
   (setq dired-use-ls-dired t
         insert-directory-program "/opt/homebrew/bin/gls"
         dired-listing-switches "-aBhl --group-directories-first"))
