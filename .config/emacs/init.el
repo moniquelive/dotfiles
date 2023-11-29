@@ -178,7 +178,7 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
-(unless (string-prefix-p "aarch64" system-configuration)
+(unless (string-equal "aarch64-unknown-linux-gnu" system-configuration)
   (use-package tree-sitter
     :delight
     :custom (global-tree-sitter-mode t))
