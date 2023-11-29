@@ -178,14 +178,15 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
-(use-package tree-sitter
-  :delight
-  :custom (global-tree-sitter-mode t))
+(unless (string-prefix-p "aarch64" system-configuration)
+  (use-package tree-sitter
+    :delight
+    :custom (global-tree-sitter-mode t))
 
-(use-package tree-sitter-langs
-  ;; https://github.com/casouri/tree-sitter-module
-  ;; https://github.com/jimeh/.emacs.d/
-  :hook (tree-sitter-after-on . tree-sitter-hl-mode))
+  (use-package tree-sitter-langs
+    ;; https://github.com/casouri/tree-sitter-module
+    ;; https://github.com/jimeh/.emacs.d/
+    :hook (tree-sitter-after-on . tree-sitter-hl-mode)))
 
 (use-package auto-package-update
   :custom (auto-package-update-delete-old-versions t)
