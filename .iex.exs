@@ -4,6 +4,17 @@ end
 
 import Aliases
 
+defmodule H do
+  def update(schema, changes) do
+    schema
+    |> Ecto.Changeset.change(changes)
+    |> Repo.update()
+  end
+end
+
+import_if_available(Ecto.Query)
+import_if_available(Ecto.Changeset)
+
 Application.put_env(:elixir, :ansi_enabled, true)
 
 timestamp = fn ->
