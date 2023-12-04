@@ -166,9 +166,11 @@ alias ass='aws --profile akad_shared_services'
 #[ -f /usr/local/bin/bat -o -f /bin/bat ] && alias cat='bat -pp'
 (( $+commands[defaults] )) && alias dockspaceleft='defaults write com.apple.dock persistent-apps -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
 (( $+commands[defaults] )) && alias dockspaceright='defaults write com.apple.dock persistent-others -array-add '\''{tile-data={}; tile-type="spacer-tile";}'\''; killall Dock'
-[[ -x /usr/bin/fdfind ]] && alias fd='fdfind'
+[[ -x /usr/bin/fdfind ]] && alias fd=fdfind
 [[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
 (( $+commands[nvim] )) && alias vim=nvim
+(( $+commands[tree] )) && alias tree='tree --gitignore'
+(( $+commands[entr] )) && alias mt='find lib test | entr -cdp mix test --color'
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
