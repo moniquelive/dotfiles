@@ -64,6 +64,9 @@ local function keymaps(bufnr)
 end
 
 local function highlighting(client, bufnr)
+	-- if client.name == "solargraph" then
+	-- 	client.server_capabilities.documentHighlightProvider = false
+	-- end
 	if client.server_capabilities.documentHighlightProvider then
 		vim.cmd([[
               hi! LspReferenceText cterm=bold ctermbg=red guibg=#403040
@@ -87,9 +90,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		keymaps(bufnr)
 		highlighting(client, bufnr)
-		if client.name == "solargraph" then
-			client.server_capabilities.documentHighlightProvider = false
-		end
 		--require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
 	end,
 })
