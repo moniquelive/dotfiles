@@ -64,9 +64,6 @@ local function keymaps(bufnr)
 end
 
 local function highlighting(client, bufnr)
-	-- if client.name == "solargraph" then
-	-- 	client.server_capabilities.documentHighlightProvider = false
-	-- end
 	if client.server_capabilities.documentHighlightProvider then
 		vim.cmd([[
               hi! LspReferenceText cterm=bold ctermbg=red guibg=#403040
@@ -306,7 +303,8 @@ return {
 						"python-lsp-server",
 						"revive",
 						"ruby-lsp",
-						"solargraph",
+						"rubyfmt",
+						"standardrb",
 						"staticcheck",
 						"stylua",
 						"tailwindcss-language-server",

@@ -14,6 +14,7 @@ local function opts()
 			null_ls.builtins.formatting.elm_format,
 			null_ls.builtins.formatting.stylua,
 			null_ls.builtins.formatting.isort,
+			null_ls.builtins.formatting.rubyfmt,
 			null_ls.builtins.formatting.mix.with({
 				filetypes = { "elixir", "eelixir", "heex" },
 			}),
