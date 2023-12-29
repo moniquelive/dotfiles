@@ -123,6 +123,16 @@ return {
 							},
 						})
 					end,
+					["clangd"] = function()
+						require("lspconfig").clangd.setup({
+							cmd = {
+								"/opt/homebrew/opt/llvm/bin/clangd",
+								"--offset-encoding=utf-16",
+								"--background-index",
+								"--clang-tidy",
+							},
+						})
+					end,
 					["hls"] = function()
 						require("lspconfig").hls.setup({
 							settings = {
