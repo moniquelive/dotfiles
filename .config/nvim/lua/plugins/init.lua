@@ -15,6 +15,7 @@ return {
 	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
 	{ "tpope/vim-repeat", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-rsi", event = "CmdlineEnter" },
+	{ "tpope/vim-sleuth", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-surround", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-unimpaired", keys = { "[", "]", "yo" } },
 
@@ -53,13 +54,6 @@ return {
 		},
 	},
 
-	-- 	{
-	-- 		"roobert/tailwindcss-colorizer-cmp.nvim",
-	-- 		ft = { "css", "html", "heex" },
-	-- 		opts = { color_square_width = 2 },
-	-- 		config = true,
-	-- 	},
-
 	-- json schema store
 	{ "b0o/schemastore.nvim", ft = { "json" } },
 
@@ -67,15 +61,4 @@ return {
 	{ "RRethy/nvim-treesitter-endwise" },
 	{ "theHamsta/nvim-treesitter-pairs" },
 	-- { "HiPhish/nvim-ts-rainbow2", main = "nvim-treesitter.configs", opts = { rainbow = { enable = true } } },
-
-	-- Notifications
-	{
-		"rcarriga/nvim-notify",
-		event = "VeryLazy",
-		config = function()
-			local notify = require("notify")
-			notify.setup({ fps = 60, render = "wrapped-compact", top_down = false })
-			vim.notify = notify
-		end,
-	},
 }

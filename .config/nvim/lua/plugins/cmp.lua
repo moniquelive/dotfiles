@@ -10,7 +10,7 @@ local function config()
 	cmp.setup({
 		view = { entries = "native" },
 		window = {
-			-- completion = cmp.config.window.bordered(),
+			completion = cmp.config.window.bordered(),
 			documentation = cmp.config.window.bordered(),
 		},
 		mapping = cmp.mapping.preset.insert({
@@ -71,24 +71,11 @@ local function config()
 			ghost_text = true,
 		},
 	})
-	-- `/` cmdline setup.
-	-- cmp.setup.cmdline({ "/", "?" }, {
-	-- 	view = { entries = "custom" },
-	-- 	mapping = cmp.mapping.preset.cmdline(),
-	-- 	sources = {
-	-- 		{
-	-- 			name = "buffer",
-	-- 			option = {
-	-- 				keyword_pattern = [=[[^(\v)?[:blank:]].*]=],
-	-- 			},
-	-- 		},
-	-- 	},
-	-- })
 	-- `:` cmdline setup.
 	cmp.setup.cmdline(":", {
 		view = { entries = "custom" },
 		mapping = cmp.mapping.preset.cmdline(),
-		sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+		sources = cmp.config.sources({ { name = "cmdline" } }, { { name = "path" } }),
 	})
 end
 

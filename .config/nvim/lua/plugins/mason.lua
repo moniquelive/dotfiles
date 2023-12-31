@@ -1,3 +1,4 @@
+-- vim:set ts=2:
 -- You will likely want to reduce updatetime which affects CursorHold
 -- note: this setting is global and should be set only once
 vim.o.updatetime = 250
@@ -101,7 +102,14 @@ return {
 		dependencies = {
 			"hrsh7th/nvim-cmp",
 			"neovim/nvim-lspconfig",
-
+			{
+				"j-hui/fidget.nvim",
+				config = function()
+					local fidget = require("fidget")
+					fidget.setup({})
+					vim.notify = fidget.notify
+				end,
+			},
 			{
 				"williamboman/mason-lspconfig.nvim",
 				opts = {

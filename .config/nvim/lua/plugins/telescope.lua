@@ -1,7 +1,7 @@
 local function opts()
 	local telescope = require("telescope")
 	telescope.load_extension("fzf")
-	telescope.load_extension("notify")
+	-- telescope.load_extension("notify")
 	return {
 		defaults = {
 			mappings = {
@@ -60,7 +60,6 @@ return {
 		keys = keys,
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"rcarriga/nvim-notify",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
