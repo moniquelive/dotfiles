@@ -61,4 +61,15 @@ return {
 	{ "RRethy/nvim-treesitter-endwise" },
 	{ "theHamsta/nvim-treesitter-pairs" },
 	-- { "HiPhish/nvim-ts-rainbow2", main = "nvim-treesitter.configs", opts = { rainbow = { enable = true } } },
+
+	-- Notifications
+	{
+		"j-hui/fidget.nvim",
+		lazy = false,
+		config = function()
+			local fidget = require("fidget")
+			fidget.setup({})
+			vim.notify = fidget.notify
+		end,
+	},
 }

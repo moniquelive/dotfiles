@@ -103,14 +103,6 @@ return {
 			"hrsh7th/nvim-cmp",
 			"neovim/nvim-lspconfig",
 			{
-				"j-hui/fidget.nvim",
-				config = function()
-					local fidget = require("fidget")
-					fidget.setup({})
-					vim.notify = fidget.notify
-				end,
-			},
-			{
 				"williamboman/mason-lspconfig.nvim",
 				opts = {
 					-- The first entry (without a key) will be the default handler
