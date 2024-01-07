@@ -283,6 +283,7 @@ return {
 						-- { '' , version = '1.8.0.0' }, you can pin a tool to a particular version
 						"autopep8",
 						"bash-language-server",
+						"clangd",
 						"css-lsp",
 						"diagnostic-languageserver",
 						"djlint",

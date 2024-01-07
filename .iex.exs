@@ -4,11 +4,13 @@ end
 
 import Aliases
 
-defmodule H do
-  def update(schema, changes) do
-    schema
-    |> Ecto.Changeset.change(changes)
-    |> Repo.update()
+if Code.ensure_loaded?(Repo) do
+  defmodule H do
+    def update(schema, changes) do
+      schema
+      |> Ecto.Changeset.change(changes)
+      |> Repo.update()
+    end
   end
 end
 
