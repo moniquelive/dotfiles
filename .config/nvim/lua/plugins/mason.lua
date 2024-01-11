@@ -309,6 +309,7 @@ return {
 						"lua-language-server",
 						"luacheck",
 						"markdownlint",
+						-- "nextls",
 						"prettierd",
 						"pylint",
 						"python-lsp-server",

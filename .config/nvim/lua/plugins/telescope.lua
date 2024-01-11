@@ -14,7 +14,16 @@ local function opts()
 				},
 			},
 		},
-		pickers = { colorscheme = { enable_preview = true } },
+		pickers = {
+			colorscheme = { enable_preview = true },
+			buffers = {
+				mappings = {
+					i = {
+						["<C-d>"] = require("telescope.actions").delete_buffer,
+					},
+				},
+			},
+		},
 		extensions = {},
 	}
 end
