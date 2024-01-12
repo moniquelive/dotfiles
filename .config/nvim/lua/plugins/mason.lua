@@ -9,11 +9,12 @@ vim.diagnostic.config({
 	virtual_text = false,
 	virtual_lines = false,
 })
+local au = vim.api.nvim_create_autocmd
 local format_timeout = 15000
 
 -- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 local grp_diag_hold = vim.api.nvim_create_augroup("cursor_hold_diagnostic", {})
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+au({ "CursorHold", "CursorHoldI" }, {
 	group = grp_diag_hold,
 	callback = function()
 		local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
@@ -25,7 +26,7 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 		vim.api.nvim_echo({ { string.sub(msg[1], 1, vim.v.echospace) } }, false, {})
 	end,
 })
-vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, { group = grp_diag_hold, command = [[echo ""]] })
+au({ "CursorMoved", "CursorMovedI" }, { group = grp_diag_hold, command = [[echo ""]] })
 
 vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
 	config = config or {}
@@ -59,8 +60,9 @@ local function keymaps(bufnr)
 			vim.lsp.buf.format({ timeout = format_timeout })
 		end,
 	}
-	for lhs, rhs in pairs(keys) do
-		vim.keymap.set("n", lhs, rhs, { noremap = true, silent = true, buffer = bufnr })
+	local opts = { noremap = true, silent = true, buffer = bufnr }
+	for key, action in pairs(keys) do
+		vim.keymap.set("n", key, action, opts)
 	end
 end
 
@@ -72,13 +74,12 @@ local function highlighting(client, bufnr)
               hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#601010
             ]])
 		local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
-		local au = vim.api.nvim_create_autocmd
 		au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
 		au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
 	end
 end
 
-vim.api.nvim_create_autocmd("LspAttach", {
+au("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
 		local bufnr = args.buf
@@ -88,11 +89,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		keymaps(bufnr)
 		highlighting(client, bufnr)
-		--require("notify").notify({ client.name }, "INFO", { title = "LSP Attached" })
+		vim.notify("📡️" .. client.name .. " attached")
 	end,
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local lsp_client_capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities = require("cmp_nvim_lsp").default_capabilities(lsp_client_capabilities)
 return {
 	{
 		"williamboman/mason.nvim",
@@ -222,18 +224,11 @@ return {
 					end,
 					["emmet_ls"] = function()
 						require("lspconfig").emmet_ls.setup({
-							capabilities = capabilities,
 							filetypes = { "html", "css", "heex", "eelixir" },
-						})
-					end,
-					["tsserver"] = function()
-						require("lspconfig").tsserver.setup({
-							capabilities = capabilities,
 						})
 					end,
 					["tailwindcss"] = function()
 						require("lspconfig").tailwindcss.setup({
-							capabilities = capabilities,
 							init_options = {
 								userLanguages = {
 									elixir = "html-eex",
