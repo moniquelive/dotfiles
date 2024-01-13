@@ -172,7 +172,7 @@ return {
 							),
 							settings = {
 								json = {
-									schemas = require("schemastore").json.schemas(),
+									-- schemas = require("schemastore").json.schemas(),
 									validate = { enable = true },
 								},
 							},
@@ -191,7 +191,7 @@ return {
 										url = "",
 										enable = false,
 									},
-									schemas = require("schemastore").yaml.schemas(),
+									-- schemas = require("schemastore").yaml.schemas(),
 								},
 							},
 						})

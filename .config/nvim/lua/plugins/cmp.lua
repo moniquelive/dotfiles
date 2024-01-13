@@ -57,6 +57,8 @@ local function config()
 			end,
 		},
 		formatting = {
+			expandable_indicator = true,
+			fields = { "kind", "abbr", "menu" },
 			format = require("lspkind").cmp_format({
 				menu = {
 					buffer = "[buf]",
@@ -71,6 +73,7 @@ local function config()
 			ghost_text = true,
 		},
 	})
+
 	-- `:` cmdline setup.
 	cmp.setup.cmdline(":", {
 		view = { entries = "custom" },
