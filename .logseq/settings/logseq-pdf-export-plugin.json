@@ -1,0 +1,20 @@
+{
+  "retainedOptions": "",
+  "template1CSS": "",
+  "template1Choice": "Bullets for non top level elements",
+  "template1Options": [
+    "Inherit logseq CSS"
+  ],
+  "template2CSS": "",
+  "template2Choice": "Bullets througout the document",
+  "template2Options": [
+    "Inherit logseq CSS"
+  ],
+  "template3CSS": "",
+  "template3Choice": "",
+  "template3Options": [
+    "Inherit logseq CSS"
+  ],
+  "blockExportHandling": "Keep title as heading of block",
+  "disabled": false
+}

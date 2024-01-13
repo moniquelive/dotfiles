@@ -1,0 +1,26 @@
+{
+  "theme": {
+    "name": "Ozean Theme",
+    "url": "assets:///Users/cyber/.logseq/plugins/logseq-ozean-theme/main.css",
+    "pid": "logseq-ozean-theme"
+  },
+  "themes": {
+    "mode": "dark",
+    "light": {
+      "name": "Catppuccin Latte",
+      "url": "assets:///Users/cyber/.logseq/plugins/logseq-catppuccin/ctp-latte.css",
+      "description": "Catppuccin Latte",
+      "mode": "light",
+      "pid": "logseq-catppuccin"
+    },
+    "dark": {
+      "name": "Coffee",
+      "url": "assets:///Users/cyber/.logseq/plugins/logseq-bujo-theme/src/dark-coffee.css",
+      "description": "Coffee",
+      "mode": "dark",
+      "pid": "logseq-bujo-theme",
+      "selected": false
+    }
+  },
+  "externals": []
+}
