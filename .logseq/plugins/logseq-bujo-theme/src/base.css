@@ -370,6 +370,12 @@ a.asset-ref { /* title in pdf extension */
     font-size: 1.1em;
 }
 
+:is(h1, h2, h3, h4, h5, h6) > .embed-page > .blocks-container {
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+
 /* properties */
 
 #right-sidebar .page-properties,
@@ -1297,6 +1303,38 @@ audio::-webkit-media-controls-enclosure {
 }
 
 
+/* awesome content plugin */
+
+#today-queries .custom-query {
+    border: none !important;
+}
+[data-refs-self*=".kanban"] > .block-children-container > .block-children > .ls-block > .flex-row {
+    padding: 4px 0px;
+}
+[data-refs-self*=".kanban"] > .block-children-container > .block-children > .ls-block > .flex-row > .block-control-wrap {
+    margin-left: -18px;
+}
+
+
+/**
+ * MISC
+ */
+
+/* disable animation */
+
+.left-sidebar-inner *,
+.cp__header * {
+    transition: none !important;
+}
+
+
+/* today queries */
+
+#today-queries .custom-query {
+    margin-top: 1rem;
+}
+
+
 /* calculator */
 
 .extensions__code-calc {
@@ -1310,6 +1348,8 @@ audio::-webkit-media-controls-enclosure {
 iframe {
     margin-bottom: 0.2rem;
 }
+
+/* carriage */
 
 textarea {
     caret-color: var(--bujo-caret);
@@ -1450,7 +1490,9 @@ html[data-theme="dark"] .cp__shortcut-page-x > article > ul li.th {
 }
 
 
-/* whiteboards */
+/**
+ * WHITEBOARDS
+ */
 
 .whiteboard .logseq-tldraw {
     --color-selectedFill: var(--bujo-whiteboard-fill);
@@ -1598,7 +1640,9 @@ html[data-theme="dark"] .cp__shortcut-page-x > article > ul li.th {
 }
 
 
-/* buttons */
+/**
+ * BUTTONS
+ */
 
 /* common ui buttons  */
 
@@ -1716,6 +1760,10 @@ button.cp__onboarding-skip-quick-tour i.ti {
 
 /* marketplace buttons */
 
+.cp__plugins-page {
+    background-color: var(--ls-primary-background-color);
+}
+
 .cp__plugins-page button.ui__button.ui__button-theme-color {
     color: var(--bujo-button-accent-text);
     background-color: var(--bujo-button-background);
@@ -1724,8 +1772,8 @@ button.cp__onboarding-skip-quick-tour i.ti {
 }
 
 html[data-theme="light"] .cp__plugins-page button.ui__button.ui__button-theme-color {
-    color: var(--bujo-button-text);
-    background-color: var(--bujo-button-background);
+    color: var(--bujo-button-accent-text);
+    background-color: var(--bujo-button-accent-background);
     border: 1px solid transparent;
     opacity: .9;
 }
@@ -1747,12 +1795,12 @@ html[data-theme="light"] .cp__plugins-page button.ui__button.ui__button-theme-co
 }
 
 html[data-theme="light"] .cp__plugins-page button.ui__button.active {
-    color: var(--bujo-button-text);
-    background-color: var(--bujo-button-background);
+    color: var(--bujo-button-accent-background);
+    background-color: transparent;
 }
 html[data-theme="light"] .cp__plugins-page button.ui__button.active:hover {
-    color: var(--bujo-button-text);
-    background-color: var(--bujo-button-background);
+    color: var(--bujo-button-accent-background);
+    background-color: transparent;
 }
 
 html[data-theme="dark"] .cp__plugins-page button.ui__button.active {
@@ -1813,132 +1861,12 @@ a.action-wrap > code:not(:has(> button)) {
 }
 
 
-/* ---- */
-/* MISC */
-/* ---- */
+/**
+ * PROPERTIES ICONS
+ *
+ * (forked from logseq-flow-theme)
+ */
 
-/* disable animation */
-.left-sidebar-inner *,
-.cp__header * {
-    transition: none !important;
-}
-
-
-/* ---------- */
-/* EXTENSIONS */
-/* ---------- */
-
-/* hide tags, started with "." */
-/* (forked from logtools) */
-
-a.tag[data-ref^="."]::before {
-    content: "…";
-    font-size: 0.7rem;
-    line-height: 1.0rem;
-}
-
-a.tag[data-ref^="."]:hover::before {
-    content: "";
-    padding-right: 0.7rem;
-}
-
-a.tag[data-ref^="."]:hover {
-    line-height: 1.3rem;
-    font-size: 1.0rem !important;
-    transition: 0s;
-
-    color: var(--ls-primary-text-color) !important;
-    border: 1px solid var(--ls-primary-text-color);
-}
-
-a.tag[data-ref^="."] {
-    font-family: monospace;
-    font-size: 0px !important;
-    transition: 0s;
-
-    color: var(--ls-primary-text-color) !important;
-    background-color: unset !important;
-
-    border: none;
-    border-radius: 3px;
-    padding: 0 2px;
-}
-
-
-/* column view */
-/* (forked from logtools) */
-
-.ls-block[data-refs-self*='".columns'] > .block-children-container {
-    width: 100%;
-}
-
-.ls-block[data-refs-self*='".columns'] > .block-children-container > .block-children {
-    display: inline-flex;
-    position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
-}
-
-.ls-block[data-refs-self*='".columns'] > .block-children-container > .block-children > .ls-block {
-    display: inline-block;
-    padding: 0;
-    width: inherit;
-    min-width: 200px;
-    margin-right: 10px;
-}
-
-/* -fit: fit width of the columns */
-.ls-block[data-refs-self*='".columns-fit'] > .block-children-container > .block-children > .ls-block {
-    min-width: 300px;
-    width: max-content;
-}
-
-/* remove left border for column view */
-.ls-block[data-refs-self*='".columns'] > .block-children-container > .block-children > .ls-block {
-    margin-left: 0px;
-}
-.ls-block[data-refs-self*='".columns'] > .block-children-container > .block-children {
-    border-left-width: 0px;
-}
-
-/* fix modal list not appearing*/
-.block-children {
-    overflow: visible !important;
-} 
-
-.ls-block[data-refs-self*='".columns'] .absolute-modal,
-.ls-block[data-refs-self*='".columns'] #ui__ac {
-    min-height: 80px;
-}
-
-
-/* borders around blocks */
-/* (forked from logtools) */
-
-.ls-block[data-refs-self*='".border"'] {
-    box-shadow: 2px 2px 3px #0000003b;
-    border: 1px solid var(--ls-border-color);
-    border-radius: var(--ls-border-radius-medium);
-    background-color: var(--ls-primary-background-color);
-    margin: 0em 0.5em 0.2em 1em !important;
-    padding: 0.5em 1em 0.5em 0em !important;
-}
-
-.ls-block[data-refs-self*='".border-child"'] > .block-children-container > .block-children > .ls-block {
-    box-shadow: 2px 2px 3px #0000003b;
-    border: 1px solid var(--ls-border-color);
-    border-radius: var(--ls-border-radius-low);
-    background-color: var(--ls-tertiary-background-color);
-    margin: 0.5em 1em 0.5em 0em !important;
-    padding: 0.5em 1em 0.5em 0em !important;
-}
-.ls-block[data-refs-self*='".border-child"'] > .block-children-container > .block-children {
-    border-left-width: 0px;
-}
-
-
-/* property icons */
-/* (forked from logseq-flow-theme) */
 .page-property-key::before {
     content: "\eabc";
     font-family: 'tabler-icons';

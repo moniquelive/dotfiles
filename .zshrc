@@ -170,7 +170,7 @@ alias ass='aws --profile akad_shared_services'
 [[ $USER == ubuntu ]] && alias aws-cli='docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
 (( $+commands[nvim] )) && alias vim=nvim
 (( $+commands[tree] )) && alias tree='tree --gitignore'
-(( $+commands[entr] )) && alias mt='find lib test | entr -cdp mix test --color'
+(( $+commands[entr] )) && alias mt='find apps/*/lib apps/*/test lib test | entr -cdp mix test --color'
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"

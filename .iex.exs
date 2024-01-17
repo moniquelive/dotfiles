@@ -1,5 +1,6 @@
 defmodule Aliases do
   def q, do: :init.stop()
+  def r, do: recompile()
 end
 
 import Aliases
