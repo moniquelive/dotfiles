@@ -11,4 +11,4 @@
  '(default ((t (:font "Monaspace Neon Var 14"))))
  '(fixed-pitch ((t (:inherit (default)))))
  '(fixed-pitch-serif ((t (:inherit (default)))))
- '(variable-pitch ((t (:font "Arial 14")))))
+ '(variable-pitch ((t (:font "Helvetica 14")))))

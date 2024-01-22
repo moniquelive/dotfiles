@@ -131,7 +131,8 @@
    ("s-b" . ibuffer)
    ("s-k" . kill-this-buffer)
    ("s-K" . delete-window)
-   ("s-n" . next-buffer)
+   ("s-<left>" . previous-buffer)
+   ("s-<right>" . next-buffer)
    ("s-W" . delete-frame)				; ⌘-W = Close window
    ("s-}" . tab-bar-switch-to-next-tab) ; ⌘-} = Next tab
    ("s-{" . tab-bar-switch-to-prev-tab) ; ⌘-{ = Previous tab
