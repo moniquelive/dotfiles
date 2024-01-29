@@ -1,5 +1,4 @@
 vim.cmd([[autocmd! FileType Trouble set wrap]])
-
 return {
 	{
 		"folke/trouble.nvim",

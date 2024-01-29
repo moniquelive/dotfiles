@@ -1,5 +1,4 @@
 local opts = { noremap = true, silent = true, expr = false }
-
 return {
 	{
 		"Wansmer/treesj",

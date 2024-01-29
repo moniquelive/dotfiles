@@ -5,7 +5,7 @@ local function bea()
 	require("haskell-tools").lsp.buf_eval_all()
 end
 local function t()
-	require("haskell-tools").repl.toggle()
+	require("haskell-tools").repl.toggle(vim.api.nvim_buf_get_name(0))
 end
 local function q()
 	require("haskell-tools").repl.quit()

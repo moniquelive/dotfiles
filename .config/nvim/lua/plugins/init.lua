@@ -1,15 +1,10 @@
 return {
-	-- startup
 	{ "nvim-lua/plenary.nvim" },
 	{ "kyazdani42/nvim-web-devicons" },
 	{ "ryanoasis/vim-devicons" },
-	{
-		"folke/neodev.nvim",
-		event = { "BufRead", "BufNewFile" },
-		config = true,
-	},
+	{ "folke/neodev.nvim", event = { "BufRead", "BufNewFile" }, config = true },
 
-	-- tpope goodies
+	-- tpope creations
 	{ "tpope/vim-characterize", keys = "ga" },
 	{ "tpope/vim-commentary", keys = { { "gc", mode = { "v", "n" } } } },
 	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
@@ -37,9 +32,7 @@ return {
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
 		ft = { "html", "heex" },
 		build = "cd formatter && npm i && npm run build",
-		opts = {
-			on_save_enabled = true,
-		},
+		opts = { on_save_enabled = true },
 	},
 
 	-- colorizer
@@ -52,18 +45,12 @@ return {
 		},
 	},
 
-	-- Treesitters
-	{ "RRethy/nvim-treesitter-endwise" },
-	{ "theHamsta/nvim-treesitter-pairs" },
-
 	-- Notifications
 	{
 		"j-hui/fidget.nvim",
 		lazy = false,
-		config = function()
-			local fidget = require("fidget")
-			fidget.setup({})
-			vim.notify = fidget.notify
+		init = function()
+			vim.notify = require("fidget").notify
 		end,
 	},
 }

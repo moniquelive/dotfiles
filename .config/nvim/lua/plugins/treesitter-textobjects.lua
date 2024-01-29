@@ -93,7 +93,6 @@ return {
 			"nvim-treesitter/nvim-treesitter-refactor",
 			"RRethy/nvim-treesitter-endwise",
 			"theHamsta/nvim-treesitter-pairs",
-			-- "HiPhish/nvim-ts-rainbow2",
 		},
 	},
 }
