@@ -171,6 +171,7 @@ alias ass='aws --profile akad_shared_services'
 (( $+commands[nvim] )) && alias vim=nvim
 (( $+commands[tree] )) && alias tree='tree --gitignore'
 (( $+commands[entr] )) && alias mt='find apps/*/lib apps/*/test lib test | entr -cdp mix test --color'
+(( $+commands[yazi] )) && alias y=yazi
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
