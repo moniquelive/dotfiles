@@ -7,21 +7,21 @@ local function opts()
 
 			null_ls.builtins.diagnostics.credo,
 			null_ls.builtins.diagnostics.revive,
-			null_ls.builtins.diagnostics.luacheck.with({ extra_args = { "--globals vim" } }),
+			-- null_ls.builtins.diagnostics.luacheck.with({ extra_args = { "--globals vim" } }),
 			null_ls.builtins.diagnostics.zsh,
 
-			null_ls.builtins.formatting.autopep8,
+			-- null_ls.builtins.formatting.autopep8,
 			null_ls.builtins.formatting.elm_format,
 			null_ls.builtins.formatting.stylua,
 			null_ls.builtins.formatting.isort,
 			null_ls.builtins.formatting.rubyfmt,
-			null_ls.builtins.formatting.clang_format.with({
-				command = "/opt/homebrew/opt/llvm/bin/clang-format",
-			}),
+			-- null_ls.builtins.formatting.clang_format.with({
+			-- 	command = "/opt/homebrew/opt/llvm/bin/clang-format",
+			-- }),
 			null_ls.builtins.formatting.mix.with({
 				filetypes = { "elixir", "eelixir", "heex" },
 			}),
-			null_ls.builtins.formatting.fourmolu,
+			-- null_ls.builtins.formatting.fourmolu,
 			null_ls.builtins.formatting.golines.with({
 				extra_args = { "--max-len=180", "--base-formatter=gofumpt" },
 			}),
