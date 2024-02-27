@@ -49,8 +49,10 @@ return {
 	{
 		"j-hui/fidget.nvim",
 		lazy = false,
-		init = function()
-			vim.notify = require("fidget").notify
-		end,
+		opts = {
+			notification = {
+				override_vim_notify = true,
+			},
+		},
 	},
 }
