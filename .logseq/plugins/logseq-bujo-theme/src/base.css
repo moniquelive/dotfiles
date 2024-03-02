@@ -41,7 +41,6 @@
     --ls-anchor-link-text-color: var(--ls-link-text-color);
     --ls-anchor-link-text-color-hover: var(--ls-link-text-hover-color);
     --ls-tag-text: var(--ls-tag-text-color);
-    --border: var(--ls-border-color);
 
     /* logseq13-full-house-templates adaptation */
     --fht-footer-text: var(--ls-page-inline-code-color);
@@ -174,21 +173,44 @@ body[data-page=whiteboard] #app-container {
 }
 #left-sidebar a.item:hover,
 #left-sidebar .header:hover,
-#left-sidebar .favorite-item > a:hover,
-#left-sidebar .recent-item > a:hover {
+#left-sidebar .favorite-item a:hover,
+#left-sidebar .recent-item a:hover {
     background-color: var(--ls-menu-hover-color);
 }
-#left-sidebar .favorite-item > a > .page-icon,
-#left-sidebar .recent-item > a > .page-icon {
+#left-sidebar .favorite-item a > .page-icon,
+#left-sidebar .recent-item a > .page-icon {
     color: var(--bujo-left-sidebar-page-icon);
 }
-#left-sidebar .favorite-item > a > .page-title,
-#left-sidebar .recent-item > a > .page-title {
+#left-sidebar .favorite-item a > .page-title,
+#left-sidebar .recent-item a > .page-title {
     color: var(--bujo-left-sidebar-page-text);
 }
 
 #left-sidebar > .left-sidebar-inner {
     background-color: var(--bujo-left-sidebar-background);
+}
+
+#left-sidebar .left-sidebar-resizer:active,
+#left-sidebar .left-sidebar-resizer:focus,
+#left-sidebar .left-sidebar-resizer:hover {
+    background-color: var(--bujo-resizer);
+}
+
+.ui__context-menu-content {
+    /* use default --accent & --accent-foreground vars */
+    --accent: unset !important;
+    --accent-foreground: unset !important;
+}
+
+.left-sidebar-inner .nav-contents-container.is-scrolled {
+    border-color: var(--ls-secondary-border-color);
+}
+
+
+/* block context menu */
+
+.custom-context-menu {
+    transition: none;
 }
 
 
@@ -751,20 +773,25 @@ a.priority[href="#/page/C" i]::before {
 .bullet-link-wrap > .bullet-container > .bullet {
     opacity: 1;
 }
-.bullet-link-wrap > .bullet-container > .bullet.selected {
-    color: var(--ls-secondary-text-color);
+
+.bullet-link-wrap > .bullet-container:not(.as-order-list) > .bullet.selected {
+    background-color: var(--bujo-block-bullet-selected) !important;
+}
+
+.ls-block.selected .bullet-link-wrap > .bullet-container.as-order-list > .bullet:not(.selected) {
+    opacity: .5;
+    color: var(--ls-primary-text-color);
+}
+.bullet-link-wrap:hover > .bullet-container.as-order-list > .bullet {
+    font-weight: bold !important;
+    opacity: 1 !important;
+    color: var(--bujo-block-ordered-bullet) !important;
 }
 .bullet-link-wrap > .bullet-container.as-order-list > .bullet.selected {
     border: none;
-    color: var(--ls-secondary-text-color);
-}
-.bullet-link-wrap:hover > .bullet-container > .bullet {
-    transform: none;
-    font-weight: bold;
-    color: var(--ls-link-text-color);
-}
-.bullet-link-wrap:hover > .bullet-container.as-order-list > .bullet {
-    background-color: transparent !important;
+    font-weight: 500;
+    opacity: 1 !important;
+    color: var(--bujo-block-bullet-selected) !important;
 }
 
 .color-level .bullet-link-wrap:hover > .bullet-container {
@@ -1200,14 +1227,35 @@ audio::-webkit-media-controls-enclosure {
 /* bullet threading */
 
 /* override block thread width */
-.block-children-left-border+.block-children {
-    border-left-width: 1px !important;
-}
-.ls-block[haschild] > div > .block-content-wrapper::before {
-    left: -14px !important;
-}
-.bullet-container {
-    transform: translate(0px, -1px) !important;
+body:has(> #logseq-bullet-threading_lsp_main) {
+    & .bullet-container {
+        transform: translate(0px, -1px) !important;
+
+        & .bullet {
+            font-size: 15px;
+        }
+    }
+    & .block-children-left-border + .block-children {
+        border-left-width: 1px !important;
+    }
+
+    & .ls-block[haschild] {
+        & > .block-main-container > .block-content-wrapper::before {
+            left: -14px !important;
+            top: 15px !important;
+        }
+        & > .block-main-container > .block-control-wrap.is-order-list + .block-content-wrapper::before {
+            left: -16px !important;
+            top: 22px !important;
+        }
+
+        & .ls-block > .block-main-container > .block-control-wrap::before {
+            top: -6px;
+        }
+        & .block-children:focus-within > .ls-block:not(:focus-within)::before {
+            top: -2px;
+        }
+    }
 }
 
 
@@ -1219,6 +1267,15 @@ audio::-webkit-media-controls-enclosure {
 [data-ref="logseq-media-ts"] > .kef-media-ts-ts > svg {
     position: relative !important;
     bottom: 0.1rem !important;
+}
+
+
+/* awesome props */
+
+[data-awpr-block-props-layout=grid] .block-properties:not(.page-properties)>div>:is(div,span,a):first-child::after,
+[data-awpr-page-props-layout=grid] .block-properties.page-properties>div>:is(div,span,a):first-child::after,
+.ls-block.ls-block[data-refs-self*=".awpr-layout-grid"] .block-properties>div>:is(div,span,a):first-child::after {
+    content: " " !important;
 }
 
 
@@ -1688,18 +1745,36 @@ html[data-theme="dark"] .cp__shortcut-page-x > article > ul li.th {
 
 /* common ui buttons  */
 
-button:not(.to-heading-button).ui__button {
+button.ui__button {
     color: var(--bujo-button-text);
     background-color: var(--bujo-button-background);
 }
-button:not(.to-heading-button).ui__button:hover {
+button.ui__button:hover {
     color: var(--bujo-button-accent-text);
     background-color: var(--bujo-button-background-hover);
     opacity: .9;
 }
-button:not(.to-heading-button).ui__button:focus {
+button.ui__button:focus {
     border-color: var(--bujo-button-accent-border-focus);
 }
+
+
+/* heading buttons  */
+
+button.to-heading-button.ui__button {
+    color: var(--bujo-button-text);
+    background-color: transparent;
+    transition: none;
+}
+button.to-heading-button.ui__button:hover {
+    color: var(--bujo-button-accent-text);
+    background-color: var(--bujo-button-background);
+    opacity: .9;
+}
+button.to-heading-button.ui__button:focus {
+    border-color: var(--bujo-button-accent-border-focus);
+}
+
 
 /* settings */
 
@@ -1985,9 +2060,12 @@ a.action-wrap > code:not(:has(> button)) {
     font-family: 'tabler-icons';
 
     padding-right: 4px;
-
-    color: var(--ls-primary-text-color);
     opacity: .8;
+
+    /* Awesome Props plugin overriding */
+    color: var(--ls-primary-text-color) !important;
+    font-size: 1em !important;
+    margin-right: 0.1em !important;
 }
 
 .page-property-key[data-ref|="tags"]::before        { content: "\ef86" }
