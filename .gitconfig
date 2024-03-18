@@ -129,3 +129,5 @@
 	defaultBranch = main
 ;   templatedir = ~/.git_template
 
+[rerere]
+	enabled = true
