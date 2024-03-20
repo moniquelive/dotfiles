@@ -121,6 +121,11 @@ return {
 									diagnostics = {
 										globals = { "vim" }, -- Get the language server to recognize the `vim` global
 									},
+									workspace = {
+										library = {
+											"${3rd}/love2d/library",
+										},
+									},
 								},
 							},
 						})
