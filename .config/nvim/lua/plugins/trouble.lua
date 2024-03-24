@@ -12,7 +12,7 @@ return {
 	{
 		"folke/trouble.nvim",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
-		cmds = "TroubleToggle",
+		cmd = "TroubleToggle",
 		keys = {
 			{ "]t", next },
 			{ "[t", previous },
