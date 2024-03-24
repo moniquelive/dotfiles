@@ -1,6 +1,4 @@
 local function opts()
-	local telescope = require("telescope")
-	telescope.load_extension("fzf")
 	return {
 		defaults = {
 			mappings = {
@@ -23,34 +21,39 @@ local function opts()
 				},
 			},
 		},
-		extensions = {},
+		extensions = {
+			["ui-select"] = {
+				require("telescope.themes").get_dropdown(),
+			},
+		},
 	}
 end
 
 local function keys()
 	local o = { noremap = true, silent = true, expr = false }
+	local builtin = require("telescope.builtin")
 	return {
-		{ "<c-p>", require("telescope.builtin").find_files, o },
-		{ "<leader>fb", require("telescope.builtin").buffers, o },
-		{ "<leader>fd", require("telescope.builtin").diagnostics, o },
-		{ "<leader>ft", require("telescope.builtin").tags, o },
-		{ "<leader>fl", require("telescope.builtin").live_grep, o },
-		{ "<leader>fr", require("telescope.builtin").registers, o },
-		{ "<leader>fh", require("telescope.builtin").help_tags, o },
-		{ "<leader>fm", require("telescope.builtin").keymaps, o },
-		{ "<leader>fgc", require("telescope.builtin").git_commits, o },
-		{ "<leader>qf", require("telescope.builtin").quickfix, o },
-		{ "<leader>fc", require("telescope.builtin").colorscheme, o },
-		{ "<leader>fcmd", require("telescope.builtin").commands, o },
-		{ "<leader>fft", require("telescope.builtin").filetypes, o },
-		{ "<leader>fgf", require("telescope.builtin").git_files, o },
-		{ "<leader>fhs", require("telescope.builtin").search_history, o },
-		{ "<leader>fmark", require("telescope.builtin").marks, o },
-		{ "<leader>fo", require("telescope.builtin").vim_options, o },
+		{ "<c-p>", builtin.find_files, o },
+		{ "<leader>fb", builtin.buffers, o },
+		{ "<leader>fd", builtin.diagnostics, o },
+		{ "<leader>ft", builtin.tags, o },
+		{ "<leader>fl", builtin.live_grep, o },
+		{ "<leader>fr", builtin.registers, o },
+		{ "<leader>fh", builtin.help_tags, o },
+		{ "<leader>fm", builtin.keymaps, o },
+		{ "<leader>fgc", builtin.git_commits, o },
+		{ "<leader>qf", builtin.quickfix, o },
+		{ "<leader>fc", builtin.colorscheme, o },
+		{ "<leader>fcmd", builtin.commands, o },
+		{ "<leader>fft", builtin.filetypes, o },
+		{ "<leader>fgf", builtin.git_files, o },
+		{ "<leader>fhs", builtin.search_history, o },
+		{ "<leader>fmark", builtin.marks, o },
+		{ "<leader>fo", builtin.vim_options, o },
 		{
 			"<leader><space>",
 			function()
-				require("telescope.builtin").current_buffer_fuzzy_find(
+				builtin.current_buffer_fuzzy_find(
 					require("telescope.themes").get_dropdown({ winblend = 10, previewer = false })
 				)
 			end,
@@ -75,6 +78,7 @@ return {
 					return vim.fn.executable("make") == 1
 				end,
 			},
+			{ "nvim-telescope/telescope-ui-select.nvim" },
 		},
 	},
 }

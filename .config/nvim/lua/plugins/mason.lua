@@ -1,7 +1,5 @@
 -- vim:set ts=2:
--- You will likely want to reduce updatetime which affects CursorHold
--- note: this setting is global and should be set only once
-vim.o.updatetime = 250
+
 -- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 vim.diagnostic.config({
 	float = { border = "single" },
@@ -93,242 +91,193 @@ au("LspAttach", {
 	end,
 })
 
-local lsp_client_capabilities = vim.lsp.protocol.make_client_capabilities()
-local capabilities = require("cmp_nvim_lsp").default_capabilities(lsp_client_capabilities)
-return {
-	{
-		"williamboman/mason.nvim",
-		config = true,
-		cmd = "Mason",
-		build = ":MasonUpdate",
-		dependencies = {
-			"hrsh7th/nvim-cmp",
-			"neovim/nvim-lspconfig",
-			{
-				"williamboman/mason-lspconfig.nvim",
-				opts = {
-					-- The first entry (without a key) will be the default handler
-					-- and will be called for each installed server that doesn't have
-					-- a dedicated handler.
-					function(server_name) -- default handler (optional)
-						require("lspconfig")[server_name].setup({ capabilities = capabilities })
-					end,
-					-- Next, you can provide a dedicated handler for specific servers.
-					["lua_ls"] = function()
-						require("lspconfig").lua_ls.setup({
-							settings = {
-								Lua = {
-									diagnostics = {
-										globals = { "vim" }, -- Get the language server to recognize the `vim` global
-									},
-									workspace = {
-										library = {
-											"${3rd}/love2d/library",
-										},
-									},
-								},
-							},
-						})
-					end,
-					["clangd"] = function()
-						require("lspconfig").clangd.setup({
-							cmd = {
-								"/opt/homebrew/opt/llvm/bin/clangd",
-								"--offset-encoding=utf-16",
-								"--background-index",
-								"--clang-tidy",
-							},
-						})
-					end,
-					["hls"] = function()
-						require("lspconfig").hls.setup({
-							settings = {
-								haskell = {
-									formattingProvider = "fourmolu",
-								},
-							},
-						})
-					end,
-					["gopls"] = function()
-						require("lspconfig").gopls.setup({
-							settings = {
-								gopls = {
-									completeUnimported = true,
-									usePlaceholders = true,
-									semanticTokens = true,
-									experimentalPostfixCompletions = true,
-									staticcheck = true,
-									analyses = {
-										unusedparams = true,
-										shadow = true,
-										nilness = true,
-										unusedvariable = true,
-									},
-								},
-							},
-						})
-					end,
-					["jsonls"] = function()
-						require("lspconfig").jsonls.setup({
-							capabilities = vim.tbl_extend(
-								"force",
-								capabilities,
-								{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
-							),
-							settings = {
-								json = {
-									-- schemas = require("schemastore").json.schemas(),
-									validate = { enable = true },
-								},
-							},
-						})
-					end,
-					["yamlls"] = function()
-						require("lspconfig").yamlls.setup({
-							capabilities = vim.tbl_extend(
-								"force",
-								capabilities,
-								{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
-							),
-							settings = {
-								yaml = {
-									schemaStore = {
-										url = "",
-										enable = false,
-									},
-									-- schemas = require("schemastore").yaml.schemas(),
-								},
-							},
-						})
-					end,
-					["omnisharp"] = function()
-						require("lspconfig").omnisharp.setup({
-							cmd = {
-								"/usr/local/share/dotnet/dotnet",
-								"/Users/cyber/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll",
-							},
-						})
-					end,
-					["powershell_es"] = function()
-						require("lspconfig").powershell_es.setup({
-							bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
-						})
-					end,
-					["elixirls"] = function()
-						require("lspconfig").elixirls.setup({
-							-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
-							-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
-							cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
-							settings = {
-								elixirLS = {
-									dialyzerEnabled = false,
-									fetchDeps = false,
-								},
-							},
-						})
-					end,
-					["emmet_ls"] = function()
-						require("lspconfig").emmet_ls.setup({
-							filetypes = { "html", "css", "heex", "eelixir" },
-						})
-					end,
-					["tailwindcss"] = function()
-						require("lspconfig").tailwindcss.setup({
-							init_options = {
-								userLanguages = {
-									elixir = "html-eex",
-									eelixir = "html-eex",
-									heex = "html-eex",
-								},
-							},
-							root_dir = require("lspconfig.util").root_pattern(
-								"tailwind.config.js",
-								"tailwind.config.cjs",
-								"tailwind.config.mjs",
-								"tailwind.config.ts",
-								"postcss.config.js",
-								"postcss.config.cjs",
-								"postcss.config.mjs",
-								"postcss.config.ts",
-								"package.json",
-								"node_modules",
-								"mix.exs",
-								".git"
-							),
-							settings = {
-								experimental = {
-									classRegex = {
-										[[class= "([^"]*)]],
-										[[class: "([^"]*)]],
-										'~H""".*class="([^"]*)".*"""',
-										'~F""".*class="([^"]*)".*"""',
-									},
-								},
-							},
-						})
-					end,
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+local servers = {
+	lua_ls = {
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim" }, -- Get the language server to recognize the `vim` global
 				},
-				config = function(_, opts)
-					require("mason-lspconfig").setup_handlers(opts)
-				end,
-			},
-
-			{
-				"WhoIsSethDaniel/mason-tool-installer.nvim",
-				build = ":MasonToolsUpdate",
-				opts = {
-					-- a list of all tools you want to ensure are installed upon
-					-- start; they should be the names Mason uses for each tool
-					ensure_installed = {
-						-- { '' , version = '1.8.0.0' }, you can pin a tool to a particular version
-						"autopep8",
-						"bash-language-server",
-						"clangd",
-						"css-lsp",
-						"diagnostic-languageserver",
-						"djlint",
-						"dockerfile-language-server",
-						"elixir-ls",
-						"elm-format",
-						"elm-language-server",
-						"emmet-ls",
-						"flake8",
-						"gitlint",
-						"gofumpt",
-						"goimports-reviser",
-						"golangci-lint-langserver",
-						"golines",
-						"gopls",
-						"gotests",
-						"gotestsum",
-						--"haskell-language-server",
-						"html-lsp",
-						"iferr",
-						"isort",
-						"json-lsp",
-						"lua-language-server",
-						"luacheck",
-						"markdownlint",
-						-- "nextls",
-						"prettierd",
-						"pylint",
-						"python-lsp-server",
-						"revive",
-						"ruby-lsp",
-						"rubyfmt",
-						"standardrb",
-						"staticcheck",
-						"stylua",
-						"tailwindcss-language-server",
-						"typescript-language-server",
-						"vim-language-server",
-						"yaml-language-server",
-						"yamlfmt",
-						"yamllint",
-						"yapf",
+				workspace = {
+					library = {
+						"${3rd}/love2d/library",
 					},
 				},
 			},
 		},
+	},
+	clangd = {
+		cmd = {
+			"/opt/homebrew/opt/llvm/bin/clangd",
+			"--offset-encoding=utf-16",
+			"--background-index",
+			"--clang-tidy",
+		},
+	},
+	hls = {
+		settings = {
+			haskell = { formattingProvider = "fourmolu" },
+		},
+	},
+	gopls = {
+		settings = {
+			gopls = {
+				completeUnimported = true,
+				usePlaceholders = true,
+				semanticTokens = true,
+				experimentalPostfixCompletions = true,
+				staticcheck = true,
+				analyses = {
+					unusedparams = true,
+					shadow = true,
+					nilness = true,
+					unusedvariable = true,
+				},
+			},
+		},
+	},
+	jsonls = {
+		capabilities = vim.tbl_extend(
+			"force",
+			capabilities,
+			{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
+		),
+		settings = {
+			json = {
+				-- schemas = require("schemastore").json.schemas(),
+				validate = { enable = true },
+			},
+		},
+	},
+	yamlls = {
+		capabilities = vim.tbl_extend(
+			"force",
+			capabilities,
+			{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
+		),
+		settings = {
+			yaml = {
+				schemaStore = { url = "", enable = false },
+				-- schemas = require("schemastore").yaml.schemas(),
+			},
+		},
+	},
+	omnisharp = {
+		cmd = {
+			"/usr/local/share/dotnet/dotnet",
+			"/Users/cyber/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll",
+		},
+	},
+	powershell_es = {
+		bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
+	},
+	elixirls = {
+		-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
+		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
+		cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
+		settings = {
+			elixirLS = { dialyzerEnabled = false, fetchDeps = false },
+		},
+	},
+	emmet_ls = {
+		filetypes = { "html", "css", "heex", "eelixir" },
+	},
+	tailwindcss = {
+		init_options = {
+			userLanguages = {
+				elixir = "html-eex",
+				eelixir = "html-eex",
+				heex = "html-eex",
+			},
+		},
+		root_dir = require("lspconfig.util").root_pattern(
+			"tailwind.config.js",
+			"tailwind.config.cjs",
+			"tailwind.config.mjs",
+			"tailwind.config.ts",
+			"postcss.config.js",
+			"postcss.config.cjs",
+			"postcss.config.mjs",
+			"postcss.config.ts",
+			"package.json",
+			"node_modules",
+			"mix.exs",
+			".git"
+		),
+		settings = {
+			experimental = {
+				classRegex = {
+					[[class= "([^"]*)]],
+					[[class: "([^"]*)]],
+					'~H""".*class="([^"]*)".*"""',
+					'~F""".*class="([^"]*)".*"""',
+				},
+			},
+		},
+	},
+}
+return {
+	{
+		"williamboman/mason.nvim",
+		dependencies = {
+			"hrsh7th/nvim-cmp",
+			"neovim/nvim-lspconfig",
+			"williamboman/mason-lspconfig.nvim",
+			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },
+			{ "folke/neodev.nvim", config = true },
+		},
+		cmd = "Mason",
+		build = ":MasonUpdate",
+		config = function()
+			require("mason").setup()
+			local ensure_installed = vim.tbl_keys(servers or {})
+			vim.list_extend(ensure_installed, {
+				"autopep8",
+				"bash-language-server",
+				"css-lsp",
+				"diagnostic-languageserver",
+				"djlint",
+				"dockerfile-language-server",
+				"elm-format",
+				"elm-language-server",
+				"flake8",
+				"gitlint",
+				"gofumpt",
+				"goimports-reviser",
+				"golangci-lint-langserver",
+				"golines",
+				"gotests",
+				"gotestsum",
+				"html-lsp",
+				"iferr",
+				"isort",
+				"luacheck",
+				"markdownlint",
+				"prettierd",
+				"pylint",
+				"python-lsp-server",
+				"revive",
+				"ruby-lsp",
+				"rubyfmt",
+				"standardrb",
+				"staticcheck",
+				"stylua",
+				"typescript-language-server",
+				"vim-language-server",
+				"yapf",
+			})
+			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+			require("mason-lspconfig").setup({
+				handlers = {
+					function(server_name)
+						local server = servers[server_name] or {}
+						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+						require("lspconfig")[server_name].setup(server)
+					end,
+				},
+			})
+		end,
 	},
 }

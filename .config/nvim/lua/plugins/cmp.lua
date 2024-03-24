@@ -7,6 +7,7 @@ local function config()
 	require("luasnip.loaders.from_vscode").lazy_load()
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
+	luasnip.config.setup({})
 	cmp.setup({
 		view = { entries = "native" },
 		window = {

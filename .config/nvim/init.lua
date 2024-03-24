@@ -19,8 +19,6 @@ vim.opt.rtp:prepend(lazypath)
 
 -----------------------------------------------------------------------------
 
-vim.g.startify_change_to_dir = 0
-vim.g.startify_change_to_vcs_root = 1
 vim.g.netrw_altfile = 1 -- <C-6> returns to files
 
 vim.opt.iskeyword:remove({ ".", "#", "-" })
@@ -33,6 +31,7 @@ local opts = {
 	autoread = true,
 	autowriteall = true,
 	backspace = "indent,eol,start",
+	breakindent = true,
 	colorcolumn = "+1",
 	copyindent = true,
 	cursorline = true,
@@ -45,8 +44,10 @@ local opts = {
 	history = 1000,
 	ignorecase = true,
 	incsearch = true,
+	inccommand = "split",
 	joinspaces = false,
 	laststatus = 3,
+	listchars = { tab = "» ", trail = "·", nbsp = "␣" },
 	mouse = "a",
 	mousehide = true,
 	number = true,
@@ -54,7 +55,7 @@ local opts = {
 	shiftround = true,
 	shiftwidth = 2,
 	showcmd = true,
-	showmode = false,
+	showmode = true,
 	showtabline = 1,
 	signcolumn = "yes",
 	smartcase = true,
@@ -71,6 +72,7 @@ local opts = {
 	termguicolors = true,
 	textwidth = 0,
 	undofile = true,
+	updatetime = 250,
 	viewoptions = "folds,options,cursor,unix,slash",
 	visualbell = true,
 	wrap = false,
@@ -111,7 +113,8 @@ local maps = {
 	{ "n", "<D-v>", '"+p' },
 	{ "n", "<D-V>", '"+P' },
 	-- Disable highlight when <leader><cr> is pressed
-	{ "", "<leader><cr>", ":noh<cr>" },
+	{ "n", "<esc>", "<cmd>noh<CR>" },
+	{ "", "<leader><cr>", "<cmd>noh<CR>" },
 	-- Move around splits with <c-hjkl>
 	{ "n", "<c-j>", "<c-w>j" },
 	{ "n", "<c-k>", "<c-w>k" },
@@ -206,3 +209,8 @@ vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]
 
 -----------------------------------------------------------------------------
 require("lazy").setup("plugins", { defaults = { lazy = true } })
+
+-----------------------------------------------------------------------------
+-- After setup please
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("ui-select")

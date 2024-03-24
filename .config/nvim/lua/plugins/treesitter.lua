@@ -4,6 +4,7 @@ vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
 		main = "nvim-treesitter.configs",
 		opts = {
 			ensure_installed = {
@@ -71,8 +72,9 @@ return {
 				"xml",
 				"yaml",
 			},
+			auto_install = true,
 			endwise = { enable = true },
-			highlight = { enable = true, additional_vim_regex_highlighting = false },
+			highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
 			indent = { enable = true, disable = { "python", "ruby" } },
 			textobjects = { enable = true },
 			incremental_selection = {
@@ -86,6 +88,5 @@ return {
 			},
 			matchup = { enable = true }, -- mandatory, false will disable the whole extension ,
 		},
-		build = ":TSUpdate",
 	},
 }

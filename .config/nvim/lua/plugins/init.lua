@@ -2,7 +2,6 @@ return {
 	{ "nvim-lua/plenary.nvim" },
 	{ "kyazdani42/nvim-web-devicons" },
 	{ "ryanoasis/vim-devicons" },
-	{ "folke/neodev.nvim", event = { "BufRead", "BufNewFile" }, config = true },
 
 	-- tpope creations
 	{ "tpope/vim-characterize", keys = "ga" },
