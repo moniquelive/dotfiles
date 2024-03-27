@@ -199,10 +199,10 @@
 	     (flymake-mode nil "Flymake"))))
 (use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
 (use-package nerd-icons)
-(use-package nerd-icons-completion
-  :after (nerd-icons marginalia)
-  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
-  :config (nerd-icons-completion-mode))
+; (use-package nerd-icons-completion
+;   :after (nerd-icons marginalia)
+;   :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
+;   :config (nerd-icons-completion-mode))
 
 (use-package vterm
   :custom
@@ -451,10 +451,10 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-(use-package marginalia
-  :custom
-  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  :init (marginalia-mode))
+; (use-package marginalia
+;   :custom
+;   (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+;   :init (marginalia-mode))
 
 (use-package embark
   :bind
