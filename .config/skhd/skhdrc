@@ -106,7 +106,8 @@
 # ]
 
 ## Launchers
-cmd + ctrl + alt - t : /Applications/Kitty.app/Contents/MacOS/kitty -d ~
+#cmd + ctrl + alt - t : /Applications/Kitty.app/Contents/MacOS/kitty -d ~
+cmd + ctrl + alt - t : /Users/cyber/bin/kitty.app/Contents/MacOS/kitty -d ~
 cmd + ctrl + alt - r : /opt/homebrew/bin/yabai --restart-service
 
 ## Display
