@@ -279,6 +279,8 @@ unsetopt print_exit_value
 
 #--------------------------------------------------------------------- FZF ---
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/bin/fzf-git.sh ] && source ~/bin/fzf-git.sh
+
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
