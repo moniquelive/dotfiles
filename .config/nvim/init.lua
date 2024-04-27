@@ -213,4 +213,4 @@ require("lazy").setup("plugins", { defaults = { lazy = true } })
 -----------------------------------------------------------------------------
 -- After setup please
 require("telescope").load_extension("fzf")
-require("telescope").load_extension("ui-select")
+-- require("telescope").load_extension("ui-select")

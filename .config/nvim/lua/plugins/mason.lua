@@ -8,7 +8,6 @@ vim.diagnostic.config({
 	virtual_lines = false,
 })
 local au = vim.api.nvim_create_autocmd
-local format_timeout = 15000
 
 -- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 local grp_diag_hold = vim.api.nvim_create_augroup("cursor_hold_diagnostic", {})
@@ -55,7 +54,7 @@ local function keymaps(bufnr)
 			vim.diagnostic.open_float({ source = "if_many" })
 		end,
 		["<leader>f"] = function()
-			vim.lsp.buf.format({ timeout = format_timeout })
+			vim.lsp.buf.format({ async = true })
 		end,
 	}
 	local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -173,14 +172,15 @@ local servers = {
 	powershell_es = {
 		bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
 	},
-	elixirls = {
-		-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
-		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
-		cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
-		settings = {
-			elixirLS = { dialyzerEnabled = false, fetchDeps = false },
-		},
-	},
+	-- trying next-ls...
+	-- elixirls = {
+	-- 	-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
+	-- 	-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
+	-- 	-- cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
+	-- 	settings = {
+	-- 		elixirLS = { dialyzerEnabled = false, fetchDeps = false },
+	-- 	},
+	-- },
 	emmet_ls = {
 		filetypes = { "html", "css", "heex", "eelixir" },
 	},

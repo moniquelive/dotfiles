@@ -18,9 +18,9 @@ local function opts()
 			-- null_ls.builtins.formatting.clang_format.with({
 			-- 	command = "/opt/homebrew/opt/llvm/bin/clang-format",
 			-- }),
-			null_ls.builtins.formatting.mix.with({
-				filetypes = { "elixir", "eelixir", "heex" },
-			}),
+			-- null_ls.builtins.formatting.mix.with({
+			-- 	filetypes = { "elixir", "eelixir", "heex" },
+			-- }),
 			-- null_ls.builtins.formatting.fourmolu,
 			null_ls.builtins.formatting.golines.with({
 				extra_args = { "--max-len=180", "--base-formatter=gofumpt" },

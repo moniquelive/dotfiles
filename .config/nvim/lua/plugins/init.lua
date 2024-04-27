@@ -33,6 +33,28 @@ return {
 		build = "cd formatter && npm i && npm run build",
 		opts = { on_save_enabled = true },
 	},
+	{
+		"elentok/format-on-save.nvim",
+		event = { "BufRead", "BufNewFile" },
+		opts = function()
+			local formatters = require("format-on-save.formatters")
+			return {
+				error_notifier = require("format-on-save.error-notifiers.vim-notify"),
+				exclude_path_patterns = {
+					"/node_modules/",
+					".local/share/nvim/lazy",
+				},
+				formatter_by_ft = {
+					elixir = formatters.lsp,
+				},
+				fallback_formatter = {
+					formatters.remove_trailing_whitespace,
+					formatters.remove_trailing_newlines,
+					formatters.none_ls,
+				},
+			}
+		end,
+	},
 
 	-- colorizer
 	{
