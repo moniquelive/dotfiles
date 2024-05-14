@@ -153,9 +153,6 @@ local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 local au = vim.api.nvim_create_autocmd
 local myvimrc = vim.fn.expand("$MYVIMRC")
 local cmds = {
-	{ "FileType", "help", [[wincmd L]] },
-	{ "FileType", "gitcommit", [[set spell]] },
-	{ "FileType", "ruby", [[ia fsl # frozen_string_literal: true]] },
 	{ "FocusLost", "*", [[silent! wa]] }, -- Autosave on focus lost
 	{ "VimResized", "*", [[wincmd =]] }, -- let terminal resize scale the internal windows
 	{ { "BufRead", "BufNewFile" }, myvimrc, "source " .. myvimrc },
@@ -167,25 +164,6 @@ for _, c in ipairs(cmds) do
 end
 
 vim.cmd([[autocmd FileType help,qf,fugitive,fugitiveblame,netrw nnoremap <buffer><silent> q <cmd>close<CR>]])
-au("FileType", {
-	pattern = "help",
-	callback = function()
-		local kv = {
-			["<CR>"] = "<C-]>",
-			["<BS>"] = "<C-T>",
-			["o"] = [[/'\l\{2,\}'<CR>]],
-			["O"] = [[?'\l\{2,\}'<CR>]],
-			["s"] = [[/\|\zs\S\+\ze\|<CR>]],
-			["S"] = [[?\|\zs\S\+\ze\|<CR>]],
-			["<ESC>"] = [[<cmd>close<cr>]],
-			["q"] = [[<cmd>close<cr>]],
-		}
-		for key, value in pairs(kv) do
-			k.set("n", key, value, { noremap = true, silent = true, buffer = true })
-		end
-	end,
-	group = init_lua_grp,
-})
 
 if vim.fn.has("gui_running") == 0 then
 	vim.o.ttimeoutlen = 10
