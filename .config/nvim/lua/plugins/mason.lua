@@ -172,15 +172,14 @@ local servers = {
 	powershell_es = {
 		bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
 	},
-	-- trying next-ls...
-	-- elixirls = {
-	-- 	-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
-	-- 	-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
-	-- 	-- cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
-	-- 	settings = {
-	-- 		elixirLS = { dialyzerEnabled = false, fetchDeps = false },
-	-- 	},
-	-- },
+	elixirls = {
+		-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
+		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
+		-- cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
+		settings = {
+			elixirLS = { dialyzerEnabled = false, fetchDeps = false },
+		},
+	},
 	emmet_ls = {
 		filetypes = { "html", "css", "heex", "eelixir" },
 	},
@@ -226,9 +225,9 @@ return {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason-lspconfig.nvim",
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },
-			{ "folke/neodev.nvim", config = true },
+			{ "folke/neodev.nvim",                         config = true },
 		},
-		cmd = "Mason",
+		cmd = { "Mason", "MasonUpdate" },
 		build = ":MasonUpdate",
 		config = function()
 			require("mason").setup()
@@ -240,6 +239,7 @@ return {
 				"diagnostic-languageserver",
 				"djlint",
 				"dockerfile-language-server",
+				"elixir-ls",
 				"elm-format",
 				"elm-language-server",
 				"flake8",
