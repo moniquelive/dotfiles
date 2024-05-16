@@ -88,13 +88,6 @@ local k = vim.keymap
 k.set("n", "/", [[/\v]])
 k.set("v", "/", [[/\v]])
 
--- Commentary
-k.set("n", "<leader>/", "<Plug>CommentaryLine")
-k.set("x", "/", "<Plug>Commentary")
-k.set("x", "<D-/>", "<Plug>Commentary")
-k.set("i", "<D-/>", "<Plug>Commentary")
-k.set("n", "<D-/>", "<Plug>CommentaryLine")
-
 local map_opts = { noremap = true, silent = true }
 for i = 0, 5 do
 	k.set("n", "z" .. i, function()

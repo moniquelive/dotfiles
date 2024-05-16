@@ -5,7 +5,6 @@ return {
 
 	-- tpope creations
 	{ "tpope/vim-characterize", keys = "ga" },
-	{ "tpope/vim-commentary", keys = { { "gc", mode = { "v", "n" } } } },
 	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
 	{ "tpope/vim-repeat", event = { "BufRead", "BufNewFile" } },
 	{ "tpope/vim-rsi", event = "CmdlineEnter" },
