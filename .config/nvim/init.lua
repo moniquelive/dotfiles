@@ -27,10 +27,12 @@ vim.opt.tags:prepend({ "./.git/tags;" })
 vim.scriptencoding = "utf-8"
 
 local opts = {
+	--backspace = "indent,eol,start",
+	--termencoding = "utf-8",
+	--termguicolors = true,
 	autoindent = true,
 	autoread = true,
 	autowriteall = true,
-	backspace = "indent,eol,start",
 	breakindent = true,
 	colorcolumn = "+1",
 	copyindent = true,
@@ -68,8 +70,6 @@ local opts = {
 	swapfile = false,
 	switchbuf = "useopen",
 	tabstop = 2,
-	--termencoding = "utf-8",
-	termguicolors = true,
 	textwidth = 0,
 	undofile = true,
 	updatetime = 250,
