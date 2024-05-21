@@ -2,12 +2,9 @@ local function config()
 	vim.o.completeopt = "menu,menuone,noselect"
 
 	local cmp = require("cmp")
-	local luasnip = require("luasnip")
 	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-	require("luasnip.loaders.from_vscode").lazy_load()
 	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
-	luasnip.config.setup({})
 	cmp.setup({
 		view = { entries = "native" },
 		window = {
@@ -23,8 +20,8 @@ local function config()
 			["<TAB>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_next_item()
-				elseif luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
+				elseif vim.snippet.active({ direction = 1 }) then
+					vim.snippet.jump(1)
 				else
 					fallback()
 				end
@@ -32,8 +29,8 @@ local function config()
 			["<S-Tab>"] = cmp.mapping(function(fallback)
 				if cmp.visible() then
 					cmp.select_prev_item()
-				elseif luasnip.jumpable(-1) then
-					luasnip.jump(-1)
+				elseif vim.snippet.active({ direction = -1 }) then
+					vim.snippet.jump(-1)
 				else
 					fallback()
 				end
@@ -48,15 +45,9 @@ local function config()
 				end,
 			},
 			{ name = "nvim_lsp_signature_help" },
-			{ name = "luasnip" },
 			{ name = "path" },
 			{ name = "buffer", keyword_length = 5 },
 		}),
-		snippet = {
-			expand = function(args)
-				luasnip.lsp_expand(args.body) -- For `luasnip` users.
-			end,
-		},
 		formatting = {
 			expandable_indicator = true,
 			fields = { "kind", "abbr", "menu" },
@@ -66,7 +57,7 @@ local function config()
 					nvim_lsp = "[LSP]",
 					nvim_lua = "[api]",
 					path = "[path]",
-					luasnip = "[snip]",
+					snippet = "[snip]",
 				},
 			}),
 		},
@@ -91,20 +82,12 @@ return {
 		dependencies = {
 			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-nvim-lsp",
-			-- "hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
 			"windwp/nvim-autopairs",
-			"saadparwaiz1/cmp_luasnip",
-			{
-				"L3MON4D3/LuaSnip",
-				version = "1.*",
-				keys = "<tab>",
-				build = "make install_jsregexp",
-				dependencies = { "rafamadriz/friendly-snippets" },
-			},
+			"rafamadriz/friendly-snippets",
 		},
 	},
 }

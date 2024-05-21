@@ -45,6 +45,7 @@ return {
 				},
 				formatter_by_ft = {
 					elixir = formatters.lsp,
+					haskell = formatters.lsp,
 				},
 				fallback_formatter = {
 					formatters.remove_trailing_whitespace,

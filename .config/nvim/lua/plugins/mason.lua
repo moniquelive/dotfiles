@@ -131,6 +131,7 @@ local servers = {
 				experimentalPostfixCompletions = true,
 				staticcheck = true,
 				analyses = {
+					useany = true,
 					unusedparams = true,
 					shadow = true,
 					nilness = true,
