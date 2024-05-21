@@ -41,13 +41,13 @@ local function keys()
 		{ "<leader>fr", builtin.registers, o },
 		{ "<leader>fh", builtin.help_tags, o },
 		{ "<leader>fm", builtin.keymaps, o },
-		{ "<leader>fgc", builtin.git_commits, o },
+		-- { "<leader>fgc", builtin.git_commits, o },
 		{ "<leader>qf", builtin.quickfix, o },
-		{ "<leader>fc", builtin.colorscheme, o },
-		{ "<leader>fcmd", builtin.commands, o },
-		{ "<leader>fft", builtin.filetypes, o },
+		-- { "<leader>fc", builtin.colorscheme, o },
+		-- { "<leader>fcmd", builtin.commands, o },
+		-- { "<leader>fft", builtin.filetypes, o },
 		{ "<leader>fgf", builtin.git_files, o },
-		{ "<leader>fhs", builtin.search_history, o },
+		-- { "<leader>fhs", builtin.search_history, o },
 		{ "<leader>fmark", builtin.marks, o },
 		{ "<leader>fo", builtin.vim_options, o },
 		{
@@ -58,6 +58,12 @@ local function keys()
 				)
 			end,
 			{ desc = "[ ] Fuzzily search in current buffer" },
+		},
+		{
+			"<leader>fc",
+			function()
+				builtin.find_files({ cwd = vim.fn.stdpath("config") })
+			end,
 		},
 	}
 end

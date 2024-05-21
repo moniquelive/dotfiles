@@ -81,12 +81,14 @@ au("LspAttach", {
 	callback = function(args)
 		local bufnr = args.buf
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-		vim.api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr()")
+		vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
+		vim.api.nvim_set_option_value("formatexpr", "v:lua.vim.lsp.formatexpr()", { buf = bufnr })
 
 		keymaps(bufnr)
 		highlighting(client, bufnr)
-		vim.notify("📡️" .. client.name .. " attached")
+		if client then
+			vim.notify("📡️" .. client.name .. " attached")
+		end
 	end,
 })
 
@@ -225,7 +227,7 @@ return {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason-lspconfig.nvim",
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },
-			{ "folke/neodev.nvim",                         config = true },
+			{ "folke/neodev.nvim", config = true },
 		},
 		cmd = { "Mason", "MasonUpdate" },
 		build = ":MasonUpdate",
