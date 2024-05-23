@@ -34,9 +34,16 @@
   "autosave": "on_focus_change",
   "terminal": {
     "option_as_meta": false
+  },
+  "lsp": {
+    "elixir-ls": {
+      "settings": {
+        "dialyzerEnabled": false
+      }
+    }
   }
   // Settings specific to our elixir integration
-  // "language_overrides": {
+  // "languages": {
   //   "Elixir": {
   //     "format_on_save": {
   //       "external": {
