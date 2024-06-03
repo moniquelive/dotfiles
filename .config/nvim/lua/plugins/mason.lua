@@ -4,43 +4,13 @@
 vim.diagnostic.config({
 	float = { border = "single" },
 	underline = false,
-	virtual_text = false,
+	virtual_text = true,
 	virtual_lines = false,
 })
 local au = vim.api.nvim_create_autocmd
 
--- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
-local grp_diag_hold = vim.api.nvim_create_augroup("cursor_hold_diagnostic", {})
-au({ "CursorHold", "CursorHoldI" }, {
-	group = grp_diag_hold,
-	callback = function()
-		local diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
-		if not next(diagnostics) then
-			return
-		end
-		-- vim.print(diagnostics[1])
-		local msg = vim.split(diagnostics[1].message, "\n")
-		vim.api.nvim_echo({ { string.sub(msg[1], 1, vim.v.echospace) } }, false, {})
-	end,
-})
-au({ "CursorMoved", "CursorMovedI" }, { group = grp_diag_hold, command = [[echo ""]] })
-
-vim.lsp.handlers["textDocument/hover"] = function(_, result, ctx, config)
-	config = config or {}
-	config.focus_id = ctx.method
-	if not (result and result.contents) then
-		return
-	end
-	local markdown_lines = vim.lsp.util.convert_input_to_markdown_lines(result.contents)
-	markdown_lines = vim.lsp.util.trim_empty_lines(markdown_lines)
-	if vim.tbl_isempty(markdown_lines) then
-		return
-	end
-	return vim.lsp.util.open_floating_preview(markdown_lines, "markdown", config)
-end
-
 local function keymaps(bufnr)
-	local keys = {
+	local nmaps = {
 		["gD"] = vim.lsp.buf.declaration,
 		["gd"] = vim.lsp.buf.definition,
 		["K"] = vim.lsp.buf.hover,
@@ -49,6 +19,7 @@ local function keymaps(bufnr)
 		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
 		["<F3>"] = vim.lsp.buf.code_action,
 		["gr"] = "<cmd>Telescope lsp_references<CR>",
+		["<leader>ca"] = vim.lsp.codelens.run,
 		["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
 		["<leader>e"] = function()
 			vim.diagnostic.open_float({ source = "if_many" })
@@ -58,9 +29,10 @@ local function keymaps(bufnr)
 		end,
 	}
 	local opts = { noremap = true, silent = true, buffer = bufnr }
-	for key, action in pairs(keys) do
+	for key, action in pairs(nmaps) do
 		vim.keymap.set("n", key, action, opts)
 	end
+	vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
 end
 
 local function highlighting(client, bufnr)
