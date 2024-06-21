@@ -179,6 +179,7 @@ alias ass='aws --profile akad_shared_services'
 	fi
 	rm -f -- "$tmp"
 }
+(( $+commands[mise] )) && eval "$(mise activate)"
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
