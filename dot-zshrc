@@ -77,7 +77,6 @@ fi
 [[ -d "$HOME/.nvm" ]]       && plugins+=(nvm)
 (( $+commands[pacman] ))    && plugins+=(archlinux)
 (( $+commands[rake] ))      && plugins+=(rake-fast)
-(( $+commands[rg] ))        && plugins+=(ripgrep)
 (( $+commands[systemctl] )) && plugins+=(systemd)
 
 # zshlovers(https://grml.org/zsh/zsh-lovers.html)

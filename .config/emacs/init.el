@@ -25,14 +25,6 @@
   (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/")))
 (add-to-list 'package-archives '("stable" . "https://stable.melpa.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(customize-set-variable 'package-archive-priorities
-                        '(("gnu"    . 99)   ; prefer GNU packages
-                          ("nongnu" . 80)   ; use non-gnu packages if
-                                            ; not found in GNU elpa
-                          ("stable" . 70)   ; prefer "released" versions
-                                            ; from melpa
-                          ("melpa"  . 0)))  ; if all else fails, get it
-                                            ; from melpa
 (when (version< emacs-version "28")
 	(package-initialize))
 
@@ -193,6 +185,13 @@
   :custom (auto-package-update-delete-old-versions t)
   :config (auto-package-update-maybe))
 
+(use-package spacious-padding
+  :custom
+  (spacious-padding-subtle-mode-line t)
+  :if (display-graphic-p)
+  :config
+  (spacious-padding-mode 1))
+
 (use-package delight
   :config
   (delight '((eldoc-mode nil "eldoc")
@@ -223,20 +222,11 @@
   (add-to-list 'global-mode-string '("" keycast-mode-line))
   (keycast-mode 1))
 
-(use-package base16-theme
+(use-package catppuccin-theme
   :custom
-  (base16-theme-highlight-mode-line 'box)
-  (base16-theme-256-color-source 'colors)
+  (catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'frappe
   :config
-  (load-theme 'base16-rose-pine-moon t)
-  ;; Set the cursor color based on the evil state
-  (defvar my/base16-colors base16-rose-pine-moon-theme-colors)
-  (setq evil-emacs-state-cursor   `(,(plist-get my/base16-colors :base0D) box)
-	evil-insert-state-cursor  `(,(plist-get my/base16-colors :base0D) bar)
-	evil-motion-state-cursor  `(,(plist-get my/base16-colors :base0E) box)
-	evil-normal-state-cursor  `(,(plist-get my/base16-colors :base0B) box)
-	evil-replace-state-cursor `(,(plist-get my/base16-colors :base08) bar)
-	evil-visual-state-cursor  `(,(plist-get my/base16-colors :base09) box)))
+  (load-theme 'catppuccin :no-confirm))
 
 (use-package doom-modeline
   :custom
