@@ -10,7 +10,7 @@
 (defvar var-font-name
   (cond ((find-font (font-spec :name "Helvetica")) "Helvetica 14")
         ((find-font (font-spec :name "Arial")) "Arial 14")
-        t nil))
+        (t nil)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
