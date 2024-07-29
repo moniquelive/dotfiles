@@ -385,7 +385,7 @@ add-zsh-hook chpwd python_venv
 python_venv
 
 #--------------------------------------------------------- starship prompt ---
-prompt off
+prompt off 2>&1 /dev/null
 eval "$(starship init zsh)"
 
 #------------------------------------------------------------- emacs vterm ---
