@@ -1,5 +1,4 @@
 ## All (login/non/interactive) shells ##
-unsetopt global_rcs
 
 # unique these arrays
 typeset -U path manpath
