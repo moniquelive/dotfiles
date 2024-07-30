@@ -3,9 +3,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("4825b816a58680d1da5665f8776234d4aefce7908594bea75ec9d7e3dc429753" default))
  '(org-preview-latex-default-process 'dvisvgm nil nil "Customized with use-package org")
  '(package-selected-packages
-   '(catppuccin-theme spacious-padding company-posframe pdf-tools evil-org org-superstar company-box company auto-package-update auto-virtualenv consult csharp-mode dashboard dockerfile-mode doom-modeline elisp-autofmt elixir-mode elm-mode embark embark-consult evil evil-collection evil-leader evil-nerd-commenter evil-search-highlight-persist evil-surround go-mode helpful lsp-docker lsp-haskell lsp-mode lsp-pyright lsp-ui magit marginalia nerd-icons orderless projectile projectile-ripgrep pyvenv undo-tree vertico which-key)))
+   '(corfu vertico-posframe catppuccin-theme spacious-padding company-posframe pdf-tools evil-org org-superstar company-box company auto-package-update auto-virtualenv consult csharp-mode dashboard dockerfile-mode doom-modeline elisp-autofmt elixir-mode elm-mode embark embark-consult evil evil-collection evil-leader evil-nerd-commenter evil-search-highlight-persist evil-surround go-mode helpful lsp-docker lsp-haskell lsp-mode lsp-pyright lsp-ui magit marginalia nerd-icons orderless projectile projectile-ripgrep pyvenv undo-tree vertico which-key)))
 
 (defvar var-font-name
   (cond ((find-font (font-spec :name "Helvetica")) "Helvetica 14")

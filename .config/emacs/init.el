@@ -21,10 +21,10 @@
 (advice-add 'message :around #'my-message-with-timestamp)
 
 (require 'package)
-(when (version< emacs-version "28")
-  (add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/")))
-(add-to-list 'package-archives '("stable" . "https://stable.melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(setq package-archives
+      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
+        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
 (when (version< emacs-version "28")
 	(package-initialize))
 
@@ -83,6 +83,9 @@
   :delight
   (auto-fill-function " AF")
   :custom
+  (completion-cycle-threshold 3) ;; TAB cycle if there are only few candidates
+  (text-mode-ispell-word-completion nil) ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative, try `cape-dict'.
+  (read-extended-command-predicate #'command-completion-default-include-p) ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current mode.  Corfu commands are hidden, since they are not used via M-x. This setting is useful beyond Corfu.
   (tab-width 4)
   (indent-tabs-mode nil)
   (fast-but-imprecise-scrolling t)
@@ -99,6 +102,20 @@
   (save-place-mode t)
   (ns-function-modifier 'hyper)
   (explicit-shell-file-name "/bin/zsh")
+  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
+  ;; Vertico commands are hidden in normal buffers.
+  (read-extended-command-predicate #'command-completion-default-include-p)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt))
+  (enable-recursive-minibuffers t)
+  (image-types (cons 'svg image-types))
+  (custom-file (expand-file-name "custom.el" user-emacs-directory))
+  (auto-window-vscroll nil)
+  (bidi-paragraph-direction 'left-to-right)
+  (bidi-inhibit-bpa t)
+  (ring-bell-function '(lambda ()
+                         (invert-face 'mode-line)
+                         (run-with-timer 0.1 nil #'invert-face 'mode-line)))
   :preface
   (defun infer-indentation-style ()
     ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
@@ -141,21 +158,6 @@
                   (car args))
           (cdr args)))
   (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  (setq read-extended-command-predicate #'command-completion-default-include-p
-		;; Do not allow the cursor in the minibuffer prompt
-		minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt)
-		enable-recursive-minibuffers t
-		image-types (cons 'svg image-types)
-		custom-file (expand-file-name "custom.el" user-emacs-directory)
-		auto-window-vscroll nil
-		bidi-paragraph-direction 'left-to-right
-		bidi-inhibit-bpa t
-		ring-bell-function '(lambda ()
-							  (invert-face 'mode-line)
-							  (run-with-timer 0.1 nil #'invert-face 'mode-line)))
   :config
   (set-language-environment "UTF-8")
   (set-default-coding-systems 'utf-8)
@@ -171,41 +173,46 @@
   (tool-bar-mode -1)
   (server-mode 1))
 
-(unless (string-equal "aarch64-unknown-linux-gnu" system-configuration)
-  (use-package tree-sitter
-    :delight
-    :custom (global-tree-sitter-mode t))
+(use-package treesit-auto
+  :pin melpa
+  :custom (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
+;; (unless (string-equal "aarch64-unknown-linux-gnu" system-configuration)
+  ;; (use-package tree-sitter
+  ;;   :delight
+  ;;   :custom (global-tree-sitter-mode t))
 
-  (use-package tree-sitter-langs
-    ;; https://github.com/casouri/tree-sitter-module
-    ;; https://github.com/jimeh/.emacs.d/
-    :hook (tree-sitter-after-on . tree-sitter-hl-mode)))
+  ;; (use-package tree-sitter-langs
+  ;;   ;; https://github.com/casouri/tree-sitter-module
+  ;;   ;; https://github.com/jimeh/.emacs.d/
+  ;;   :hook (tree-sitter-after-on . tree-sitter-hl-mode)))
 
 (use-package auto-package-update
   :custom (auto-package-update-delete-old-versions t)
   :config (auto-package-update-maybe))
 
 (use-package spacious-padding
-  :custom
-  (spacious-padding-subtle-mode-line t)
+  ;; :custom
+  ;; (spacious-padding-subtle-mode-line t)
   :if (display-graphic-p)
-  :config
-  (spacious-padding-mode 1))
+  :hook (after-init . spacious-padding-mode))
 
 (use-package delight
   :config
   (delight '((eldoc-mode nil "eldoc")
 	     (flymake-mode nil "Flymake"))))
-(use-package rainbow-delimiters :hook (prog-mode . rainbow-delimiters-mode))
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 (use-package nerd-icons)
 (use-package nerd-icons-completion
   :after (nerd-icons marginalia)
-  :hook (marginalia-mode . nerd-icons-completion-marginalia-setup)
-  :config (nerd-icons-completion-mode))
+  :hook ((marginalia-mode . nerd-icons-completion-marginalia-setup)
+         (after-init . nerd-icons-completion-mode)))
 
 (use-package vterm
-  :custom
-  (vterm-kill-buffer-on-exit t))
+  :custom (vterm-kill-buffer-on-exit t))
 
 (use-package ibuffer-vc
   :config (ibuffer-vc-set-filter-groups-by-vc-root))
@@ -223,10 +230,8 @@
   (keycast-mode 1))
 
 (use-package catppuccin-theme
-  :custom
-  (catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'frappe
-  :config
-  (load-theme 'catppuccin :no-confirm))
+  :custom (catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'frappe
+  :config (load-theme 'catppuccin :no-confirm))
 
 (use-package doom-modeline
   :custom
@@ -251,7 +256,7 @@
    (which-key-side-window-location 'bottom)
    (which-key-side-window-max-width 0.5)
    (which-key-side-window-max-height 0.5))
-  :config (which-key-mode))
+  :hook (after-init . which-key-mode))
 
 (use-package helpful
   :custom
@@ -371,9 +376,9 @@
 
 (use-package undo-tree
   :delight
-  :custom
-  (undo-tree-auto-save-history t)
-  :config (global-undo-tree-mode 1))
+  :custom (undo-tree-auto-save-history t)
+  :hook (after-init . global-undo-tree-mode))
+
 (use-package evil
   :delight
   :custom
@@ -426,36 +431,43 @@
   (vertico-count 15)
   (vertico-resize nil)
   (vertico-cycle t)
-  :init (vertico-mode 1)
-  :config (vertico-mouse-mode 1)
-  :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
+  :hook ((rfn-eshadow-update-overlay . vertico-directory-tidy)
+         (after-init . (lambda ()
+                         (vertico-mode 1)
+                         (vertico-mouse-mode 1)))))
+
+(use-package vertico-posframe
+  :custom
+  (vertico-posframe-parameters
+   '((left-fringe . 8)
+     (right-fringe . 8)))
+  :hook (after-init . vertico-posframe-mode))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist :init (savehist-mode))
+(use-package savehist
+  :hook (after-init . savehist-mode))
 
 (use-package orderless
-  :config
-  (setq completion-styles '(orderless basic)
-	orderless-matching-styles '(orderless-literal orderless-initialism orderless-regexp)
-	orderless-component-separator #'orderless-escapable-split-on-space
-        completion-category-defaults nil
-        completion-category-overrides '((file (styles partial-completion)))))
+  :custom
+  (completion-styles '(orderless basic))
+  (orderless-matching-styles '(orderless-literal orderless-initialism orderless-regexp))
+  (orderless-component-separator #'orderless-escapable-split-on-space)
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles partial-completion)))))
 
 (use-package marginalia
-  :custom
-  (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  :init (marginalia-mode))
+  :custom (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
+  :hook (after-init . marginalia-mode))
 
 (use-package embark
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :hook
-  (eldoc-documentation-functions . embark-eldoc-first-target)
-  :init
-  (setq prefix-help-command #'embark-prefix-help-command
-	eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  :custom
+  (prefix-help-command #'embark-prefix-help-command)
+  (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
+  :hook (eldoc-documentation-functions . embark-eldoc-first-target)
   :config
   (defun embark-which-key-indicator ()
     "An embark indicator that displays keymaps using which-key.
@@ -518,7 +530,8 @@
   :custom
   (lsp-keymap-prefix "s-l")
   (lsp-semantic-tokens-enable t)
-  :hook (lsp-mode . lsp-enable-which-key-integration)
+  ;; :hook
+  ;; (lsp-mode . lsp-enable-which-key-integration)
   :config (lsp-enable-which-key-integration t)
   (evil-define-minor-mode-key 'normal 'lsp-mode "K" 'lsp-ui-doc-glance)
   (evil-define-minor-mode-key 'normal 'lsp-mode "gr" 'lsp-find-references))
@@ -539,19 +552,19 @@
   :hook (csharp-mode . lsp-deferred))
 (use-package elixir-mode
   :delight
-  :mode "\\.heex\\'"
+  :mode ("\\.heex\\'" "\\.ex\\'" "\\.exs\\'")
   :custom (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
   :hook (elixir-mode . lsp-deferred))
 (use-package go-mode
   :delight
-  :mode ("\\.go\\'" . go-mode)
-  :hook (go-mode . lsp-deferred)
+  :mode "\\.go\\'"
+  :hook (go-ts-mode . lsp-deferred)
 	(before-save . lsp-format-buffer)
 	(before-save . lsp-organize-imports))
 (use-package elm-mode
   :delight elm-format-on-save-mode
   :delight elm-indent-mode
-  :mode ("\\.elm\\'" . elm-mode)
+  :mode "\\.elm\\'"
   :hook (elm-mode . lsp-deferred)
   (elm-mode . elm-format-on-save-mode))
 (use-package python
@@ -586,56 +599,68 @@
   (lsp-haskell-formatting-provider "fourmolu")
   (lsp-haskell-plugin-tactics-config-timeout-duration 15)
   (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
-  :hook (haskell-mode . lsp-deferred))
+  :hook (haskell-ts-mode . lsp-deferred))
 
-(use-package company
-  :delight
-  :hook
-  (after-init . global-company-mode)
-  :bind (:map company-active-map
-			  ("C-n" . company-select-next)
-			  ("C-p" . company-select-previous)
-			  ("<tab>" . company-complete-selection)
-			  :map lsp-mode-map
-			  ("<tab>" . company-indent-or-complete-common))
+(use-package corfu
+  ;; Optional customizations
   :custom
-  (company-idle-delay 0.1)
-  (company-minimum-prefix-length 1))
-;; (use-package company-box :delight :hook (company-mode . company-box-mode))
-(use-package company-posframe
-  :delight
-  :custom
-  (company-tooltip-minimum-width 40)
-  :config
-  (company-posframe-mode 1))
+  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
+  (corfu-auto t)                 ;; Enable auto completion
+  (corfu-auto-prefix 2)
+  (corfu-quit-at-boundary 'separator)   ;; Never quit at completion boundary
+  (corfu-echo-documentation 0.25)   ;; Never quit at completion boundary
+  (corfu-preview-current 'insert)    ;; Disable current candidate preview
+  (corfu-preselect-first nil)      ;; Preselect the prompt
+  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
+  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
+  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+
+  :bind (:map corfu-map
+              ("TAB" . corfu-next)
+              ([tab] . corfu-next)
+              ("S-TAB" . corfu-previous)
+              ([backtab] . corfu-previous))
+  ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
+  ;; :hook ((prog-mode . corfu-mode)
+  ;;        (shell-mode . corfu-mode)
+  ;;        (eshell-mode . corfu-mode))
+
+  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
+  ;; be used globally (M-/).  See also the customization variable
+  ;; `global-corfu-modes' to exclude certain modes.
+  :init
+  (global-corfu-mode)
+  (corfu-history-mode))
 
 (use-package projectile
   :delight
   :delight '(:eval (concat " " (projectile-project-name)))
+  :custom (projectile-switch-project-action #'projectile-dired)
   :init
   (when (file-directory-p "~/prj")
     (setq projectile-project-search-path '("~/prj")))
-  (setq projectile-switch-project-action #'projectile-dired)
   :bind-keymap
   (("s-p" . projectile-command-map)
    ("C-c p" . projectile-command-map))
-  :config (projectile-mode))
+  :hook (after-init . projectile-mode))
 (use-package projectile-ripgrep :after projectile)
 
 (use-package dashboard
-  :init (setq dashboard-projects-backend 'projectile
-	      dashboard-items '((recents . 10)
-				(bookmarks . 5)
-				(projects . 5)
-				(registers . 5))
-	      tab-bar-new-tab-choice (lambda () (get-buffer-create "*dashboard*"))
-	      dashboard-startup-banner (expand-file-name "logo.png" user-emacs-directory)
-	      dashboard-set-navigator t
-	      dashboard-center-content t
-	      dashboard-display-icons-p t
-	      dashboard-set-heading-icons t
-	      dashboard-icon-type 'nerd-icons)
-  :config (dashboard-setup-startup-hook))
+  :custom
+  (dashboard-projects-backend 'projectile)
+  (dashboard-items '((recents . 10)
+                     (bookmarks . 5)
+                     (projects . 5)
+                     (registers . 5)))
+  (tab-bar-new-tab-choice (lambda () (get-buffer-create "*dashboard*")))
+  (dashboard-startup-banner (expand-file-name "logo.png" user-emacs-directory))
+  (dashboard-set-navigator t)
+  (dashboard-center-content t)
+  (dashboard-display-icons-p t)
+  (dashboard-set-heading-icons t)
+  (dashboard-icon-type 'nerd-icons)
+  :hook (after-init . dashboard-setup-startup-hook))
 
 (use-package magit
   :commands magit-status
@@ -706,8 +731,7 @@
 											   calendar)))))
 
 (use-package pdf-tools
-  :config
-  (pdf-loader-install))
+  :hook (after-init . pdf-loader-install))
 
 
 ;; Make GC pauses faster by decreasing the threshold.
