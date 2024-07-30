@@ -530,6 +530,7 @@
   :custom
   (lsp-keymap-prefix "s-l")
   (lsp-semantic-tokens-enable t)
+  (lsp-completion-provider :none)
   ;; :hook
   ;; (lsp-mode . lsp-enable-which-key-integration)
   :config (lsp-enable-which-key-integration t)
@@ -610,7 +611,7 @@
   (corfu-quit-at-boundary 'separator)   ;; Never quit at completion boundary
   (corfu-echo-documentation 0.25)   ;; Never quit at completion boundary
   (corfu-preview-current 'insert)    ;; Disable current candidate preview
-  (corfu-preselect-first nil)      ;; Preselect the prompt
+  ;; (corfu-preselect-first nil)      ;; Preselect the prompt
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
