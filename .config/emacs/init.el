@@ -616,9 +616,9 @@
   (corfu-quit-at-boundary 'separator)   ;; Never quit at completion boundary
   (corfu-echo-documentation 0.25)   ;; Never quit at completion boundary
   (corfu-preview-current 'insert)    ;; Disable current candidate preview
-  (corfu-popupinfo-delay '(1.0 . 0.5))
-  ;; (corfu-preselect-first nil)      ;; Preselect the prompt
-  ;; (corfu-separator ?\s)          ;; Orderless field separator
+  (corfu-popupinfo-delay '(0.4 . 0.2))
+  (corfu-preselect 'prompt)      ;; Preselect the prompt
+  (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
   ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
   ;; (corfu-scroll-margin 5)        ;; Use scroll margin
