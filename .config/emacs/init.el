@@ -83,6 +83,7 @@
   :delight
   (auto-fill-function " AF")
   :custom
+  (completion-ignore-case t)
   (completion-cycle-threshold 3) ;; TAB cycle if there are only few candidates
   (text-mode-ispell-word-completion nil) ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative, try `cape-dict'.
   (read-extended-command-predicate #'command-completion-default-include-p) ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current mode.  Corfu commands are hidden, since they are not used via M-x. This setting is useful beyond Corfu.
@@ -449,11 +450,15 @@
 
 (use-package orderless
   :custom
-  (completion-styles '(orderless basic))
+  (completion-styles '(tab orderless basic))
   (orderless-matching-styles '(orderless-literal orderless-initialism orderless-regexp))
   (orderless-component-separator #'orderless-escapable-split-on-space)
   (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion)))))
+  (completion-category-overrides '((file (styles partial-completion))))
+  :init
+  (add-to-list 'completion-styles-alist
+               '(tab completion-basic-try-completion ignore
+                     "Completion style which provides TAB completion only.")))
 
 (use-package marginalia
   :custom (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
@@ -611,6 +616,7 @@
   (corfu-quit-at-boundary 'separator)   ;; Never quit at completion boundary
   (corfu-echo-documentation 0.25)   ;; Never quit at completion boundary
   (corfu-preview-current 'insert)    ;; Disable current candidate preview
+  (corfu-popupinfo-delay '(1.0 . 0.5))
   ;; (corfu-preselect-first nil)      ;; Preselect the prompt
   ;; (corfu-separator ?\s)          ;; Orderless field separator
   ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
@@ -632,7 +638,8 @@
   ;; `global-corfu-modes' to exclude certain modes.
   :init
   (global-corfu-mode)
-  (corfu-history-mode))
+  (corfu-history-mode)
+  (corfu-popupinfo-mode))
 
 (use-package projectile
   :delight
