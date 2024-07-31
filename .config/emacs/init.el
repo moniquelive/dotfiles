@@ -25,6 +25,7 @@
       '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
         ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
         ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+(setq package-archive-priorities '(("melpa" . 2)))
 (when (version< emacs-version "28")
 	(package-initialize))
 
@@ -231,6 +232,7 @@
   (keycast-mode 1))
 
 (use-package catppuccin-theme
+  :pin melpa
   :custom (catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'frappe
   :config (load-theme 'catppuccin :no-confirm))
 
@@ -563,7 +565,7 @@
   :hook (elixir-mode . lsp-deferred))
 (use-package go-mode
   :delight
-  :mode "\\.go\\'"
+  :mode ("\\.go\\'" . go-ts-mode)
   :hook (go-ts-mode . lsp-deferred)
 	(before-save . lsp-format-buffer)
 	(before-save . lsp-organize-imports))
@@ -605,7 +607,7 @@
   (lsp-haskell-formatting-provider "fourmolu")
   (lsp-haskell-plugin-tactics-config-timeout-duration 15)
   (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
-  :hook (haskell-ts-mode . lsp-deferred))
+  :hook (haskell-mode . lsp-deferred))
 
 (use-package corfu
   ;; Optional customizations
