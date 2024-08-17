@@ -1,33 +1,28 @@
-local function keys()
-	local ht = require("haskell-tools")
-	local fn = {
-		hs = ht.hoogle.hoogle_signature,
-		bea = ht.lsp.buf_eval_all,
-		q = ht.repl.quit,
-		t = function()
-			ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-		end,
-		rt = function()
-			ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-		end,
-	}
-	local buffnr = vim.api.nvim_get_current_buf()
-	local def_opts = { noremap = true, silent = true }
-	local opts = vim.tbl_extend("keep", def_opts, { buffer = buffnr })
-	return {
-		{ "<leader>hs", fn.hs, opts },
-		{ "<leader>hea", fn.bea, opts },
-		{ "<leader>hr", fn.t, opts },
-		{ "<leader>hq", fn.q, opts },
-		{ "<leader>hf", fn.rt, def_opts },
-	}
-end
-
 local function init()
 	vim.g.haskell_tools = {
+		hoogle = {
+			mode = "telescope-local",
+		},
 		tools = {
 			repl = { handler = "toggleterm" },
 			definition = { hoogle_signature_fallback = true },
+			hover = { stylize_markdown = true },
+		},
+		hls = { -- LSP client options
+			on_attach = function(client, _bufnr, ht)
+				print("ATTACH", ht.default_settings.haskell)
+			end,
+			default_settings = {
+				haskell = { -- haskell-language-server options
+					formattingProvider = "fourmolu",
+					plugin = {
+						hlint = {
+							codeActionsOn = true,
+							diagnosticsOn = true,
+						},
+					},
+				},
+			},
 		},
 	}
 end
@@ -39,6 +34,5 @@ return {
 		version = "^4", -- Recommended
 		init = init,
 		ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
-		keys = keys,
 	},
 }

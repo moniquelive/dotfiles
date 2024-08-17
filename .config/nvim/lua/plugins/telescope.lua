@@ -1,6 +1,7 @@
 local function opts()
 	return {
 		defaults = {
+			layout_strategy = "flex",
 			mappings = {
 				i = {
 					["<esc>"] = "close",

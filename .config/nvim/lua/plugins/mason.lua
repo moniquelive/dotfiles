@@ -89,11 +89,6 @@ local servers = {
 			"--clang-tidy",
 		},
 	},
-	hls = {
-		settings = {
-			haskell = { formattingProvider = "fourmolu" },
-		},
-	},
 	gopls = {
 		settings = {
 			gopls = {
