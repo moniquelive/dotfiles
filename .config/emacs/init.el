@@ -606,7 +606,7 @@
   :custom
   (lsp-haskell-formatting-provider "fourmolu")
   (lsp-haskell-plugin-tactics-config-timeout-duration 15)
-  (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
+  ;; (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
   :hook (haskell-mode . lsp-deferred))
 
 (use-package corfu
