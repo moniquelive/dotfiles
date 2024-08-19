@@ -1,0 +1,7 @@
+[tools]
+go = "latest"
+ghc = "latest"
+lua = "latest"
+cabal = "latest"
+hls = "latest"
+stack = "latest"
