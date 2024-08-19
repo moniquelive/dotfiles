@@ -47,6 +47,7 @@ COMPLETION_WAITING_DOTS="true"
 
 #----------------------------------------------------------------- plugins ---
 plugins=(
+  1password
   cp colored-man-pages command-not-found common-aliases copybuffer
   dirpersist
   history
@@ -56,8 +57,8 @@ plugins=(
 )
 # plugins for binaries
 for p in aws emacs fzf gcloud docker docker-compose gem git \
-          gpg-agent pyenv rails redis-cli ros rsync \
-                  stack tig tmux yum
+          gpg-agent mise pyenv rails redis-cli rsync \
+                  stack starship tig tmux yum
 do
   (( $+commands[$p] )) && plugins+=($p)
 done
@@ -124,7 +125,7 @@ unset SCRIPT_NAME
 # set these after omz
 # export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="rose-pine"
+export BAT_THEME="Catppuccin Macchiato"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
@@ -178,7 +179,6 @@ alias ass='aws --profile akad_shared_services'
 	fi
 	rm -f -- "$tmp"
 }
-(( $+commands[mise] )) && eval "$(mise activate zsh)"
 
 #---------------------------------------------------------- global aliases ---
 alias -g A="| awk"
@@ -425,7 +425,6 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
 fi
 
 [[ -f $HOME/lscolors.sh ]] && source $HOME/lscolors.sh
-[[ -f $HOME/.config/op/plugins.sh ]] && source $HOME/.config/op/plugins.sh
 
 #----------------------------------------------------------------------------
 # BENCHMARKING (END)
