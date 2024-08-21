@@ -1,7 +1,13 @@
+[settings]
+experimental = true
+
 [tools]
 go = "latest"
 ghc = "latest"
-lua = "latest"
+lua = ["5.1", "latest"]
 cabal = "latest"
 hls = "latest"
 stack = "latest"
+golangci-lint = "latest"
+usage = "latest"
+ruby = "system"
