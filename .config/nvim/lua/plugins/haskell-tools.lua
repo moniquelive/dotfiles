@@ -1,20 +1,16 @@
 local function init()
 	vim.g.haskell_tools = {
-		hoogle = {
-			mode = "telescope-local",
-		},
 		tools = {
-			repl = { handler = "toggleterm" },
+			repl = { handler = "toggleterm", prefer = "cabal" },
 			definition = { hoogle_signature_fallback = true },
-			hover = { stylize_markdown = true },
+			-- hover = { stylize_markdown = true },
+			hoogle = { mode = "telescope-local" }, -- "auto"|"telescope-local"|"telescope-web"|"browser"
 		},
 		hls = { -- LSP client options
-			on_attach = function(client, _bufnr, ht)
-				print("ATTACH", ht.default_settings.haskell)
-			end,
 			default_settings = {
 				haskell = { -- haskell-language-server options
 					formattingProvider = "fourmolu",
+					hlintOn = true,
 					plugin = {
 						hlint = {
 							codeActionsOn = true,
@@ -23,6 +19,10 @@ local function init()
 					},
 				},
 			},
+			-- on_attach = function(client, _bufnr, ht)
+			-- 	vim.print(ht)
+			-- 	print("ATTACH", ht.default_settings.haskell)
+			-- end,
 		},
 	}
 end
