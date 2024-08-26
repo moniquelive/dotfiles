@@ -407,6 +407,8 @@
   ;; 	    (lambda () (set-face-attribute 'mode-line nil :background original-background))))
 (use-package evil-leader
   :after (evil evil-search-highlight-persist)
+  :custom
+  (evil-want-keybinding nil)
   :config
   (global-evil-leader-mode)
   (evil-leader/set-key
