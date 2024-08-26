@@ -145,7 +145,7 @@ local servers = {
 	elixirls = {
 		-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
 		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
-		-- cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
+		cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
 		settings = {
 			elixirLS = { dialyzerEnabled = false, fetchDeps = false },
 		},
