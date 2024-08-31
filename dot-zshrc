@@ -157,7 +157,7 @@ alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias icat='kitty +kitten icat'
 #alias ssh='TERM=xterm ssh'
 #alias ssh="kitty +kitten ssh"
-alias yt="youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
+alias yt="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
 alias afd='aws --profile akad_front_dev'
 alias afp='aws --profile akad_front_prod'
 alias abp='aws --profile akad_back_prod'
@@ -339,6 +339,12 @@ fzfbrew() {
 #-----------------------------------------------------------------------------
 listen() {
   lsof -nP -i":$1" | grep LISTEN
+}
+
+nstat() {
+  sudo lsof -iTCP -sTCP:LISTEN -n -P | awk 'NR>1 {print $9, $1, $2}' | sed 's/.*://' | while read port process pid
+    do echo "Port $port: $(ps -p $pid -o command= | sed 's/^-//') (PID: $pid)"
+  done | sort -n
 }
 
 #-----------------------------------------------------------------------------
