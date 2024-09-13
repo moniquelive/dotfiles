@@ -1,36 +1,22 @@
-local function rlmn()
-	require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_next()
+local function keys()
+	local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
+	local m = { "n", "x", "o" }
+
+	return {
+		{ ";", ts_repeat_move.repeat_last_move_next, mode = m, expr = true },
+		{ ",", ts_repeat_move.repeat_last_move_previous, mode = m, expr = true },
+		{ "f", ts_repeat_move.builtin_f_expr, mode = m, expr = true },
+		{ "F", ts_repeat_move.builtin_F_expr, mode = m, expr = true },
+		{ "t", ts_repeat_move.builtin_t_expr, mode = m, expr = true },
+		{ "T", ts_repeat_move.builtin_T_expr, mode = m, expr = true },
+	}
 end
-local function rlmp()
-	require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_previous()
-end
-local function bf()
-	require("nvim-treesitter.textobjects.repeatable_move").builtin_f()
-end
-local function bF()
-	require("nvim-treesitter.textobjects.repeatable_move").builtin_F()
-end
-local function bt()
-	require("nvim-treesitter.textobjects.repeatable_move").builtin_t()
-end
-local function bT()
-	require("nvim-treesitter.textobjects.repeatable_move").builtin_T()
-end
-local m = { "n", "x", "o" }
-local mm = { "n", "x" }
 
 return {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		main = "nvim-treesitter.configs",
-		keys = {
-			{ ";", rlmn, mode = m },
-			{ ",", rlmp, mode = m },
-			{ "f", bf, mode = mm },
-			{ "F", bF, mode = mm },
-			{ "t", bt, mode = mm },
-			{ "T", bT, mode = mm },
-		},
+		keys = keys,
 		opts = {
 			textobjects = {
 				select = {
