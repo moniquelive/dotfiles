@@ -2,6 +2,10 @@
 (with-eval-after-load "~/.config/emacs/gcmh.el"
   (gcmh-mode 1))
 
+(when (file-exists-p "/opt/homebrew/etc/libressl/cert.pem")
+  (require 'gnutls)
+  (add-to-list 'gnutls-trustfiles "/opt/homebrew/etc/libressl/cert.pem"))
+
 (defun package-reinstall-all-activated-packages ()
   "Refresh and reinstall all activated packages."
   (interactive)
@@ -72,7 +76,7 @@
 (setq use-package-always-ensure t)
 ;; (setq use-package-verbose t)
 (unless (package-installed-p 'use-package)
-  (package-refresh-contents)
+  ;; (package-refresh-contents)
   (package-install 'use-package))
 (eval-when-compile (require 'use-package)) ;; This is only needed once, near the top of the file
 
