@@ -3,8 +3,8 @@ local function keys()
 	local m = { "n", "x", "o" }
 
 	return {
-		{ ";", ts_repeat_move.repeat_last_move_next, mode = m, expr = true },
-		{ ",", ts_repeat_move.repeat_last_move_previous, mode = m, expr = true },
+		{ ";", ts_repeat_move.repeat_last_move_next, mode = m },
+		{ ",", ts_repeat_move.repeat_last_move_previous, mode = m },
 		{ "f", ts_repeat_move.builtin_f_expr, mode = m, expr = true },
 		{ "F", ts_repeat_move.builtin_F_expr, mode = m, expr = true },
 		{ "t", ts_repeat_move.builtin_t_expr, mode = m, expr = true },
