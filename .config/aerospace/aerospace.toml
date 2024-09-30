@@ -119,6 +119,7 @@ cmd-ctrl-alt-m = 'workspace M'
 cmd-ctrl-alt-s = 'workspace S'
 cmd-ctrl-alt-t = 'workspace T'
 cmd-ctrl-alt-c = 'workspace C'
+cmd-ctrl-alt-w = 'workspace W'
 
 # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
 # alt-b = 'workspace B'
@@ -158,6 +159,7 @@ cmd-ctrl-alt-shift-c = 'move-node-to-workspace C'
 # alt-shift-g = 'move-node-to-workspace G'
 # alt-shift-i = 'move-node-to-workspace I'
 cmd-ctrl-alt-shift-m = 'move-node-to-workspace M'
+cmd-ctrl-alt-shift-w = 'move-node-to-workspace W'
 # alt-shift-n = 'move-node-to-workspace N'
 # alt-shift-o = 'move-node-to-workspace O'
 # alt-shift-p = 'move-node-to-workspace P'
@@ -231,13 +233,13 @@ if.app-id = 'com.readdle.smartemail-Mac'
 run = 'move-node-to-workspace M'
 
 [[on-window-detected]]
-if.app-id = 'com.microsoft.teams2'
+if.app-id = 'com.apple.iCal'
 run = 'move-node-to-workspace M'
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'
+run = 'move-node-to-workspace W'
 
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
-run = 'move-node-to-workspace M'
-
-[[on-window-detected]]
-if.app-id = 'com.apple.iCal'
-run = 'move-node-to-workspace M'
+run = 'move-node-to-workspace W'
