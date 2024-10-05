@@ -57,7 +57,7 @@ plugins=(
 )
 # plugins for binaries
 for p in aws emacs fzf gcloud docker docker-compose gem git \
-          gpg-agent mise pyenv rails redis-cli rsync \
+          gpg-agent mise mix pyenv rails redis-cli rsync \
                   stack starship tig tmux yum
 do
   (( $+commands[$p] )) && plugins+=($p)

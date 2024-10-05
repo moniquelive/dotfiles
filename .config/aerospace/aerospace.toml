@@ -12,7 +12,7 @@ after-login-command = []
 after-startup-command = []
 
 # Start AeroSpace at login
-start-at-login = true
+start-at-login = false
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
@@ -39,7 +39,7 @@ key-mapping.preset = 'qwerty'
 # Drop it from your config, if you don't like this behavior
 # See https://nikitabobko.github.io/AeroSpace/guide#on-focus-changed-callbacks
 # See https://nikitabobko.github.io/AeroSpace/commands#move-mouse
-# on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 # Gaps between windows (inner-*) and between monitor edges (outer-*).
 # Possible values:
@@ -207,11 +207,14 @@ cmd-ctrl-alt-shift-l = ['join-with right', 'mode main']
 C = ['Built-in.*', '.*(3)']
 T = ['Built-in.*', '.*(3)']
 S = ['Built-in.*', '.*(1)']
+W = ['Built-in.*', '.*(1)']
 
+#---------------------------------------------------------------- Spotify ---
 [[on-window-detected]]
 if.app-id = 'com.spotify.client'
 run = 'move-node-to-workspace S'
 
+#------------------------------------------------------------------- Chat ---
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = 'move-node-to-workspace C'
@@ -220,6 +223,7 @@ run = 'move-node-to-workspace C'
 if.app-id = 'net.whatsapp.WhatsApp'
 run = 'move-node-to-workspace C'
 
+#--------------------------------------------------------------- Telegram ---
 [[on-window-detected]]
 if.app-id = 'ru.keepcoder.Telegram'
 run = 'move-node-to-workspace T'
@@ -228,6 +232,7 @@ run = 'move-node-to-workspace T'
 if.app-id = 'com.facebook.archon.developerID'
 run = 'move-node-to-workspace T'
 
+#------------------------------------------------------------------- Mail ---
 [[on-window-detected]]
 if.app-id = 'com.readdle.smartemail-Mac'
 run = 'move-node-to-workspace M'
@@ -236,6 +241,7 @@ run = 'move-node-to-workspace M'
 if.app-id = 'com.apple.iCal'
 run = 'move-node-to-workspace M'
 
+#------------------------------------------------------------------- Work ---
 [[on-window-detected]]
 if.app-id = 'com.microsoft.teams2'
 run = 'move-node-to-workspace W'
@@ -243,3 +249,12 @@ run = 'move-node-to-workspace W'
 [[on-window-detected]]
 if.app-id = 'com.microsoft.Outlook'
 run = 'move-node-to-workspace W'
+
+#------------------------------------------------------------------ Float ---
+[[on-window-detected]]
+if.app-id = 'com.omnigroup.OmniFocus4'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.1password.1password'
+run = 'layout floating'
