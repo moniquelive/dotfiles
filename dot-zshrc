@@ -48,6 +48,7 @@ COMPLETION_WAITING_DOTS="true"
 #----------------------------------------------------------------- plugins ---
 plugins=(
   1password
+  aliases
   cp colored-man-pages command-not-found common-aliases copybuffer
   dirpersist
   history

@@ -381,10 +381,10 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-function (lambda (_) (projectile-project-root))))
 
-(use-package undo-tree
-  :delight
-  :custom (undo-tree-auto-save-history t)
-  :hook (after-init . global-undo-tree-mode))
+;; (use-package undo-tree
+  ;; :delight
+  ;; :custom (undo-tree-auto-save-history t)
+  ;; :hook (after-init . global-undo-tree-mode))
 
 (use-package evil
   :delight
