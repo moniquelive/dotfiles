@@ -391,7 +391,7 @@
   :custom
   (evil-want-keybinding nil)
   (evil-want-integration t)
-  (evil-undo-system 'undo-tree)
+  ;(evil-undo-system 'undo-tree)
   (evil-split-window-below t)
   (evil-vsplit-window-right t)
   (evil-cross-lines t)
