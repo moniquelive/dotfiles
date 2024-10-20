@@ -1,6 +1,8 @@
 return {
 	{
 		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
 		opts = {
 			keymaps = {
 				["q"] = "actions.close",
@@ -10,12 +12,13 @@ return {
 				["<C-h>"] = false,
 			},
 		},
-		event = "Syntax",
+		-- event = "Syntax",
 		cmd = "Oil",
-		keys = function()
-			return {
-				{ "-", require("oil").open },
-			}
-		end,
+		keys = { {
+			"-",
+			function()
+				return require("oil").open()
+			end,
+		} },
 	},
 }

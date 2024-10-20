@@ -1,3 +1,1 @@
-vim.schedule(function()
-	vim.o.wrap = true
-end)
+vim.o.wrap = true

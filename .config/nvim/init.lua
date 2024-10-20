@@ -148,15 +148,17 @@ local myvimrc = vim.fn.expand("$MYVIMRC")
 local cmds = {
 	{ "FocusLost", "*", [[silent! wa]] }, -- Autosave on focus lost
 	{ "VimResized", "*", [[wincmd =]] }, -- let terminal resize scale the internal windows
+	{
+		"FileType",
+		{ "help", "qf", "fugitive", "fugitiveblame", "netrw" },
+		[[ nnoremap <buffer><silent> q <cmd>close<CR> ]],
+	},
 	{ { "BufRead", "BufNewFile" }, myvimrc, "source " .. myvimrc },
-	{ { "BufRead", "BufNewFile" }, "*.asm", [[setlocal filetype="nasm"]] },
-	{ { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
 }
+-- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
 for _, c in ipairs(cmds) do
 	au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
 end
-
-vim.cmd([[autocmd FileType help,qf,fugitive,fugitiveblame,netrw nnoremap <buffer><silent> q <cmd>close<CR>]])
 
 if vim.fn.has("gui_running") == 0 then
 	vim.o.ttimeoutlen = 10
@@ -167,13 +169,7 @@ end
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
-au("TextYankPost", {
-	pattern = "*",
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = init_lua_grp,
-})
+vim.cmd([[ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Visual', timeout=300} ]])
 
 -- Status Line
 vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]
@@ -183,6 +179,5 @@ require("lazy").setup("plugins", { defaults = { lazy = true } })
 
 -----------------------------------------------------------------------------
 -- After setup please
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("ui-select")
-require("telescope").load_extension("ht")
+
+-- k.set("n", "<leader>ll", require("lazy").home, map_opts)

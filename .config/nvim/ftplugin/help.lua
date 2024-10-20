@@ -9,7 +9,8 @@ local kv = {
 	["<ESC>"] = [[<cmd>close<cr>]],
 	["q"] = [[<cmd>close<cr>]],
 }
+local opts = { noremap = true, silent = true, buffer = true }
 for key, value in pairs(kv) do
-	k.set("n", key, value, { noremap = true, silent = true, buffer = true })
+	k.set("n", key, value, opts)
 end
-vim.cmd.wincmd "L"
+vim.cmd.wincmd("L")
