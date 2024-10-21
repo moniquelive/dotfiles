@@ -1,60 +1,44 @@
-local function find_files()
-	return require("telescope.builtin").find_files()
-end
-local function buffers()
-	return require("telescope.builtin").buffers()
-end
-local function diagnostics()
-	return require("telescope.builtin").diagnostics()
-end
-local function tags()
-	return require("telescope.builtin").tags()
-end
-local function live_grep()
-	return require("telescope.builtin").live_grep()
-end
-local function registers()
-	return require("telescope.builtin").registers()
-end
-local function help_tags()
-	return require("telescope.builtin").help_tags()
-end
-local function keymaps()
-	return require("telescope.builtin").keymaps()
-end
-local function quickfix()
-	return require("telescope.builtin").quickfix()
-end
-local function git_files()
-	return require("telescope.builtin").git_files()
-end
-local function marks()
-	return require("telescope.builtin").marks()
-end
-local function vim_options()
-	return require("telescope.builtin").vim_options()
+local function k(name)
+	return function()
+		local bi = require("telescope.builtin")
+		local kf = {
+			find_files = bi.find_files,
+			buffers = bi.buffers,
+			diagnostics = bi.diagnostics,
+			tags = bi.tags,
+			live_grep = bi.live_grep,
+			registers = bi.registers,
+			help_tags = bi.help_tags,
+			keymaps = bi.keymaps,
+			quickfix = bi.quickfix,
+			git_files = bi.git_files,
+			marks = bi.marks,
+			vim_options = bi.vim_options,
+		}
+		return kf[name]()
+	end
 end
 
 local function keys()
 	local o = { noremap = true, silent = true, expr = false }
 	return {
-		{ "<c-p>", find_files, o },
-		{ "<leader>fb", buffers, o },
-		{ "<leader>fd", diagnostics, o },
-		{ "<leader>ft", tags, o },
-		{ "<leader>fl", live_grep, o },
-		{ "<leader>fr", registers, o },
-		{ "<leader>fh", help_tags, o },
-		{ "<leader>fm", keymaps, o },
-		-- { "<leader>fgc", builtin.git_commits, o },
-		{ "<leader>qf", quickfix, o },
-		-- { "<leader>fc", builtin.colorscheme, o },
-		-- { "<leader>fcmd", builtin.commands, o },
-		-- { "<leader>fft", builtin.filetypes, o },
-		{ "<leader>fgf", git_files, o },
-		-- { "<leader>fhs", builtin.search_history, o },
-		{ "<leader>fmark", marks, o },
-		{ "<leader>fo", vim_options, o },
+		{ "<c-p>", k("find_files"), o },
+		{ "<leader>fb", k("buffers"), o },
+		{ "<leader>fd", k("diagnostics"), o },
+		{ "<leader>ft", k("tags"), o },
+		{ "<leader>fl", k("live_grep"), o },
+		{ "<leader>fr", k("registers"), o },
+		{ "<leader>fh", k("help_tags"), o },
+		{ "<leader>fm", k("keymaps"), o },
+		-- { "<leader>fgc", k("git_commits"), o },
+		{ "<leader>qf", k("quickfix"), o },
+		-- { "<leader>fc", k("colorscheme"), o },
+		-- { "<leader>fcmd", k("commands"), o },
+		-- { "<leader>fft", k("filetypes"), o },
+		{ "<leader>fgf", k("git_files"), o },
+		-- { "<leader>fhs", k("search_history"), o },
+		{ "<leader>fmark", k("marks"), o },
+		{ "<leader>fo", k("vim_options"), o },
 		{
 			"<leader><space>",
 			function()

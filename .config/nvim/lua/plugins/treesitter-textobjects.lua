@@ -1,31 +1,27 @@
-local function repeat_last_move_next()
-	return require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_next()
-end
-local function repeat_last_move_previous()
-	return require("nvim-treesitter.textobjects.repeatable_move").repeat_last_move_previous()
-end
-local function builtin_f_expr()
-	return require("nvim-treesitter.textobjects.repeatable_move").builtin_f_expr()
-end
-local function builtin_F_expr()
-	return require("nvim-treesitter.textobjects.repeatable_move").builtin_F_expr()
-end
-local function builtin_t_expr()
-	return require("nvim-treesitter.textobjects.repeatable_move").builtin_t_expr()
-end
-local function builtin_T_expr()
-	return require("nvim-treesitter.textobjects.repeatable_move").builtin_T_expr()
+local function k(name)
+	return function()
+		local rm = require("nvim-treesitter.textobjects.repeatable_move")
+		local kf = {
+			repeat_last_move_next = rm.repeat_last_move_next,
+			repeat_last_move_previous = rm.repeat_last_move_previous,
+			builtin_f_expr = rm.builtin_f_expr,
+			builtin_F_expr = rm.builtin_F_expr,
+			builtin_t_expr = rm.builtin_t_expr,
+			builtin_T_expr = rm.builtin_T_expr,
+		}
+		return kf[name]()
+	end
 end
 
 local function keys()
 	local m = { "n", "x", "o" }
 	return {
-		{ ";", repeat_last_move_next, mode = m },
-		{ ",", repeat_last_move_previous, mode = m },
-		{ "f", builtin_f_expr, mode = m, expr = true },
-		{ "F", builtin_F_expr, mode = m, expr = true },
-		{ "t", builtin_t_expr, mode = m, expr = true },
-		{ "T", builtin_T_expr, mode = m, expr = true },
+		{ ";", k("repeat_last_move_next"), mode = m },
+		{ ",", k("repeat_last_move_previous"), mode = m },
+		{ "f", k("builtin_f_expr"), mode = m, expr = true },
+		{ "F", k("builtin_F_expr"), mode = m, expr = true },
+		{ "t", k("builtin_t_expr"), mode = m, expr = true },
+		{ "T", k("builtin_T_expr"), mode = m, expr = true },
 	}
 end
 
