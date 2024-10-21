@@ -1,28 +1,7 @@
 local function k(name)
 	return function()
-		local rm = require("nvim-treesitter.textobjects.repeatable_move")
-		local kf = {
-			repeat_last_move_next = rm.repeat_last_move_next,
-			repeat_last_move_previous = rm.repeat_last_move_previous,
-			builtin_f_expr = rm.builtin_f_expr,
-			builtin_F_expr = rm.builtin_F_expr,
-			builtin_t_expr = rm.builtin_t_expr,
-			builtin_T_expr = rm.builtin_T_expr,
-		}
-		return kf[name]()
+		return require("nvim-treesitter.textobjects.repeatable_move")[name]()
 	end
-end
-
-local function keys()
-	local m = { "n", "x", "o" }
-	return {
-		{ ";", k("repeat_last_move_next"), mode = m },
-		{ ",", k("repeat_last_move_previous"), mode = m },
-		{ "f", k("builtin_f_expr"), mode = m, expr = true },
-		{ "F", k("builtin_F_expr"), mode = m, expr = true },
-		{ "t", k("builtin_t_expr"), mode = m, expr = true },
-		{ "T", k("builtin_T_expr"), mode = m, expr = true },
-	}
 end
 
 local function opts()
@@ -89,7 +68,14 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
 		main = "nvim-treesitter.configs",
-		keys = keys,
+		keys = {
+			{ ";", k("repeat_last_move_next"), mode = { "n", "x", "o" } },
+			{ ",", k("repeat_last_move_previous"), mode = { "n", "x", "o" } },
+			{ "f", k("builtin_f_expr"), mode = { "n", "x", "o" }, expr = true },
+			{ "F", k("builtin_F_expr"), mode = { "n", "x", "o" }, expr = true },
+			{ "t", k("builtin_t_expr"), mode = { "n", "x", "o" }, expr = true },
+			{ "T", k("builtin_T_expr"), mode = { "n", "x", "o" }, expr = true },
+		},
 		opts = opts,
 		event = { "BufRead", "BufNewFile" },
 		dependencies = {
