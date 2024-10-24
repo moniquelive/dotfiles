@@ -98,6 +98,10 @@
   ; algorithm = patience
   ; wordRegex = [A-z0-9_]+|[^[:space:]]
   ; context = 5
+[merge]
+	tool = bc
+[mergetool "bc"]
+	trustExitCode = true
 
 [gui]
   warndetachedcommit = true
@@ -114,17 +118,13 @@
 [difftool]
   prompt = false
 
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 [commit]
 	; template = ~/.stCommitMsg
 	gpgsign = true
+
 [gpg]
 	program = gpg2
+
 [init]
 	defaultBranch = main
 ;   templatedir = ~/.git_template

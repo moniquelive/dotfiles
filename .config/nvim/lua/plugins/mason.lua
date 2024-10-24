@@ -70,12 +70,33 @@ local servers = {
 	lua_ls = {
 		settings = {
 			Lua = {
+				runtime = {
+					version = "LuaJIT",
+				},
+				format = {
+					enable = true,
+					-- Put format options here
+					-- NOTE: the value should be STRING!!
+					defaultConfig = {
+						indent_style = "space",
+						indent_size = "2",
+					},
+				},
 				diagnostics = {
 					globals = { "vim" }, -- Get the language server to recognize the `vim` global
+					-- neededFileStatus = {
+					-- 	["codestyle-check"] = "Any",
+					-- },
 				},
 				workspace = {
+					checkThirdParty = false,
 					library = {
+						vim.env.VIMRUNTIME,
+						"${3rd}/luv/library",
+						"${3rd}/busted/library",
 						"${3rd}/love2d/library",
+						-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+						-- library = vim.api.nvim_get_runtime_file("", true)
 					},
 				},
 			},
@@ -187,6 +208,58 @@ local servers = {
 		},
 	},
 }
+
+local function config()
+	require("mason").setup()
+	local ensure_installed = vim.tbl_keys(servers or {})
+	vim.list_extend(ensure_installed, {
+		"autopep8",
+		"bash-language-server",
+		"css-lsp",
+		"diagnostic-languageserver",
+		"djlint",
+		"dockerfile-language-server",
+		"elixir-ls",
+		"elm-format",
+		"elm-language-server",
+		"flake8",
+		"gitlint",
+		"gofumpt",
+		"goimports-reviser",
+		"golangci-lint-langserver",
+		"golines",
+		"gotests",
+		"gotestsum",
+		"html-lsp",
+		"iferr",
+		"isort",
+		"luacheck",
+		"markdownlint",
+		"prettierd",
+		"pylint",
+		"python-lsp-server",
+		"revive",
+		"ruby-lsp",
+		"rubyfmt",
+		"standardrb",
+		"staticcheck",
+		"stylua",
+		"typescript-language-server",
+		"vim-language-server",
+		"yapf",
+	})
+	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+	require("mason-lspconfig").setup({
+		handlers = {
+			function(server_name)
+				local server = servers[server_name] or {}
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				require("lspconfig")[server_name].setup(server)
+			end,
+		},
+	})
+end
+
 return {
 	{
 		"williamboman/mason.nvim",
@@ -199,55 +272,6 @@ return {
 		},
 		cmd = { "Mason", "MasonUpdate" },
 		build = ":MasonUpdate",
-		config = function()
-			require("mason").setup()
-			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, {
-				"autopep8",
-				"bash-language-server",
-				"css-lsp",
-				"diagnostic-languageserver",
-				"djlint",
-				"dockerfile-language-server",
-				"elixir-ls",
-				"elm-format",
-				"elm-language-server",
-				"flake8",
-				"gitlint",
-				"gofumpt",
-				"goimports-reviser",
-				"golangci-lint-langserver",
-				"golines",
-				"gotests",
-				"gotestsum",
-				"html-lsp",
-				"iferr",
-				"isort",
-				"luacheck",
-				"markdownlint",
-				"prettierd",
-				"pylint",
-				"python-lsp-server",
-				"revive",
-				"ruby-lsp",
-				"rubyfmt",
-				"standardrb",
-				"staticcheck",
-				"stylua",
-				"typescript-language-server",
-				"vim-language-server",
-				"yapf",
-			})
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
-			})
-		end,
+		config = config,
 	},
 }
