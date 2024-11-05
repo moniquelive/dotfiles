@@ -433,6 +433,9 @@ fi
 
 [[ -f $HOME/lscolors.sh ]] && source $HOME/lscolors.sh
 
+# carapace autocomplete
+(( $+commands[carapace] )) && source <(carapace _carapace zsh)
+
 #----------------------------------------------------------------------------
 # BENCHMARKING (END)
 # zprof
