@@ -283,9 +283,7 @@ unsetopt print_exit_value
 [ -f ~/bin/fzf-git.sh ] && source ~/bin/fzf-git.sh
 
 # Setting fd as the default source for fzf
-# export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
-# Rose Pine Moon - https://rosepinetheme.com/palette/ingredients/
+# export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
 BACKGROUND="#232136"
 FOREGROUND="#e0def4"
 BG_PLUS="#393552"
@@ -304,11 +302,18 @@ FZF_THEME="
   --color=preview-fg:${FOREGROUND},preview-bg:${BACKGROUND}
   --color=label:${LABEL}"
 export FZF_DEFAULT_OPTS="\
-  -m --cycle --preview-window wrap \
+  -m --cycle --preview-window wrap --no-height \
   --preview '([[ -f {} ]] && (bat --style=numbers --color=always {} || cat {})) || ([[ -d {} ]] && (tree -C {} | less)) || echo {} 2> /dev/null | head -200'"
 export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} ${FZF_THEME}"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules' --type d ."
+export FZF_CTRL_T_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'bat -n --color=always {}'
+  --bind 'ctrl-/:change-preview-window(down|hidden|)'"
+# export FZF_ALT_C_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules' --type d ."
+export FZF_ALT_C_OPTS="
+  --walker-skip .git,node_modules,target
+  --preview 'tree -C {}'"
+export FZF_CTRL_R_OPTS="--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort' --color header:italic --header 'Press CTRL-Y to copy command into clipboard'"
 
 # for more info see fzf/shell/completion.zsh
 _fzf_compgen_path() {
@@ -321,8 +326,12 @@ _fzf_compgen_dir() {
 # like normal z when used with arguments but displays an fzf prompt when used without.
 unalias z 2> /dev/null
 z() {
-    [ $# -gt 0 ] && zshz "$*" && return
-    cd "$(zshz -l 2>&1 | fzf --no-preview --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+  local dir=$(
+    zshz 2>&1 |
+    fzf --height 40% --layout reverse --info inline \
+        --nth 2.. --tac --no-sort --query "$*" \
+        --bind 'enter:become:echo {2..}'
+  ) && cd "$dir"
 }
 
 fzfrmimage() {
@@ -336,6 +345,39 @@ fzfrmservice() {
 fzfbrew() {
   brew rm `brew ls | fzf --preview='brew info {}'`
 }
+
+fzffn() {
+  declare -f |
+    perl -0 -pe 's/^}\n/}\n\0/gm' |
+    bat --plain --language bash --color always |
+    fzf --read0 --ansi --layout reverse --multi --highlight-line
+}
+
+fzfrg() {
+  rg --pretty $* |
+    perl -0 -pe 's/\n\n/\n\0/gm' |
+    fzf --read0 --ansi --multi --highlight-line --layout reverse |
+    perl -ne '/^([0-9]+:|$)/ or print'
+}
+
+# ripgrep->fzf->vim [QUERY]
+rfv() (
+  RELOAD='reload:rg --column --color=always --smart-case {q} || :'
+  OPENER='if [[ $FZF_SELECT_COUNT -eq 0 ]]; then
+            $EDITOR {1} +{2}     # No selection. Open the current line in Vim.
+          else
+            $EDITOR +cw -q {+f}  # Build quickfix list for the selected items.
+          fi'
+  fzf --disabled --ansi --multi \
+      --bind "start:$RELOAD" --bind "change:$RELOAD" \
+      --bind "enter:become:$OPENER" \
+      --bind "ctrl-o:execute:$OPENER" \
+      --bind 'alt-a:select-all,alt-d:deselect-all,ctrl-/:toggle-preview' \
+      --delimiter : \
+      --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+      --preview-window '~4,+{2}+4/3,<80(up)' \
+      --query "$*"
+)
 
 #-----------------------------------------------------------------------------
 listen() {
@@ -370,7 +412,6 @@ n ()
     # stty lnext undef
 
     #export ICONLOOKUP=1
-    export FZF_DEFAULT_COMMAND='fdfind -t d'
     export NNN_PLUG='f:fzcd;o:fzopen;p:mocplay;d:diffs;t:preview-tui;v:preview-tabbed'
 
     nnn -a -A -R -Te -Pt "$@"
