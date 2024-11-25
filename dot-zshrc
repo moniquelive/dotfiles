@@ -124,7 +124,7 @@ unset SCRIPT_NAME
 # unalias fd
 
 # set these after omz
-# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+(( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
 export BAT_THEME="Catppuccin Macchiato"
 export BAT_STYLE="plain"
