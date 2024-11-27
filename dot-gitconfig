@@ -1,7 +1,8 @@
 [user]
   name = Cyber Oliveira
   email = lccro@msn.com
-  signingkey = 595FABD9E2F0E2C7E53715DB185B193B89DF323E
+  ; signingkey = 595FABD9E2F0E2C7E53715DB185B193B89DF323E
+  signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINGoZYXiQL1AhybB4cRzzpd5dwhFDDED5P1bKAgU55UD
 
 [core]
   quotepath    = false
@@ -92,25 +93,25 @@
   insteadOf = git://github.com
 
 [diff]
-	tool = bc
+  tool = bc
   ; tool = Kaleidoscope
   ; tool = bc3
   ; algorithm = patience
   ; wordRegex = [A-z0-9_]+|[^[:space:]]
   ; context = 5
 [merge]
-	tool = bc
+  tool = bc
 [mergetool "bc"]
-	trustExitCode = true
+  trustExitCode = true
 
 [gui]
   warndetachedcommit = true
 
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
   required = true
-	process = git-lfs filter-process
+  process = git-lfs filter-process
 
 [mergetool]
   prompt = false
@@ -119,15 +120,18 @@
   prompt = false
 
 [commit]
-	; template = ~/.stCommitMsg
-	gpgsign = true
+  ; template = ~/.stCommitMsg
+  gpgsign = true
 
 [gpg]
-	program = gpg2
+  format = ssh
+
+[gpg "ssh"]
+  program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
 ;   templatedir = ~/.git_template
 
 [rerere]
-	enabled = true
+  enabled = true
