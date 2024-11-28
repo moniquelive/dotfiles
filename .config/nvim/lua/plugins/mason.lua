@@ -28,9 +28,11 @@ local function keymaps(bufnr)
 			vim.lsp.buf.format({ async = true })
 		end,
 		["<leader>ih"] = function()
-			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 			local ena_dis = { [true] = "enabled", [false] = "disabled" }
-			vim.notify_once(ena_dis[vim.lsp.inlay_hint.is_enabled()] .. " inlay hints")
+			local orig = vim.lsp.inlay_hint.is_enabled()
+			local label = ena_dis[not orig]
+			vim.lsp.inlay_hint.enable(not orig)
+			vim.notify(label .. " inlay hints")
 		end,
 	}
 	local opts = { noremap = true, silent = true, buffer = bufnr }
@@ -182,7 +184,12 @@ local servers = {
 		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
 		cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
 		settings = {
-			elixirLS = { dialyzerEnabled = false, fetchDeps = false },
+			elixirLS = {
+				autoBuild = true,
+				dialyzerEnabled = true,
+				incrementalDialyzer = true,
+				fetchDeps = true,
+			},
 		},
 	},
 	emmet_ls = {
@@ -282,7 +289,7 @@ return {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason-lspconfig.nvim",
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },
-			{ "folke/neodev.nvim", config = true },
+			{ "folke/neodev.nvim",                         config = true },
 		},
 		cmd = { "Mason", "MasonUpdate" },
 		build = ":MasonUpdate",
