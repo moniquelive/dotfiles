@@ -27,6 +27,11 @@ local function keymaps(bufnr)
 		["<leader>f"] = function()
 			vim.lsp.buf.format({ async = true })
 		end,
+		["<leader>ih"] = function()
+			vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+			local ena_dis = { [true] = "enabled", [false] = "disabled" }
+			vim.notify_once(ena_dis[vim.lsp.inlay_hint.is_enabled()] .. " inlay hints")
+		end,
 	}
 	local opts = { noremap = true, silent = true, buffer = bufnr }
 	for key, action in pairs(nmaps) do
@@ -124,6 +129,15 @@ local servers = {
 					shadow = true,
 					nilness = true,
 					unusedvariable = true,
+				},
+				hints = {
+					rangeVariableTypes = true,
+					parameterNames = true,
+					functionTypeParameters = true,
+					constantValues = true,
+					compositeLiteralTypes = true,
+					compositeLiteralFields = true,
+					assignVariableTypes = true,
 				},
 			},
 		},
