@@ -1,7 +1,7 @@
 return {
 	{
 		"goolord/alpha-nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		event = "VimEnter",
 		init = function()
 			local function lines(str)

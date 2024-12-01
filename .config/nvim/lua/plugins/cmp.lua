@@ -2,41 +2,68 @@ local function config()
 	vim.o.completeopt = "menu,menuone,noselect"
 
 	local cmp = require("cmp")
-	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+	cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+
+	vim.api.nvim_set_hl(0, "CmpItemKindSupermaven", { bg = "NONE", fg = "#6CC644" })
+	-- gray
+	vim.api.nvim_set_hl(0, "CmpItemAbbrDeprecated", { bg = "NONE", strikethrough = true, fg = "#808080" })
+	-- blue
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatch", { bg = "NONE", fg = "#569CD6" })
+	vim.api.nvim_set_hl(0, "CmpItemAbbrMatchFuzzy", { link = "CmpIntemAbbrMatch" })
+	-- light blue
+	vim.api.nvim_set_hl(0, "CmpItemKindVariable", { bg = "NONE", fg = "#9CDCFE" })
+	vim.api.nvim_set_hl(0, "CmpItemKindInterface", { link = "CmpItemKindVariable" })
+	vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "CmpItemKindVariable" })
+	-- pink
+	vim.api.nvim_set_hl(0, "CmpItemKindFunction", { bg = "NONE", fg = "#C586C0" })
+	vim.api.nvim_set_hl(0, "CmpItemKindMethod", { link = "CmpItemKindFunction" })
+	-- front
+	vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { bg = "NONE", fg = "#D4D4D4" })
+	vim.api.nvim_set_hl(0, "CmpItemKindProperty", { link = "CmpItemKindKeyword" })
+	vim.api.nvim_set_hl(0, "CmpItemKindUnit", { link = "CmpItemKindKeyword" })
+
+	local cmp_kinds = {
+		Text = "  ",
+		Method = "  ",
+		Function = "  ",
+		Constructor = "  ",
+		Field = "  ",
+		Variable = "  ",
+		Class = "  ",
+		Interface = "  ",
+		Module = "  ",
+		Property = "  ",
+		Unit = "  ",
+		Value = "  ",
+		Enum = "  ",
+		Keyword = "  ",
+		Snippet = "  ",
+		Color = "  ",
+		File = "  ",
+		Reference = "  ",
+		Folder = "  ",
+		EnumMember = "  ",
+		Constant = "  ",
+		Struct = "  ",
+		Event = "  ",
+		Operator = "  ",
+		TypeParameter = "  ",
+		Supermaven = "  ",
+	}
 
 	cmp.setup({
-		view = { entries = "native" },
-		window = {
-			completion = cmp.config.window.bordered(),
-			documentation = cmp.config.window.bordered(),
-		},
 		mapping = cmp.mapping.preset.insert({
 			["<C-k>"] = cmp.mapping.scroll_docs(-4),
 			["<C-j>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete({}),
 			["<C-e>"] = cmp.mapping.abort(),
 			["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-			["<TAB>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_next_item()
-				elseif vim.snippet.active({ direction = 1 }) then
-					vim.snippet.jump(1)
-				else
-					fallback()
-				end
-			end, { "i", "s", "c" }),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if cmp.visible() then
-					cmp.select_prev_item()
-				elseif vim.snippet.active({ direction = -1 }) then
-					vim.snippet.jump(-1)
-				else
-					fallback()
-				end
-			end, { "i", "s", "c" }),
+			["<C-n>"] = cmp.mapping.select_next_item(),
+			["<C-p>"] = cmp.mapping.select_prev_item(),
 		}),
 		sources = cmp.config.sources({
+			{ name = "supermaven", priority = 100 },
+			{ name = "lazydev" },
 			{ name = "nvim_lua" },
 			{
 				name = "nvim_lsp",
@@ -50,16 +77,20 @@ local function config()
 		}),
 		formatting = {
 			expandable_indicator = true,
-			fields = { "kind", "abbr", "menu" },
-			format = require("lspkind").cmp_format({
-				menu = {
-					buffer = "[buf]",
-					nvim_lsp = "[LSP]",
-					nvim_lua = "[api]",
-					path = "[path]",
-					snippet = "[snip]",
-				},
-			}),
+			fields = { "abbr", "kind" },
+			format = function(_, vim_item)
+				vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+				-- vim_item.menu = ({
+				-- 	buffer = "[Buffer]",
+				-- 	nvim_lsp = "[LSP]",
+				-- 	luasnip = "[LuaSnip]",
+				-- 	nvim_lua = "[Lua]",
+				-- 	latex_symbols = "[LaTeX]",
+				-- 	path = "[Path]",
+				-- 	snippet = "[Snip]",
+				-- })[entry.source.name]
+				return vim_item
+			end,
 		},
 		experimental = {
 			ghost_text = true,
@@ -80,7 +111,6 @@ return {
 		config = config,
 		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
-			"onsails/lspkind.nvim",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",

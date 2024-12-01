@@ -74,41 +74,42 @@ au("LspAttach", {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 local servers = {
-	lua_ls = {
-		settings = {
-			Lua = {
-				runtime = {
-					version = "LuaJIT",
-				},
-				format = {
-					enable = true,
-					-- Put format options here
-					-- NOTE: the value should be STRING!!
-					defaultConfig = {
-						indent_style = "space",
-						indent_size = "2",
-					},
-				},
-				diagnostics = {
-					globals = { "vim" }, -- Get the language server to recognize the `vim` global
-					-- neededFileStatus = {
-					-- 	["codestyle-check"] = "Any",
-					-- },
-				},
-				workspace = {
-					checkThirdParty = false,
-					library = {
-						vim.env.VIMRUNTIME,
-						"${3rd}/luv/library",
-						"${3rd}/busted/library",
-						"${3rd}/love2d/library",
-						-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-						-- library = vim.api.nvim_get_runtime_file("", true)
-					},
-				},
-			},
-		},
-	},
+	-- lua_ls = {
+	-- 	settings = {
+	-- 		Lua = {
+	-- 			runtime = {
+	-- 				version = "LuaJIT",
+	-- 			},
+	-- 			format = {
+	-- 				enable = true,
+	-- 				-- Put format options here
+	-- 				-- NOTE: the value should be STRING!!
+	-- 				defaultConfig = {
+	-- 					indent_style = "space",
+	-- 					indent_size = "2",
+	-- 				},
+	-- 			},
+	-- 			diagnostics = {
+	-- 				globals = { "vim" }, -- Get the language server to recognize the `vim` global
+	-- 				-- neededFileStatus = {
+	-- 				-- 	["codestyle-check"] = "Any",
+	-- 				-- },
+	-- 			},
+	-- 			workspace = {
+	-- 				checkThirdParty = false,
+	-- 				library = {
+	-- 					vim.env.VIMRUNTIME,
+	-- 					"${3rd}/luv/library",
+	-- 					"${3rd}/busted/library",
+	-- 					"${3rd}/love2d/library",
+	-- 					-- ls ~/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/3rd/
+	-- 					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+	-- 					-- library = vim.api.nvim_get_runtime_file("", true)
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
 	clangd = {
 		cmd = {
 			"/opt/homebrew/opt/llvm/bin/clangd",
@@ -118,6 +119,9 @@ local servers = {
 		},
 	},
 	gopls = {
+		init_options = {
+			usePlaceholders = true,
+		},
 		settings = {
 			gopls = {
 				completeUnimported = true,
@@ -289,7 +293,7 @@ return {
 			"neovim/nvim-lspconfig",
 			"williamboman/mason-lspconfig.nvim",
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },
-			{ "folke/neodev.nvim",                         config = true },
+			-- { "folke/neodev.nvim", config = true },
 		},
 		cmd = { "Mason", "MasonUpdate" },
 		build = ":MasonUpdate",
