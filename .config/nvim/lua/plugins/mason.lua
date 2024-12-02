@@ -74,42 +74,7 @@ au("LspAttach", {
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 local servers = {
-	-- lua_ls = {
-	-- 	settings = {
-	-- 		Lua = {
-	-- 			runtime = {
-	-- 				version = "LuaJIT",
-	-- 			},
-	-- 			format = {
-	-- 				enable = true,
-	-- 				-- Put format options here
-	-- 				-- NOTE: the value should be STRING!!
-	-- 				defaultConfig = {
-	-- 					indent_style = "space",
-	-- 					indent_size = "2",
-	-- 				},
-	-- 			},
-	-- 			diagnostics = {
-	-- 				globals = { "vim" }, -- Get the language server to recognize the `vim` global
-	-- 				-- neededFileStatus = {
-	-- 				-- 	["codestyle-check"] = "Any",
-	-- 				-- },
-	-- 			},
-	-- 			workspace = {
-	-- 				checkThirdParty = false,
-	-- 				library = {
-	-- 					vim.env.VIMRUNTIME,
-	-- 					"${3rd}/luv/library",
-	-- 					"${3rd}/busted/library",
-	-- 					"${3rd}/love2d/library",
-	-- 					-- ls ~/.local/share/nvim/mason/packages/lua-language-server/libexec/meta/3rd/
-	-- 					-- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-	-- 					-- library = vim.api.nvim_get_runtime_file("", true)
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
+	lua_ls = {},
 	clangd = {
 		cmd = {
 			"/opt/homebrew/opt/llvm/bin/clangd",
@@ -183,6 +148,36 @@ local servers = {
 	powershell_es = {
 		bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
 	},
+	ruby_lsp = {
+		init_options = {
+			rubyVersionManager = "mise",
+			formatter = "rubocop",
+			linters = { "rubocop" },
+			enabledFeatures = {
+				codeActions = true,
+				codeLens = true,
+				completion = true,
+				definition = true,
+				diagnostics = true,
+				documentHighlights = true,
+				documentSymbols = true,
+				foldingRanges = true,
+				formatting = true,
+				hover = true,
+				inlayHint = true,
+				onTypeFormatting = true,
+				selectionRanges = true,
+				semanticHighlighting = true,
+				signatureHelp = true,
+			},
+			featuresConfiguration = {
+				inlayHint = {
+					implicitHashValue = true,
+					implicitRescue = true,
+				},
+			},
+		},
+	},
 	elixirls = {
 		-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
 		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
@@ -241,7 +236,6 @@ local function config()
 		"autopep8",
 		"bash-language-server",
 		"css-lsp",
-		"diagnostic-languageserver",
 		"djlint",
 		"dockerfile-language-server",
 		"elixir-ls",
@@ -264,9 +258,8 @@ local function config()
 		"pylint",
 		"python-lsp-server",
 		"revive",
+		"rubocop",
 		"ruby-lsp",
-		"rubyfmt",
-		"standardrb",
 		"staticcheck",
 		"stylua",
 		"typescript-language-server",

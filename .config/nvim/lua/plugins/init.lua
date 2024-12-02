@@ -44,8 +44,20 @@ return {
 					".local/share/nvim/lazy",
 				},
 				formatter_by_ft = {
+					css = formatters.lsp,
 					elixir = formatters.lsp,
 					haskell = formatters.lsp,
+					html = formatters.lsp,
+					javascript = formatters.lsp,
+					json = formatters.lsp,
+					lua = formatters.lsp,
+					python = formatters.lsp,
+					ruby = formatters.lsp,
+					sh = formatters.shfmt,
+					yaml = formatters.lsp,
+
+					markdown = formatters.prettierd,
+					typescript = formatters.prettierd,
 				},
 				fallback_formatter = {
 					formatters.remove_trailing_whitespace,
