@@ -14,3 +14,4 @@ for key, value in pairs(kv) do
 	k.set("n", key, value, opts)
 end
 vim.cmd.wincmd("L")
+vim.cmd.wincmd("|")

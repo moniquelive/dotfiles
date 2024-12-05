@@ -1,1 +1,1 @@
-vim.opt.filetype = "nasm"
+vim.opt_local.filetype = "nasm"
