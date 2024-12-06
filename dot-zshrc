@@ -325,7 +325,8 @@ _fzf_compgen_dir() {
 
 # like normal z when used with arguments but displays an fzf prompt when used without.
 unalias z 2> /dev/null
-z() {
+alias z=zshz
+zz() {
   local dir=$(
     zshz 2>&1 |
     fzf --height 40% --layout reverse --info inline \
@@ -333,7 +334,6 @@ z() {
         --bind 'enter:become:echo {2..}'
   ) && cd "$dir"
 }
-alias zz=zshz
 
 fzfrmimage() {
   docker image rm $(docker image ls | tail -n +2 | fzf | while read l; do echo $l | awk '{printf "%s:%s ", $1,$2}'; done)
