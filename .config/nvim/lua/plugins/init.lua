@@ -4,16 +4,16 @@ return {
 	-- { "ryanoasis/vim-devicons" },
 
 	-- tpope creations
-	{ "tpope/vim-characterize", keys = "ga" },
-	{ "tpope/vim-fugitive", cmd = { "G", "Git" } },
-	{ "tpope/vim-repeat", event = { "BufRead", "BufNewFile" } },
-	{ "tpope/vim-rsi", event = "CmdlineEnter" },
-	{ "tpope/vim-sleuth", event = { "BufRead", "BufNewFile" } },
-	{ "tpope/vim-surround", event = { "BufRead", "BufNewFile" } },
-	{ "tpope/vim-unimpaired", keys = { "[", "]", "yo" } },
+	{ "tpope/vim-characterize",          keys = "ga" },
+	{ "tpope/vim-fugitive",              cmd = { "G", "Git" } },
+	{ "tpope/vim-repeat",                event = { "BufRead", "BufNewFile" } },
+	{ "tpope/vim-rsi",                   event = "CmdlineEnter" },
+	{ "tpope/vim-sleuth",                event = { "BufRead", "BufNewFile" } },
+	{ "tpope/vim-surround",              event = { "BufRead", "BufNewFile" } },
+	{ "tpope/vim-unimpaired",            keys = { "[", "]", "yo" } },
 
 	-- misc
-	{ "wincent/terminus", event = { "BufRead", "BufNewFile" } },
+	{ "wincent/terminus",                event = { "BufRead", "BufNewFile" } },
 	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -23,7 +23,7 @@ return {
 	},
 
 	-- coding
-	{ "tommcdo/vim-lion", keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
+	{ "tommcdo/vim-lion",     keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
 	{ "andymass/vim-matchup", keys = "%" },
 	{
 		"laytan/tailwind-sorter.nvim",
@@ -44,25 +44,14 @@ return {
 					".local/share/nvim/lazy",
 				},
 				formatter_by_ft = {
-					css = formatters.lsp,
-					elixir = formatters.lsp,
-					haskell = formatters.lsp,
-					html = formatters.lsp,
-					javascript = formatters.lsp,
-					json = formatters.lsp,
-					lua = formatters.lsp,
-					python = formatters.lsp,
-					ruby = formatters.lsp,
 					sh = formatters.shfmt,
-					yaml = formatters.lsp,
-
 					markdown = formatters.prettierd,
 					typescript = formatters.prettierd,
 				},
 				fallback_formatter = {
 					formatters.remove_trailing_whitespace,
 					formatters.remove_trailing_newlines,
-					formatters.none_ls,
+					formatters.lsp,
 				},
 			}
 		end,
@@ -71,17 +60,17 @@ return {
 		"folke/lazydev.nvim",
 		dependencies = {
 			{ "LuaCATS/luassert", name = "luassert-types" },
-			{ "LuaCATS/busted", name = "busted-types" },
+			{ "LuaCATS/busted",   name = "busted-types" },
 		},
 		ft = "lua",
 		opts = {
 			library = {
 				"~/.config/nvim",
-				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-				{ path = "${3rd}/love2d/library", words = { "love%." } },
-				{ path = "LazyVim", words = { "LazyVim" } },
+				{ path = "${3rd}/luv/library",     words = { "vim%.uv" } },
+				{ path = "${3rd}/love2d/library",  words = { "love%." } },
+				{ path = "LazyVim",                words = { "LazyVim" } },
 				{ path = "luassert-types/library", words = { "assert" } },
-				{ path = "busted-types/library", words = { "describe" } },
+				{ path = "busted-types/library",   words = { "describe" } },
 			},
 		},
 	},
