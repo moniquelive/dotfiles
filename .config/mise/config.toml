@@ -1,5 +1,6 @@
 [settings]
 experimental = true
+vfox = false
 
 [tools]
 go = "latest"

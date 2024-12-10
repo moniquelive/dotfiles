@@ -74,23 +74,23 @@ return {
 		opts = opts,
 		cmd = "Telescope",
 		keys = {
-			{ "<c-p>", k("find_files"), desc = "Find files" },
-			{ "<leader>fb", k("buffers"), desc = "List buffers" },
-			{ "<leader>fd", k("diagnostics"), desc = "List diagnostics" },
-			{ "<leader>ft", k("tags"), desc = "List tags" },
-			{ "<leader>fl", k("live_grep"), desc = "Live grep" },
-			{ "<leader>fr", k("registers"), desc = "List registers" },
-			{ "<leader>fh", k("help_tags"), desc = "Search help tags" },
-			{ "<leader>fm", k("keymaps"), desc = "List keymaps" },
+			{ "<c-p>",         k("find_files"),  desc = "Find files" },
+			{ "<leader>fb",    k("buffers"),     desc = "List buffers" },
+			{ "<leader>fd",    k("diagnostics"), desc = "List diagnostics" },
+			{ "<leader>ft",    k("tags"),        desc = "List tags" },
+			{ "<leader>fl",    k("live_grep"),   desc = "Live grep" },
+			{ "<leader>fr",    k("registers"),   desc = "List registers" },
+			{ "<leader>fh",    k("help_tags"),   desc = "Search help tags" },
+			{ "<leader>fm",    k("keymaps"),     desc = "List keymaps" },
 			-- { "<leader>fgc", k("git_commits"), desc = "List git commits" },
-			{ "<leader>qf", k("quickfix"), desc = "List quickfix items" },
+			{ "<leader>qf",    k("quickfix"),    desc = "List quickfix items" },
 			-- { "<leader>fc", k("colorscheme"), desc = "List colorschemes" },
 			-- { "<leader>fcmd", k("commands"), desc = "List commands" },
 			-- { "<leader>fft", k("filetypes"), desc = "List filetypes" },
-			{ "<leader>fgf", k("git_files"), desc = "Find git files" },
+			{ "<leader>fgf",   k("git_files"),   desc = "Find git files" },
 			-- { "<leader>fhs", k("search_history"),  },
 			{ "<leader>fmark", k("marks") },
-			{ "<leader>fo", k("vim_options") },
+			{ "<leader>fo",    k("vim_options") },
 			{
 				"<leader><space>",
 				function()
@@ -101,11 +101,11 @@ return {
 				{ desc = "[ ] Fuzzily search in current buffer" },
 			},
 			{
-				"<leader>fc",
-				function()
-					local bi = require("telescope.builtin")
-					return bi.find_files({ cwd = vim.fn.stdpath("config") })
-				end,
+				"<leader>fc", function()
+				return require("telescope.builtin").find_files {
+					cwd = vim.fn.stdpath("config")
+				}
+			end,
 			},
 		},
 		dependencies = {
