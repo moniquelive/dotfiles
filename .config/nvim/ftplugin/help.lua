@@ -1,16 +1,12 @@
-local k = vim.keymap
-local kv = {
-	["<M-Right>"] = "<C-]>",
-	["<M-Left>"] = "<C-T>",
-	["o"] = [[/'\l\{2,\}'<CR>]],
-	["O"] = [[?'\l\{2,\}'<CR>]],
-	["s"] = [[/\|\zs\S\+\ze\|<CR>]],
-	["S"] = [[?\|\zs\S\+\ze\|<CR>]],
-	["q"] = [[<cmd>close<cr>]],
-}
 local opts = { noremap = true, silent = true, buffer = true }
-for key, value in pairs(kv) do
-	k.set("n", key, value, opts)
-end
+
+vim.keymap.set("n", "<M-]>", "<C-]>", opts)
+vim.keymap.set("n", "<M-[>", "<C-T>", opts)
+vim.keymap.set("n", "o", [[/'\l\{2,\}'<CR>]], opts)
+vim.keymap.set("n", "O", [[?'\l\{2,\}'<CR>]], opts)
+vim.keymap.set("n", "s", [[/\|\zs\S\+\ze\|<CR>]], opts)
+vim.keymap.set("n", "S", [[?\|\zs\S\+\ze\|<CR>]], opts)
+vim.keymap.set("n", "q", [[<cmd>close<cr>]], opts)
+
 vim.cmd.wincmd("L")
 vim.cmd.wincmd("|")
