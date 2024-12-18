@@ -2,7 +2,12 @@ local function k(name)
 	return function()
 		require("telescope").load_extension("fzf")
 		require("telescope").load_extension("ui-select")
-		return require("telescope.builtin")[name]()
+		local theme = require('telescope.themes').get_ivy {
+			layout_config = {
+				height = vim.fn.round(vim.o.lines * 0.8)
+			}
+		}
+		return require("telescope.builtin")[name](theme)
 	end
 end
 
@@ -74,20 +79,20 @@ return {
 		opts = opts,
 		cmd = "Telescope",
 		keys = {
-			{ "<c-p>",         k("find_files"),  desc = "Find files" },
-			{ "<leader>fb",    k("buffers"),     desc = "List buffers" },
-			{ "<leader>fd",    k("diagnostics"), desc = "List diagnostics" },
-			{ "<leader>ft",    k("tags"),        desc = "List tags" },
-			{ "<leader>fl",    k("live_grep"),   desc = "Live grep" },
-			{ "<leader>fr",    k("registers"),   desc = "List registers" },
-			{ "<leader>fh",    k("help_tags"),   desc = "Search help tags" },
-			{ "<leader>fm",    k("keymaps"),     desc = "List keymaps" },
-			-- { "<leader>fgc", k("git_commits"), desc = "List git commits" },
-			{ "<leader>qf",    k("quickfix"),    desc = "List quickfix items" },
-			-- { "<leader>fc", k("colorscheme"), desc = "List colorschemes" },
-			-- { "<leader>fcmd", k("commands"), desc = "List commands" },
-			-- { "<leader>fft", k("filetypes"), desc = "List filetypes" },
-			{ "<leader>fgf",   k("git_files"),   desc = "Find git files" },
+			{ "<c-p>",         k("find_files"),  desc = "(TS) Find files" },
+			{ "<leader>fb",    k("buffers"),     desc = "(TS) List buffers" },
+			{ "<leader>fd",    k("diagnostics"), desc = "(TS) List diagnostics" },
+			{ "<leader>ft",    k("tags"),        desc = "(TS) List tags" },
+			{ "<leader>fl",    k("live_grep"),   desc = "(TS) Live grep" },
+			{ "<leader>fr",    k("registers"),   desc = "(TS) List registers" },
+			{ "<leader>fh",    k("help_tags"),   desc = "(TS) Search help tags" },
+			{ "<leader>fm",    k("keymaps"),     desc = "(TS) List keymaps" },
+			-- { "<leader>fgc", k("git_commits"), desc = "(TS) List git commits" },
+			{ "<leader>qf",    k("quickfix"),    desc = "(TS) List quickfix items" },
+			-- { "<leader>fc", k("colorscheme"), desc = "(TS) List colorschemes" },
+			-- { "<leader>fcmd", k("commands"), desc = "(TS) List commands" },
+			-- { "<leader>fft", k("filetypes"), desc = "(TS) List filetypes" },
+			{ "<leader>fgf",   k("git_files"),   desc = "(TS) Find git files" },
 			-- { "<leader>fhs", k("search_history"),  },
 			{ "<leader>fmark", k("marks") },
 			{ "<leader>fo",    k("vim_options") },
@@ -98,7 +103,7 @@ return {
 					local th = require("telescope.themes")
 					return bi.current_buffer_fuzzy_find(th.get_dropdown({ winblend = 10, previewer = false }))
 				end,
-				{ desc = "[ ] Fuzzily search in current buffer" },
+				{ desc = "(TS) Fuzzily search in current buffer" },
 			},
 			{
 				"<leader>fc", function()

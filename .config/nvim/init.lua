@@ -178,7 +178,7 @@ vim.cmd([[ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Vi
 -- Status Line
 vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]
 
--- Grep
+-- Grep: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
 vim.cmd([[
 function! Grep(...)
   return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
@@ -193,8 +193,8 @@ cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'L
 
 augroup quickfix
   autocmd!
-  autocmd QuickFixCmdPost * cwindow
-  autocmd QuickFixCmdPost l* lwindow
+  autocmd QuickFixCmdPost cgetexpr cwindow
+  autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 ]])
 
