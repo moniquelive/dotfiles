@@ -71,8 +71,6 @@ au("LspAttach", {
 	end,
 })
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 local servers = {
 	lua_ls = {},
 	clangd = {
@@ -90,7 +88,7 @@ local servers = {
 		settings = {
 			gopls = {
 				completeUnimported = true,
-				usePlaceholders = true,
+				-- usePlaceholders = true,
 				semanticTokens = true,
 				experimentalPostfixCompletions = true,
 				staticcheck = true,
@@ -101,24 +99,20 @@ local servers = {
 					nilness = true,
 					unusedvariable = true,
 				},
-				hints = {
-					rangeVariableTypes = true,
-					parameterNames = true,
-					functionTypeParameters = true,
-					constantValues = true,
-					compositeLiteralTypes = true,
-					compositeLiteralFields = true,
-					assignVariableTypes = true,
-				},
+				-- hints = {
+				-- 	rangeVariableTypes = true,
+				-- 	parameterNames = true,
+				-- 	functionTypeParameters = true,
+				-- 	constantValues = true,
+				-- 	compositeLiteralTypes = true,
+				-- 	compositeLiteralFields = true,
+				-- 	assignVariableTypes = true,
+				-- },
 			},
 		},
 	},
 	jsonls = {
-		capabilities = vim.tbl_extend(
-			"force",
-			capabilities,
-			{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
-		),
+		capabilities = { textDocument = { completion = { completionItem = { snippetSupport = true } } } },
 		settings = {
 			json = {
 				-- schemas = require("schemastore").json.schemas(),
@@ -127,11 +121,7 @@ local servers = {
 		},
 	},
 	yamlls = {
-		capabilities = vim.tbl_extend(
-			"force",
-			capabilities,
-			{ textDocument = { completion = { completionItem = { snippetSupport = true } } } }
-		),
+		capabilities = { textDocument = { completion = { completionItem = { snippetSupport = true } } } },
 		settings = {
 			yaml = {
 				schemaStore = { url = "", enable = false },
@@ -164,7 +154,7 @@ local servers = {
 				foldingRanges = true,
 				formatting = true,
 				hover = true,
-				inlayHint = true,
+				-- inlayHint = true,
 				onTypeFormatting = true,
 				selectionRanges = true,
 				semanticHighlighting = true,
@@ -268,7 +258,7 @@ local function config()
 		handlers = {
 			function(server_name)
 				local server = servers[server_name] or {}
-				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities or {}, true)
 				require("lspconfig")[server_name].setup(server)
 			end,
 		},
@@ -279,7 +269,7 @@ return {
 	{
 		"williamboman/mason.nvim",
 		dependencies = {
-			"hrsh7th/nvim-cmp",
+			"saghen/blink.cmp",
 			"neovim/nvim-lspconfig",
 			"williamboman/mason-lspconfig.nvim",
 			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },

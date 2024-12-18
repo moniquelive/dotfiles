@@ -155,7 +155,7 @@ alias mv='nocorrect mv -v'
 alias cp='nocorrect cp -v'
 alias mkdir='nocorrect mkdir'
 alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
-alias lg=lazygit
+alias lg="lazygit --use-config-file=~/.config/lazygit/config.yml"
 alias icat='kitty +kitten icat'
 #alias ssh='TERM=xterm ssh'
 #alias ssh="kitty +kitten ssh"
