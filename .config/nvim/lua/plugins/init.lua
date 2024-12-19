@@ -101,16 +101,15 @@ return {
 		},
 	},
 
-	-- Supermaven
+	-- Copilot
 	{
-		"supermaven-inc/supermaven-nvim",
-		lazy = false,
+		"zbirenbaum/copilot.lua",
+		dependencies = { "giuxtaposition/blink-cmp-copilot" },
+		cmd = "Copilot",
+		event = "InsertEnter",
 		opts = {
-			keymaps = {
-				accept_suggestion = "<C-CR>",
-				clear_suggestion = "<C-e>",
-				accept_word = "<Tab>",
-			},
+			suggestion = { enabled = false },
+			panel = { enabled = false },
 		},
 	},
 
