@@ -101,20 +101,6 @@ return {
 		},
 	},
 
-	{
-		"supermaven-inc/supermaven-nvim",
-		lazy = false,
-		opts = {
-			-- disable_inline_completion = true, -- disables inline completion for use with cmp
-			-- disable_keymaps = true, -- disables built in keymaps for more manual control
-			keymaps = {
-				accept_suggestion = "<C-CR>",
-				clear_suggestion = "<C-e>",
-				accept_word = "<Tab>",
-			},
-		},
-	},
-
 	-- Statusline
 	{
 		"nvim-lualine/lualine.nvim",
