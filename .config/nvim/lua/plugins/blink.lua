@@ -73,8 +73,7 @@ return {
           name = "supermaven",
           module = "blink.compat.source",
           async = true,
-          enabled = true,
-          opts = {},
+          score_offset = 100,
           transform_items = function(_, items)
             local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
             local kind_idx = #CompletionItemKind + 1
