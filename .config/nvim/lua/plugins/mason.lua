@@ -132,7 +132,7 @@ local servers = {
 	omnisharp = {
 		cmd = {
 			"/usr/local/share/dotnet/dotnet",
-			"/Users/cyber/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll",
+			vim.fn.expand("~/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll"),
 		},
 	},
 	powershell_es = {
@@ -263,7 +263,14 @@ local function config()
 			end,
 		},
 	})
-	require 'lspconfig'.ghcide.setup {}
+	-- Unmanaged LSPs
+	local external_servers = {
+		ghcide = {},
+		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
+	}
+	for server, cfg in pairs(external_servers) do
+		require('lspconfig')[server].setup(cfg)
+	end
 end
 
 return {
