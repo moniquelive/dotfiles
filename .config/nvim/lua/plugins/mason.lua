@@ -263,6 +263,7 @@ local function config()
 			end,
 		},
 	})
+	require 'lspconfig'.ghcide.setup {}
 end
 
 return {
