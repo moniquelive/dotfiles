@@ -16,23 +16,17 @@ local function keymaps(bufnr)
 		["K"] = vim.lsp.buf.hover,
 		["[d"] = vim.diagnostic.goto_prev,
 		["]d"] = vim.diagnostic.goto_next,
-		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
 		["<F3>"] = vim.lsp.buf.code_action,
+		["<F4>"] = vim.lsp.codelens.run,
+		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
 		["gr"] = "<cmd>Telescope lsp_references<CR>",
-		["<leader>ca"] = vim.lsp.codelens.run,
 		["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
-		["<leader>e"] = function()
-			vim.diagnostic.open_float({ source = "if_many" })
-		end,
-		["<leader>f"] = function()
-			vim.lsp.buf.format({ async = true })
-		end,
+		["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
+		["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
 		["<leader>ih"] = function()
-			local ena_dis = { [true] = "enabled", [false] = "disabled" }
-			local orig = vim.lsp.inlay_hint.is_enabled()
-			local label = ena_dis[not orig]
-			vim.lsp.inlay_hint.enable(not orig)
-			vim.notify(label .. " inlay hints")
+			local curr = vim.lsp.inlay_hint.is_enabled()
+			vim.lsp.inlay_hint.enable(not curr)
+			vim.notify((curr and "disabled" or "enabled") .. " inlay hints")
 		end,
 	}
 	local opts = { noremap = true, silent = true, buffer = bufnr }

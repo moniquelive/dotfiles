@@ -6,9 +6,9 @@ local function init()
 			-- hover = { stylize_markdown = true },
 			hoogle = { mode = "telescope-local" }, -- "auto"|"telescope-local"|"telescope-web"|"browser"
 		},
-		hls = { -- LSP client options
+		hls = {                               -- LSP client options
 			default_settings = {
-				haskell = { -- haskell-language-server options
+				haskell = {                       -- haskell-language-server options
 					formattingProvider = "fourmolu",
 					hlintOn = true,
 					plugin = {
