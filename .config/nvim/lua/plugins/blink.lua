@@ -13,6 +13,7 @@ return {
   },
 
   version = '*',
+  event = { "CmdlineEnter" },
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
