@@ -1,13 +1,31 @@
+-- recipes from https://cmp.saghen.dev/recipes.html#hide-copilot-on-suggestion
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BlinkCmpCompletionMenuOpen',
+  callback = function()
+    require("supermaven-nvim.api").stop()
+    require('supermaven-nvim.completion_preview').on_dispose_inlay()
+  end,
+})
+
+vim.api.nvim_create_autocmd('User', {
+  pattern = 'BlinkCmpCompletionMenuClose',
+  callback = function()
+    require("supermaven-nvim.api").start()
+  end,
+})
+
 return {
   'saghen/blink.cmp',
   dependencies = {
     'rafamadriz/friendly-snippets',
     {
       "supermaven-inc/supermaven-nvim",
-      dependencies = { { 'saghen/blink.compat', version = '*' } },
       opts = {
-        disable_inline_completion = true, -- disables inline completion for use with cmp
-        disable_keymaps = true,           -- disables built in keymaps for more manual control
+        keymaps = {
+          accept_suggestion = "<C-CR>",
+          clear_suggestion = "<C-e>",
+          accept_word = "<Tab>",
+        }
       },
     },
   },
@@ -59,35 +77,33 @@ return {
     },
 
     completion = {
-      documentation = {
-        auto_show = true,
-        auto_show_delay_ms = 200,
+      menu = {
+        -- nvim-cmp style menu
+        draw = {
+          columns = {
+            { "label",     "label_description", gap = 1 },
+            { "kind_icon", "kind" }
+          },
+        }
+      },
+      documentation = { auto_show = true, auto_show_delay_ms = 200 },
+      ghost_text = { enabled = true },
+      list = {
+        selection = function(ctx)
+          return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
+        end
       },
     },
 
+    signature = { enabled = true },
+
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev', 'supermaven' },
+      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' }, --, 'supermaven' },
       providers = {
-        lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
+        lsp = { fallbacks = { "lazydev" } },                        -- dont show LuaLS require statements when lazydev has items
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
-        supermaven = {
-          name = "supermaven",
-          module = "blink.compat.source",
-          async = true,
-          score_offset = 100,
-          transform_items = function(_, items)
-            local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
-            local kind_idx = #CompletionItemKind + 1
-            CompletionItemKind[kind_idx] = "Supermaven"
-            for _, item in ipairs(items) do
-              item.kind = kind_idx
-            end
-            return items
-          end,
-        },
       },
     },
-    signature = { enabled = true }
   },
   opts_extend = { "sources.default" },
 }
