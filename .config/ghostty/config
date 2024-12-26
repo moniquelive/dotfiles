@@ -1,0 +1,32 @@
+quit-after-last-window-closed=true
+macos-option-as-alt=true
+macos-secure-input-indication=true
+
+theme=catppuccin-mocha
+font-family=MonoLisa
+font-size=15
+# font-thicken=1
+
+background-opacity=0.9
+background-blur-radius=20
+
+# create splits
+keybind = alt+-=new_split:down
+keybind = alt+\=new_split:right
+
+# navigate splits
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:bottom
+keybind = alt+k=goto_split:top
+keybind = alt+l=goto_split:right
+
+# tabs
+keybind = super+enter=new_tab
+keybind = ctrl+shift+n=next_tab
+
+# resize splits
+keybind = ctrl+shift+h=resize_split:left,10
+keybind = ctrl+shift+j=resize_split:down,10
+keybind = ctrl+shift+k=resize_split:up,10
+keybind = ctrl+shift+l=resize_split:right,10
+keybind = ctrl+shift+0=equalize_splits
