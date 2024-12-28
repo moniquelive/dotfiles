@@ -1,6 +1,9 @@
 quit-after-last-window-closed=true
 macos-option-as-alt=true
 macos-secure-input-indication=true
+window-padding-balance=true
+window-colorspace=display-p3
+window-save-state=always
 
 theme=catppuccin-mocha
 font-family=MonoLisa
