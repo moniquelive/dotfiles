@@ -5,7 +5,13 @@ return {
 		priority = 1000,
 		lazy = false,
 		config = function()
-			vim.cmd.colorscheme("catppuccin-mocha")
+			require("catppuccin").setup {
+				flavour = 'mocha',
+				transparent_background = true,
+				show_end_of_buffer = true,
+				dim_inactive = { enabled = true },
+			}
+			vim.cmd.colorscheme "catppuccin"
 		end,
 	},
 	-- {

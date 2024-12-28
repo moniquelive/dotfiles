@@ -2,15 +2,19 @@
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpCompletionMenuOpen',
   callback = function()
-    require("supermaven-nvim.api").stop()
-    require('supermaven-nvim.completion_preview').on_dispose_inlay()
+    local api = require("supermaven-nvim.api")
+    if api.is_running() then
+      require('supermaven-nvim.completion_preview').on_dispose_inlay()
+      api.stop()
+    end
   end,
 })
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpCompletionMenuClose',
   callback = function()
-    require("supermaven-nvim.api").start()
+    local api = require("supermaven-nvim.api")
+    if not api.is_running() then api.start() end
   end,
 })
 
