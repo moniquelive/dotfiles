@@ -92,11 +92,10 @@ return {
 		opts = {
 			notification = {
 				override_vim_notify = true,
+				window = { winblend = 0, border = 'rounded' },
 			},
 			integration = {
-				["nvim-tree"] = {
-					enable = false,
-				},
+				["nvim-tree"] = { enable = false },
 			},
 		},
 	},
