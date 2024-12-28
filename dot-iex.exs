@@ -29,6 +29,7 @@ timestamp = fn ->
 end
 
 IEx.configure(
+  auto_reload: true,
   colors: [
     syntax_colors: [
       number: :light_yellow,
