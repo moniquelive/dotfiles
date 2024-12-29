@@ -7,7 +7,6 @@ vim.diagnostic.config({
 	virtual_text = true,
 	virtual_lines = false,
 })
-local au = vim.api.nvim_create_autocmd
 
 local function keymaps(bufnr)
 	local nmaps = {
@@ -16,6 +15,7 @@ local function keymaps(bufnr)
 		["K"] = vim.lsp.buf.hover,
 		["[d"] = vim.diagnostic.goto_prev,
 		["]d"] = vim.diagnostic.goto_next,
+		["<F2>"] = vim.lsp.buf.rename,
 		["<F3>"] = vim.lsp.buf.code_action,
 		["<F4>"] = vim.lsp.codelens.run,
 		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
@@ -36,6 +36,7 @@ local function keymaps(bufnr)
 	vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
 end
 
+local au = vim.api.nvim_create_autocmd
 local function highlighting(client, bufnr)
 	if client.server_capabilities.documentHighlightProvider then
 		vim.cmd([[
