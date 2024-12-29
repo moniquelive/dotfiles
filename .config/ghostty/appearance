@@ -1,0 +1,7 @@
+theme=catppuccin-mocha
+font-family=MonoLisa
+font-size=15
+font-thicken=false
+
+background-opacity=0.9
+background-blur-radius=20
