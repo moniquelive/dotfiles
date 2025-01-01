@@ -102,10 +102,10 @@ return {
     signature = { enabled = true },
 
     sources = {
-      default = { 'lsp', 'path', 'snippets', 'buffer', 'lazydev' }, --, 'supermaven' },
+      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
-        lsp = { fallbacks = { "lazydev" } },                        -- dont show LuaLS require statements when lazydev has items
-        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+        lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
+        lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
       },
     },
   },

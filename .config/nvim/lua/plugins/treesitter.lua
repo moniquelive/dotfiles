@@ -11,7 +11,7 @@ return {
 			ignore_install = { "unison", "blade", "latex", "teal", "scfg", "ocamllex", "swift", "mlir" },
 			auto_install = true,
 			endwise = { enable = true },
-			highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
+			-- highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
 			indent = { enable = true, disable = { "python", "ruby" } },
 			textobjects = { enable = true },
 			matchup = { enable = true }, -- mandatory, false will disable the whole extension ,
