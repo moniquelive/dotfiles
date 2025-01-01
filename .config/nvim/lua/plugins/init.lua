@@ -1,17 +1,4 @@
 return {
-	{ "nvim-lua/plenary.nvim" },
-	{ "nvim-tree/nvim-web-devicons" },
-	-- { "ryanoasis/vim-devicons" },
-
-	-- tpope creations
-	{ "tpope/vim-characterize",          keys = "ga" },
-	{ "tpope/vim-fugitive",              cmd = { "G", "Git" } },
-	{ "tpope/vim-repeat",                event = { "BufRead", "BufNewFile" } },
-	{ "tpope/vim-rsi",                   event = "CmdlineEnter" },
-	{ "tpope/vim-sleuth",                event = { "BufRead", "BufNewFile" } },
-	{ "tpope/vim-surround",              event = { "BufRead", "BufNewFile" } },
-	{ "tpope/vim-unimpaired",            keys = { "[", "]", "yo" } },
-
 	-- misc
 	{ "wincent/terminus",                event = { "BufRead", "BufNewFile" } },
 	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
@@ -66,6 +53,7 @@ return {
 		opts = {
 			library = {
 				"~/.config/nvim",
+				"rfc.nvim",
 				{ path = "${3rd}/luv/library",     words = { "vim%.uv" } },
 				{ path = "${3rd}/love2d/library",  words = { "love%." } },
 				{ path = "LazyVim",                words = { "LazyVim" } },

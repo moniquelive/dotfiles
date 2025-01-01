@@ -6,7 +6,6 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope.nvim",
     },
-    lazy = false,
     config = function()
       require("telescope").load_extension("rfc")
     end,
