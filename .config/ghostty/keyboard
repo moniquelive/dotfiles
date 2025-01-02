@@ -1,6 +1,8 @@
 # tabs
-keybind = super+enter=new_tab
+#keybind = super+enter=new_tab
 keybind = ctrl+shift+n=next_tab
+keybind = super+]=move_tab:+1
+keybind = super+[=move_tab:-1
 
 # create splits
 keybind = alt+-=new_split:down
