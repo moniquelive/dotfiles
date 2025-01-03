@@ -24,9 +24,9 @@ local function keymaps(bufnr)
 		["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
 		["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
 		["<leader>ih"] = function()
-			local curr = vim.lsp.inlay_hint.is_enabled()
-			vim.lsp.inlay_hint.enable(not curr)
-			vim.notify((curr and "disabled" or "enabled") .. " inlay hints")
+			local curr = not vim.lsp.inlay_hint.is_enabled()
+			vim.lsp.inlay_hint.enable(curr)
+			vim.notify((curr and "enabled" or "disabled") .. " inlay hints")
 		end,
 	}
 	local opts = { noremap = true, silent = true, buffer = bufnr }

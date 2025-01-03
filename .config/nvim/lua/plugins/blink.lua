@@ -2,7 +2,7 @@ local augroup = vim.api.nvim_create_augroup("supermaven-blink", { clear = true }
 
 -- recipes from https://cmp.saghen.dev/recipes.html#hide-copilot-on-suggestion
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'BlinkCmpCompletionMenuOpen',
+  pattern = 'BlinkCmpMenuOpen',
   group = augroup,
   callback = function(ev)
     -- TODO: hacky, but works
@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd('User', {
 })
 
 vim.api.nvim_create_autocmd('User', {
-  pattern = 'BlinkCmpCompletionMenuClose',
+  pattern = 'BlinkCmpMenuClose',
   group = augroup,
   callback = function(ev)
     -- TODO: hacky, but works
@@ -52,8 +52,8 @@ return {
     keymap = { preset = 'super-tab' },
 
     appearance = {
-      use_nvim_cmp_as_default = true,
-      nerd_font_variant = 'mono',
+      -- use_nvim_cmp_as_default = true,
+      -- nerd_font_variant = 'mono',
       kind_icons = {
         Supermaven = "",
         Text = '󰉿',
