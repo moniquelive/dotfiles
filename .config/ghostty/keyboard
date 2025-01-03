@@ -15,8 +15,8 @@ keybind = alt+k=goto_split:top
 keybind = alt+l=goto_split:right
 
 # resize splits
-keybind = ctrl+shift+h=resize_split:left,10
-keybind = ctrl+shift+j=resize_split:down,10
-keybind = ctrl+shift+k=resize_split:up,10
-keybind = ctrl+shift+l=resize_split:right,10
-keybind = ctrl+shift+0=equalize_splits
+keybind = shift+alt+h=resize_split:left,10
+keybind = shift+alt+j=resize_split:down,10
+keybind = shift+alt+k=resize_split:up,10
+keybind = shift+alt+l=resize_split:right,10
+keybind = shift+alt+0=equalize_splits
