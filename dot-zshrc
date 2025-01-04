@@ -157,6 +157,7 @@ alias mkdir='nocorrect mkdir'
 alias burniso='hdiutil makehybrid -iso -joliet -o $1.iso $2'
 alias lg="lazygit --use-config-file=~/.config/lazygit/config.yml"
 alias icat='kitty +kitten icat'
+(( `uname` == darwin )) && alias lscpu="system_profiler SPHardwareDataType"
 #alias ssh='TERM=xterm ssh'
 #alias ssh="kitty +kitten ssh"
 alias yt="yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
