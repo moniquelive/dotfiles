@@ -95,7 +95,7 @@ return {
     completion = {
       trigger = { show_in_snippet = false },
       menu = {
-        auto_show = function(ctx) return ctx.mode ~= 'cmdline' end,
+        -- auto_show = function(ctx) return ctx.mode ~= 'cmdline' end,
 
         -- nvim-cmp style menu
         draw = {
