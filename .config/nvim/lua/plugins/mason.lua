@@ -16,7 +16,7 @@ local function keymaps(bufnr)
 		["[d"] = vim.diagnostic.goto_prev,
 		["]d"] = vim.diagnostic.goto_next,
 		["<F2>"] = vim.lsp.buf.rename,
-		["<F3>"] = vim.lsp.buf.code_action,
+		["<a-cr>"] = vim.lsp.buf.code_action,
 		["<F4>"] = vim.lsp.codelens.run,
 		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
 		["gr"] = "<cmd>Telescope lsp_references<CR>",

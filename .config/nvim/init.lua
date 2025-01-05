@@ -90,8 +90,9 @@ end
 local k = vim.keymap
 
 -- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
-k.set("n", "/", [[/\v]])
-k.set("v", "/", [[/\v]])
+vim.o.magic = true
+-- k.set("n", "/", [[/\v]])
+-- k.set("v", "/", [[/\v]])
 
 local map_opts = { noremap = true, silent = true }
 for i = 0, 5 do

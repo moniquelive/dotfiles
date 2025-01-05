@@ -30,6 +30,7 @@ vim.api.nvim_create_autocmd('User', {
 return {
   'saghen/blink.cmp',
   dependencies = {
+    'nvim-treesitter/nvim-treesitter',
     'rafamadriz/friendly-snippets',
     {
       "supermaven-inc/supermaven-nvim",
@@ -44,6 +45,7 @@ return {
   },
 
   version = '*',
+  build = "cargo build --release",
   event = { "CmdlineEnter" },
 
   ---@module 'blink.cmp'
@@ -52,10 +54,11 @@ return {
     keymap = { preset = 'super-tab' },
 
     appearance = {
-      -- use_nvim_cmp_as_default = true,
-      -- nerd_font_variant = 'mono',
+      highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
+      use_nvim_cmp_as_default = false,
+      nerd_font_variant = 'mono',
       kind_icons = {
-        Supermaven = "",
+        -- Supermaven = "",
         Text = '󰉿',
         Method = '󰊕',
         Function = '󰊕',
@@ -90,12 +93,21 @@ return {
     },
 
     completion = {
+      trigger = { show_in_snippet = false },
       menu = {
+        auto_show = function(ctx) return ctx.mode ~= 'cmdline' end,
+
         -- nvim-cmp style menu
         draw = {
+          treesitter = { 'lsp' },
           columns = {
             { "label",     "label_description", gap = 1 },
             { "kind_icon", "kind" }
+          },
+          components = {
+            -- no icons for cmdline
+            kind_icon = { text = function(ctx) return ctx.item.source_id == "cmdline" and "" or ctx.kind_icon end },
+            kind = { text = function(ctx) return ctx.item.source_id == "cmdline" and "" or ctx.kind end },
           },
         }
       },
@@ -107,13 +119,29 @@ return {
         end
       },
     },
-
-    signature = { enabled = true },
+    signature = { enabled = true, window = { border = 'rounded' } },
 
     sources = {
-      default = { 'lazydev', 'lsp', 'path', 'snippets' }, --, 'buffer' },
+      default = function()
+        local success, node = pcall(vim.treesitter.get_node)
+        if vim.bo.filetype == 'lua' then
+          return { 'lazydev', 'lsp', 'path' }
+        elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
+          return { 'buffer' }
+        else
+          return { 'lsp', 'path', 'snippets' } --, 'buffer' }
+        end
+      end,
+      cmdline = function()
+        local type = vim.fn.getcmdtype()
+        -- Search forward and backward
+        if type == '/' or type == '?' then return { 'buffer' } end
+        -- Commands
+        if type == ':' or type == '@' then return { 'cmdline' } end
+        return {}
+      end,
       providers = {
-        lsp = { fallbacks = { "lazydev" } },              -- dont show LuaLS require statements when lazydev has items
+        lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
       },
     },
