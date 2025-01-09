@@ -1,5 +1,7 @@
 gui:
-  nerdFontsVersion: 2
+  nerdFontsVersion: "3"
+  showFileTree: false
+
   theme:
     activeBorderColor:
       - '#f5e0dc'
@@ -21,5 +23,18 @@ gui:
     searchingActiveBorderColor:
       - '#f9e2af'
 
+  branchColors:
+    'feature': '#89b4fa'
+    'feat': '#89b4fa'
+    'master': '#b4befe'
+    'main': '#b4befe'
+
   authorColors:
+    'Cyber Oliveira': '#FFC0CB'
+    'Monique Oliveira': '#FFC0CB'
     '*': '#b4befe'
+
+git:
+  parseEmoji: true
+
+confirmOnQuit: false
