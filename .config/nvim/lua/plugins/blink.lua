@@ -114,9 +114,10 @@ return {
       documentation = { auto_show = true, auto_show_delay_ms = 200 },
       ghost_text = { enabled = false },
       list = {
-        selection = function(ctx)
-          return ctx.mode == 'cmdline' and 'auto_insert' or 'preselect'
-        end
+        selection = {
+          preselect = function(ctx) return ctx.mode ~= 'cmdline' end,
+          auto_insert = function(ctx) return ctx.mode ~= 'cmdline' end
+        },
       },
     },
     signature = { enabled = true, window = { border = 'rounded' } },
