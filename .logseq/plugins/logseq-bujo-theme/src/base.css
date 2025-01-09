@@ -114,25 +114,48 @@ body[data-page=whiteboard] #app-container {
 }
 
 
-/* ------------- */
-/* SIDEBARS      */
-/* ------------- */
+/**
+/* MENUS & SIDEBARS
+**/
 
 /* right sidebar */
 
 #right-sidebar .cp__right-sidebar-topbar {
     background: none;
+
+    .button {
+        background-color: var(--bujo-left-sidebar-background);
+    }
+    .button:hover {
+        background-color: var(--ls-menu-hover-color);
+    }
 }
 
-#right-sidebar .button:hover {
-    background-color: var(--ls-menu-hover-color);
-}
+#right-sidebar {
+    .cp__right-sidebar-inner {
+        background-color: var(--bujo-left-sidebar-background);
 
-#right-sidebar .sidebar-item-list {
-    background: none;
-}
-#right-sidebar .sidebar-item-header {
-    background-color: var(--bujo-right-sidebar-item-header-background);
+        /* apply border to right sidebar as with left sidebar */
+        border-left: 1px solid var(--ls-left-sidebar-border-color, var(--lx-gray-03, var(--ls-tertiary-background-color)));
+    }
+
+    .sidebar-item-list {
+        background: none;
+    }
+
+    .sidebar-item-list > .sidebar-item {
+        &.collapsed {
+            box-shadow: none;
+        }
+
+        /* &:is(.item-type-block, .item-type-page, .item-type-contents, .item-type-page-slide-view, .item-type-page-graph, .item-type-help) { */
+        & .sidebar-item-header {
+            background: linear-gradient(0deg, var(--bujo-right-sidebar-item-header-background2), var(--bujo-right-sidebar-item-header-background1));
+        }
+        &.collapsed .sidebar-item-header {
+            background: var(--bujo-right-sidebar-item-header-background1);
+        }
+    }
 }
 
 #right-sidebar .sidebar-item {
@@ -210,11 +233,11 @@ body[data-page=whiteboard] #app-container {
     color: var(--bujo-left-sidebar-page-text);
 }
 
-#left-sidebar button.ui__button {
+#left-sidebar :not(.keyboard-shortcut) > button.ui__button {
     color: var(--bujo-button-text);
     background-color: transparent;
 }
-#left-sidebar button.ui__button:hover {
+#left-sidebar :not(.keyboard-shortcut) > button.ui__button:hover {
     color: var(--bujo-button-text);
     background-color: var(--bujo-button-background);
 }
@@ -248,6 +271,14 @@ div[data-radix-popper-content-wrapper] > div[role=menu] > div[role=menuitem]:hov
 
 .custom-context-menu {
     transition: none;
+}
+
+
+/* slash menu */
+
+/* sections */
+.ui__ac-group-name {
+    color: var(--ls-secondary-text-color);
 }
 
 
@@ -479,6 +510,11 @@ a.asset-ref { /* title in pdf extension */
 
 /* properties */
 
+.open-block-ref-link {
+    position: relative;
+    z-index: 1;  /* to avoid clashing with flashcards icon */
+}
+
 #right-sidebar .page-properties,
 #right-sidebar .block-properties {
     background-color: var(--bujo-right-sidebar-properties-background);
@@ -509,6 +545,9 @@ a.asset-ref { /* title in pdf extension */
     color: var(--ls-secondary-text-color);
     opacity: 0.8;
     transition: .3s;
+
+    position: relative;
+    top: 1px;
 }
 .asset-ref.is-pdf:hover::before {
     opacity: 1;
@@ -710,6 +749,22 @@ div.macro > div.inline {
 }
 
 
+/* live query builder */
+.query-builder-picker .cp__select > .input-wrap > .cp__select-input {
+    background-color: var(--ls-primary-background-color) !important;
+    font-size: unset;
+
+    &::placeholder {
+        opacity: 0.7;
+        color: var(--ls-secondary-text-color);
+    }
+
+    &:focus {
+        border-color: var(--bujo-ui-border-focus);
+    }
+}
+
+
 /* custom query: decrease title size */
 
 .custom-query > .th {
@@ -759,13 +814,21 @@ div.macro > div.inline {
 
 .form-checkbox {
     border-radius: 2px;
+    top: -1px;
 }
 
-.canceled, .cancelled {
-     opacity: 1; /* default: .7 */
+.canceled, .cancelled,
+.ls-block[data-refs-self*='"canceled"']  > .block-main-container > .block-content-wrapper > div > div > .block-content > .block-content-inner > div > span.with-bg-color,
+.ls-block[data-refs-self*='"cancelled"'] > .block-main-container > .block-content-wrapper > div > div > .block-content > .block-content-inner > div > span.with-bg-color {
+    opacity: 1; /* default: .7 */
+    text-decoration: line-through;
 }
 
-span:is(.later, .now, .todo, .doing, .done, .wait, .canceled, .cancelled) .form-checkbox {
+span:has(> .form-checkbox.checked) {
+    text-decoration: line-through;
+}
+
+span > .form-checkbox:has(+ .marker-switch) {
     z-index: 1;
 }
 
@@ -834,12 +897,13 @@ a.priority[href="#/page/C" i]::before {
 
 
 /* bullets */
-.bullet-link-wrap > .bullet-container > .bullet {
-    opacity: 1;
-}
 
-.bullet-link-wrap > .bullet-container:not(.as-order-list) > .bullet.selected {
-    color: var(--bujo-block-bullet-selected) !important;
+/* ordered */
+.bullet-link-wrap:hover > .bullet-container.as-order-list {
+    background-color: transparent !important;
+}
+.bullet-link-wrap > .bullet-container.as-order-list > .bullet {
+    background-color: transparent !important;
 }
 
 .ls-block.selected .bullet-link-wrap > .bullet-container.as-order-list > .bullet:not(.selected) {
@@ -858,6 +922,18 @@ a.priority[href="#/page/C" i]::before {
     color: var(--bujo-block-bullet-selected) !important;
 }
 
+
+/* non-ordered  */
+.bullet-link-wrap > .bullet-container > .bullet {
+    opacity: 1;
+}
+
+.bullet-link-wrap > .bullet-container:not(.as-order-list) > .bullet.selected {
+    color: var(--bujo-block-bullet-selected) !important;
+}
+
+
+/* different layers */
 .color-level .bullet-link-wrap:hover > .bullet-container {
     background-color: var(--bujo-block-bullet-border-level1);
 }
@@ -900,6 +976,85 @@ a.priority[href="#/page/C" i]::before {
 /* align bullets for headers */
 .block-main-container.items-baseline {
     align-items: center;
+}
+
+
+/**
+* Flashcards
+*
+* (based on logseq-awesome-content)
+**/
+
+.ls-block[data-refs-self*='"card"'] {
+    --bujo-shift-size: 28px;
+    --bujo-card-width: 4px;
+
+    position: relative;
+    margin: -2px 0px 8px var(--bujo-shift-size);
+    padding: 10px 2px 10px 0px;
+
+    border: 1px solid var(--ls-block-bullet-color);
+    border-left-width: var(--bujo-card-width);
+
+    box-shadow: none;
+    border-radius: 4px;
+}
+.ls-block[data-refs-self*='"card"'] > .block-main-container {
+    margin-left: calc(-1 * var(--bujo-shift-size) - var(--bujo-card-width));
+}
+.ls-block[data-refs-self*='"card"'] > .block-main-container > .block-control-wrap > .bullet-link-wrap > .bullet-container {
+    opacity: 0;
+
+    &:hover, &.bullet-closed {
+        opacity: 1;
+        background-color: var(--ls-block-bullet-color);
+    }
+    & > .bullet {
+        background-color: var(--ls-block-bullet-border-color);
+    }
+}
+.ls-block[data-refs-self*='"card"'] > .block-children-container {
+    margin-left: calc(1px + 29px - var(--bujo-shift-size) - var(--bujo-card-width));
+
+    & > .block-children-left-border {
+        margin-left: calc(-29px + var(--bujo-shift-size));
+    }
+
+    & > .block-children {
+        border-left: 0;
+    }
+}
+.ls-block[data-refs-self*='"card"'] > .flex.flex-row:before {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    content: "\ea38";
+    font-family: tabler-icons;
+    font-size: 20px;
+
+    opacity: .5;
+}
+
+/* review cards input field */
+.cards-review .cp__select > .input-wrap > .cp__select-input {
+    background-color: var(--ls-primary-background-color) !important;
+    font-size: unset;
+    border-width: 0;
+
+    &::placeholder {
+        opacity: 0.7;
+        color: var(--ls-secondary-text-color);
+    }
+
+    &:focus {
+        border-color: var(--bujo-ui-border-focus);
+        box-shadow: none;
+    }
+}
+.cards-review .cp__select > .item-results-wrap .menu-link {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 
@@ -1247,10 +1402,13 @@ div.w-full.rounded-full.animate-pulse > div[transition] {
 /* guidelines */
 
 .block-children-left-border {
-    opacity: 1;
+    opacity: 1 !important;
 }
 .block-children-left-border:hover {
     background-color: var(--bujo-guideline-hover);
+}
+.block-children-left-border:hover + .block-children {
+    border-left-color: transparent !important;
 }
 
 
@@ -1291,6 +1449,10 @@ audio::-webkit-media-controls-enclosure {
 /* bullet threading */
 
 /* override block thread width */
+html[data-color=none] {
+    --ls-block-bullet-active-color: var(--ls-link-text-color) !important;
+}
+
 body:has(> #logseq-bullet-threading_lsp_main) {
     & .bullet-container {
         transform: translate(0px, -1px) !important;
@@ -1298,6 +1460,10 @@ body:has(> #logseq-bullet-threading_lsp_main) {
         & .bullet {
             font-size: 15px;
         }
+    }
+    & .block-children-left-border {
+        top: -1px;
+        width: 2px;
     }
     & .block-children-left-border + .block-children {
         border-left-width: 1px !important;
@@ -1669,9 +1835,10 @@ html[data-color=none] .tl-container {
 }
 
 .whiteboard .logseq-tldraw {
-    --color-selectedFill: var(--bujo-whiteboard-fill);
-    --color-selectedStroke: var(--bujo-whiteboard-border-accent);
+    --color-selectedFill: var(--bujo-whiteboard-fill-translucent);
+    --color-selectedStroke: var(--bujo-whiteboard-fill);
     --color-selectedContrast: var(--bujo-whiteboard-text-accent);
+    --color-binding: var(--bujo-whiteboard-binding);
 }
 
 .whiteboard .tl-toolbar-separator {
@@ -1714,6 +1881,15 @@ html[data-color=none] .tl-container {
     border: none;
 }
 
+/* link button (with counter) */
+.whiteboard .tl-context-bar > .tl-button .ti-link {
+    margin-top: 2px;
+}
+.whiteboard .tl-context-bar > .tl-button .tl-shape-links-count {
+    margin-left: -3px;
+    font-size: .9em;
+}
+
 .whiteboard :is(.tl-context-bar, .tl-tools-floating-panel) .tl-popover-trigger-button[data-border=true] {
     border: none;
     /* border: 1px solid var(--bujo-whiteboard-border); */
@@ -1729,7 +1905,6 @@ html[data-color=none] .tl-container {
 .whiteboard .tl-context-bar .tl-slider-thumb {
     background-color: var(--ls-secondary-background-color);
     border: 1px solid var(--bujo-whiteboard-border-accent);
-    box-shadow: 0 0 1px var(--ls-secondary-border-color);
 }
 .whiteboard .tl-context-bar .tl-slider-thumb:hover {
     background-color: var(--bujo-whiteboard-background-accent);
@@ -2107,35 +2282,69 @@ a.action-wrap > code:not(:has(> button)) {
 
 /* toggle */
 
-.ui__toggle [aria-checked],
+.ui__toggle span[aria-checked],
 .ui__toggle .switcher {
     transition-duration: 0s;
 }
 
-.ui__toggle [aria-checked="false"] {
+.ui__toggle span[aria-checked="false"] {
     background-color: var(--bujo-toggle-off);
 }
-.ui__toggle [aria-checked="false"]:hover {
+.ui__toggle span[aria-checked="false"]:hover {
     background-color: var(--bujo-toggle-off-hover);
 }
-.ui__toggle [aria-checked="false"] .switcher {
+.ui__toggle span[aria-checked="false"] .switcher {
     background-color: var(--bujo-toggle-switcher-off);
 }
-.ui__toggle [aria-checked="false"]:hover .switcher {
+.ui__toggle span[aria-checked="false"]:hover .switcher {
     background-color: var(--bujo-toggle-switcher-off);
 }
 
-.ui__toggle [aria-checked="true"] {
+.ui__toggle span[aria-checked="true"] {
     background-color: var(--bujo-toggle-on);
 }
-.ui__toggle [aria-checked="true"]:hover {
+.ui__toggle span[aria-checked="true"]:hover {
     background-color: var(--bujo-toggle-on-hover);
 }
-.ui__toggle [aria-checked="true"] .switcher {
+.ui__toggle span[aria-checked="true"] .switcher {
     background-color: var(--bujo-toggle-switcher-on);
 }
-.ui__toggle [aria-checked="true"]:hover .switcher {
+.ui__toggle span[aria-checked="true"]:hover .switcher {
     background-color: var(--bujo-toggle-switcher-on);
+}
+
+
+/* slider */
+
+input[type="range"] {
+    /* removing default appearance */
+    -webkit-appearance: none;
+    appearance: none;
+
+    /* slider progress trick  */
+    overflow: hidden;
+    border-radius: 16px;
+
+    &::-webkit-slider-runnable-track {
+        background: var(--bujo-progress-bar-rest);
+        height: 10px;
+    }
+    &::-webkit-slider-thumb {
+        /* removing default appearance */
+        -webkit-appearance: none;
+        appearance: none;
+
+        /* creating a custom design */
+        height: 10px;
+        width: 10px;
+        background-color: var(--bujo-toggle-switcher-on);
+        /* background-color: var(--bujo-progress-bar-done); */
+        border-radius: 50%;
+        /* border: 2px solid var(--bujo-progress-bar-done); */
+
+        /* slider progress trick */
+        box-shadow: -405px 0 0 400px var(--bujo-progress-bar-done);
+    }
 }
 
 
@@ -2149,6 +2358,8 @@ a.action-wrap > code:not(:has(> button)) {
     content: "\eabc";
     font-family: 'tabler-icons';
 
+    position: relative;
+    top: 1px;
     padding-right: 4px;
     opacity: .8;
 
@@ -2164,7 +2375,9 @@ a.action-wrap > code:not(:has(> button)) {
 .page-property-key[data-ref|="template"]::before    { content: "\eb39" }
 
 .page-property-key[data-ref|="tag"]::before,
-.page-property-key[data-ref|="label"]::before       { content: "\ef86" }
+.page-property-key[data-ref|="label"]::before,
+.page-property-key[data-ref|="keyword"]::before,
+.page-property-key[data-ref|="keywords"]::before       { content: "\ef86" }
 .page-property-key[data-ref|="ref"]::before,
 .page-property-key[data-ref|="reference"]::before,
 .page-property-key[data-ref|="source"]::before      { content: "\eb54" }
@@ -2199,7 +2412,8 @@ a.action-wrap > code:not(:has(> button)) {
 .page-property-key[data-ref|="price"]::before       { content: "\eb85" }
 .page-property-key[data-ref|="duration"]::before    { content: "\f146" }
 .page-property-key[data-ref|="time"]::before        { content: "\ea70" }
-.page-property-key[data-ref|="rating"]::before      { content: "\eb2e" }
+.page-property-key[data-ref|="rating"]::before,
+.page-property-key[data-ref|="score"]::before       { content: "\eb2e" }
 .page-property-key[data-ref|="location"]::before,
 .page-property-key[data-ref|="place"]::before,
 .page-property-key[data-ref|="where"]::before       { content: "\eae8" }
@@ -2279,3 +2493,7 @@ a.action-wrap > code:not(:has(> button)) {
 .page-property-key[data-ref|="arg"]::before,
 .page-property-key[data-ref|="param"]::before       { content: "\eb8d" }
 .page-property-key[data-ref|="plugin"]::before      { content: "\ebd9" }
+
+.page-property-key[data-ref|="creators"]::before,
+.page-property-key[data-ref|="cast"]::before        { content: "\ebf2" }
+.page-property-key[data-ref|="context"]::before     { content: "\f61a" }
