@@ -12,11 +12,18 @@ vim.opt_local.makeprg = "zig run %"
 -- 	end
 -- })
 
+local group = vim.api.nvim_create_augroup("exercism_zig", { clear = true });
+
 -- are we exercisming?
 if string.find(vim.fn.expand("%:p"):lower(), "/exercism/") ~= nil then
-	vim.api.nvim_create_autocmd("BufWritePost", {
-		group = vim.api.nvim_create_augroup("exercism_zig", { clear = true }),
+	vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+		group = group,
 		pattern = "*.zig",
-		command = [[!zig test test_%]]
+		command = [[lcd %:p:h]]
+	})
+	vim.api.nvim_create_autocmd("BufWritePost", {
+		group = group,
+		pattern = "*.zig",
+		command = [[!zig test test_*.zig]]
 	})
 end
