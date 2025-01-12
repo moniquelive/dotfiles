@@ -2,21 +2,9 @@ return {
 	-- misc
 	{ "wincent/terminus",                event = { "BufRead", "BufNewFile" } },
 	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufRead", "BufNewFile" },
-		main = "ibl",
-		opts = {},
-	},
-
 	-- coding
-	{
-		'kosayoda/nvim-lightbulb',
-		event = { "BufRead", "BufNewFile" },
-		opts = { autocmd = { enabled = true } }
-	},
-	{ "tommcdo/vim-lion",     keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
-	{ "andymass/vim-matchup", keys = "%" },
+	{ "tommcdo/vim-lion",                keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
+	{ "andymass/vim-matchup",            keys = "%" },
 	{
 		"laytan/tailwind-sorter.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
@@ -75,21 +63,6 @@ return {
 		opts = {
 			-- filetypes = { "*", "!cmp_menu" },
 			user_default_options = { tailwind = true },
-		},
-	},
-
-	-- Notifications
-	{
-		"j-hui/fidget.nvim",
-		lazy = false,
-		opts = {
-			notification = {
-				override_vim_notify = true,
-				window = { winblend = 0, border = 'rounded' },
-			},
-			integration = {
-				["nvim-tree"] = { enable = false },
-			},
 		},
 	},
 
