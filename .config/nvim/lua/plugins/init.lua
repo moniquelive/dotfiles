@@ -7,6 +7,16 @@ return {
 	{ "tommcdo/vim-lion",                keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
 	{ "andymass/vim-matchup",            keys = "%" },
 	{
+		'kosayoda/nvim-lightbulb',
+		event = { "BufRead", "BufNewFile" },
+		opts = {
+			autocmd = { enabled = true, updatetime = -1 },
+			number = { enabled = true },
+			sign = { enabled = false },
+			virtual_text = { enabled = true },
+		}
+	},
+	{
 		"laytan/tailwind-sorter.nvim",
 		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
 		ft = { "html", "heex" },

@@ -60,9 +60,7 @@ au("LspAttach", {
 
 		keymaps(bufnr)
 		-- highlighting(client, bufnr)
-		-- if client then
-		-- 	vim.notify("📡️" .. client.name .. " attached")
-		-- end
+		if client then vim.notify(string.format("📡️ %s attached", client.name)) end
 	end,
 })
 

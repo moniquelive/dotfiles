@@ -135,7 +135,7 @@ local maps = {
   -- neovim, dont reinvent the wheel <3
   { "n", "Y",                "yy" },
   -- default run behavior
-  { "n", "<F5>",             "<cmd>make<CR>" },
+  { "n", "<F5>",             "<cmd>make!<CR>" },
 }
 for _, m in ipairs(maps) do
   k.set(m[1], m[2], m[3], map_opts)

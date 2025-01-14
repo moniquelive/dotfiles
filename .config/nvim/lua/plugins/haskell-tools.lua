@@ -3,7 +3,7 @@ local function init()
 		tools = {
 			repl = { handler = "toggleterm", prefer = "cabal" },
 			definition = { hoogle_signature_fallback = true },
-			-- hover = { stylize_markdown = true },
+			hover = { stylize_markdown = true },
 			hoogle = { mode = "telescope-local" }, -- "auto"|"telescope-local"|"telescope-web"|"browser"
 		},
 		hls = {                               -- LSP client options
