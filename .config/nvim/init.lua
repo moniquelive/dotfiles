@@ -1,8 +1,6 @@
 -- This is MoniqueLive's init.lua file
 -- vim:set ts=2 sts=2 sw=2 expandtab:
 
-require("restore_cursor")
-
 -----------------------------------------------------------------------------
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

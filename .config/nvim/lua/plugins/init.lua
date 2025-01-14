@@ -1,5 +1,6 @@
 return {
 	-- misc
+	{ "zhimsel/vim-stay",                lazy = false },
 	{ "wincent/terminus",                event = { "BufRead", "BufNewFile" } },
 	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
 	-- coding

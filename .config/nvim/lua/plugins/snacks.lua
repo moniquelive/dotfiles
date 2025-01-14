@@ -61,15 +61,9 @@ return {
     },
     ---@type snacks.Config
     opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
       bigfile = { enabled = true, notify = true, size = 1024 * 1024 },
       dashboard = {
         enabled = true,
-        -- formats = {
-        --   key = function(item) return { { "[", hl = "special" }, { item.key, hl = "key" }, { "]", hl = "special" } } end,
-        -- },
         sections = {
           { title = "MRU", padding = 1 },
           { icon = " ", section = "recent_files", title = "Recent Files", limit = 8, padding = 1 },

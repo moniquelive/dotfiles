@@ -126,7 +126,7 @@ unset SCRIPT_NAME
 # set these after omz
 (( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="Catppuccin Macchiato"
+export BAT_THEME="Catppuccin Mocha"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
