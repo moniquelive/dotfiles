@@ -125,17 +125,18 @@ local maps = {
   { "n", "<m-,>",            "<c-w><" },
   { "n", "<m-.>",            "<c-w>>" },
   -- Open window below instead of above"
-  { "n", "<c-w>N",           ":let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>" },
+  { "n", "<c-w>N",           "<cmd>let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>" },
   -- Vertical equivalent of c-w-n and c-w-N"
-  { "n", "<c-w>v",           ":vnew<CR>" },
-  { "n", "<c-w>V",           ":let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>" },
+  { "n", "<c-w>v",           "<cmd>vnew<CR>" },
+  { "n", "<c-w>V",           "<cmd>let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>" },
   -- Easier split resizing (shift - and shift +)
   { "n", "_",                "<c-w>-" },
   { "n", "+",                "<c-w>+" },
   -- neovim, dont reinvent the wheel <3
   { "n", "Y",                "yy" },
   -- default run behavior
-  { "n", "<F5>",             "<cmd>make!<CR>" },
+  { "n", "<F17>",            [[<cmd>echom "running..."|silent make!|echon ''<CR>]] },
+  { "n", "<F5>",             [[<cmd>make!<CR>]] },
 }
 for _, m in ipairs(maps) do
   k.set(m[1], m[2], m[3], map_opts)
@@ -152,8 +153,9 @@ local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 local au = vim.api.nvim_create_autocmd
 local myvimrc = vim.fn.expand("$MYVIMRC")
 local cmds = {
-  { "FocusLost",  "*", [[silent! wa]] }, -- Autosave on focus lost
-  { "VimResized", "*", [[wincmd =]] },   -- let terminal resize scale the internal windows
+  { "QuickFixCmdPost", "*", [[copen]] },      -- Open quickfix window when errors are found
+  { "FocusLost",       "*", [[silent! wa]] }, -- Autosave on focus lost
+  { "VimResized",      "*", [[wincmd =]] },   -- let terminal resize scale the internal windows
   {
     "FileType",
     { "qf", "fugitive", "fugitiveblame", "netrw" },

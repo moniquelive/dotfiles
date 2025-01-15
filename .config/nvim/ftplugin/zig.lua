@@ -9,6 +9,8 @@
 -- 	end
 -- })
 
+vim.g.zig_fmt_parse_errors = 0
+
 local group = vim.api.nvim_create_augroup("zig_config", { clear = true });
 if string.find(vim.fn.expand("%:p"):lower(), "/exercism/") ~= nil then -- are we exercisming?
 	vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
