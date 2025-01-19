@@ -13,7 +13,7 @@ return {
 			endwise = { enable = true },
 			highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
 			indent = { enable = true, disable = { "python", "ruby" } },
-			textobjects = { enable = true },
+			textobjects = { enable = false },
 			matchup = { enable = true }, -- mandatory, false will disable the whole extension ,
 			incremental_selection = {
 				enable = true,

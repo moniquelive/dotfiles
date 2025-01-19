@@ -1,11 +1,8 @@
 return {
 	-- misc
-	{ "zhimsel/vim-stay",                lazy = false },
-	{ "wincent/terminus",                event = { "BufRead", "BufNewFile" } },
-	{ "bronson/vim-trailing-whitespace", event = { "BufRead", "BufNewFile" } },
+	{ "wincent/terminus",     event = { "BufRead", "BufNewFile" } },
 	-- coding
-	{ "tommcdo/vim-lion",                keys = { { "gl", mode = { "v", "n" } }, { "gL", mode = { "v", "n" } } } },
-	{ "andymass/vim-matchup",            keys = "%" },
+	{ "andymass/vim-matchup", keys = "%" },
 	{
 		'kosayoda/nvim-lightbulb',
 		event = { "BufRead", "BufNewFile" },
@@ -75,13 +72,5 @@ return {
 			-- filetypes = { "*", "!cmp_menu" },
 			user_default_options = { tailwind = true },
 		},
-	},
-
-	-- Statusline
-	{
-		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		lazy = false,
-		config = true,
 	},
 }
