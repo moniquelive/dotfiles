@@ -20,3 +20,6 @@ keybind = shift+alt+j=resize_split:down,10
 keybind = shift+alt+k=resize_split:up,10
 keybind = shift+alt+l=resize_split:right,10
 keybind = shift+alt+0=equalize_splits
+
+# selection
+keybind = super+s=write_screen_file:paste

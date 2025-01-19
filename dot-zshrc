@@ -142,6 +142,7 @@ unalias t
 alias t=tmux
 compdef _tmux t
 
+alias c='. ccpp'
 alias ls='ls --color=auto --group-directories-first'
 alias ri='ri -Tf ansi'
 alias rm='rm -I'
