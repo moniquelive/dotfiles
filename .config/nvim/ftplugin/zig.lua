@@ -11,17 +11,18 @@
 
 vim.g.zig_fmt_parse_errors = 0
 
-local group = vim.api.nvim_create_augroup("zig_config", { clear = true });
+local command = ""
 if string.find(vim.fn.expand("%:p"):lower(), "/exercism/") ~= nil then -- are we exercisming?
-	vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-		group = group,
-		pattern = "*.zig",
-		command = [[lcd %:p:h | compiler zig_test | setlocal makeprg=zig\ test\ test_%:t]],
-	})
+	command = [[lcd %:p:h | compiler zig_test | setlocal makeprg=zig\ test\ test_%:t]]
+elseif #vim.fn.findfile("build.zig", vim.fn.expand("%:p:h") .. ";") > 0 then
+	command = [[setlocal makeprg=zig\ build\ run\ %]]
 else
-	vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-		group = group,
-		pattern = "*.zig",
-		command = [[setlocal makeprg=zig\ run\ %]],
-	})
+	command = [[setlocal makeprg=zig\ run\ %]]
 end
+
+local group = vim.api.nvim_create_augroup("zig_config", { clear = true });
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	group = group,
+	pattern = "*.zig",
+	command = command,
+})
