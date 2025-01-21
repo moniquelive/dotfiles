@@ -1,15 +1,14 @@
 "source ~/.vimrc
 nunmap /
 vunmap /
-nnoremap <leader><leader> :action VimFilePrevious<CR>
+
+nnoremap <leader><leader> <c-6>
+nnoremap <leader>r :action RenameElement<cr>
+
 nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
-" nnoremap <c-h> :action VimWindowLeft<CR>
-" nnoremap <c-j> :action VimWindowDown<CR>
-" nnoremap <c-k> :action VimWindowUp<CR>
-" nnoremap <c-l> :action VimWindowRight<CR>
 
 " system clipboard's copy/paste
 vnoremap <leader>y "+y
@@ -18,8 +17,27 @@ nnoremap <leader>Y "+Y
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
-set surround
-set ignorecase smartcase
-set ideajoin
+" file navigation
+nnoremap [[ :action MethodUp<cr>
+nnoremap ]] :action MethodDown<cr>
+
+nnoremap <silent> <ESC> :nohlsearch<cr>
+
+
+" vim specific
+set ignorecase smartcase hlsearch visualbell incsearch
 " set clipboard+=ideaput,unnamedplus
 
+" plugins
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'machakann/vim-highlightedyank'
+Plug 'chrisbra/matchit'
+
+
+" idea specific
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+let g:argtextobj_pairs="[:],(:),<:>"
