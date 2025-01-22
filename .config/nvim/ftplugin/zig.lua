@@ -16,7 +16,7 @@ local command = ""
 if string.find(local_path:lower(), "/exercism/") ~= nil then     -- are we exercisming?
 	command = [[lcd %:p:h | compiler zig_test | setlocal makeprg=zig\ test\ test_%:t]]
 elseif #vim.fn.findfile("build.zig", local_path .. ";") > 0 then -- are we in a project?
-	command = [[setlocal makeprg=zig\ build\ run\ %]]
+	command = [[setlocal makeprg=zig\ build\ run]]
 else                                                             -- standalone
 	command = [[setlocal makeprg=zig\ run\ %]]
 end

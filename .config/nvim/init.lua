@@ -94,9 +94,7 @@ vim.o.magic = true
 
 local map_opts = { noremap = true, silent = true }
 for i = 0, 5 do
-  k.set("n", "z" .. i, function()
-    vim.opt_local.foldlevel = i
-  end, map_opts)
+  k.set("n", "z" .. i, function() vim.opt_local.foldlevel = i end, map_opts)
 end
 
 local maps = {
@@ -137,6 +135,7 @@ local maps = {
   -- default run behavior
   { "n", "<F17>",            [[<cmd>echom "running..."|silent make!|echon ''<CR>]] },
   { "n", "<F5>",             [[<cmd>make!<CR>]] },
+  { "n", "<tab>",            "za" },
 }
 for _, m in ipairs(maps) do
   k.set(m[1], m[2], m[3], map_opts)
