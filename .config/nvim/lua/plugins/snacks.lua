@@ -66,9 +66,9 @@ return {
         enabled = true,
         sections = {
           { title = "MRU", padding = 1 },
-          { icon = " ", section = "recent_files", title = "Recent Files", limit = 8, padding = 1 },
-          { title = "MRU ", file = vim.fn.fnamemodify(".", ":~"), padding = 1 },
+          { file = vim.fn.fnamemodify(".", ":~"), padding = 1 },
           { section = "recent_files", cwd = true, limit = 8, padding = 1 },
+          { title = "MRU ", icon = " ", section = "recent_files", title = "Recent Files", limit = 8, padding = 1 },
           { section = "startup" },
           { pane = 2, section = "terminal", cmd = "fortune -s computers", hl = "header", padding = 1 },
           { pane = 2, section = "projects", padding = 1, icon = " ", title = "Projects" },
