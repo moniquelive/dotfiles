@@ -249,22 +249,22 @@ local function config()
 			end,
 		},
 	})
-	-- Unmanaged LSPs
+	-- LSPs outside of mason
 	local external_servers = {
 		clangd = {
 			cmd = {
-				vim.fn.expand("~/.local/share/mise/installs/clangd/latest/bin/clangd"),
-				"--offset-encoding=utf-16",
+				"/opt/homebrew/opt/llvm/bin/clangd",
 				"--background-index",
+				"--suggest-missing-includes",
 				"--clang-tidy",
-			},
+			}
 		},
 		ghcide = {},
 		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
 	}
 	for server, cfg in pairs(external_servers) do
-		local capa = require('blink.cmp').get_lsp_capabilities(cfg or {}, true)
-		require('lspconfig')[server].setup({ capabilities = capa })
+		cfg.capabilities = require('blink.cmp').get_lsp_capabilities(cfg.capabilities or {}, true)
+		require('lspconfig')[server].setup(cfg)
 	end
 end
 
