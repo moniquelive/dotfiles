@@ -263,7 +263,8 @@ local function config()
 		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
 	}
 	for server, cfg in pairs(external_servers) do
-		require('lspconfig')[server].setup(cfg)
+		local capa = require('blink.cmp').get_lsp_capabilities(cfg or {}, true)
+		require('lspconfig')[server].setup({ capabilities = capa })
 	end
 end
 
