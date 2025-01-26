@@ -66,14 +66,6 @@ au("LspAttach", {
 
 local servers = {
 	lua_ls = {},
-	clangd = {
-		cmd = {
-			"/opt/homebrew/opt/llvm/bin/clangd",
-			"--offset-encoding=utf-16",
-			"--background-index",
-			"--clang-tidy",
-		},
-	},
 	gopls = {
 		init_options = {
 			usePlaceholders = true,
@@ -259,6 +251,14 @@ local function config()
 	})
 	-- Unmanaged LSPs
 	local external_servers = {
+		clangd = {
+			cmd = {
+				vim.fn.expand("~/.local/share/mise/installs/clangd/latest/bin/clangd"),
+				"--offset-encoding=utf-16",
+				"--background-index",
+				"--clang-tidy",
+			},
+		},
 		ghcide = {},
 		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
 	}
