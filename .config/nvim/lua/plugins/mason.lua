@@ -253,7 +253,7 @@ local function config()
 	local external_servers = {
 		clangd = {
 			cmd = {
-				"/opt/homebrew/opt/llvm/bin/clangd",
+				(vim.fn.executable("brew") == 1 and "/opt/homebrew/opt/llvm/bin/clangd" or "clangd"),
 				"--background-index",
 				"--suggest-missing-includes",
 				"--clang-tidy",
