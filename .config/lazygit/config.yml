@@ -1,4 +1,5 @@
 gui:
+  sidePanelWidth: 0.3333
   nerdFontsVersion: "3"
   showFileTree: false
 
