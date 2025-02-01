@@ -22,4 +22,4 @@ keybind = shift+alt+l=resize_split:right,10
 keybind = shift+alt+0=equalize_splits
 
 # selection
-keybind = super+s=write_screen_file:paste
+keybind = super+s=paste_from_selection
