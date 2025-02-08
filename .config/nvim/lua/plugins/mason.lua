@@ -37,18 +37,18 @@ local function keymaps(bufnr)
 end
 
 local au = vim.api.nvim_create_autocmd
--- local function highlighting(client, bufnr)
--- 	if client.server_capabilities.documentHighlightProvider then
--- 		vim.cmd([[
---               hi! LspReferenceText cterm=bold ctermbg=red guibg=#403040
---               hi! LspReferenceRead cterm=bold ctermbg=red guibg=#106010
---               hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#601010
---             ]])
--- 		local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
--- 		au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
--- 		au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
--- 	end
--- end
+local function highlighting(client, bufnr)
+	if client.server_capabilities.documentHighlightProvider then
+		vim.cmd([[
+              hi! LspReferenceText cterm=bold ctermbg=gray guibg=#302030
+              hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
+              hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
+            ]])
+		local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
+		au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
+		au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
+	end
+end
 
 au("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -59,7 +59,7 @@ au("LspAttach", {
 		vim.api.nvim_set_option_value("formatexpr", "v:lua.vim.lsp.formatexpr()", { buf = bufnr })
 
 		keymaps(bufnr)
-		-- highlighting(client, bufnr)
+		highlighting(client, bufnr)
 		if client then vim.notify(string.format("📡️ %s attached", client.name)) end
 	end,
 })

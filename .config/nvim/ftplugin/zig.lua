@@ -1,3 +1,7 @@
+-- Only run the ftplugin code once per buffer.
+if vim.b.did_ftplugin_zig then return end
+vim.b.did_ftplugin_zig = true
+
 -- vim.api.nvim_create_autocmd('BufWritePre', {
 -- 	pattern = { "*.zig", "*.zon" },
 -- 	callback = function()
