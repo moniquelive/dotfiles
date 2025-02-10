@@ -15,13 +15,12 @@ vim.b.did_ftplugin_zig = true
 
 vim.g.zig_fmt_parse_errors = 0
 
-local local_path = vim.fn.expand("%:p:h")
 local command = ""
-if string.find(local_path:lower(), "/exercism/") ~= nil then     -- are we exercisming?
+if string.find(vim.fn.expand("%:p:h"):lower(), "/exercism/") ~= nil then -- are we exercisming?
 	command = [[lcd %:p:h | compiler zig_test | setlocal makeprg=zig\ test\ test_%:t]]
-elseif #vim.fn.findfile("build.zig", local_path .. ";") > 0 then -- are we in a project?
+elseif #vim.fs.find({ "build.zig" }, { stop = vim.env.HOME }) > 0 then   -- are we in a project?
 	command = [[setlocal makeprg=zig\ build\ run]]
-else                                                             -- standalone
+else                                                                     -- standalone
 	command = [[setlocal makeprg=zig\ run\ %]]
 end
 

@@ -2,23 +2,28 @@
 
 -- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 vim.diagnostic.config({
-	float = { border = "single" },
+	float = { border = "rounded" },
 	underline = false,
 	virtual_text = true,
-	virtual_lines = false,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = '✘',
+			[vim.diagnostic.severity.WARN] = '▲',
+			[vim.diagnostic.severity.HINT] = '⚑',
+			[vim.diagnostic.severity.INFO] = '»',
+		},
+	},
 })
+
 
 local function keymaps(bufnr)
 	local nmaps = {
+		["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
 		["gD"] = vim.lsp.buf.declaration,
-		["gd"] = vim.lsp.buf.definition,
-		["K"] = vim.lsp.buf.hover,
-		["[d"] = vim.diagnostic.goto_prev,
-		["]d"] = vim.diagnostic.goto_next,
-		["<F2>"] = vim.lsp.buf.rename,
+		-- grn : ["<F2>"] = vim.lsp.buf.rename,
 		["<F4>"] = vim.lsp.codelens.run,
 		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
-		["gr"] = "<cmd>Telescope lsp_references<CR>",
+		-- grr :  ["gr"] = "<cmd>Telescope lsp_references<CR>",
 		["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
 		["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
 		["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
@@ -32,13 +37,13 @@ local function keymaps(bufnr)
 	for key, action in pairs(nmaps) do
 		vim.keymap.set("n", key, action, opts)
 	end
-	vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
-	vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
+	-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
+	-- gra :  vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
 end
 
 local au = vim.api.nvim_create_autocmd
 local function highlighting(client, bufnr)
-	if client.server_capabilities.documentHighlightProvider then
+	if client.supports_method('textDocument/documentHighlight') then
 		vim.cmd([[
               hi! LspReferenceText cterm=bold ctermbg=gray guibg=#302030
               hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
@@ -59,8 +64,12 @@ au("LspAttach", {
 		vim.api.nvim_set_option_value("formatexpr", "v:lua.vim.lsp.formatexpr()", { buf = bufnr })
 
 		keymaps(bufnr)
-		highlighting(client, bufnr)
-		if client then vim.notify(string.format("📡️ %s attached", client.name)) end
+		if client then
+			highlighting(client, bufnr)
+			vim.lsp.completion.enable(true, args.data.client_id, bufnr, { autotrigger = false })
+			vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
+			vim.notify(string.format("📡️ %s attached", client.name))
+		end
 	end,
 })
 
@@ -258,7 +267,11 @@ local function config()
 				"--clang-tidy",
 			}
 		},
-		zls = {},
+		zls = {
+			settings = {
+				enable_argument_placeholders = false,
+			}
+		},
 		ghcide = {},
 		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
 	}
