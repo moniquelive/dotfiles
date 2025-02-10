@@ -237,7 +237,6 @@ local function config()
 		"typescript-language-server",
 		"vim-language-server",
 		"yapf",
-		"zls",
 	})
 	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 	require("mason-lspconfig").setup({
@@ -259,6 +258,7 @@ local function config()
 				"--clang-tidy",
 			}
 		},
+		zls = {},
 		ghcide = {},
 		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
 	}
