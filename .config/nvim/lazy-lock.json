@@ -14,7 +14,7 @@
   "luassert-types": { "branch": "main", "commit": "d3528bb679302cbfdedefabb37064515ab95f7b9" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "a8e6efcf623b86bae6d2223eede7c43883329f80" },
   "mason-tool-installer.nvim": { "branch": "main", "commit": "374c78d3ebb5c53f43ea6bd906b6587b5e899b9e" },
-  "mason.nvim": { "branch": "main", "commit": "5664dd5deb3ac9527da90691543eb28df51c1ef8" },
+  "mason.nvim": { "branch": "main", "commit": "f9f3b464dda319288b8ce592e53f0d9cf9ca8b4e" },
   "mini.nvim": { "branch": "main", "commit": "4dd209e4f03bacd46d6d87408b2529a8823112fb" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "9b5fe0450bfb2521c6cea29391e5ec571f129136" },
   "nvim-lightbulb": { "branch": "master", "commit": "f7f61c47af5bf701b1f4af127bc565ab6491acbf" },
