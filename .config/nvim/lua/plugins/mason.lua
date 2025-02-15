@@ -16,7 +16,6 @@ vim.diagnostic.config({
 	},
 })
 
-
 local function keymaps(bufnr)
 	local nmaps = {
 		["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
@@ -44,37 +43,42 @@ end
 
 local au = vim.api.nvim_create_autocmd
 local function highlighting(client, bufnr)
-	if client.supports_method('textDocument/documentHighlight') then
-		vim.cmd([[
+	if not client.supports_method('textDocument/documentHighlight') then return end
+
+	vim.cmd([[
               hi! LspReferenceText cterm=bold ctermbg=gray guibg=#302030
               hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
               hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
             ]])
-		local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
-		au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
-		au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
-	end
+	local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
+	au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
+	au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
 end
 
 au("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
 		local bufnr = args.buf
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 		vim.api.nvim_set_option_value("formatexpr", "v:lua.vim.lsp.formatexpr()", { buf = bufnr })
 
 		keymaps(bufnr)
-		if client then
-			highlighting(client, bufnr)
-			vim.lsp.completion.enable(true, args.data.client_id, bufnr, { autotrigger = false })
-			vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
-			vim.notify(string.format("📡️ %s attached", client.name))
-		end
+
+		local client_id = args.data.client_id
+		if not client_id then return end
+
+		local client = vim.lsp.get_client_by_id(client_id)
+		if not client then return end
+
+		highlighting(client, bufnr)
+		vim.lsp.completion.enable(true, client_id, bufnr, { autotrigger = false })
+		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
+
+		vim.notify(string.format("📡️ %s attached", client.name))
 	end,
 })
 
-local servers = {
+local mason_servers = {
 	lua_ls = {},
 	gopls = {
 		init_options = {
@@ -214,9 +218,27 @@ local servers = {
 	},
 }
 
+local non_mason_servers = {
+	clangd = {
+		cmd = {
+			(vim.fn.executable("brew") == 1 and "/opt/homebrew/opt/llvm/bin/clangd" or "clangd"),
+			"--background-index",
+			"--suggest-missing-includes",
+			"--clang-tidy",
+		}
+	},
+	zls = {
+		settings = {
+			enable_argument_placeholders = false,
+		}
+	},
+	ghcide = {},
+	hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
+}
+
 local function config()
 	require("mason").setup()
-	local ensure_installed = vim.tbl_keys(servers or {})
+	local ensure_installed = vim.tbl_keys(mason_servers or {})
 	vim.list_extend(ensure_installed, {
 		"autopep8",
 		"bash-language-server",
@@ -248,37 +270,19 @@ local function config()
 		"vim-language-server",
 		"yapf",
 	})
-	require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-	require("mason-lspconfig").setup({
-		handlers = {
-			function(server_name)
-				local server = servers[server_name] or {}
-				server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities or {}, true)
-				require("lspconfig")[server_name].setup(server)
-			end,
-		},
-	})
-	-- LSPs outside of mason
-	local external_servers = {
-		clangd = {
-			cmd = {
-				(vim.fn.executable("brew") == 1 and "/opt/homebrew/opt/llvm/bin/clangd" or "clangd"),
-				"--background-index",
-				"--suggest-missing-includes",
-				"--clang-tidy",
-			}
-		},
-		zls = {
-			settings = {
-				enable_argument_placeholders = false,
-			}
-		},
-		ghcide = {},
-		hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
+	require "mason-tool-installer".setup({ ensure_installed = ensure_installed })
+	require "mason-lspconfig".setup()
+	require "mason-lspconfig".setup_handlers {
+		function(server_name)
+			local server_cfg = mason_servers[server_name] or {}
+			server_cfg.capabilities = require('blink.cmp').get_lsp_capabilities(server_cfg.capabilities or {}, true)
+			require("lspconfig")[server_name].setup(server_cfg)
+		end,
 	}
-	for server, cfg in pairs(external_servers) do
-		cfg.capabilities = require('blink.cmp').get_lsp_capabilities(cfg.capabilities or {}, true)
-		require('lspconfig')[server].setup(cfg)
+	-- non mason servers
+	for server_name, server_cfg in pairs(non_mason_servers) do
+		server_cfg.capabilities = require('blink.cmp').get_lsp_capabilities(server_cfg.capabilities or {}, true)
+		require('lspconfig')[server_name].setup(server_cfg)
 	end
 end
 

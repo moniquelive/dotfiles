@@ -55,7 +55,7 @@ return {
       { "<leader>lg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
       { "<leader>fn", function() Snacks.notifier.show_history() end,   desc = "Notifier" },
       { "<leader>fs", function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
-      { "<leader>un", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
+      { "<leader>hn", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
       { "]w",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",           mode = { "n", "t" } },
       { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",           mode = { "n", "t" } },
     },
@@ -74,6 +74,7 @@ return {
           { pane = 2, section = "projects", padding = 1, icon = " ", title = "Projects" },
         },
       },
+      image = { enabled = true },
       indent = {
         indent = { enabled = true },
         animate = { easing = "inOutCubic" }, -- https://github.com/kikito/tween.lua?tab=readme-ov-file#easing-functions
