@@ -5,7 +5,7 @@ vim.diagnostic.config({
 	float = { border = "rounded" },
 	underline = false,
 	virtual_text = true,
-	virtual_lines = true,
+	virtual_lines = false,
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = '✘',

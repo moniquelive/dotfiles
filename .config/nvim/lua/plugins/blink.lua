@@ -92,10 +92,19 @@ return {
       },
     },
 
+    snippets = {
+      -- Function to use when expanding LSP provided snippets
+      expand = function(snippet) vim.snippet.expand(snippet) end,
+      -- Function to use when checking if a snippet is active
+      active = function(filter) return vim.snippet.active(filter) end,
+      -- Function to use when jumping between tab stops in a snippet, where direction can be negative or positive
+      jump = function(direction) vim.snippet.jump(direction) end,
+    },
+
     completion = {
       trigger = { show_in_snippet = false },
       menu = {
-        -- auto_show = function(ctx) return ctx.mode ~= 'cmdline' end,
+        auto_show = function(_ --[[ctx]]) return not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype()) end,
 
         -- nvim-cmp style menu
         draw = {
@@ -121,7 +130,6 @@ return {
       },
     },
     signature = { enabled = true, window = { border = 'rounded' } },
-
     sources = {
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
@@ -133,17 +141,14 @@ return {
           return { 'lsp', 'path', 'snippets' } --, 'buffer' }
         end
       end,
-      cmdline = function()
-        local type = vim.fn.getcmdtype()
-        -- Search forward and backward
-        if type == '/' or type == '?' then return { 'buffer' } end
-        -- Commands
-        if type == ':' or type == '@' then return { 'cmdline' } end
-        return {}
-      end,
       providers = {
         lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+        snippets = {
+          should_show_items = function(ctx)
+            return ctx.trigger.initial_kind ~= 'trigger_character'
+          end
+        },
       },
     },
   },
