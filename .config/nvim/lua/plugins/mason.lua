@@ -167,19 +167,6 @@ local mason_servers = {
 			},
 		},
 	},
-	elixirls = {
-		-- cmd = { vim.fn.expand("~/.elixir-ls/language_server.sh") },
-		-- cmd = { vim.fn.expand("/opt/homebrew/bin/elixir-ls") },
-		-- cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/elixir-ls/language_server.sh") },
-		settings = {
-			elixirLS = {
-				autoBuild = true,
-				dialyzerEnabled = true,
-				incrementalDialyzer = true,
-				fetchDeps = true,
-			},
-		},
-	},
 	emmet_ls = {
 		filetypes = { "html", "css", "heex", "eelixir" },
 	},
@@ -227,13 +214,18 @@ local non_mason_servers = {
 			"--clang-tidy",
 		}
 	},
-	zls = {
-		settings = {
-			enable_argument_placeholders = false,
-		}
-	},
+	zls = { settings = { enable_argument_placeholders = false } },
 	ghcide = {},
-	hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } }
+	hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } },
+	elixirls = { cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/bin/elixir-ls") } },
+	-- settings = {
+	-- 	elixirLS = {
+	-- 		autoBuild = true,
+	-- 		dialyzerEnabled = true,
+	-- 		incrementalDialyzer = true,
+	-- 		fetchDeps = true,
+	-- 	},
+	-- },
 }
 
 local function config()
@@ -245,7 +237,6 @@ local function config()
 		"css-lsp",
 		"djlint",
 		"dockerfile-language-server",
-		"elixir-ls",
 		"elm-format",
 		"elm-language-server",
 		"flake8",
