@@ -23,3 +23,7 @@ keybind = shift+alt+0=equalize_splits
 
 # selection
 keybind = super+s=paste_from_selection
+
+# unbind
+keybind = alt+left=unbind
+keybind = alt+right=unbind
