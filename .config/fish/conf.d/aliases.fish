@@ -1,9 +1,17 @@
 if status is-interactive
     alias vim nvim
 
+    alias g git
+    alias gcam "git commit -am"
+    alias gp "git push"
+    alias gl "git pull"
+    alias grbc "git rebase --continue"
+    alias grba "git rebase --abort"
+    alias gm "git merge"
+    alias gco "git checkout"
+
     alias ... 'cd ../..'
     alias .... 'cd ../../..'
-    alias g git
     alias l ls
     alias ll 'ls -l'
     alias la 'ls -a'
