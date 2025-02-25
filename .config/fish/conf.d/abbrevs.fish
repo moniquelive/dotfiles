@@ -2,6 +2,7 @@ if status is-interactive
     abbr --add - "cd -"
     abbr --add gs "git status -sb"
     abbr --add gd "git difftool --no-prompt --tool=mvimdiff"
+    abbr --add gcam "git commit -am"
     abbr --add --position anywhere G "| grep"
     abbr --add --position anywhere GV "| grep -v"
     abbr --add --position anywhere A "| awk"

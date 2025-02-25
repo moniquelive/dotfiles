@@ -3,6 +3,7 @@ if status is-interactive
 
     alias ... 'cd ../..'
     alias .... 'cd ../../..'
+    alias g git
     alias l ls
     alias ll 'ls -l'
     alias la 'ls -a'
@@ -20,6 +21,8 @@ if status is-interactive
     alias abp 'aws --profile akad_back_prod'
     alias afh 'aws --profile akad_front_homol'
     alias ass 'aws --profile akad_shared_services'
+
+    alias bubu='brew update;and brew outdated; and brew upgrade; and brew upgrade --greedy;and brew upgrade --cask;and brew cleanup; and brew autoremove'
 
     alias fzfbrew "brew rm (brew ls | fzf --preview='brew info {}')"
 
