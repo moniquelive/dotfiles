@@ -6,15 +6,15 @@
 # zstyle :omz:plugins:ssh-agent quiet yes
 
 fish_add_path opt/1Password \
- /Applications/1Password.app/Contents/MacOS \
- $HOME/.local/bin \
- $HOME/.spicetify \
- $HOME/.ghcup/bin
+  /Applications/1Password.app/Contents/MacOS \
+  $HOME/.local/bin \
+  $HOME/.spicetify \
+  $HOME/.ghcup/bin
 fish_add_path -a $HOME/bin \
- $HOME/.yarn/bin \
- $HOME/go/bin \
- /usr/local/sbin \
- /usr/local/go/bin
+  $HOME/.yarn/bin \
+  $HOME/go/bin \
+  /usr/local/sbin \
+  /usr/local/go/bin
 
 if test -s "/opt/homebrew/bin/brew"
   set brew_prefix (/opt/homebrew/bin/brew --prefix)
@@ -35,7 +35,7 @@ test -f $HOME/.awskeys.sh; and source $HOME/.awskeys.sh
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    set -x EDITOR (command -q nvim; and echo nvim; or echo vim)
+    set -gx EDITOR (command -q nvim; and echo nvim; or echo vim)
 
     bind \cn history-prefix-search-forward
     bind \cp history-prefix-search-backward
