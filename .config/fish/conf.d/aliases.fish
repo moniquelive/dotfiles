@@ -2,13 +2,30 @@ if status is-interactive
     alias vim nvim
 
     alias g git
+    alias ga "git add"
+    alias gb "git branch"
     alias gcam "git commit -am"
     alias gp "git push"
     alias gl "git pull"
+    alias grb "git rebase"
     alias grbc "git rebase --continue"
     alias grba "git rebase --abort"
     alias gm "git merge"
+    alias gma "git merge --abort"
+    alias gmc "git merge --continue"
     alias gco "git checkout"
+    alias gr "git remote"
+    alias gra "git remote add"
+    alias grv "git remote -v"
+    alias grh "git reset"
+    alias grhh "git reset --hard"
+    alias gf "git fetch"
+    alias gsta "git stash push"
+    alias gstc "git stash clear"
+    alias gstd "git stash drop"
+    alias gstl "git stash list"
+    alias gstp "git stash pop"
+    alias gwipe "git reset --hard && git clean --force -df"
 
     alias ... 'cd ../..'
     alias .... 'cd ../../..'
