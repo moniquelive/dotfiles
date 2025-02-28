@@ -52,6 +52,10 @@ return {
   ---@type blink.cmp.Config
   opts = {
     keymap = { preset = 'super-tab' },
+    cmdline = {
+      completion = { list = { selection = { preselect = false } } },
+      keymap = { preset = 'enter', },
+    },
 
     appearance = {
       highlight_ns = vim.api.nvim_create_namespace('blink_cmp'),
