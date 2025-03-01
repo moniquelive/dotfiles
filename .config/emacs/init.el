@@ -614,6 +614,7 @@
   (lsp-haskell-plugin-tactics-config-timeout-duration 15)
   ;; (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
   :hook (haskell-mode . lsp-deferred))
+(use-package zig-ts-mode)
 
 (use-package corfu
   ;; Optional customizations
