@@ -37,8 +37,8 @@ if status is-interactive
     # Commands to run in interactive sessions can go here
     set -gx EDITOR (command -q nvim; and echo nvim; or echo vim)
 
-    bind \cn history-prefix-search-forward
-    bind \cp history-prefix-search-backward
+    bind ctrl-n history-prefix-search-forward
+    bind ctrl-p history-prefix-search-backward
 
     starship init fish | source
     mise activate fish | source

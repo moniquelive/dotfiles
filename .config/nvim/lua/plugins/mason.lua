@@ -46,7 +46,7 @@ local function highlighting(client, bufnr)
 	if not client.supports_method('textDocument/documentHighlight') then return end
 
 	vim.cmd([[
-              hi! LspReferenceText cterm=bold ctermbg=gray guibg=#302030
+              hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
               hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
               hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
             ]])

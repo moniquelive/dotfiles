@@ -32,6 +32,7 @@ if status is-interactive
     alias .... 'cd ../../..'
     alias l ls
     alias ll 'ls -l'
+    alias lrt 'ls -lrt'
     alias la 'ls -a'
     alias ls 'ls --color=auto --group-directories-first'
     alias lg "lazygit --use-config-file=$HOME/.config/lazygit/config.yml"
