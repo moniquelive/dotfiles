@@ -25,7 +25,7 @@
   "oil.nvim": { "branch": "master", "commit": "975a77cce3c8cb742bc1b3629f4328f5ca977dad" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "rfc.nvim": { "branch": "main", "commit": "abeba65df1e5720abe4cd63d72ff394c77ec7fec" },
-  "snacks.nvim": { "branch": "main", "commit": "453333530bf9cbb5930eae8471bc3a23149c9343" },
+  "snacks.nvim": { "branch": "main", "commit": "1ce91337f1c8431b412d8769e6146a99a7cf6172" },
   "supermaven-nvim": { "branch": "main", "commit": "07d20fce48a5629686aefb0a7cd4b25e33947d50" },
   "tailwind-sorter.nvim": { "branch": "main", "commit": "717e5c9761ed8334dadbb9357df7d826aae97b92" },
   "telescope-fzf-native.nvim": { "branch": "main", "commit": "2a5ceff981501cff8f46871d5402cd3378a8ab6a" },
