@@ -5,6 +5,7 @@ if status is-interactive
     alias ga "git add"
     alias gb "git branch"
     alias gba "git branch -a"
+    alias gc "git commit"
     alias gcam "git commit -am"
     alias gp "git push"
     alias gl "git pull"
