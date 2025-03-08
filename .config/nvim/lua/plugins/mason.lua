@@ -203,6 +203,7 @@ local mason_servers = {
 			},
 		},
 	},
+	zls = { settings = { enable_argument_placeholders = false } },
 }
 
 local non_mason_servers = {
@@ -214,7 +215,6 @@ local non_mason_servers = {
 			"--clang-tidy",
 		}
 	},
-	zls = { settings = { enable_argument_placeholders = false } },
 	ghcide = {},
 	hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } },
 	elixirls = { cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/bin/elixir-ls") } },

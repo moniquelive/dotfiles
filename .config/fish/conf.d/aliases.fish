@@ -31,7 +31,7 @@ if status is-interactive
 
     alias ... 'cd ../..'
     alias .... 'cd ../../..'
-    alias l ls
+    alias l 'ls -l'
     alias ll 'ls -l'
     alias lrt 'ls -lrt'
     alias la 'ls -a'
