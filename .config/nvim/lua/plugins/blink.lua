@@ -97,12 +97,9 @@ return {
     },
 
     snippets = {
-      -- Function to use when expanding LSP provided snippets
-      expand = function(snippet) vim.snippet.expand(snippet) end,
-      -- Function to use when checking if a snippet is active
-      active = function(filter) return vim.snippet.active(filter) end,
-      -- Function to use when jumping between tab stops in a snippet, where direction can be negative or positive
-      jump = function(direction) vim.snippet.jump(direction) end,
+      expand = vim.snippet.expand, -- Function to use when expanding LSP provided snippets
+      active = vim.snippet.active, -- Function to use when checking if a snippet is active
+      jump = vim.snippet.jump,     -- Function to use when jumping between tab stops in a snippet, where direction can be negative or positive
     },
 
     completion = {
@@ -127,10 +124,10 @@ return {
       documentation = { auto_show = true, auto_show_delay_ms = 200 },
       ghost_text = { enabled = false },
       list = {
-        -- selection = {
-        --   preselect = function(ctx) return ctx.mode ~= 'cmdline' end,
-        --   auto_insert = function(ctx) return ctx.mode ~= 'cmdline' end
-        -- },
+        selection = {
+          preselect = function(ctx) return ctx.mode ~= 'cmdline' end,
+          auto_insert = function(ctx) return ctx.mode ~= 'cmdline' end
+        },
       },
     },
     signature = { enabled = true, window = { border = 'rounded' } },
@@ -142,16 +139,14 @@ return {
         elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
           return { 'buffer' }
         else
-          return { 'lsp', 'path', 'snippets' } --, 'buffer' }
+          return { 'lsp', 'path', 'snippets' }
         end
       end,
       providers = {
         lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
         snippets = {
-          should_show_items = function(ctx)
-            return ctx.trigger.initial_kind ~= 'trigger_character'
-          end
+          should_show_items = function(ctx) return ctx.trigger.initial_kind ~= 'trigger_character' end
         },
       },
     },
