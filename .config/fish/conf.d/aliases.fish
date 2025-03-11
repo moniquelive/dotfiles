@@ -53,27 +53,4 @@ if status is-interactive
     alias bubu='brew update;and brew outdated; and brew upgrade; and brew upgrade --greedy;and brew upgrade --cask;and brew cleanup; and brew autoremove'
 
     alias fzfbrew "brew rm (brew ls | fzf --preview='brew info {}')"
-
-    function listen
-        lsof -nP -i :$argv | grep LISTEN
-    end
-
-    function python_venv --on-variable PWD
-        set -l myvenv ./venv
-        if test -d $myvenv
-            source $myvenv/bin/activate.fish
-        else if type -q deactivate
-            deactivate
-        end
-    end
-
-    function fzfrmimage
-        set -l images (docker image ls | tail -n +2 | fzf | while read l; echo $l | string split -n -f3 ' '; end)
-        test -n "$images"; and docker image rm $images
-    end
-
-    function fzfrmservice
-        set -l services (docker service ls | tail -n +2 | fzf | while read l; echo $l | string split -n -f1 ' '; end)
-        test -n "$services"; and docker service rm $services
-    end
 end

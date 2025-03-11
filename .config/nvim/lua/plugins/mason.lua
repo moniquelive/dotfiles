@@ -215,6 +215,7 @@ local non_mason_servers = {
 			"--clang-tidy",
 		}
 	},
+	fish_lsp = {},
 	ghcide = {},
 	hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } },
 	elixirls = { cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/bin/elixir-ls") } },

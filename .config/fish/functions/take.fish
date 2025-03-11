@@ -1,4 +1,4 @@
 function take
-  mkdir $argv
-  cd $argv
+    mkdir -p $argv
+    cd $argv
 end
