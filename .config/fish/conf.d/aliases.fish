@@ -53,4 +53,13 @@ if status is-interactive
     alias bubu='brew update;and brew outdated; and brew upgrade; and brew upgrade --greedy;and brew upgrade --cask;and brew cleanup; and brew autoremove'
 
     alias fzfbrew "brew rm (brew ls | fzf --preview='brew info {}')"
+
+    function python_venv --on-variable PWD
+        set myvenv ./venv
+        if test -d $myvenv
+            source $myvenv/bin/activate.fish
+        else if type -q deactivate
+            deactivate
+        end
+    end
 end
