@@ -49,6 +49,13 @@
         "dialyzerEnabled": false
       }
     }
+  },
+  "context_servers": {
+    "weather-server": {
+      "settings": {
+        "weather_url": "http://localhost:8000/sse"
+      }
+    }
   }
   // Settings specific to our elixir integration
   // "languages": {
