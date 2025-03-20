@@ -19,9 +19,11 @@ local function init()
 					},
 				},
 			},
-			-- on_attach = function(client, _bufnr, ht)
-			-- 	vim.print(ht)
-			-- 	print("ATTACH", ht.default_settings.haskell)
+			-- on_attach = function(_ --[[client]], bufnr, ht)
+			-- 	local opts = { noremap = true, silent = true, buffer = bufnr, }
+			-- 	vim.keymap.set('n', '<leader>ea', ht.lsp.buf_eval_all, opts)
+			-- 	-- vim.print(ht)
+			-- 	-- print("ATTACH", ht.default_settings.haskell)
 			-- end,
 		},
 	}
