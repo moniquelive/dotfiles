@@ -207,6 +207,16 @@ local mason_servers = {
 }
 
 local non_mason_servers = {
+	sourcekit = {
+		-- cmd = { "/usr/bin/sourcekit-lsp" },
+		capabilities = {
+			workspace = {
+				didChangeWatchedFiles = {
+					dynamicRegistration = true,
+				},
+			},
+		},
+	},
 	clangd = {
 		cmd = {
 			(vim.fn.executable("brew") == 1 and "/opt/homebrew/opt/llvm/bin/clangd" or "clangd"),
