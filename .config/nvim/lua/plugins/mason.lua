@@ -75,6 +75,7 @@ au("LspAttach", {
 		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
 
 		vim.notify(string.format("📡️ %s attached", client.name))
+		vim.lsp.codelens.refresh()
 	end,
 })
 
@@ -206,39 +207,6 @@ local mason_servers = {
 	zls = { settings = { enable_argument_placeholders = false } },
 }
 
-local non_mason_servers = {
-	sourcekit = {
-		-- cmd = { "/usr/bin/sourcekit-lsp" },
-		capabilities = {
-			workspace = {
-				didChangeWatchedFiles = {
-					dynamicRegistration = true,
-				},
-			},
-		},
-	},
-	clangd = {
-		cmd = {
-			(vim.fn.executable("brew") == 1 and "/opt/homebrew/opt/llvm/bin/clangd" or "clangd"),
-			"--background-index",
-			"--suggest-missing-includes",
-			"--clang-tidy",
-		}
-	},
-	fish_lsp = {},
-	ghcide = {},
-	hls = { cmd = { vim.fn.expand("~/.ghcup/bin/haskell-language-server-wrapper") } },
-	elixirls = { cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/bin/elixir-ls") } },
-	-- settings = {
-	-- 	elixirLS = {
-	-- 		autoBuild = true,
-	-- 		dialyzerEnabled = true,
-	-- 		incrementalDialyzer = true,
-	-- 		fetchDeps = true,
-	-- 	},
-	-- },
-}
-
 local function config()
 	require("mason").setup()
 	local ensure_installed = vim.tbl_keys(mason_servers or {})
@@ -254,7 +222,6 @@ local function config()
 		"gitlint",
 		"goimports-reviser",
 		"golangci-lint-langserver",
-		"gopls",
 		"html-lsp",
 		"iferr",
 		"isort",
@@ -281,11 +248,10 @@ local function config()
 			require("lspconfig")[server_name].setup(server_cfg)
 		end,
 	}
-	-- non mason servers
-	for server_name, server_cfg in pairs(non_mason_servers) do
-		server_cfg.capabilities = require('blink.cmp').get_lsp_capabilities(server_cfg.capabilities or {}, true)
-		require('lspconfig')[server_name].setup(server_cfg)
-	end
+	-- vim.lsp.config('*', {
+	-- 	root_markers = { '.git' },
+	-- })
+	vim.lsp.enable({ 'clangd', 'elixirls', 'fish-lsp', 'ghcide', 'hls', 'sourcekit' })
 end
 
 return {

@@ -4,8 +4,9 @@ vim.b.did_ftplugin_swift = true
 
 local command = ""
 if string.find(vim.fn.expand("%:p:h"):lower(), "/exercism/") ~= nil then -- are we exercisming?
-	command =
-	[[let $RUNALL="true" | lcd %:p:h | setlocal makeprg=swift\ test\ -j\ 10]]
+	command = [[let $RUNALL="true" | lcd %:p:h | setlocal makeprg=swift\ test\ -j\ 10]]
+else
+	command = [[lcd %:p:h | setlocal makeprg=swift\ %:p]]
 end
 
 local group = vim.api.nvim_create_augroup("swift_config", { clear = true });
