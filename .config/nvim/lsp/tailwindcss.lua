@@ -1,8 +1,5 @@
 return {
-  cmd = {
-    vim.fn.stdpath("data") .. "/mason/bin/tailwindcss-language-server",
-    "--stdio"
-  },
+  cmd = { "tailwindcss-language-server", "--stdio" },
   filetypes = {
     "aspnetcorerazor",
     "astro",

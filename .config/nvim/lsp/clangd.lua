@@ -1,6 +1,6 @@
 return {
 	cmd = {
-		(vim.fn.executable("brew") == 1 and "/opt/homebrew/opt/llvm/bin/clangd" or "clangd"),
+		"clangd",
 		"--background-index",
 		"--suggest-missing-includes",
 		"--clang-tidy",

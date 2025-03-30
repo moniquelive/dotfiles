@@ -3,7 +3,7 @@
 -- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 vim.diagnostic.config({
 	float = { border = "rounded" },
-	underline = false,
+	underline = true,
 	virtual_text = true,
 	virtual_lines = false,
 	signs = {
