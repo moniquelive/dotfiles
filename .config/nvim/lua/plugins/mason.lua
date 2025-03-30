@@ -79,138 +79,19 @@ au("LspAttach", {
 	end,
 })
 
-local mason_servers = {
-	lua_ls = {},
-	gopls = {
-		init_options = {
-			usePlaceholders = true,
-		},
-		settings = {
-			gopls = {
-				completeUnimported = true,
-				-- usePlaceholders = true,
-				semanticTokens = true,
-				experimentalPostfixCompletions = true,
-				staticcheck = true,
-				analyses = {
-					useany = true,
-					unusedparams = true,
-					shadow = true,
-					nilness = true,
-					unusedvariable = true,
-				},
-				-- hints = {
-				-- 	rangeVariableTypes = true,
-				-- 	parameterNames = true,
-				-- 	functionTypeParameters = true,
-				-- 	constantValues = true,
-				-- 	compositeLiteralTypes = true,
-				-- 	compositeLiteralFields = true,
-				-- 	assignVariableTypes = true,
-				-- },
-			},
-		},
-	},
-	jsonls = {
-		capabilities = { textDocument = { completion = { completionItem = { snippetSupport = true } } } },
-		settings = {
-			json = {
-				-- schemas = require("schemastore").json.schemas(),
-				validate = { enable = true },
-			},
-		},
-	},
-	yamlls = {
-		capabilities = { textDocument = { completion = { completionItem = { snippetSupport = true } } } },
-		settings = {
-			yaml = {
-				schemaStore = { url = "", enable = false },
-				-- schemas = require("schemastore").yaml.schemas(),
-			},
-		},
-	},
-	omnisharp = {
-		cmd = {
-			"/usr/local/share/dotnet/dotnet",
-			vim.fn.expand("~/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll"),
-		},
-	},
-	powershell_es = {
-		bundle_path = vim.fn.stdpath("data") .. "/mason/packages/powershell-editor-services/",
-	},
-	ruby_lsp = {
-		init_options = {
-			rubyVersionManager = "mise",
-			formatter = "rubocop",
-			linters = { "rubocop" },
-			enabledFeatures = {
-				codeActions = true,
-				codeLens = true,
-				completion = true,
-				definition = true,
-				diagnostics = true,
-				documentHighlights = true,
-				documentSymbols = true,
-				foldingRanges = true,
-				formatting = true,
-				hover = true,
-				-- inlayHint = true,
-				onTypeFormatting = true,
-				selectionRanges = true,
-				semanticHighlighting = true,
-				signatureHelp = true,
-			},
-			featuresConfiguration = {
-				inlayHint = {
-					implicitHashValue = true,
-					implicitRescue = true,
-				},
-			},
-		},
-	},
-	emmet_ls = {
-		filetypes = { "html", "css", "heex", "eelixir" },
-	},
-	tailwindcss = {
-		init_options = {
-			userLanguages = {
-				elixir = "html-eex",
-				eelixir = "html-eex",
-				heex = "html-eex",
-			},
-		},
-		root_dir = require("lspconfig.util").root_pattern(
-			"tailwind.config.js",
-			"tailwind.config.cjs",
-			"tailwind.config.mjs",
-			"tailwind.config.ts",
-			"postcss.config.js",
-			"postcss.config.cjs",
-			"postcss.config.mjs",
-			"postcss.config.ts",
-			"package.json",
-			"node_modules",
-			"mix.exs",
-			".git"
-		),
-		settings = {
-			experimental = {
-				classRegex = {
-					[[class= "([^"]*)]],
-					[[class: "([^"]*)]],
-					'~H""".*class="([^"]*)".*"""',
-					'~F""".*class="([^"]*)".*"""',
-				},
-			},
-		},
-	},
-	zls = { settings = { enable_argument_placeholders = false } },
-}
-
 local function config()
 	require("mason").setup()
-	local ensure_installed = vim.tbl_keys(mason_servers or {})
-	vim.list_extend(ensure_installed, {
+	local ensure_installed = {
+		"gopls",
+		"jsonls",
+		"lua_ls",
+		"omnisharp",
+		"powershell_es",
+		"ruby_lsp",
+		"tailwindcss",
+		"yamlls",
+		"zls",
+
 		"autopep8",
 		"bash-language-server",
 		"css-lsp",
@@ -238,20 +119,27 @@ local function config()
 		"typescript-language-server",
 		"vim-language-server",
 		"yapf",
-	})
-	require "mason-tool-installer".setup({ ensure_installed = ensure_installed })
-	require "mason-lspconfig".setup()
-	require "mason-lspconfig".setup_handlers {
-		function(server_name)
-			local server_cfg = mason_servers[server_name] or {}
-			server_cfg.capabilities = require('blink.cmp').get_lsp_capabilities(server_cfg.capabilities or {}, true)
-			require("lspconfig")[server_name].setup(server_cfg)
-		end,
 	}
-	-- vim.lsp.config('*', {
-	-- 	root_markers = { '.git' },
-	-- })
-	vim.lsp.enable({ 'clangd', 'elixirls', 'fish-lsp', 'ghcide', 'hls', 'sourcekit' })
+	require "mason-tool-installer".setup({ ensure_installed = ensure_installed })
+	require "mason-lspconfig".setup {
+		automatic_installation = false,
+		ensure_installed = {},
+		handlers = {
+			function(server_name)
+				require("lspconfig")[server_name].setup {
+					capabilities = require('blink.cmp').get_lsp_capabilities()
+				}
+			end,
+		},
+	}
+	-- VIM 0.11+ LSP config
+	local lsp_path = vim.fs.joinpath(vim.fn.stdpath("config"), 'lsp')
+	local lsps = {}
+	for fname, _ in vim.fs.dir(lsp_path) do
+		lsps[#lsps + 1] = fname:match('^([^/]+).lua$')
+	end
+	-- vim.print(lsps)
+	vim.lsp.enable(lsps)
 end
 
 return {

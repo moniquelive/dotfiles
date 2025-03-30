@@ -96,12 +96,6 @@ return {
       },
     },
 
-    snippets = {
-      expand = vim.snippet.expand, -- Function to use when expanding LSP provided snippets
-      active = vim.snippet.active, -- Function to use when checking if a snippet is active
-      jump = vim.snippet.jump,     -- Function to use when jumping between tab stops in a snippet, where direction can be negative or positive
-    },
-
     completion = {
       trigger = { show_in_snippet = false },
       menu = {
