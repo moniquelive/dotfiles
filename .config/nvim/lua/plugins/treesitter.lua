@@ -1,5 +1,5 @@
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.o.foldmethod = "expr"
+-- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 return {
 	{
@@ -8,7 +8,7 @@ return {
 		main = "nvim-treesitter.configs",
 		opts = {
 			ensure_installed = "all",
-			ignore_install = { "unison", "blade", "latex", "teal", "scfg", "ocamllex", "swift", "mlir" },
+			ignore_install = { "unison", "blade", "latex", "teal", "scfg", "ocamllex", "mlir" },
 			auto_install = true,
 			endwise = { enable = true },
 			highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
