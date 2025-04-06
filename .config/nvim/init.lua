@@ -83,6 +83,7 @@ local opts = {
   updatetime = 250,
   viewoptions = "folds,options,cursor,unix,slash",
   visualbell = true,
+  winborder = 'rounded',
   wrap = false,
 }
 for key, value in pairs(opts) do
