@@ -41,7 +41,6 @@ if status is-interactive
     alias yt "yt-dlp -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4'"
     alias fd fdfind
     alias tree 'tree -SA --gitignore'
-    alias ya yazi
 
     alias aws-cli 'docker run --rm -it -v ~/.aws:/root/.aws amazon/aws-cli'
     alias afd 'aws --profile akad_front_dev'
