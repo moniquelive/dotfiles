@@ -92,9 +92,8 @@ local function config()
 		ensure_installed = {},
 		handlers = {
 			function(server_name)
-				require("lspconfig")[server_name].setup {
-					capabilities = require('blink.cmp').get_lsp_capabilities()
-				}
+				local capabilities = require('blink.cmp').get_lsp_capabilities()
+				require("lspconfig")[server_name].setup({ capabilities = capabilities })
 			end,
 		},
 	}
