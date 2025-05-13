@@ -1,0 +1,6 @@
+download:
+  latest: true
+  confirm: true
+  resume-all: true
+  ipsw:
+    output: /SHARE/IPSWs # this is the --output for the `ipsw download ipsw` command

@@ -1,10 +1,7 @@
 return {
 	{
 		"ray-x/go.nvim",
-		dependencies = {
-			"ray-x/guihua.lua",
-			"neovim/nvim-lspconfig",
-		},
+		dependencies = { "ray-x/guihua.lua", },
 		config = true,
 		ft = { "go", "gomod", "gotext", "gohtml" },
 		keys = {

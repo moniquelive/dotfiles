@@ -88,6 +88,7 @@ local function config()
 		"staticcheck", "stylua", "typescript-language-server", "vim-language-server", "yapf" }
 	require "mason-tool-installer".setup({ ensure_installed = ensure_installed })
 	require "mason-lspconfig".setup {
+		automatic_enable = true,
 		automatic_installation = false,
 		ensure_installed = {},
 		handlers = {
@@ -97,14 +98,6 @@ local function config()
 			end,
 		},
 	}
-	-- VIM 0.11+ LSP config
-	local lsp_path = vim.fs.joinpath(vim.fn.stdpath("config"), 'lsp')
-	local lsps = {}
-	for fname, _ in vim.fs.dir(lsp_path) do
-		lsps[#lsps + 1] = fname:match('^([^/]+).lua$')
-	end
-	-- vim.print(lsps)
-	vim.lsp.enable(lsps)
 end
 
 return {
