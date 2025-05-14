@@ -6,29 +6,29 @@
 # zstyle :omz:plugins:ssh-agent quiet yes
 
 fish_add_path opt/1Password \
-  /Applications/1Password.app/Contents/MacOS \
-  $HOME/.local/bin \
-  $HOME/.spicetify \
-  $HOME/.ghcup/bin
+    /Applications/1Password.app/Contents/MacOS \
+    $HOME/.local/bin \
+    $HOME/.spicetify \
+    $HOME/.ghcup/bin
 fish_add_path -a $HOME/bin \
-  $HOME/.yarn/bin \
-  $HOME/go/bin \
-  /usr/local/sbin \
-  /usr/local/go/bin
+    $HOME/.yarn/bin \
+    $HOME/go/bin \
+    /usr/local/sbin \
+    /usr/local/go/bin
 
-if test -s "/opt/homebrew/bin/brew"
-  set brew_prefix (/opt/homebrew/bin/brew --prefix)
+if test -s /opt/homebrew/bin/brew
+    set brew_prefix (/opt/homebrew/bin/brew --prefix)
 
-  fish_add_path \
-    $brew_prefix/bin \
-    $brew_prefix/opt/node/bin \
-    $brew_prefix/opt/coreutils/bin \
-    $brew_prefix/opt/coreutils/libexec/gnubin \
-    $brew_prefix/opt/python/libexec/bin \
-    $brew_prefix/opt/ruby/bin \
-    $brew_prefix/opt/mysql-client/bin
+    fish_add_path \
+        $brew_prefix/bin \
+        $brew_prefix/opt/node/bin \
+        $brew_prefix/opt/coreutils/bin \
+        $brew_prefix/opt/coreutils/libexec/gnubin \
+        $brew_prefix/opt/python/libexec/bin \
+        $brew_prefix/opt/ruby/bin \
+        $brew_prefix/opt/mysql-client/bin
 
-  set -ax MANPATH $brew_prefix/opt/coreutils/libexec/gnuman
+    set -ax MANPATH $brew_prefix/opt/coreutils/libexec/gnuman
 end
 
 test -f $HOME/.awskeys.sh; and source $HOME/.awskeys.sh
@@ -39,6 +39,8 @@ if status is-interactive
 
     bind ctrl-n history-prefix-search-forward
     bind ctrl-p history-prefix-search-backward
+    bind down history-prefix-search-forward
+    bind up history-prefix-search-backward
 
     starship init fish | source
     mise activate fish | source
