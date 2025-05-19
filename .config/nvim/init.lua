@@ -193,8 +193,8 @@ if vim.fn.has("gui_running") == 0 then
 end
 
 -- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-vim.cmd([[ autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup='Visual', timeout=300} ]])
+-- See `:help vim.hl.on_yank()`
+vim.cmd([[ autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='Visual', timeout=300} ]])
 
 -- Status Line
 vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]

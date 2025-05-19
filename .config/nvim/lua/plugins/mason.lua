@@ -43,7 +43,7 @@ end
 
 local au = vim.api.nvim_create_autocmd
 local function highlighting(client, bufnr)
-	if not client.supports_method('textDocument/documentHighlight') then return end
+	if not client:supports_method('textDocument/documentHighlight') then return end
 
 	vim.cmd([[
               hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
