@@ -15,7 +15,7 @@
     },
     "dark": {
       "name": "Coffee",
-      "url": "assets:///Users/cyber/.logseq/plugins/logseq-bujo-theme/src/dark-coffee.css",
+      "url": "file:///Users/cyber/.logseq/plugins/logseq-bujo-theme/src/dark-coffee.css",
       "description": "Coffee",
       "mode": "dark",
       "pid": "logseq-bujo-theme",
