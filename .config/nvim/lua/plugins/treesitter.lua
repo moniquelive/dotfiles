@@ -4,8 +4,9 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		lazy = false,
 		build = ":TSUpdate",
-		main = "nvim-treesitter.configs",
+		branch = "main",
 		opts = {
 			ensure_installed = "all",
 			ignore_install = { "unison", "blade", "latex", "teal", "scfg", "ocamllex", "mlir" },
