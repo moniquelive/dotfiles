@@ -61,4 +61,12 @@ if status is-interactive
             deactivate
         end
     end
+
+    function exercism_aliases --on-variable PWD
+        if string match -irq exercism $PWD
+            alias s 'exercism s'
+        else
+            functions -e s
+        end
+    end
 end
