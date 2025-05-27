@@ -9,7 +9,6 @@ lua = ["5.1", "latest"]
 golangci-lint = "latest"
 erlang = "latest"
 elixir = "latest"
-zig = "latest"
 ruby = "latest"
 usage = "latest"
 ghcup = "latest"
