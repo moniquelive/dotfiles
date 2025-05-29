@@ -6,7 +6,6 @@ if status is-interactive
     abbr --add --position anywhere GV "| grep -v"
     abbr --add --position anywhere A "| awk"
     abbr --add --position anywhere H "| head"
-    abbr --add --position anywhere L "| $PAGER"
     abbr --add --position anywhere R "| ruby -e"
     abbr --add --position anywhere S "| sed"
     abbr --add --position anywhere T "| tail"

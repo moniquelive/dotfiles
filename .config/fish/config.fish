@@ -36,6 +36,7 @@ test -f $HOME/.awskeys.sh; and source $HOME/.awskeys.sh
 if status is-interactive
     # Commands to run in interactive sessions can go here
     set -gx EDITOR (command -q nvim; and echo nvim; or echo vim)
+    abbr --add --position anywhere L "| $PAGER"
 
     bind ctrl-n history-prefix-search-forward
     bind ctrl-p history-prefix-search-backward
