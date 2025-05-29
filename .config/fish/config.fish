@@ -17,7 +17,7 @@ fish_add_path -a $HOME/bin \
     /usr/local/go/bin
 
 if test -s /opt/homebrew/bin/brew
-    set brew_prefix (/opt/homebrew/bin/brew --prefix)
+    set -l brew_prefix (/opt/homebrew/bin/brew --prefix)
 
     fish_add_path \
         $brew_prefix/bin \
