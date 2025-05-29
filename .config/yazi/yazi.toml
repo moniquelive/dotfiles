@@ -1,4 +1,4 @@
-[manager]
+[mgr]
 sort_by = "extension"
 ratio   = [0,1,3]
 
