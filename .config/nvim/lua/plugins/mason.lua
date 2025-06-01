@@ -5,7 +5,7 @@ vim.diagnostic.config({
 	float = { border = "rounded" },
 	underline = true,
 	virtual_text = true,
-	virtual_lines = { current_line = true },
+	virtual_lines = false, -- { current_line = true },
 	signs = {
 		text = {
 			[vim.diagnostic.severity.ERROR] = '✘',
@@ -20,10 +20,8 @@ local function keymaps(bufnr)
 	local nmaps = {
 		["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
 		["gD"] = vim.lsp.buf.declaration,
-		-- grn : ["<F2>"] = vim.lsp.buf.rename,
 		["<F4>"] = vim.lsp.codelens.run,
 		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
-		-- grr :  ["gr"] = "<cmd>Telescope lsp_references<CR>",
 		["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
 		["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
 		["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
@@ -37,19 +35,20 @@ local function keymaps(bufnr)
 	for key, action in pairs(nmaps) do
 		vim.keymap.set("n", key, action, opts)
 	end
+	-- grn : ["<F2>"] = vim.lsp.buf.rename,
+	-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
 	-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
-	-- gra :  vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
+	-- gra : vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
 end
 
 local au = vim.api.nvim_create_autocmd
 local function highlighting(client, bufnr)
 	if not client:supports_method('textDocument/documentHighlight') then return end
 
-	vim.cmd([[
-              hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
-              hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
-              hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
-            ]])
+	vim.cmd([[ hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
+	hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
+	hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
+	]])
 	local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
 	au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
 	au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
