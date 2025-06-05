@@ -25,8 +25,9 @@ return {
 		event = { "BufRead", "BufNewFile" },
 		opts = function()
 			local formatters = require("format-on-save.formatters")
+			local vim_notify = require("format-on-save.error-notifiers.vim-notify")
 			return {
-				error_notifier = require("format-on-save.error-notifiers.vim-notify"),
+				error_notifier = vim_notify,
 				exclude_path_patterns = {
 					"/node_modules/",
 					".local/share/nvim/lazy",
@@ -41,6 +42,9 @@ return {
 					formatters.remove_trailing_newlines,
 					formatters.lsp,
 				},
+				experiments = {
+					partial_update = 'diff', -- or 'line-by-line'
+				}
 			}
 		end,
 	},

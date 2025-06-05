@@ -16,36 +16,31 @@ vim.diagnostic.config({
 	},
 })
 
-local function keymaps(bufnr)
-	local nmaps = {
-		["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
-		["gD"] = vim.lsp.buf.declaration,
-		["<F4>"] = vim.lsp.codelens.run,
-		["gi"] = "<cmd>Telescope lsp_implementations<CR>",
-		["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
-		["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
-		["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
-		["<leader>ih"] = function()
-			local curr = not vim.lsp.inlay_hint.is_enabled()
-			vim.lsp.inlay_hint.enable(curr)
-			vim.notify((curr and "enabled" or "disabled") .. " inlay hints")
-		end,
-	}
-	local opts = { noremap = true, silent = true, buffer = bufnr }
-	for key, action in pairs(nmaps) do
-		vim.keymap.set("n", key, action, opts)
-	end
-	-- grn : ["<F2>"] = vim.lsp.buf.rename,
-	-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
-	-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
-	-- gra : vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
-end
+-- grn : ["<F2>"] = vim.lsp.buf.rename,
+-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
+-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
+-- gra : vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
+local nmaps = {
+	["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
+	["gD"] = vim.lsp.buf.declaration,
+	["<F4>"] = vim.lsp.codelens.run,
+	["gi"] = "<cmd>Telescope lsp_implementations<CR>",
+	["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
+	["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
+	["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
+	["<leader>ih"] = function()
+		local curr = not vim.lsp.inlay_hint.is_enabled()
+		vim.lsp.inlay_hint.enable(curr)
+		vim.notify((curr and "enabled" or "disabled") .. " inlay hints")
+	end,
+}
 
 local au = vim.api.nvim_create_autocmd
 local function highlighting(client, bufnr)
 	if not client:supports_method('textDocument/documentHighlight') then return end
 
-	vim.cmd([[ hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
+	vim.cmd([[
+	hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
 	hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
 	hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
 	]])
@@ -61,7 +56,9 @@ au("LspAttach", {
 		vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
 		vim.api.nvim_set_option_value("formatexpr", "v:lua.vim.lsp.formatexpr()", { buf = bufnr })
 
-		keymaps(bufnr)
+		for key, action in pairs(nmaps) do
+			vim.keymap.set("n", key, action, { noremap = true, silent = true, buffer = bufnr })
+		end
 
 		local client_id = args.data.client_id
 		if not client_id then return end
@@ -87,6 +84,7 @@ return {
 			{
 				"WhoIsSethDaniel/mason-tool-installer.nvim",
 				build = ":MasonToolsUpdate",
+				cmd = { "MasonToolsClean", "MasonToolsInstall", "MasonToolsUpdate" },
 				opts = {
 					ensure_installed = {
 						"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
