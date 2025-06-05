@@ -1,9 +1,9 @@
-local augroup = vim.api.nvim_create_augroup("supermaven-blink", { clear = true })
+local group = vim.api.nvim_create_augroup("supermaven-blink", { clear = true })
 
 -- recipes from https://cmp.saghen.dev/recipes.html#hide-copilot-on-suggestion
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpMenuOpen',
-  group = augroup,
+  group = group,
   callback = function(ev)
     -- TODO: hacky, but works
     local ns_id = vim.api.nvim_create_namespace("supermaven")
@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd('User', {
 
 vim.api.nvim_create_autocmd('User', {
   pattern = 'BlinkCmpMenuClose',
-  group = augroup,
+  group = group,
   callback = function(ev)
     -- TODO: hacky, but works
     local ns_id = vim.api.nvim_create_namespace("supermaven")
@@ -44,8 +44,7 @@ return {
     },
   },
 
-  version = '*',
-  build = "cargo build --release",
+  version = '1.*',
   event = { "CmdlineEnter" },
 
   ---@module 'blink.cmp'
@@ -97,6 +96,7 @@ return {
     },
 
     completion = {
+      documentation = { auto_show = true, auto_show_delay_ms = 200 },
       trigger = { show_in_snippet = false },
       menu = {
         auto_show = function(_ --[[ctx]]) return not vim.tbl_contains({ '/', '?' }, vim.fn.getcmdtype()) end,
@@ -115,7 +115,6 @@ return {
           },
         }
       },
-      documentation = { auto_show = true, auto_show_delay_ms = 200 },
       ghost_text = { enabled = false },
       list = {
         selection = {
@@ -144,6 +143,7 @@ return {
         },
       },
     },
+    fuzzy = { implementation = "prefer_rust" }
   },
   opts_extend = { "sources.default" },
 }

@@ -78,39 +78,31 @@ au("LspAttach", {
 	end,
 })
 
-local function config()
-	require("mason").setup()
-	local ensure_installed = { "gopls", "jsonls", "lua_ls", "omnisharp", "powershell_es", "ruby_lsp", "tailwindcss",
-		"yamlls", "zls", "autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server", "elm-format",
-		"elm-language-server", "flake8", "gitlint", "goimports-reviser", "golangci-lint-langserver", "html-lsp", "iferr",
-		"isort", "luacheck", "markdownlint", "prettierd", "pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
-		"staticcheck", "stylua", "typescript-language-server", "vim-language-server", "yapf" }
-	require "mason-tool-installer".setup({ ensure_installed = ensure_installed })
-	require "mason-lspconfig".setup {
-		automatic_enable = true,
-		automatic_installation = false,
-		ensure_installed = {},
-		handlers = {
-			function(server_name)
-				local capabilities = require('blink.cmp').get_lsp_capabilities()
-				require("lspconfig")[server_name].setup({ capabilities = capabilities })
-			end,
-		},
-	}
-end
-
 return {
 	{
 		"williamboman/mason.nvim",
 		dependencies = {
 			"saghen/blink.cmp",
 			"neovim/nvim-lspconfig",
-			"williamboman/mason-lspconfig.nvim",
-			{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsUpdate" },
+			{
+				"WhoIsSethDaniel/mason-tool-installer.nvim",
+				build = ":MasonToolsUpdate",
+				opts = {
+					ensure_installed = {
+						"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
+						"elm-format", "elm-language-server", "flake8", "gitlint", "goimports-reviser",
+						"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
+						"lua-language-server", "luacheck", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
+						"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
+						"staticcheck", "stylua", "tailwindcss-language-server", "typescript-language-server",
+						"vim-language-server", "yaml-language-server", "yapf", "zls",
+					}
+				}
+			},
 		},
 		event = { "BufRead", "BufNewFile" },
 		cmd = { "Mason", "MasonUpdate" },
 		build = ":MasonUpdate",
-		config = config,
+		config = true,
 	},
 }
