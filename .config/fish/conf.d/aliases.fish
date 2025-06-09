@@ -49,8 +49,6 @@ if status is-interactive
     alias afh 'aws --profile akad_front_homol'
     alias ass 'aws --profile akad_shared_services'
 
-    alias bubu='brew update;and brew outdated; and brew upgrade; and brew upgrade --greedy;and brew upgrade --cask;and brew cleanup; and brew autoremove; mise p up; and mise prune; and mise up; and mise up'
-
     alias fzfbrew "brew rm (brew ls | fzf --preview='brew info {}')"
 
     function python_venv --on-variable PWD
