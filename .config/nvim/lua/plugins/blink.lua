@@ -1,32 +1,5 @@
 local group = vim.api.nvim_create_augroup("supermaven-blink", { clear = true })
 
--- recipes from https://cmp.saghen.dev/recipes.html#hide-copilot-on-suggestion
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'BlinkCmpMenuOpen',
-  group = group,
-  callback = function(ev)
-    -- TODO: hacky, but works
-    local ns_id = vim.api.nvim_create_namespace("supermaven")
-    vim.api.nvim_buf_del_extmark(ev.buf, ns_id, 1)
-
-    local api = require("supermaven-nvim.api")
-    if api.is_running() then api.stop() end
-  end,
-})
-
-vim.api.nvim_create_autocmd('User', {
-  pattern = 'BlinkCmpMenuClose',
-  group = group,
-  callback = function(ev)
-    -- TODO: hacky, but works
-    local ns_id = vim.api.nvim_create_namespace("supermaven")
-    vim.api.nvim_buf_del_extmark(ev.buf, ns_id, 1)
-
-    local api = require("supermaven-nvim.api")
-    if not api.is_running() then api.start() end
-  end,
-})
-
 return {
   'saghen/blink.cmp',
   dependencies = {
@@ -35,13 +8,11 @@ return {
     {
       "supermaven-inc/supermaven-nvim",
       opts = {
-        keymaps = {
-          accept_suggestion = "<C-CR>",
-          clear_suggestion = "<C-e>",
-          accept_word = "<Tab>",
-        }
+        disable_inline_completion = true, -- disables inline completion for use with cmp
+        disable_keymaps = true            -- disables built in keymaps for more manual control
       },
     },
+    { "huijiro/blink-cmp-supermaven" },
   },
 
   version = '1.*',
@@ -61,7 +32,7 @@ return {
       use_nvim_cmp_as_default = false,
       nerd_font_variant = 'mono',
       kind_icons = {
-        -- Supermaven = "",
+        Supermaven = "",
         Text = '󰉿',
         Method = '󰊕',
         Function = '󰊕',
@@ -128,11 +99,11 @@ return {
       default = function()
         local success, node = pcall(vim.treesitter.get_node)
         if vim.bo.filetype == 'lua' then
-          return { 'lazydev', 'lsp', 'path' }
+          return { 'lazydev', 'lsp', 'path', 'supermaven', 'snippets' }
         elseif success and node and vim.tbl_contains({ 'comment', 'line_comment', 'block_comment' }, node:type()) then
           return { 'buffer' }
         else
-          return { 'lsp', 'path', 'snippets' }
+          return { 'lsp', 'path', 'supermaven', 'snippets' }
         end
       end,
       providers = {
@@ -140,6 +111,11 @@ return {
         lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
         snippets = {
           should_show_items = function(ctx) return ctx.trigger.initial_kind ~= 'trigger_character' end
+        },
+        supermaven = {
+          name = 'supermaven',
+          module = "blink-cmp-supermaven",
+          async = true
         },
       },
     },

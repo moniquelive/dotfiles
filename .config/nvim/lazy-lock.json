@@ -1,4 +1,5 @@
 {
+  "blink-cmp-supermaven": { "branch": "main", "commit": "635ce12e9e2d2a5a483728ac764d0bc5b57af23b" },
   "blink.cmp": { "branch": "main", "commit": "022521a8910a5543b0251b21c9e1a1e989745796" },
   "busted-types": { "branch": "main", "commit": "5ed85d0e016a5eb5eca097aa52905eedf1b180f1" },
   "catppuccin": { "branch": "main", "commit": "fa42eb5e26819ef58884257d5ae95dd0552b9a66" },
