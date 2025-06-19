@@ -1,6 +1,9 @@
 theme=catppuccin-mocha
-font-family=MonoLisa
-font-size=15
+# font-family=MonoLisa
+font-family = ""
+font-family = "Geist Mono"
+font-family = "Symbols Nerd Font Mono"
+font-size=16
 font-thicken=false
 
 background-opacity=0.9
