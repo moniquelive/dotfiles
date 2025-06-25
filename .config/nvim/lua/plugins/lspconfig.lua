@@ -2,7 +2,9 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lsps = {
+			vim.lsp.config("elixirls",
+				{ cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/language_server.sh") } })
+			vim.lsp.enable({
 				"clangd",
 				"elixirls",
 				"fish_lsp",
@@ -18,8 +20,7 @@ return {
 				"tailwindcss",
 				"yamlls",
 				"zls",
-			}
-			vim.lsp.enable(lsps)
+			})
 		end
 	},
 }

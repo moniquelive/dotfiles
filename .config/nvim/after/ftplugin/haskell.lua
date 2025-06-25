@@ -1,3 +1,6 @@
+local cfg = vim.fn.stdpath("config")
+dofile(vim.fn.expand(cfg .. "/after/ftplugin/common.lua"))
+
 -- ~/.config/nvim/after/ftplugin/haskell.lua
 
 -- -- haskell-language-server relies heavily on codeLenses,

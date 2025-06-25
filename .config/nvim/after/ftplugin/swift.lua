@@ -1,3 +1,6 @@
+local cfg = vim.fn.stdpath("config")
+dofile(vim.fn.expand(cfg .. "/after/ftplugin/common.lua"))
+
 -- Only run the ftplugin code once per buffer.
 if vim.b.did_ftplugin_swift then return end
 vim.b.did_ftplugin_swift = true

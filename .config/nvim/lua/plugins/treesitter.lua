@@ -9,7 +9,7 @@ return {
 		build = ":TSUpdate",
 		opts = {
 			ensure_installed = "all",
-			ignore_install = { "unison", "blade", "latex", "teal", "scfg", "ocamllex", "mlir" },
+			ignore_install = { "unison", "blade", "latex", "teal", "scfg", "ocamllex", "mlir", "verilog", "ipkg" },
 			auto_install = true,
 			endwise = { enable = true },
 			highlight = { enable = true, additional_vim_regex_highlighting = { "ruby" } },
