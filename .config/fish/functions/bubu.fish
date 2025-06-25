@@ -3,7 +3,7 @@ function bubu
     and brew outdated
     and brew upgrade
     and brew upgrade --greedy
-    and brew upgrade --cask
+    and brew upgrade --cask --greedy
     and brew cleanup
     and brew autoremove
     and mise p up
