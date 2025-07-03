@@ -21,7 +21,7 @@
   "nvim-tree.lua": { "branch": "master", "commit": "b0b49552c9462900a882fe772993b01d780445fe" },
   "nvim-treesitter": { "branch": "main", "commit": "1f069f1bc610493d38276023165075f7424ca7b4" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "d8b74fa87afc6a1e97b18da23e762efb032dc270" },
-  "oil.nvim": { "branch": "master", "commit": "3b7c74798e699633d602823aefd9a4e4e36c02a8" },
+  "oil.nvim": { "branch": "master", "commit": "bbad9a76b2617ce1221d49619e4e4b659b3c61fc" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "rfc.nvim": { "branch": "main", "commit": "abeba65df1e5720abe4cd63d72ff394c77ec7fec" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },

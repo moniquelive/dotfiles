@@ -126,9 +126,9 @@
 [gpg]
   format = ssh
 
-; [gpg "ssh]
-;   program = "op-ssh-sign"
-;   allowedSignersFile = "~/.config/git/allowed-signers"
+[gpg "ssh"]
+  program = "op-ssh-sign"
+  allowedSignersFile = "~/.config/git/allowed-signers"
 
 [init]
   defaultBranch = main
