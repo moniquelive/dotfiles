@@ -166,6 +166,11 @@ k.set("c", "w!!", [[w !sudo tee > /dev/null %]])
 vim.cmd([[highlight Search ctermbg=black ctermfg=yellow term=underline]])
 vim.cmd([[highlight Comment cterm=italic gui=italic]])
 
+-- LSP hover colors
+vim.cmd([[highlight LspReferenceText cterm=bold ctermbg=gray guibg=#404010]])
+vim.cmd([[highlight LspReferenceRead cterm=bold ctermbg=green guibg=#104010]])
+vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
+
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 local au = vim.api.nvim_create_autocmd
 local myvimrc = vim.fn.expand("$MYVIMRC")

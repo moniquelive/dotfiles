@@ -52,12 +52,12 @@ return {
     priority = 1000,
     lazy = false,
     keys = {
-      { "<leader>lg", function() Snacks.lazygit() end,                 desc = "Lazygit" },
-      { "<leader>fn", function() Snacks.notifier.show_history() end,   desc = "Notifier" },
-      { "<leader>fs", function() Snacks.scratch() end,                 desc = "Toggle Scratch Buffer" },
-      { "<leader>hn", function() Snacks.notifier.hide() end,           desc = "Dismiss All Notifications" },
-      { "]w",         function() Snacks.words.jump(vim.v.count1) end,  desc = "Next Reference",           mode = { "n", "t" } },
-      { "[w",         function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference",           mode = { "n", "t" } },
+      { "<leader>lg", function() Snacks.lazygit() end,                       desc = "Lazygit" },
+      { "<leader>fn", function() Snacks.notifier.show_history() end,         desc = "Notifier" },
+      { "<leader>fs", function() Snacks.scratch() end,                       desc = "Toggle Scratch Buffer" },
+      { "<leader>hn", function() Snacks.notifier.hide() end,                 desc = "Dismiss All Notifications" },
+      { "<m-right>",  function() Snacks.words.jump(vim.v.count1, true) end,  desc = "Next Reference",           mode = { "n", "t" } },
+      { "<m-left>",   function() Snacks.words.jump(-vim.v.count1, true) end, desc = "Prev Reference",           mode = { "n", "t" } },
     },
     ---@type snacks.Config
     opts = {
@@ -86,7 +86,7 @@ return {
       scope = { enabled = true },
       scratch = { enabled = true },
       scroll = { enabled = true },
-      statuscolumn = { enabled = true, folds = { open = true } },
+      statuscolumn = { enabled = true, folds = { open = true, git_hl = true } },
       words = { enabled = true },
       styles = { notification = { wo = { wrap = true } } },
     },

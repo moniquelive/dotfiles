@@ -36,19 +36,6 @@ local nmaps = {
 }
 
 local au = vim.api.nvim_create_autocmd
-local function highlighting(client, bufnr)
-	if not client:supports_method('textDocument/documentHighlight') then return end
-
-	vim.cmd([[
-	hi! LspReferenceText cterm=bold ctermbg=gray guibg=#404010
-	hi! LspReferenceRead cterm=bold ctermbg=green guibg=#104010
-	hi! LspReferenceWrite cterm=bold ctermbg=red guibg=#401010
-	]])
-	local grp = vim.api.nvim_create_augroup("lsp_document_highlight", {})
-	au({ "CursorHold", "CursorHoldI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.document_highlight })
-	au({ "CursorMoved", "CursorMovedI" }, { group = grp, buffer = bufnr, callback = vim.lsp.buf.clear_references })
-end
-
 au("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
@@ -66,7 +53,6 @@ au("LspAttach", {
 		local client = vim.lsp.get_client_by_id(client_id)
 		if not client then return end
 
-		highlighting(client, bufnr)
 		vim.lsp.completion.enable(true, client_id, bufnr, { autotrigger = false })
 		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
 
