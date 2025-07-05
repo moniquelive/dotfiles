@@ -19,7 +19,7 @@
   "nvim-lightbulb": { "branch": "master", "commit": "aa3a8b0f4305b25cfe368f6c9be9923a7c9d0805" },
   "nvim-lspconfig": { "branch": "master", "commit": "bb3fb99cf14daa33014331ac6eb4b5de9180f775" },
   "nvim-tree.lua": { "branch": "master", "commit": "b0b49552c9462900a882fe772993b01d780445fe" },
-  "nvim-treesitter": { "branch": "main", "commit": "dafb3cb3cb066774526c1103f3d1d6b34578800b" },
+  "nvim-treesitter": { "branch": "main", "commit": "0d32ec3c3efd1c26daa47796287e31fdd3307148" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "d8b74fa87afc6a1e97b18da23e762efb032dc270" },
   "oil.nvim": { "branch": "master", "commit": "bbad9a76b2617ce1221d49619e4e4b659b3c61fc" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
