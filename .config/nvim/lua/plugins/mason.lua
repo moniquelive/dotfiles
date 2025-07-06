@@ -1,6 +1,5 @@
 -- vim:set ts=2:
 
--- vim.cmd([[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]])
 vim.diagnostic.config({
 	float = { border = "rounded" },
 	underline = true,
@@ -39,25 +38,24 @@ local au = vim.api.nvim_create_autocmd
 au("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
+		vim.lsp.codelens.refresh()
+
 		local bufnr = args.buf
-		vim.api.nvim_set_option_value("omnifunc", "v:lua.vim.lsp.omnifunc", { buf = bufnr })
-		vim.api.nvim_set_option_value("formatexpr", "v:lua.vim.lsp.formatexpr()", { buf = bufnr })
 
 		for key, action in pairs(nmaps) do
 			vim.keymap.set("n", key, action, { noremap = true, silent = true, buffer = bufnr })
 		end
+		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
 
 		local client_id = args.data.client_id
 		if not client_id then return end
 
+		vim.lsp.completion.enable(true, client_id, bufnr, { autotrigger = false })
+
 		local client = vim.lsp.get_client_by_id(client_id)
 		if not client then return end
 
-		vim.lsp.completion.enable(true, client_id, bufnr, { autotrigger = false })
-		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
-
 		vim.notify(string.format("📡️ %s attached", client.name))
-		vim.lsp.codelens.refresh()
 	end,
 })
 

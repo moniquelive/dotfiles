@@ -1,9 +1,6 @@
 local cfg = vim.fn.stdpath("config")
 dofile(vim.fn.expand(cfg .. "/after/ftplugin/common.lua"))
 
--- ~/.config/nvim/after/ftplugin/haskell.lua
-
--- -- haskell-language-server relies heavily on codeLenses,
 -- local bufnr = vim.api.nvim_get_current_buf()
 -- local opts = { noremap = true, silent = true, buffer = bufnr }
 -- -- vim.keymap.set("n", "<f1>", ht.hoogle.hoogle_signature, opts)  -- Hoogle search for the type signature of the definition under the cursor
@@ -15,6 +12,7 @@ dofile(vim.fn.expand(cfg .. "/after/ftplugin/common.lua"))
 -- end, opts)
 -- vim.keymap.set("n", "<leader>hq", ht.repl.quit, opts)
 
+vim.opt_local.makeprg = "cabal run"
 if string.find(vim.fn.expand("%:p"):lower(), "/exercism/") ~= nil then -- are we exercisming?
 	vim.opt_local.makeprg = "cabal test"
 end
