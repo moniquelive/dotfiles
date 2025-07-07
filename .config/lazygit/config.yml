@@ -39,3 +39,4 @@ git:
   parseEmoji: true
 
 confirmOnQuit: false
+promptToReturnFromSubprocess: false
