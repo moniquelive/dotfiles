@@ -1,5 +1,3 @@
-local group = vim.api.nvim_create_augroup("supermaven-blink", { clear = true })
-
 return {
   'saghen/blink.cmp',
   dependencies = {
