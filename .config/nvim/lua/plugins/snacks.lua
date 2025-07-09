@@ -72,6 +72,7 @@ return {
       { "<leader>fc",      function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find config files",        mode = { "n", "t" } },
       { "<leader><space>", function() Snacks.picker.lines() end,                                   mode = { "n", "t" } },
       { "<leader>ft",      function() Snacks.picker.colorschemes() end,                            mode = { "n", "t" } },
+      { "<s-tab>",         function() Snacks.explorer() end,                                       mode = { "n", "t" } },
     },
     ---@type snacks.Config
     opts = {
@@ -88,6 +89,7 @@ return {
           { pane = 2, section = "projects", padding = 1, icon = " ", title = "Projects" },
         },
       },
+      explorer = { enabled = true },
       image = { enabled = true },
       indent = {
         indent = { enabled = true },
@@ -96,7 +98,18 @@ return {
       input = { enabled = true },
       lazygit = { enabled = true },
       notifier = { enabled = true },
-      picker = { enabled = true, win = { input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } } } },
+      picker = {
+        enabled = true,
+        sources = {
+          explorer = {
+            auto_close = true,
+            replace_netrw = false,
+            sort = { fields = { "ext" } }, -- does this work?
+            win = { list = { keys = { ["<s-tab>"] = "cancel" } } }
+          }
+        },
+        win = { input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } } }
+      },
       quickfile = { enabled = true },
       scope = { enabled = true },
       scratch = { enabled = true },
