@@ -102,6 +102,8 @@ end
 
 local maps = {
   { "n", "<leader><leader>", "<c-^>" },
+  { "n", "yow",              "<cmd>set wrap!<cr>" },
+  { "n", "yon",              "<cmd>set number!<cr>" },
   -- system clipboard's copy/paste
   { "v", "<leader>y",        '"+y' },
   { "n", "<leader>y",        '"+y' },

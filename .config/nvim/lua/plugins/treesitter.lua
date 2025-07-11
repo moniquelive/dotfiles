@@ -27,20 +27,4 @@ return {
 			},
 		},
 	},
-	-- {
-	-- 	"nvim-treesitter/nvim-treesitter-refactor",
-	-- 	main = "nvim-treesitter.configs",
-	-- 	opts = {
-	-- 		refactor = {
-	-- 			highlight_current_scope = { enable = true },
-	-- 			-- smart_rename = { enable = true, keymaps = { smart_rename = "<F2>" } },
-	-- 			navigation = { enable = true, goto_definition_lsp_fallback = true },
-	-- 			highlight_definitions = {
-	-- 				enable = true, -- Set to false if you have an `updatetime` of ~100.
-	-- 				clear_on_cursor_move = true,
-	-- 			},
-	-- 		},
-	-- 	},
-	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" },
-	-- },
 }
