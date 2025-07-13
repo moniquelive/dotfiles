@@ -1,6 +1,3 @@
-local cfg = vim.fn.stdpath("config")
-dofile(vim.fn.expand(cfg .. "/after/ftplugin/common.lua"))
-
 local opts = { noremap = true, silent = true, buffer = true }
 
 vim.keymap.set("n", "<M-]>", "<C-]>", opts)

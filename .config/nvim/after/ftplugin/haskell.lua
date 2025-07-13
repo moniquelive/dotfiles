@@ -1,6 +1,3 @@
-local cfg = vim.fn.stdpath("config")
-dofile(vim.fn.expand(cfg .. "/after/ftplugin/common.lua"))
-
 -- local bufnr = vim.api.nvim_get_current_buf()
 -- local opts = { noremap = true, silent = true, buffer = bufnr }
 -- -- vim.keymap.set("n", "<f1>", ht.hoogle.hoogle_signature, opts)  -- Hoogle search for the type signature of the definition under the cursor

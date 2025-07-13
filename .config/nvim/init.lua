@@ -75,18 +75,6 @@ for key, value in pairs(opts) do
   vim.opt[key] = value
 end
 
--- Temp hack
-vim.api.nvim_create_autocmd("User", {
-  pattern = "TelescopeFindPre",
-  callback = function()
-    vim.opt_local.winborder = "none"
-    vim.api.nvim_create_autocmd("WinLeave", {
-      once = true,
-      callback = function() vim.opt_local.winborder = "rounded" end,
-    })
-  end,
-})
-
 -- Keymaps
 local k = vim.keymap
 
@@ -183,6 +171,8 @@ if vim.fn.has("gui_running") == 0 then
   au("InsertEnter", { pattern = "*", command = [[set timeoutlen=0]], group = init_lua_grp })
   au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_grp })
 end
+au("BufRead", { pattern = "*", callback = function() vim.treesitter.start() end, group = init_lua_grp })
+
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`
