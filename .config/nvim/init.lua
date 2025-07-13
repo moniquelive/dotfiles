@@ -171,7 +171,14 @@ if vim.fn.has("gui_running") == 0 then
   au("InsertEnter", { pattern = "*", command = [[set timeoutlen=0]], group = init_lua_grp })
   au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_grp })
 end
-au("BufRead", { pattern = "*", callback = function() vim.treesitter.start() end, group = init_lua_grp })
+au("BufRead", {
+  pattern = "*",
+  callback = function(args)
+    vim.treesitter.start(args.buf)
+    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+  end,
+  group = init_lua_grp
+})
 
 
 -- [[ Highlight on yank ]]
