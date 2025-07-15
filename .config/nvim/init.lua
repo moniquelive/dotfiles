@@ -174,6 +174,7 @@ end
 au("BufRead", {
   pattern = "*",
   callback = function(args)
+    if args.file == "quickfix" then return end
     vim.treesitter.start(args.buf)
     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
   end,
