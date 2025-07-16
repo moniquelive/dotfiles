@@ -1,6 +1,6 @@
 {
   "blink-cmp-supermaven": { "branch": "main", "commit": "635ce12e9e2d2a5a483728ac764d0bc5b57af23b" },
-  "blink.cmp": { "branch": "main", "commit": "3536ce464e82843b00c76718d9bfe1994647d686" },
+  "blink.cmp": { "branch": "main", "commit": "586ee87534f5bf65f1c8dea2d1da2a57e8cddd36" },
   "busted-types": { "branch": "main", "commit": "5ed85d0e016a5eb5eca097aa52905eedf1b180f1" },
   "catppuccin": { "branch": "main", "commit": "fa42eb5e26819ef58884257d5ae95dd0552b9a66" },
   "format-on-save.nvim": { "branch": "main", "commit": "a224e5f6fa42cc02ce002938aff39ff43455f28f" },
@@ -17,8 +17,8 @@
   "mini.nvim": { "branch": "main", "commit": "ec0fc48de7408f1fc09b1ee2a87484396032dbb4" },
   "nvim-colorizer.lua": { "branch": "master", "commit": "8a9b722257b5e6733c340c36f4bd8693e5f47de3" },
   "nvim-lightbulb": { "branch": "master", "commit": "aa3a8b0f4305b25cfe368f6c9be9923a7c9d0805" },
-  "nvim-lspconfig": { "branch": "master", "commit": "8c5efd1269160fc2fdf61e3d7176be5015860a8f" },
-  "nvim-treesitter": { "branch": "main", "commit": "8d8ca0996c79348cd59cf31065954f40fcf1679f" },
+  "nvim-lspconfig": { "branch": "master", "commit": "5bb3fb4a63eb38361f3f992618f65dd4fa52e72b" },
+  "nvim-treesitter": { "branch": "main", "commit": "992e9ef3d09c3a52adf847c426b52e32bafad519" },
   "oil.nvim": { "branch": "master", "commit": "bbad9a76b2617ce1221d49619e4e4b659b3c61fc" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
   "snacks.nvim": { "branch": "main", "commit": "bc0630e43be5699bb94dadc302c0d21615421d93" },
