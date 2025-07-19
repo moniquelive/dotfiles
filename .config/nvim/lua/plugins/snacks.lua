@@ -108,7 +108,7 @@ return {
             win = { list = { keys = { ["<s-tab>"] = "cancel" } } }
           }
         },
-        win = { input = { keys = { ["<Esc>"] = { "close", mode = { "n", "i" } } } } }
+        win = { input = { keys = { ["<c-.>"] = { "toggle_hidden", mode = { "n", "i" } }, ["<Esc>"] = { "close", mode = { "n", "i" } } } } }
       },
       quickfile = { enabled = true },
       scope = { enabled = true },
