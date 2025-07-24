@@ -3,9 +3,7 @@ local M = {}
 -- TODO: h: plenary-test
 local function match_any(str, patterns)
 	return vim.tbl_contains(
-		vim.tbl_map(function(p)
-			return str:match(p) ~= nil
-		end, patterns),
+		vim.tbl_map(function(p) return str:match(p) ~= nil end, patterns),
 		true
 	)
 end
@@ -28,8 +26,9 @@ local function is_ansible()
 		"/host_vars/",
 	}
 
-	local filename_patterns = vim.g.ansible_ftdetect_filename_regex and { vim.g.ansible_ftdetect_filename_regex }
-		or { "^playbook%.ya?ml$", "^site%.ya?ml$", "^main%.ya?ml$", "^local%.ya?ml$", "^requirements%.ya?ml$" }
+	local filename_patterns = vim.g.ansible_ftdetect_filename_regex
+			and { vim.g.ansible_ftdetect_filename_regex }
+			or { "^playbook%.ya?ml$", "^site%.ya?ml$", "^main%.ya?ml$", "^local%.ya?ml$", "^requirements%.ya?ml$" }
 
 	local shebang_patterns = {
 		"^#!.*bin/env%s+ansible%-playbook",
@@ -46,9 +45,9 @@ local function is_ansible()
 	-- )
 
 	return root
-		or match_any(fullpath, file_patterns)
-		or match_any(filename, filename_patterns)
-		or match_any(vim.fn.getline(1), shebang_patterns)
+			or match_any(fullpath, file_patterns)
+			or match_any(filename, filename_patterns)
+			or match_any(vim.fn.getline(1), shebang_patterns)
 end
 
 local function setup_template()
@@ -65,20 +64,12 @@ local function setup_template()
 	vim.bo.filetype = "jinja2"
 end
 
-local function au(events, pattern, callback)
+local au = function(events, pattern, callback)
 	vim.api.nvim_create_autocmd(events, { pattern = pattern, callback = callback })
 end
 
-au({ "BufNewFile", "BufRead" }, "*", function()
-	if is_ansible() then
-		vim.bo.filetype = "yaml.ansible"
-	end
-end)
-
+au({ "BufNewFile", "BufRead" }, "*", function() if is_ansible() then vim.bo.filetype = "yaml.ansible" end end)
 au({ "BufNewFile", "BufRead" }, "*.j2", setup_template)
-
-au({ "BufNewFile", "BufRead" }, "hosts", function()
-	vim.bo.filetype = "ansible_hosts"
-end)
+au({ "BufNewFile", "BufRead" }, "hosts", function() vim.bo.filetype = "ansible_hosts" end)
 
 return M

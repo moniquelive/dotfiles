@@ -71,9 +71,7 @@ local opts = {
   winborder = 'rounded',
   wrap = false,
 }
-for key, value in pairs(opts) do
-  vim.opt[key] = value
-end
+for k, v in pairs(opts) do vim.opt[k] = v end
 
 -- Keymaps
 local k = vim.keymap
@@ -139,6 +137,7 @@ k.set("c", "w!!", [[w !sudo tee > /dev/null %]])
 
 -- Subtle search highlights
 vim.cmd([[highlight Search ctermbg=black ctermfg=yellow term=underline]])
+-- Italic comments
 vim.cmd([[highlight Comment cterm=italic gui=italic]])
 
 -- LSP hover colors
@@ -148,7 +147,6 @@ vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 local au = vim.api.nvim_create_autocmd
-local myvimrc = vim.fn.expand("$MYVIMRC")
 local cmds = {
   { "QuickFixCmdPost", "*", [[copen]] },      -- Open quickfix window when errors are found
   { "FocusLost",       "*", [[silent! wa]] }, -- Autosave on focus lost
@@ -158,7 +156,6 @@ local cmds = {
     { "qf", "fugitive", "fugitiveblame", "netrw" },
     [[ nnoremap <buffer><silent> q <cmd>close<CR> ]],
   },
-  { { "BufRead", "BufNewFile" }, myvimrc, "source " .. myvimrc },
 }
 -- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
 for _, c in ipairs(cmds) do
@@ -171,6 +168,8 @@ if vim.fn.has("gui_running") == 0 then
   au("InsertEnter", { pattern = "*", command = [[set timeoutlen=0]], group = init_lua_grp })
   au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_grp })
 end
+
+-- enable treesitter when available
 au("BufRead", {
   pattern = "*",
   callback = function(args)
@@ -181,10 +180,9 @@ au("BufRead", {
   group = init_lua_grp
 })
 
-
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`
-vim.cmd([[ autocmd TextYankPost * silent! lua vim.hl.on_yank {higroup='Visual', timeout=300} ]])
+au("TextYankPost", { pattern = "*", callback = function() vim.hl.on_yank { higroup = 'Visual', timeout = 300 } end })
 
 -- Status Line
 vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]

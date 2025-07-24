@@ -15,10 +15,8 @@ vim.diagnostic.config({
 	},
 })
 
--- grn : ["<F2>"] = vim.lsp.buf.rename,
 -- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
 -- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
--- gra : vim.keymap.set({ "i", "n" }, "<a-cr>", vim.lsp.buf.code_action, opts)
 local nmaps = {
 	["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
 	["gD"] = vim.lsp.buf.declaration,
@@ -34,23 +32,23 @@ local nmaps = {
 	end,
 }
 
-local au = vim.api.nvim_create_autocmd
-au("LspAttach", {
+vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
 		vim.lsp.codelens.refresh()
 
 		local bufnr = args.buf
 
-		for key, action in pairs(nmaps) do
-			vim.keymap.set("n", key, action, { noremap = true, silent = true, buffer = bufnr })
+		for k, v in pairs(nmaps) do
+			vim.keymap.set("n", k, v, { noremap = true, silent = true, buffer = bufnr })
 		end
 		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
 
 		local client_id = args.data.client_id
 		if not client_id then return end
 
-		vim.lsp.completion.enable(true, client_id, bufnr, { autotrigger = false })
+		-- we use blink.cmp
+		vim.lsp.completion.enable(false, client_id, bufnr, { autotrigger = false })
 
 		local client = vim.lsp.get_client_by_id(client_id)
 		if not client then return end
@@ -60,31 +58,29 @@ au("LspAttach", {
 })
 
 return {
-	{
-		"williamboman/mason.nvim",
-		dependencies = {
-			"saghen/blink.cmp",
-			"neovim/nvim-lspconfig",
-			{
-				"WhoIsSethDaniel/mason-tool-installer.nvim",
-				build = ":MasonToolsUpdate",
-				cmd = { "MasonToolsClean", "MasonToolsInstall", "MasonToolsUpdate" },
-				opts = {
-					ensure_installed = {
-						"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
-						"elm-format", "elm-language-server", "flake8", "gitlint", "goimports-reviser",
-						"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
-						"lua-language-server", "luacheck", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
-						"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
-						"staticcheck", "stylua", "tailwindcss-language-server", "typescript-language-server",
-						"vim-language-server", "yaml-language-server", "yapf", "zls",
-					}
+	"williamboman/mason.nvim",
+	dependencies = {
+		"saghen/blink.cmp",
+		"neovim/nvim-lspconfig",
+		{
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			build = ":MasonToolsUpdate",
+			cmd = { "MasonToolsClean", "MasonToolsInstall", "MasonToolsUpdate" },
+			opts = {
+				ensure_installed = {
+					"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
+					"elm-format", "elm-language-server", "flake8", "gitlint", "goimports-reviser",
+					"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
+					"lua-language-server", "luacheck", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
+					"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
+					"staticcheck", "stylua", "tailwindcss-language-server", "typescript-language-server",
+					"vim-language-server", "yaml-language-server", "yapf", "zls",
 				}
-			},
+			}
 		},
-		event = { "BufRead", "BufNewFile" },
-		cmd = { "Mason", "MasonUpdate" },
-		build = ":MasonUpdate",
-		config = true,
 	},
+	event = { "BufRead", "BufNewFile" },
+	cmd = { "Mason", "MasonUpdate" },
+	build = ":MasonUpdate",
+	config = true,
 }
