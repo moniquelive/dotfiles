@@ -73,9 +73,6 @@ local opts = {
 }
 for k, v in pairs(opts) do vim.opt[k] = v end
 
--- Keymaps
-local k = vim.keymap
-
 -- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 vim.o.magic = true
 -- k.set("n", "/", [[/\v]])
@@ -83,57 +80,57 @@ vim.o.magic = true
 
 local map_opts = { noremap = true, silent = true }
 for i = 0, 5 do
-  k.set("n", "z" .. i, function() vim.opt_local.foldlevel = i end, map_opts)
+  vim.keymap.set("n", "z" .. i, function() vim.opt_local.foldlevel = i end, map_opts)
 end
 
 local maps = {
-  { "n", "<leader><leader>", "<c-^>" },
-  { "n", "yow",              "<cmd>set wrap!<cr>" },
-  { "n", "yon",              "<cmd>set number!<cr>" },
+  { "n",          "<leader><leader>", "<c-^>" },
+  { "n",          "yow",              "<cmd>set wrap!<cr>" },
+  { "n",          "yon",              "<cmd>set number!<cr>" },
   -- system clipboard's copy/paste
-  { "v", "<leader>y",        '"+y' },
-  { "n", "<leader>y",        '"+y' },
-  { "n", "<leader>Y",        '"+Y' },
-  { "n", "<leader>p",        '"+p' },
-  { "n", "<leader>P",        '"+P' },
-  { "n", "<D-v>",            '"+p' },
-  { "n", "<D-V>",            '"+P' },
+  { { "n", "v" }, "<leader>y",        '"+y' },
+  { { "n", "v" }, "<leader>Y",        '"+Y' },
+  { { "n", "v" }, "<leader>d",        '"+d' },
+  { "n",          "<leader>p",        '"+p' },
+  { "n",          "<leader>P",        '"+P' },
+  { "n",          "<D-v>",            '"+p' },
+  { "n",          "<D-V>",            '"+P' },
   -- Disable highlight when <leader><cr> is pressed
-  { "n", "<esc>",            "<cmd>noh<CR>" },
-  { "",  "<leader><cr>",     "<cmd>noh<CR>" },
+  { "n",          "<esc>",            "<cmd>noh<CR>" },
+  { "",           "<leader><cr>",     "<cmd>noh<CR>" },
   -- Move around splits with <c-hjkl>
-  { "n", "<c-j>",            "<c-w>j" },
-  { "n", "<c-k>",            "<c-w>k" },
-  { "n", "<c-h>",            "<c-w>h" },
-  { "n", "<c-l>",            "<c-w>l" },
-  { "n", "<leader>w",        "<C-w>v<C-w>l" },
-  { "n", "<leader>l",        "<C-l>" },
+  { "n",          "<c-j>",            "<c-w>j" },
+  { "n",          "<c-k>",            "<c-w>k" },
+  { "n",          "<c-h>",            "<c-w>h" },
+  { "n",          "<c-l>",            "<c-w>l" },
+  { "n",          "<leader>w",        "<C-w>v<C-w>l" },
+  { "n",          "<leader>l",        "<C-l>" },
   -- Resize splits
-  { "n", "<c-s-j>",          "<c-w>+" },
-  { "n", "<c-s-k>",          "<c-w>-" },
-  { "n", "<m-,>",            "<c-w><" },
-  { "n", "<m-.>",            "<c-w>>" },
+  { "n",          "<c-s-j>",          "<c-w>+" },
+  { "n",          "<c-s-k>",          "<c-w>-" },
+  { "n",          "<m-,>",            "<c-w><" },
+  { "n",          "<m-.>",            "<c-w>>" },
   -- Open window below instead of above"
-  { "n", "<c-w>N",           "<cmd>let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>" },
+  { "n",          "<c-w>N",           "<cmd>let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>" },
   -- Vertical equivalent of c-w-n and c-w-N"
-  { "n", "<c-w>v",           "<cmd>vnew<CR>" },
-  { "n", "<c-w>V",           "<cmd>let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>" },
+  { "n",          "<c-w>v",           "<cmd>vnew<CR>" },
+  { "n",          "<c-w>V",           "<cmd>let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>" },
   -- Easier split resizing (shift - and shift +)
-  { "n", "_",                "<c-w>-" },
-  { "n", "+",                "<c-w>+" },
+  { "n",          "_",                "<c-w>-" },
+  { "n",          "+",                "<c-w>+" },
   -- neovim, dont reinvent the wheel <3
-  { "n", "Y",                "yy" },
+  { "n",          "Y",                "yy" },
   -- default run behavior
-  { "n", "<F17>",            [[<cmd>echom "running..."|silent make!|echon ''<CR>]] },
-  { "n", "<F5>",             [[<cmd>make!<CR>]] },
-  { "n", "<tab>",            "za" },
+  { "n",          "<F17>",            [[<cmd>echom "running..."|silent make!|echon ''<CR>]] },
+  { "n",          "<F5>",             [[<cmd>make!<CR>]] },
+  { "n",          "<tab>",            "za" },
 }
 for _, m in ipairs(maps) do
-  k.set(m[1], m[2], m[3], map_opts)
+  vim.keymap.set(m[1], m[2], m[3], map_opts)
 end
 
 -- Allow saving of files as sudo when I forgot to start vim using sudo.
-k.set("c", "w!!", [[w !sudo tee > /dev/null %]])
+vim.keymap.set("c", "w!!", [[w !sudo tee > /dev/null %]])
 
 -- Subtle search highlights
 vim.cmd([[highlight Search ctermbg=black ctermfg=yellow term=underline]])
