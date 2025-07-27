@@ -1,4 +1,5 @@
-theme=catppuccin-mocha
+theme=vague
+# theme=catppuccin-mocha
 # font-family=MonoLisa
 font-family = ""
 font-family = "Geist Mono"

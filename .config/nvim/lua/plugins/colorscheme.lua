@@ -1,19 +1,30 @@
 return {
 	{
-		"catppuccin/nvim",
-		name = "catppuccin",
+		"vague2k/vague.nvim",
 		priority = 1000,
 		lazy = false,
 		config = function()
-			require("catppuccin").setup {
-				flavour = 'mocha',
-				transparent_background = true,
-				show_end_of_buffer = true,
-				dim_inactive = { enabled = true },
+			require("vague").setup {
+				transparent = true,
 			}
-			vim.cmd.colorscheme "catppuccin"
+			vim.cmd.colorscheme "vague"
 		end,
 	},
+	-- {
+	-- 	"catppuccin/nvim",
+	-- 	name = "catppuccin",
+	-- 	priority = 1000,
+	-- 	lazy = false,
+	-- 	config = function()
+	-- 		require("catppuccin").setup {
+	-- 			flavour = 'mocha',
+	-- 			transparent_background = true,
+	-- 			show_end_of_buffer = true,
+	-- 			dim_inactive = { enabled = true },
+	-- 		}
+	-- 		vim.cmd.colorscheme "catppuccin"
+	-- 	end,
+	-- },
 	-- {
 	-- 	"ellisonleao/gruvbox.nvim",
 	-- 	lazy = false,
