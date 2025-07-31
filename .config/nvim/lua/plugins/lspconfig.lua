@@ -20,6 +20,7 @@ return {
 				"omnisharp",
 				"powershell_es",
 				"ruby_lsp",
+				"rubocop",
 				"sourcekit",
 				"tailwindcss",
 				"yamlls",
