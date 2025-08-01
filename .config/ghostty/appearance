@@ -1,8 +1,10 @@
-theme=vague
-# theme=catppuccin-mocha
+theme=catppuccin-mocha
+# theme=GruvboxDark
+# theme=vague
 # font-family=MonoLisa
+# font-family = "Geist Mono"
 font-family = ""
-font-family = "Geist Mono"
+font-family = "Google Sans Code"
 font-family = "Symbols Nerd Font Mono"
 font-size=16
 font-thicken=false
