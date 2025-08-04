@@ -61,7 +61,6 @@ return {
 	"williamboman/mason.nvim",
 	dependencies = {
 		"saghen/blink.cmp",
-		"neovim/nvim-lspconfig",
 		{
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			build = ":MasonToolsUpdate",
