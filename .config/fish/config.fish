@@ -46,5 +46,5 @@ if status is-interactive
     starship init fish | source
     mise activate fish | source
     fzf --fish | source
-    zoxide init fish | source
+    zoxide init --cmd cd fish | source
 end
