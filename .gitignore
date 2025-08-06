@@ -17,5 +17,3 @@
 /.config/zed/.*
 
 /.logseq/graphs
-
-.luarc.json

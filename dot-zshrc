@@ -431,6 +431,7 @@ python_venv
 
 #--------------------------------------------------------- starship prompt ---
 eval "$(starship init zsh)"
+(( $+commands[zoxide] )) && eval "$(zoxide init --cmd cd zsh)"
 
 #------------------------------------------------------------- emacs vterm ---
 if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
