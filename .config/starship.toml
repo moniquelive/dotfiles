@@ -4,7 +4,7 @@
 right_format = "$cmd_duration"
 
 # Inserts a blank line between shell prompts
-add_newline = false
+add_newline = true
 
 [os]
 disabled = false

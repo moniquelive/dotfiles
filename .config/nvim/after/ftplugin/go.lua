@@ -20,3 +20,5 @@ func main() {
 		vim.api.nvim_buf_set_lines(0, 0, -1, false, skeleton_lines)
 	end
 end
+
+vim.treesitter.start()

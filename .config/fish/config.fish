@@ -44,6 +44,8 @@ if status is-interactive
     bind up history-prefix-search-backward
 
     starship init fish | source
+    enable_transience
+
     mise activate fish | source
     fzf --fish | source
     zoxide init --cmd cd fish | source
