@@ -23,7 +23,7 @@ truncation_length = 0
 
 [hostname]
 ssh_only = false
-# aliases = { "Max's MacBook Pro" = "home" }
+aliases = { "Studiorama" = "std", "macbookarama" = "book" }
 
 [memory_usage]
 disabled = false
