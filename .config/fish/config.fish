@@ -1,10 +1,3 @@
-# TODO:
-# zstyle :omz:plugins:ssh-agent agent-forwarding yes
-# zstyle :omz:plugins:ssh-agent ssh-add-args --apple-load-keychain
-# zstyle :omz:plugins:ssh-agent identities id_ed25519 id_rsa github_rsa
-# zstyle :omz:plugins:ssh-agent lazy yes
-# zstyle :omz:plugins:ssh-agent quiet yes
-
 fish_add_path opt/1Password \
     /Applications/1Password.app/Contents/MacOS \
     $HOME/.local/bin \
@@ -33,6 +26,13 @@ end
 
 test -f $HOME/.awskeys.sh; and source $HOME/.awskeys.sh
 
+test -z "$SSH_ENV"; and set -xg SSH_ENV $HOME/.ssh/environment
+__ssh_agent_is_started; or __ssh_agent_start
+
+# function starship_transient_prompt_func
+#     starship module -s $status character
+# end
+
 if status is-interactive
     # Commands to run in interactive sessions can go here
     set -gx EDITOR (command -q nvim; and echo nvim; or echo vim)
@@ -43,10 +43,8 @@ if status is-interactive
     bind down history-prefix-search-forward
     bind up history-prefix-search-backward
 
-    starship init fish | source
-    enable_transience
-
-    mise activate fish | source
-    fzf --fish | source
-    zoxide init --cmd cd fish | source
+    command -q starship; and starship init fish | source; and enable_transience
+    command -q mise; and mise activate fish | source
+    command -q fzf; and fzf --fish | source
+    command -q zoxide; and zoxide init --cmd cd fish | source
 end

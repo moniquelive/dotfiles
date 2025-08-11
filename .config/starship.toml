@@ -1,10 +1,11 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-right_format = "$cmd_duration"
+right_format = "$cmd_duration$time"
 
 # Inserts a blank line between shell prompts
 add_newline = true
+palette = "catppuccin_mocha"
 
 [os]
 disabled = false
@@ -12,25 +13,55 @@ disabled = false
 [aws]
 disabled = true
 
-[gcloud]
-disabled = true
+[cmd_duration]
+show_milliseconds = true
 
-[battery]
-disabled = true
-
-
-# # https://starship.rs/config/#git-branch
-# [git_branch]
-# symbol = "🔀 "
-# format = "| [$symbol$branch]($style) "
-#
-# # https://starship.rs/config/#character
-# [character]
-# success_symbol = '[\$](bold black)'
-# error_symbol = '[\$](bold black)'
-
-# https://starship.rs/config/#directory
 [directory]
 style = 'white'
 truncate_to_repo = false
 truncation_length = 0
+
+[hostname]
+ssh_only = false
+# aliases = { "Max's MacBook Pro" = "home" }
+
+[memory_usage]
+disabled = false
+threshold = 50
+# symbol = ' '
+style = 'dimmed green'
+
+[status]
+disabled = false
+
+[time]
+disabled = false
+
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
