@@ -23,7 +23,7 @@ truncation_length = 0
 
 [hostname]
 ssh_only = false
-aliases = { "Studiorama" = "std", "macbookarama" = "book" }
+aliases = { "Studiorama" = "🎙️", "armrama" = "💻" }
 
 [memory_usage]
 disabled = false
