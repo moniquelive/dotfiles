@@ -47,4 +47,5 @@ if status is-interactive
     command -q mise; and mise activate fish | source
     command -q fzf; and fzf --fish | source
     command -q zoxide; and zoxide init --cmd cd fish | source
+    command -q tailscale; and tailscale completion fish | source
 end
