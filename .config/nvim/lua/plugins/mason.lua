@@ -73,7 +73,7 @@ return {
 					"lua-language-server", "luacheck", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
 					"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
 					"staticcheck", "stylua", "tailwindcss-language-server", "typescript-language-server",
-					"vim-language-server", "yaml-language-server", "yapf", "zls",
+					"vim-language-server", "yaml-language-server", "yapf", -- "zls",
 				}
 			}
 		},
