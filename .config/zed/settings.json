@@ -8,9 +8,10 @@
 // from the command palette or from `Zed` application menu.
 {
   "agent": {
+    "always_allow_tool_actions": true,
     "default_model": {
-      "provider": "openai",
-      "model": "gpt-5-mini"
+      "provider": "zed.dev",
+      "model": "claude-sonnet-4-thinking"
     },
   },
   "features": {
