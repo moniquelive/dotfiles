@@ -70,7 +70,7 @@ return {
 					"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
 					"elm-format", "elm-language-server", "flake8", "gitlint", "goimports-reviser",
 					"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
-					"lua-language-server", "luacheck", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
+					"lua-language-server", "luacheck", "markdownlint", "powershell-editor-services", "prettierd",
 					"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
 					"staticcheck", "stylua", "tailwindcss-language-server", "typescript-language-server",
 					"vim-language-server", "yaml-language-server", "yapf", -- "zls",
