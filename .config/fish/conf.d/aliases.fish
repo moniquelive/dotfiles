@@ -49,8 +49,6 @@ if status is-interactive
     alias afh 'aws --profile akad_front_homol'
     alias ass 'aws --profile akad_shared_services'
 
-    alias fzfbrew "brew rm (brew ls | fzf --preview='brew info {}')"
-
     function python_venv --on-variable PWD
         set myvenv ./venv
         if test -d $myvenv
