@@ -1,13 +1,13 @@
 theme=Catppuccin Mocha
-# theme=GruvboxDark
-# theme=vague
-# font-family=MonoLisa
-# font-family = "Geist Mono"
+
 font-family = ""
-font-family = "Google Sans Code"
+font-family=MonoLisa
 font-family = "Symbols Nerd Font Mono"
+# font-family = "Geist Mono"
+# font-family = "Google Sans Code"
 font-size=16
 font-thicken=false
+# font-feature=calt,liga,dlig
 
 background-opacity=0.9
 background-blur-radius=20
@@ -16,3 +16,5 @@ unfocused-split-opacity=1
 
 # official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray, custom-style
 macos-icon=xray
+
+custom-shader=./shaders/cursor_blaze.glsl
