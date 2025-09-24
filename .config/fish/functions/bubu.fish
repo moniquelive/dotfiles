@@ -6,7 +6,7 @@ function bubu
     and brew upgrade --cask --greedy
     and brew cleanup
     and brew autoremove
-    and mise p up
+    mise p up
     and mise prune
     and mise up
     and mise up
