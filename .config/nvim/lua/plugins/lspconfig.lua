@@ -3,25 +3,20 @@ return {
 		"neovim/nvim-lspconfig",
 		lazy = false,
 		config = function()
-			vim.lsp.config('*', {
-				root_markers = { '.git' },
-			})
-			vim.lsp.config("elixirls", {
-				cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/language_server.sh") }
-			})
+			vim.lsp.config('*', { root_markers = { '.git' } })
+			vim.lsp.config("elixirls",
+				{ cmd = { vim.fn.expand("~/.local/share/mise/installs/elixir-ls/latest/language_server.sh") } })
 			vim.lsp.enable({
 				"clangd",
 				"elixirls",
 				"fish_lsp",
-				"ghcide",
-				"gopls",
+				"ghcide", "gopls",
 				"hls",
 				"jsonls",
 				"lua_ls",
 				"omnisharp",
 				"powershell_es",
-				"ruby_lsp",
-				"rubocop",
+				"ruby_lsp", "rubocop",
 				"sourcekit",
 				"tailwindcss",
 				"yamlls",

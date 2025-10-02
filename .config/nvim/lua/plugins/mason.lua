@@ -15,34 +15,29 @@ vim.diagnostic.config({
 	},
 })
 
--- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
--- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
-local nmaps = {
-	["K"] = function() return vim.lsp.buf.hover({ border = "rounded" }) end,
-	["gD"] = vim.lsp.buf.declaration,
-	["<F4>"] = vim.lsp.codelens.run,
-	["gi"] = "<cmd>Telescope lsp_implementations<CR>",
-	["<leader>d"] = "<cmd>Telescope lsp_definitions<CR>",
-	["<leader>e"] = function() vim.diagnostic.open_float({ source = "if_many" }) end,
-	["<leader>f"] = function() vim.lsp.buf.format({ async = true }) end,
-	["<leader>ih"] = function()
-		local curr = not vim.lsp.inlay_hint.is_enabled()
-		vim.lsp.inlay_hint.enable(curr)
-		vim.notify((curr and "enabled" or "disabled") .. " inlay hints")
-	end,
-}
-
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 	callback = function(args)
 		vim.lsp.codelens.refresh()
 
 		local bufnr = args.buf
-
-		for k, v in pairs(nmaps) do
-			vim.keymap.set("n", k, v, { noremap = true, silent = true, buffer = bufnr })
-		end
-		vim.keymap.set('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
+		local opts = { noremap = true, silent = true, buffer = bufnr }
+		local k = vim.keymap.set
+		-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
+		-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
+		-- k("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+		-- k("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
+		k('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
+		k("n", "K", function() return vim.lsp.buf.hover({ border = "rounded" }) end, opts)
+		k("n", "gD", vim.lsp.buf.declaration, opts)
+		k("n", "<F4>", vim.lsp.codelens.run, opts)
+		k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)
+		k("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, opts)
+		k("n", "<leader>ih", function()
+			local curr = not vim.lsp.inlay_hint.is_enabled()
+			vim.lsp.inlay_hint.enable(curr)
+			vim.notify((curr and "enabled" or "disabled") .. " inlay hints")
+		end, opts)
 
 		local client_id = args.data.client_id
 		if not client_id then return end

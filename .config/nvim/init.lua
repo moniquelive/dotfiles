@@ -111,7 +111,7 @@ local maps = {
   { "n",          "<m-,>",            "<c-w><" },
   { "n",          "<m-.>",            "<c-w>>" },
   -- Open window below instead of above"
-  { "n",          "<c-w>N",           "<cmd>let sb=&sb<BAR>set sb<BAR>new<BAR>let &sb=sb<CR>" },
+  { "n",          "<c-w>N",           "<cmd>above new<CR>" },
   -- Vertical equivalent of c-w-n and c-w-N"
   { "n",          "<c-w>v",           "<cmd>vnew<CR>" },
   { "n",          "<c-w>V",           "<cmd>let spr=&spr<BAR>set nospr<BAR>vnew<BAR>let &spr=spr<CR>" },
@@ -125,9 +125,7 @@ local maps = {
   { "n",          "<F5>",             [[<cmd>make!<CR>]] },
   { "n",          "<tab>",            "za" },
 }
-for _, m in ipairs(maps) do
-  vim.keymap.set(m[1], m[2], m[3], map_opts)
-end
+for _, m in ipairs(maps) do vim.keymap.set(m[1], m[2], m[3], map_opts) end
 
 -- Allow saving of files as sudo when I forgot to start vim using sudo.
 vim.keymap.set("c", "w!!", [[w !sudo tee > /dev/null %]])
@@ -155,16 +153,14 @@ local cmds = {
   },
 }
 -- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
-for _, c in ipairs(cmds) do
-  au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
-end
+for _, c in ipairs(cmds) do au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp }) end
 
-if vim.fn.has("gui_running") == 0 then
-  vim.o.ttimeoutlen = 10
-  vim.o.lazyredraw = true
-  au("InsertEnter", { pattern = "*", command = [[set timeoutlen=0]], group = init_lua_grp })
-  au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_grp })
-end
+-- if vim.fn.has("gui_running") == 0 then
+vim.o.ttimeoutlen = 10
+vim.o.lazyredraw = true
+au("InsertEnter", { pattern = "*", command = [[set timeoutlen=0]], group = init_lua_grp })
+au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_grp })
+-- end
 
 -- enable treesitter when available
 au("BufRead", {

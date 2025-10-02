@@ -23,7 +23,7 @@ return {
         },
         config = function()
             for i = 1, 8 do
-                vim.keymap.set("n", string.format("<M-%d>", i),
+                vim.keymap.set("n", ("<M-%d>"):format(i),
                     k("nav" .. i), { noremap = true, silent = true })
             end
         end
