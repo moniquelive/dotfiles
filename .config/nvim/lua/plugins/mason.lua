@@ -1,7 +1,6 @@
 -- vim:set ts=2:
 
 vim.diagnostic.config({
-	float = { border = "rounded" },
 	underline = true,
 	virtual_text = true,
 	virtual_lines = false, -- { current_line = true },
@@ -28,7 +27,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- k("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 		-- k("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
 		k('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
-		k("n", "K", function() return vim.lsp.buf.hover({ border = "rounded" }) end, opts)
+		k("n", "K", vim.lsp.buf.hover, opts)
 		k("n", "gD", vim.lsp.buf.declaration, opts)
 		k("n", "<F4>", vim.lsp.codelens.run, opts)
 		k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)

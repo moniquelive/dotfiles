@@ -92,7 +92,7 @@ return {
         },
       },
     },
-    signature = { enabled = true, window = { border = 'rounded' } },
+    signature = { enabled = true },
     sources = {
       default = function()
         local success, node = pcall(vim.treesitter.get_node)

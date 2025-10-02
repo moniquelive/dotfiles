@@ -17,8 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 -----------------------------------------------------------------------------
 require("lazy").setup {
   spec = { { import = "plugins" } },
-  defaults = { lazy = true },
-  ui = { border = "rounded" }
+  defaults = { lazy = true }
 }
 
 local map_opts = { noremap = true, silent = true }
