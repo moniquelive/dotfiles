@@ -41,13 +41,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		local client_id = args.data.client_id
 		if not client_id then return end
-
-		-- we use blink.cmp
-		vim.lsp.completion.enable(false, client_id, bufnr, { autotrigger = false })
-
 		local client = vim.lsp.get_client_by_id(client_id)
 		if not client then return end
-
 		vim.notify(string.format("📡️ %s attached", client.name))
 	end,
 })
@@ -63,7 +58,7 @@ return {
 			opts = {
 				ensure_installed = {
 					"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
-					"elm-format", "elm-language-server", "flake8", "gitlint", "goimports-reviser",
+					"elm-format", "elm-language-server", "expert", "flake8", "gitlint", "goimports-reviser",
 					"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
 					"lua-language-server", "luacheck", "markdownlint", "powershell-editor-services", "prettierd",
 					"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
