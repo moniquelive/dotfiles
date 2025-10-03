@@ -5,38 +5,39 @@ gui:
 
   theme:
     activeBorderColor:
-      - '#f5e0dc'
+      - "#f5e0dc"
       - bold
     inactiveBorderColor:
-      - '#a6adc8'
+      - "#a6adc8"
     optionsTextColor:
-      - '#89b4fa'
+      - "#89b4fa"
     selectedLineBgColor:
-      - '#313244'
+      - "#313244"
     cherryPickedCommitBgColor:
-      - '#45475a'
+      - "#45475a"
     cherryPickedCommitFgColor:
-      - '#f5e0dc'
+      - "#f5e0dc"
     unstagedChangesColor:
-      - '#f38ba8'
+      - "#f38ba8"
     defaultFgColor:
-      - '#cdd6f4'
+      - "#cdd6f4"
     searchingActiveBorderColor:
-      - '#f9e2af'
+      - "#f9e2af"
 
   branchColors:
-    'feature': '#89b4fa'
-    'feat': '#89b4fa'
-    'master': '#b4befe'
-    'main': '#b4befe'
+    "feature": "#89b4fa"
+    "feat": "#89b4fa"
+    "master": "#b4befe"
+    "main": "#b4befe"
 
   authorColors:
-    'Cyber Oliveira': '#FFC0CB'
-    'Monique Oliveira': '#FFC0CB'
-    '*': '#b4befe'
+    "Cyber Oliveira": "#FFC0CB"
+    "Monique Oliveira": "#FFC0CB"
+    "*": "#b4befe"
 
 git:
   parseEmoji: true
+  ignoreWhitespaceInDiffView: true
 
 confirmOnQuit: false
 promptToReturnFromSubprocess: false

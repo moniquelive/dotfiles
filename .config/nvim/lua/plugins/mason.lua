@@ -6,10 +6,10 @@ vim.diagnostic.config({
 	virtual_lines = false, -- { current_line = true },
 	signs = {
 		text = {
-			[vim.diagnostic.severity.ERROR] = '✘',
-			[vim.diagnostic.severity.WARN] = '▲',
-			[vim.diagnostic.severity.HINT] = '⚑',
-			[vim.diagnostic.severity.INFO] = '»',
+			[vim.diagnostic.severity.ERROR] = "✘",
+			[vim.diagnostic.severity.WARN] = "▲",
+			[vim.diagnostic.severity.HINT] = "⚑",
+			[vim.diagnostic.severity.INFO] = "»",
 		},
 	},
 })
@@ -26,7 +26,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
 		-- k("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 		-- k("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
-		k('i', '<C-Space>', '<cmd>lua vim.lsp.completion.trigger()<cr>')
+		k("i", "<C-Space>", "<cmd>lua vim.lsp.completion.trigger()<cr>")
 		k("n", "K", vim.lsp.buf.hover, opts)
 		k("n", "gD", vim.lsp.buf.declaration, opts)
 		k("n", "<F4>", vim.lsp.codelens.run, opts)
@@ -55,6 +55,7 @@ return {
 			build = ":MasonToolsUpdate",
 			cmd = { "MasonToolsClean", "MasonToolsInstall", "MasonToolsUpdate" },
 			opts = {
+				-- stylua: ignore
 				ensure_installed = {
 					"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
 					"elm-format", "elm-language-server", "expert", "flake8", "gitlint", "goimports-reviser",
@@ -63,8 +64,8 @@ return {
 					"pylint", "python-lsp-server", "revive", "rubocop", "ruby-lsp",
 					"staticcheck", "stylua", "tailwindcss-language-server", "typescript-language-server",
 					"vim-language-server", "yaml-language-server", "yapf", -- "zls",
-				}
-			}
+				},
+			},
 		},
 	},
 	event = { "BufRead", "BufNewFile" },
