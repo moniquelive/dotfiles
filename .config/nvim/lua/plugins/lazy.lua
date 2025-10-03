@@ -11,32 +11,32 @@ return {
 		opts = { on_save_enabled = true },
 	},
 	{
-		"elentok/format-on-save.nvim",
-		event = { "BufRead", "BufNewFile" },
-		opts = function()
-			local formatters = require("format-on-save.formatters")
-			local vim_notify = require("format-on-save.error-notifiers.vim-notify")
-			return {
-				error_notifier = vim_notify,
-				exclude_path_patterns = {
-					"/node_modules/",
-					".local/share/nvim/lazy",
-				},
-				formatter_by_ft = {
-					sh = formatters.shfmt,
-					markdown = formatters.prettierd,
-					typescript = formatters.prettierd,
-				},
-				fallback_formatter = {
-					formatters.remove_trailing_whitespace,
-					formatters.remove_trailing_newlines,
-					formatters.lsp,
-				},
-				experiments = {
-					partial_update = 'diff', -- or 'line-by-line'
-				}
-			}
-		end,
+		'stevearc/conform.nvim',
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		keys = {
+			{
+				-- Customize or remove this keymap to your liking
+				"<leader>f",
+				function() require("conform").format({ async = true }) end,
+				mode = "",
+				desc = "Format buffer",
+			},
+		},
+		opts = {
+			-- Define your formatters
+			formatters_by_ft = {
+				lua = { "stylua" },
+				python = { "isort", "black" },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+			},
+			-- Set default options
+			default_format_opts = { lsp_format = "fallback" },
+			-- Set up format-on-save
+			format_on_save = { timeout_ms = 500 },
+			-- Customize formatters
+			formatters = { shfmt = { append_args = { "-i", "2" } } },
+		},
 	},
 	{
 		"folke/lazydev.nvim",
