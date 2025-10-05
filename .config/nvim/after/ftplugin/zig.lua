@@ -18,12 +18,11 @@ vim.g.zig_fmt_parse_errors = 0
 local command = ""
 if string.find(vim.fn.expand("%:p:h"):lower(), "/exercism/") ~= nil then -- are we exercisming?
 	command = [[lcd %:p:h | compiler zig_test | setlocal makeprg=zig\ test\ test_%:t]]
-elseif #vim.fs.find({ "build.zig" }, { stop = vim.env.HOME }) > 0 then   -- are we in a project?
+elseif #vim.fs.find({ "build.zig" }, { stop = vim.env.HOME }) > 0 then -- are we in a project?
 	command = [[setlocal makeprg=zig\ build\ run]]
-else                                                                     -- standalone
+else -- standalone
 	command = [[setlocal makeprg=zig\ run\ %]]
 end
 
-local group = vim.api.nvim_create_augroup("zig_config", { clear = true });
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" },
-	{ group = group, pattern = "*.zig", command = command })
+local group = vim.api.nvim_create_augroup("zig_config", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, { group = group, pattern = "*.zig", command = command })

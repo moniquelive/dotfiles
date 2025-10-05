@@ -2,7 +2,7 @@
 if vim.b.did_ftplugin_main_go then return end
 vim.b.did_ftplugin_main_go = true
 
-vim.cmd.compiler "go"
+vim.cmd.compiler("go")
 vim.opt_local.makeprg = "go run %"
 
 local bufname = vim.api.nvim_buf_get_name(0)

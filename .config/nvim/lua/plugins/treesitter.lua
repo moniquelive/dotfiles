@@ -1,5 +1,3 @@
--- vim.o.foldmethod = "expr"
-
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",

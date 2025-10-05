@@ -9,6 +9,5 @@ else
 	command = [[lcd %:p:h | setlocal makeprg=swift\ %:p]]
 end
 
-local group = vim.api.nvim_create_augroup("swift_config", { clear = true });
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" },
-	{ group = group, pattern = "*.swift", command = command })
+local group = vim.api.nvim_create_augroup("swift_config", { clear = true })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, { group = group, pattern = "*.swift", command = command })

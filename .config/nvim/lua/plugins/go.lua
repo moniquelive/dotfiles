@@ -6,9 +6,9 @@ return {
 	},
 	opts = {
 		golangci_lint = {
-			default = 'standard', -- set to one of { 'standard', 'fast', 'all', 'none' }
-			enable = { 'govet', 'ineffassign', 'revive', 'gosimple' },
-		}
+			default = "standard", -- set to one of { 'standard', 'fast', 'all', 'none' }
+			enable = { "govet", "ineffassign", "revive", "gosimple" },
+		},
 	},
 	ft = { "go", "gomod", "gotext", "gohtml" },
 	keys = {

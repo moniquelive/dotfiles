@@ -12,7 +12,7 @@ local servers = {
 	-- LUA
 	lua_ls = {},
 	-- luacheck = {},
-	-- stylua = {},
+	-- stylua = {}, -- called by conform.nvim
 
 	-- Microsoft
 	omnisharp = {},

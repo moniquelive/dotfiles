@@ -13,65 +13,67 @@ vim.opt.tags:prepend({ "./.git/tags;" })
 vim.scriptencoding = "utf-8"
 
 local opts = {
-  --backspace = "indent,eol,start",
-  --termencoding = "utf-8",
-  --termguicolors = true,
-  autoindent = true,
-  autoread = true,
-  autowriteall = true,
-  breakindent = true,
-  colorcolumn = "+1",
-  copyindent = true,
-  cursorline = true,
-  encoding = "utf-8",
-  equalalways = true,
-  errorbells = false,
-  expandtab = true,
-  foldenable = true,
-  foldlevel = 99,
-  foldmethod = "expr",
-  foldexpr = "v:lua.vim.treesitter.foldexpr()",
-  foldtext = "",
-  foldcolumn = "0",
-  grepprg = [[rg --vimgrep --no-heading --smart-case]],
-  grepformat = "%f:%l:%c:%m",
-  hidden = false,
-  history = 1000,
-  ignorecase = true,
-  incsearch = true,
-  inccommand = "split",
-  joinspaces = false,
-  laststatus = 3,
-  listchars = { tab = "» ", trail = "·", nbsp = "␣" },
-  mouse = "a",
-  mousehide = true,
-  number = true,
-  scrolloff = 1,
-  shiftround = true,
-  shiftwidth = 2,
-  showcmd = true,
-  showmode = false,
-  showtabline = 1,
-  signcolumn = "yes",
-  smartcase = true,
-  smartindent = true,
-  softtabstop = 2,
-  spelllang = "pt_br,en_us",
-  splitbelow = true,
-  splitright = true,
-  startofline = true,
-  swapfile = false,
-  switchbuf = "useopen",
-  tabstop = 2,
-  textwidth = 0,
-  undofile = true,
-  updatetime = 250,
-  viewoptions = "folds,options,cursor,unix,slash",
-  visualbell = true,
-  winborder = 'rounded',
-  wrap = false,
+	--backspace = "indent,eol,start",
+	--termencoding = "utf-8",
+	--termguicolors = true,
+	autoindent = true,
+	autoread = true,
+	autowriteall = true,
+	breakindent = true,
+	colorcolumn = "+1",
+	copyindent = true,
+	cursorline = true,
+	encoding = "utf-8",
+	equalalways = true,
+	errorbells = false,
+	expandtab = true,
+	foldenable = true,
+	foldlevel = 99,
+	foldmethod = "expr",
+	foldexpr = "v:lua.vim.treesitter.foldexpr()",
+	foldtext = "",
+	foldcolumn = "0",
+	grepprg = [[rg --vimgrep --no-heading --smart-case]],
+	grepformat = "%f:%l:%c:%m",
+	hidden = false,
+	history = 1000,
+	ignorecase = true,
+	incsearch = true,
+	inccommand = "split",
+	joinspaces = false,
+	laststatus = 3,
+	listchars = { tab = "» ", trail = "·", nbsp = "␣" },
+	mouse = "a",
+	mousehide = true,
+	number = true,
+	scrolloff = 1,
+	shiftround = true,
+	shiftwidth = 2,
+	showcmd = true,
+	showmode = false,
+	showtabline = 1,
+	signcolumn = "yes",
+	smartcase = true,
+	smartindent = true,
+	softtabstop = 2,
+	spelllang = "pt_br,en_us",
+	splitbelow = true,
+	splitright = true,
+	startofline = true,
+	swapfile = false,
+	switchbuf = "useopen",
+	tabstop = 2,
+	textwidth = 0,
+	undofile = true,
+	updatetime = 250,
+	viewoptions = "folds,options,cursor,unix,slash",
+	visualbell = true,
+	winborder = "rounded",
+	wrap = false,
 }
-for k, v in pairs(opts) do vim.opt[k] = v end
+for k, v in pairs(opts) do
+	vim.opt[k] = v
+end
 
 -- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
 vim.o.magic = true
@@ -80,9 +82,10 @@ vim.o.magic = true
 
 local map_opts = { noremap = true, silent = true }
 for i = 0, 5 do
-  vim.keymap.set("n", "z" .. i, function() vim.opt_local.foldlevel = i end, map_opts)
+	vim.keymap.set("n", "z" .. i, function() vim.opt_local.foldlevel = i end, map_opts)
 end
 
+-- stylua: ignore
 local maps = {
   { "n",          "<leader><leader>", "<c-^>" },
   { "n",          "yow",              "<cmd>set wrap!<cr>" },
@@ -125,7 +128,9 @@ local maps = {
   { "n",          "<F5>",             [[<cmd>make!<CR>]] },
   { "n",          "<tab>",            "za" },
 }
-for _, m in ipairs(maps) do vim.keymap.set(m[1], m[2], m[3], map_opts) end
+for _, m in ipairs(maps) do
+	vim.keymap.set(m[1], m[2], m[3], map_opts)
+end
 
 -- Allow saving of files as sudo when I forgot to start vim using sudo.
 vim.keymap.set("c", "w!!", [[w !sudo tee > /dev/null %]])
@@ -142,6 +147,7 @@ vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 local au = vim.api.nvim_create_autocmd
+-- stylua: ignore
 local cmds = {
   { "QuickFixCmdPost", "*", [[copen]] },      -- Open quickfix window when errors are found
   { "FocusLost",       "*", [[silent! wa]] }, -- Autosave on focus lost
@@ -153,7 +159,9 @@ local cmds = {
   },
 }
 -- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
-for _, c in ipairs(cmds) do au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp }) end
+for _, c in ipairs(cmds) do
+	au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
+end
 
 -- if vim.fn.has("gui_running") == 0 then
 vim.o.ttimeoutlen = 10
@@ -164,18 +172,18 @@ au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_g
 
 -- enable treesitter when available
 au("BufRead", {
-  pattern = "*",
-  callback = function(args)
-    if nil == vim.treesitter.get_parser(args.buf, nil, { error = false }) then return end
-    vim.treesitter.start(args.buf)
-    vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-  end,
-  group = init_lua_grp
+	pattern = "*",
+	callback = function(args)
+		if nil == vim.treesitter.get_parser(args.buf, nil, { error = false }) then return end
+		vim.treesitter.start(args.buf)
+		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+	end,
+	group = init_lua_grp,
 })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`
-au("TextYankPost", { pattern = "*", callback = function() vim.hl.on_yank { higroup = 'Visual', timeout = 300 } end })
+au("TextYankPost", { pattern = "*", callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 300 }) end })
 
 -- Status Line
 vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]
