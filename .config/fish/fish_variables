@@ -51,4 +51,4 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/opt/homebrew/opt/node/bin\x1e/Users/cyber/\x2espicetify\x1e/opt/homebrew/bin\x1e/opt/homebrew/opt/coreutils/bin\x1e/opt/homebrew/opt/coreutils/libexec/gnubin\x1e/opt/homebrew/opt/python/libexec/bin\x1e/Applications/1Password\x2eapp/Contents/MacOS\x1e/Users/cyber/\x2elocal/bin\x1e/Users/cyber/\x2eghcup/bin\x1e/Users/cyber/bin\x1e/Users/cyber/go/bin
+SETUVAR fish_user_paths:/opt/homebrew/opt/node/bin\x1e/Users/cyber/\x2espicetify\x1e/opt/homebrew/bin\x1e/opt/homebrew/opt/coreutils/bin\x1e/opt/homebrew/opt/coreutils/libexec/gnubin\x1e/opt/homebrew/opt/python/libexec/bin\x1e/Applications/1Password\x2eapp/Contents/MacOS\x1e/Users/cyber/\x2elocal/bin\x1e/Users/cyber/\x2eghcup/bin\x1e/Users/cyber/bin\x1e/Users/cyber/go/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS
