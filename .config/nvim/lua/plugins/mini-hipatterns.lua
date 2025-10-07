@@ -291,8 +291,6 @@ local colors = {
 
 return {
 	"nvim-mini/mini.hipatterns",
-	recommended = true,
-	desc = "Highlight colors in your code. Also includes Tailwind CSS support.",
 	event = { "BufRead", "BufNewFile" },
 	opts = function()
 		local hi = require("mini.hipatterns")
