@@ -88,8 +88,6 @@ end
 -- stylua: ignore
 local maps = {
   { "n",          "<leader><leader>", "<c-^>" },
-  { "n",          "yow",              "<cmd>set wrap!<cr>" },
-  { "n",          "yon",              "<cmd>set number!<cr>" },
   -- system clipboard's copy/paste
   { { "n", "v" }, "<leader>y",        '"+y' },
   { { "n", "v" }, "<leader>Y",        '"+Y' },
