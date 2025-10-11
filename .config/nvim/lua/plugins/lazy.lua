@@ -26,10 +26,11 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
+				rust = { "rustfmt", lsp_format = "fallback" },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 			default_format_opts = { lsp_format = "fallback" },
-			format_on_save = { timeout_ms = 500 },
+			format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
 			formatters = { shfmt = { append_args = { "-i", "2" } } },
 		},
 	},

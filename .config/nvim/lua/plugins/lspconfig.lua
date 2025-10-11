@@ -30,6 +30,7 @@ return {
 				-- PYTHON
 				-- autopep8 = {},
 				-- flake8 = {},
+				-- isort = {}, -- called by conform.nvim
 				pylsp = {},
 				pylint = {},
 				-- yapf = {},
