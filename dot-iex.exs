@@ -1,5 +1,5 @@
 defmodule Aliases do
-  def q, do: :init.stop()
+  def q, do: :erlang.halt()
   def r, do: recompile()
   def load_obs(), do: [:wx, :runtime_tools, :observer] |> Enum.each(&Mix.ensure_application!/1)
 end
