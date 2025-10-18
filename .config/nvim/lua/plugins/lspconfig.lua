@@ -17,6 +17,8 @@ return {
 				gopls = {},
 				hls = {},
 				jsonls = {},
+				bashls = {},
+				shellcheck = {},
 
 				-- LUA
 				lua_ls = {},
