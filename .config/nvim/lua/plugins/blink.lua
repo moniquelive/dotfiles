@@ -99,17 +99,14 @@ return {
 		sources = {
 			default = function()
 				local success, node = pcall(vim.treesitter.get_node)
-				if vim.bo.filetype == "lua" then
-					return { "lazydev", "lsp", "path", "supermaven", "snippets" }
-				elseif
+				if
 					success
 					and node
 					and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
 				then
 					return { "buffer" }
-				else
-					return { "lsp", "path", "supermaven", "snippets" }
 				end
+				return { "lazydev", "lsp", "path", "supermaven", "snippets" }
 			end,
 			providers = {
 				lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items

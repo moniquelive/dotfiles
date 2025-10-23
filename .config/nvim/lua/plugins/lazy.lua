@@ -44,6 +44,7 @@ return {
 		opts = {
 			library = {
 				"~/.config/nvim",
+				"~/Exercism/lua",
 				"rfc.nvim",
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				{ path = "${3rd}/love2d/library", words = { "love%." } },
