@@ -112,7 +112,13 @@ return {
 				lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
 				snippets = {
-					should_show_items = function(ctx) return ctx.trigger.initial_kind ~= "trigger_character" end,
+					opts = {
+						extended_filetypes = {
+							markdown = { "jekyll" },
+							sh = { "shelldoc" },
+							ruby = { "rails" },
+						},
+					},
 				},
 				supermaven = {
 					name = "supermaven",
