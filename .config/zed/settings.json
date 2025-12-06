@@ -19,12 +19,12 @@
     "copilot": false
   },
   "theme": "Catppuccin Mocha",
-  "buffer_font_size": 15,
+  "buffer_font_size": 18.0,
   // "buffer_font_family": "Monaspace Neon Var",
   // "buffer_font_family": "Input Mono Narrow",
   // "buffer_font_family": "Zed Mono",
   // "buffer_font_family": "JetBrains Mono",
-  "buffer_font_family": "Geist Mono",
+  "buffer_font_family": "MonoLisa",
   "buffer_font_features": {
     "calt": true,
     "case": true,
