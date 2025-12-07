@@ -25,20 +25,6 @@ return {
 	build = ":MasonUpdate",
 	config = true,
 	init = function()
-		vim.diagnostic.config({
-			underline = true,
-			virtual_text = true,
-			virtual_lines = false, -- { current_line = true },
-			signs = {
-				text = {
-					[vim.diagnostic.severity.ERROR] = "✘",
-					[vim.diagnostic.severity.WARN] = "▲",
-					[vim.diagnostic.severity.HINT] = "⚑",
-					[vim.diagnostic.severity.INFO] = "»",
-				},
-			},
-		})
-
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(args)
@@ -55,7 +41,7 @@ return {
 				k("n", "K", vim.lsp.buf.hover, opts)
 				k("n", "gD", vim.lsp.buf.declaration, opts)
 				k("n", "<F4>", vim.lsp.codelens.run, opts)
-				k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)
+				-- k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)
 				k("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, opts)
 				local client_id = args.data.client_id
 				if not client_id then return end

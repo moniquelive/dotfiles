@@ -2,6 +2,7 @@
 -- vim:set ts=2 sts=2 sw=2 expandtab:
 
 require("config.lazy")
+require("config.diagnostics").setup({ keymap = "<leader>e" })
 
 -----------------------------------------------------------------------------
 
