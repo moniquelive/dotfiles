@@ -11,5 +11,4 @@ SETUVAR _fisher_danhper_2F_fish_2D_ssh_2D_agent_files:\x7e/\x2econfig/fish/funct
 SETUVAR _fisher_plugins:catppuccin/fish\x1edanhper/fish\x2dssh\x2dagent
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_greeting:
-SETUVAR fish_key_bindings:fish_default_key_bindings
 SETUVAR fish_user_paths:/opt/homebrew/opt/node/bin\x1e/Users/cyber/\x2espicetify\x1e/opt/homebrew/bin\x1e/opt/homebrew/opt/coreutils/bin\x1e/opt/homebrew/opt/coreutils/libexec/gnubin\x1e/opt/homebrew/opt/python/libexec/bin\x1e/Applications/1Password\x2eapp/Contents/MacOS\x1e/Users/cyber/\x2elocal/bin\x1e/Users/cyber/\x2eghcup/bin\x1e/Users/cyber/bin\x1e/Users/cyber/go/bin\x1e/Applications/Ghostty\x2eapp/Contents/MacOS
