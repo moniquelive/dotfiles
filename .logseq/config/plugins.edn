@@ -1,7 +1,7 @@
 {:logseq-markdown-table {:version "v1.8.1", :repo "haydenull/logseq-plugin-markdown-table", :effect false, :theme false}
- :logseq-pdf-export-plugin {:version "2.2.10", :repo "sawhney17/logseq-pdf-export", :effect true, :theme false}
- :logseq-vim-shortcuts {:version "v0.1.22", :repo "vipzhicheng/logseq-plugin-vim-shortcuts", :effect true, :theme false}
- :logseq-bujo-theme {:version "1.4.6", :repo "stdword/logseq-bujo-theme", :effect false, :theme true}
+ :logseq-pdf-export-plugin {:version "2.2.11", :repo "sawhney17/logseq-pdf-export", :effect true, :theme false}
+ :logseq-vim-shortcuts {:version "v0.2.0", :repo "vipzhicheng/logseq-plugin-vim-shortcuts", :effect true, :theme false}
  :logseq-bullet-threading {:version "v1.1.4", :repo "pengx17/logseq-plugin-bullet-threading", :effect false, :theme false}
  :logseq-journals-calendar {:version "v0.11.0", :repo "xyhp915/logseq-journals-calendar", :effect false, :theme false}
- :logseq-tags {:version "v0.1.2", :repo "gidongkwon/logseq-plugin-tags", :effect false, :theme false}}
+ :logseq-tags {:version "v0.1.2", :repo "gidongkwon/logseq-plugin-tags", :effect false, :theme false}
+ :logseq-catppuccin {:version "v0.6.4", :repo "catppuccin/logseq", :effect false, :theme true}}

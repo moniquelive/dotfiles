@@ -7,18 +7,20 @@
   "themes": {
     "mode": "dark",
     "light": {
-      "name": "Catppuccin Latte",
-      "url": "assets:///Users/cyber/.logseq/plugins/logseq-catppuccin/ctp-latte.css",
-      "description": "Catppuccin Latte",
+      "name": "Default Light Theme",
+      "url": null,
+      "description": "Logseq default light theme.",
       "mode": "light",
-      "pid": "logseq-catppuccin"
+      "selected": false,
+      "group-first": true,
+      "group-desc": "light themes"
     },
     "dark": {
-      "name": "Coffee",
-      "url": "file:///Users/cyber/.logseq/plugins/logseq-bujo-theme/src/dark-coffee.css",
-      "description": "Coffee",
+      "name": "Catppuccin Macchiato",
+      "url": "file:///Users/cyber/.logseq/plugins/logseq-catppuccin/ctp-macchiato.css",
+      "description": "Catppuccin Macchiato",
       "mode": "dark",
-      "pid": "logseq-bujo-theme",
+      "pid": "logseq-catppuccin",
       "selected": false
     }
   },
