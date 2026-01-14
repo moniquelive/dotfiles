@@ -69,7 +69,7 @@ return {
 			trigger = { show_in_snippet = false },
 			menu = {
 				-- stylua: ignore
-				auto_show = function(_ --[[ctx]]) return not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
+				auto_show = function(_ --[[ctx]], _ --[[items]]) return not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
 
 				-- nvim-cmp style menu
 				draw = {
@@ -81,7 +81,10 @@ return {
 					components = {
 						-- no icons for cmdline
 						kind_icon = {
-							text = function(ctx) return ctx.item.source_id == "cmdline" and "" or ctx.kind_icon end,
+							text = function(ctx)
+								return ctx.item.source_id == "cmdline" and ""
+									or " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+							end,
 						},
 						kind = { text = function(ctx) return ctx.item.source_id == "cmdline" and "" or ctx.kind end },
 					},
@@ -99,11 +102,8 @@ return {
 		sources = {
 			default = function()
 				local success, node = pcall(vim.treesitter.get_node)
-				if
-					success
-					and node
-					and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type())
-				then
+				-- stylua: ignore
+				if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
 					return { "buffer" }
 				end
 				return { "lazydev", "lsp", "path", "supermaven", "snippets" }
@@ -111,7 +111,9 @@ return {
 			providers = {
 				lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },
+				path = { opts = { get_cwd = function(_) return vim.fn.getcwd() end } },
 				snippets = {
+					should_show_items = function(ctx) return ctx.trigger.initial_kind ~= "trigger_character" end,
 					opts = {
 						extended_filetypes = {
 							markdown = { "jekyll" },
@@ -127,7 +129,10 @@ return {
 				},
 			},
 		},
-		fuzzy = { implementation = "prefer_rust" },
+		fuzzy = {
+			sorts = { "exact", "score", "sort_text" },
+			implementation = "prefer_rust",
+		},
 	},
 	opts_extend = { "sources.default" },
 }

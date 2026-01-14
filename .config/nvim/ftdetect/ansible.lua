@@ -46,28 +46,29 @@ local function is_ansible()
 		or match_any(vim.fn.getline(1), shebang_patterns)
 end
 
-local function setup_template()
-	local syntaxes = vim.g.ansible_template_syntaxes or {}
-	local fullpath = vim.fn.expand("%:p")
-
-	for pattern, syntax in pairs(syntaxes) do
-		if fullpath:match(vim.fn.glob2regpat(pattern)) then
-			vim.bo.filetype = syntax .. ".jinja2"
-			return
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "*",
+	callback = function()
+		if is_ansible() then vim.bo.filetype = "yaml.ansible" end
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "*.j2",
+	callback = function()
+		local syntaxes = vim.g.ansible_template_syntaxes or {}
+		local fullpath = vim.fn.expand("%:p")
+		for pattern, syntax in pairs(syntaxes) do
+			if fullpath:match(vim.fn.glob2regpat(pattern)) then
+				vim.bo.filetype = syntax .. ".jinja2"
+				return
+			end
 		end
-	end
-
-	vim.bo.filetype = "jinja2"
-end
-
-local au = function(events, pattern, callback)
-	vim.api.nvim_create_autocmd(events, { pattern = pattern, callback = callback })
-end
-
-au({ "BufNewFile", "BufRead" }, "*", function()
-	if is_ansible() then vim.bo.filetype = "yaml.ansible" end
-end)
-au({ "BufNewFile", "BufRead" }, "*.j2", setup_template)
-au({ "BufNewFile", "BufRead" }, "hosts", function() vim.bo.filetype = "ansible_hosts" end)
+		vim.bo.filetype = "jinja2"
+	end,
+})
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "hosts",
+	callback = function() vim.bo.filetype = "ansible_hosts" end,
+})
 
 return M

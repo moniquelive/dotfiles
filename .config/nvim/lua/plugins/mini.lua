@@ -31,6 +31,7 @@ return {
 			})
 			require("mini.splitjoin").setup()
 			require("mini.surround").setup()
+			require("mini.diff").setup()
 			require("mini.statusline").setup()
 			require("mini.trailspace").setup()
 			require("mini.misc").setup_restore_cursor()

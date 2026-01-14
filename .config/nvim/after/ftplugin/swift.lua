@@ -10,4 +10,8 @@ else
 end
 
 local group = vim.api.nvim_create_augroup("swift_config", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, { group = group, pattern = "*.swift", command = command })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	group = group,
+	pattern = "*.swift",
+	command = command,
+})

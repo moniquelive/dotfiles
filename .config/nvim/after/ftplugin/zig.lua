@@ -25,4 +25,8 @@ else -- standalone
 end
 
 local group = vim.api.nvim_create_augroup("zig_config", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, { group = group, pattern = "*.zig", command = command })
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
+	group = group,
+	pattern = "*.zig",
+	command = command,
+})

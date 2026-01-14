@@ -1,85 +1,77 @@
 -- This is MoniqueLive's init.lua file
 -- vim:set ts=2 sts=2 sw=2 expandtab:
 
+------------------------------------------------------------ local plugins --
 require("config.lazy")
-require("config.diagnostics").setup({ keymap = "<leader>e" })
-
+require("config.diagnostics").setup({ keymap = "<c-w>d" })
 -----------------------------------------------------------------------------
 
 vim.g.netrw_altfile = 1 -- <C-6> returns to files
 
 vim.opt.iskeyword:remove({ ".", "#", "-" })
 vim.opt.tags:prepend({ "./.git/tags;" })
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 vim.scriptencoding = "utf-8"
 
-local opts = {
-	--backspace = "indent,eol,start",
-	--termencoding = "utf-8",
-	--termguicolors = true,
-	autoindent = true,
-	autoread = true,
-	autowriteall = true,
-	breakindent = true,
-	colorcolumn = "+1",
-	copyindent = true,
-	cursorline = true,
-	encoding = "utf-8",
-	equalalways = true,
-	errorbells = false,
-	expandtab = true,
-	foldenable = true,
-	foldlevel = 99,
-	foldmethod = "expr",
-	foldexpr = "v:lua.vim.treesitter.foldexpr()",
-	foldtext = "",
-	foldcolumn = "0",
-	grepprg = [[rg --vimgrep --no-heading --smart-case]],
-	grepformat = "%f:%l:%c:%m",
-	hidden = false,
-	history = 1000,
-	ignorecase = true,
-	incsearch = true,
-	inccommand = "split",
-	joinspaces = false,
-	laststatus = 3,
-	listchars = { tab = "» ", trail = "·", nbsp = "␣" },
-	mouse = "a",
-	mousehide = true,
-	number = true,
-	scrolloff = 1,
-	shiftround = true,
-	shiftwidth = 2,
-	showcmd = true,
-	showmode = false,
-	showtabline = 1,
-	signcolumn = "yes",
-	smartcase = true,
-	smartindent = true,
-	softtabstop = 2,
-	spelllang = "pt_br,en_us",
-	splitbelow = true,
-	splitright = true,
-	startofline = true,
-	swapfile = false,
-	switchbuf = "useopen",
-	tabstop = 2,
-	textwidth = 0,
-	undofile = true,
-	updatetime = 250,
-	viewoptions = "folds,options,cursor,unix,slash",
-	visualbell = true,
-	winborder = "rounded",
-	wrap = false,
-}
-for k, v in pairs(opts) do
-	vim.opt[k] = v
-end
-
--- See http://stevelosh.com/blog/2010/09/coming-home-to-vim
+--vim.opt.backspace = "indent,eol,start"
+vim.o.autoindent = true
+vim.o.autoread = true
+vim.o.autowriteall = true
+vim.o.breakindent = true
+vim.o.colorcolumn = "+1"
+vim.o.copyindent = true
+vim.o.cursorline = true
+vim.o.encoding = "utf-8"
+vim.o.equalalways = true
+vim.o.errorbells = false
+vim.o.expandtab = true
+vim.o.foldcolumn = "0"
+vim.o.foldenable = true
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.o.foldlevel = 99
+vim.o.foldmethod = "expr"
+vim.o.foldtext = ""
+vim.o.grepformat = "%f:%l:%c:%m"
+vim.o.grepprg = [[rg --vimgrep --no-heading --smart-case]]
+vim.o.hidden = false
+vim.o.history = 1000
+vim.o.ignorecase = true
+vim.o.inccommand = "split"
+vim.o.incsearch = true
+vim.o.joinspaces = false
+vim.o.laststatus = 3
+vim.o.lazyredraw = true
 vim.o.magic = true
--- k.set("n", "/", [[/\v]])
--- k.set("v", "/", [[/\v]])
+vim.o.mouse = "a"
+vim.o.mousehide = true
+vim.o.number = true
+vim.o.scrolloff = 1
+vim.o.shiftround = true
+vim.o.shiftwidth = 2
+vim.o.showcmd = true
+vim.o.showmode = false
+vim.o.showtabline = 1
+vim.o.signcolumn = "yes"
+vim.o.smartcase = true
+vim.o.smartindent = true
+vim.o.softtabstop = 2
+vim.o.spelllang = "pt_br,en_us"
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.startofline = true
+vim.o.statusline = table.concat({ " %t", "%r", "%m", "%=", "%{&filetype}", " %2p%%", " %3l:%-2c " })
+vim.o.swapfile = false
+vim.o.switchbuf = "useopen"
+vim.o.tabstop = 2
+vim.o.textwidth = 0
+vim.o.ttimeoutlen = 10
+vim.o.undofile = true
+vim.o.updatetime = 250
+vim.o.viewoptions = "folds,options,cursor,unix,slash"
+vim.o.visualbell = true
+vim.o.winborder = "rounded"
+vim.o.wrap = false
 
 local map_opts = { noremap = true, silent = true }
 for i = 0, 5 do
@@ -145,7 +137,6 @@ vim.cmd([[highlight LspReferenceRead cterm=bold ctermbg=green guibg=#104010]])
 vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
-local au = vim.api.nvim_create_autocmd
 -- stylua: ignore
 local cmds = {
   { "QuickFixCmdPost", "*", [[copen]] },      -- Open quickfix window when errors are found
@@ -159,18 +150,11 @@ local cmds = {
 }
 -- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
 for _, c in ipairs(cmds) do
-	au(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
+	vim.api.nvim_create_autocmd(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
 end
 
--- if vim.fn.has("gui_running") == 0 then
-vim.o.ttimeoutlen = 10
-vim.o.lazyredraw = true
-au("InsertEnter", { pattern = "*", command = [[set timeoutlen=0]], group = init_lua_grp })
-au("InsertLeave", { pattern = "*", command = [[set tm=1000]], group = init_lua_grp })
--- end
-
 -- enable treesitter when available
-au("BufRead", {
+vim.api.nvim_create_autocmd("BufRead", {
 	pattern = "*",
 	callback = function(args)
 		if nil == vim.treesitter.get_parser(args.buf, nil, { error = false }) then return end
@@ -182,27 +166,8 @@ au("BufRead", {
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`
-au("TextYankPost", { pattern = "*", callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 300 }) end })
-
--- Status Line
-vim.o.statusline = [[%h%m%r%=%<%f%=%b 0x%B  %l,%c%V %P]]
-
--- Grep: https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
-vim.cmd([[
-function! Grep(...)
-  return system(join([&grepprg] + [expandcmd(join(a:000, ' '))], ' '))
-endfunction
-
-command! -nargs=+ -complete=file_in_path -bar Grep  cgetexpr Grep(<f-args>)
-command! -nargs=+ -complete=file_in_path -bar LGrep lgetexpr Grep(<f-args>)
-
-cnoreabbrev <expr> gr    (getcmdtype() ==# ':' && getcmdline() ==# 'gr')  ? 'Grep'  : 'grep'
-cnoreabbrev <expr> grep  (getcmdtype() ==# ':' && getcmdline() ==# 'grep')  ? 'Grep'  : 'grep'
-cnoreabbrev <expr> lgrep (getcmdtype() ==# ':' && getcmdline() ==# 'lgrep') ? 'LGrep' : 'lgrep'
-
-augroup quickfix
-  autocmd!
-  autocmd QuickFixCmdPost cgetexpr cwindow
-  autocmd QuickFixCmdPost lgetexpr lwindow
-augroup END
-]])
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 300 }) end,
+	group = init_lua_grp,
+})
