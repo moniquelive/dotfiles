@@ -43,6 +43,7 @@ return {
 
 				sourcekit = {},
 				tailwindcss = {},
+				tombi = {},
 				yamlls = {},
 				zls = {},
 			}
