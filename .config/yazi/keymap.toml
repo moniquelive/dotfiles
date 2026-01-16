@@ -1,9 +1,9 @@
 [[input.prepend_keymap]]
-on   = [ "<Esc>" ]
+on = "<Esc>"
 run = "close"
 desc = "Cancel input"
 
 [[mgr.prepend_keymap]]
-on   = [ "l" ]
+on = "l"
 run = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
