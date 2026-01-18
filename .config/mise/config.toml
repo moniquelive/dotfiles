@@ -5,7 +5,6 @@ idiomatic_version_file_enable_tools = ["ruby"]
 
 [tools]
 go = "latest"
-lua = "latest"
 golangci-lint = "latest"
 erlang = "latest"
 elixir = "latest"
