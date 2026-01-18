@@ -44,15 +44,15 @@ return {
 				{ pane = 2, section = "projects", padding = 1, icon = " ", title = "Projects" },
 			},
 		},
-		explorer = { enabled = true },
-		image = { enabled = true },
+		explorer = {},
+		image = {},
 		indent = {
-			indent = { enabled = true },
+			indent = {},
 			animate = { easing = "inOutCubic" }, -- https://github.com/kikito/tween.lua?tab=readme-ov-file#easing-functions
 		},
-		input = { enabled = true },
-		lazygit = { enabled = true },
-		notifier = { enabled = true },
+		input = {},
+		lazygit = {},
+		notifier = {},
 		picker = {
 			enabled = true,
 			sources = {
@@ -72,11 +72,11 @@ return {
 				},
 			},
 		},
-		quickfile = { enabled = true },
-		scratch = { enabled = true },
-		scroll = { enabled = true },
+		quickfile = {},
+		scratch = {},
+		scroll = {},
 		statuscolumn = { enabled = true, folds = { open = true, git_hl = true } },
-		words = { enabled = true },
+		words = {},
 		styles = { notification = { wo = { wrap = true } } },
 	},
 	init = function()
@@ -127,7 +127,7 @@ return {
 					title = client.name,
 					opts = function(notif)
 						notif.icon = #progress[client.id] == 0 and " "
-								or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
+							or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
 					end,
 				})
 			end,

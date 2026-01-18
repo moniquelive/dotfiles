@@ -11,6 +11,7 @@ return {
 				clangd = {},
 				djlint = {},
 				dockerls = {},
+				elmls = {},
 				expert = {},
 				fish_lsp = {},
 				ghcide = {},
