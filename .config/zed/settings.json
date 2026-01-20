@@ -7,11 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "current_line_highlight": "all",
+  "ui_font_size": 18.0,
+  "buffer_line_height": "standard",
   "agent": {
     "always_allow_tool_actions": true,
     "default_model": {
-      "provider": "ollama",
-      "model": "gpt-oss:20b"
+      "provider": "openai",
+      "model": "gpt-5-codex"
     },
   },
   "features": {
@@ -19,7 +22,7 @@
     "copilot": false
   },
   "theme": "Catppuccin Mocha",
-  "buffer_font_size": 18.0,
+  "buffer_font_size": 20.0,
   // "buffer_font_family": "Monaspace Neon Var",
   // "buffer_font_family": "Input Mono Narrow",
   // "buffer_font_family": "Zed Mono",
