@@ -53,4 +53,6 @@ if status is-interactive
         command -q fzf; and fzf --fish | source
     end
     command -q carapace; and carapace _carapace | source
+else
+    mise activate fish --shims | source
 end
