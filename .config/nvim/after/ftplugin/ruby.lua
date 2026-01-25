@@ -3,6 +3,10 @@ vim.opt_local.makeprg = "ruby --zjit %"
 
 vim.cmd.iabbrev("fsl", "# frozen_string_literal: true")
 
+if string.find(vim.fn.expand("%:p"):lower(), "/exercism/") ~= nil then -- are we exercisming?
+	vim.opt_local.makeprg = "minitest ."
+end
+
 local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 if #lines == 1 and lines[1] == "" then
 	local skeleton = [[#! /usr/bin/env ruby

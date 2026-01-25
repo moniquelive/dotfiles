@@ -7,6 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "git_panel": {
+    "tree_view": true
+  },
+  "icon_theme": {
+    "mode": "system",
+    "light": "Zed (Default)",
+    "dark": "Zed (Default)",
+  },
   "current_line_highlight": "all",
   "ui_font_size": 18.0,
   "buffer_line_height": "standard",
@@ -14,57 +22,43 @@
     "always_allow_tool_actions": true,
     "default_model": {
       "provider": "openai",
-      "model": "gpt-5-codex"
+      "model": "gpt-5-codex",
     },
   },
   "features": {
     "edit_prediction_provider": "zed",
-    "copilot": false
   },
-  "theme": "Catppuccin Mocha",
+  "theme": {
+    "mode": "system",
+    "light": "Catppuccin Mocha",
+    "dark": "Catppuccin Mocha",
+  },
   "buffer_font_size": 20.0,
-  // "buffer_font_family": "Monaspace Neon Var",
-  // "buffer_font_family": "Input Mono Narrow",
-  // "buffer_font_family": "Zed Mono",
-  // "buffer_font_family": "JetBrains Mono",
   "buffer_font_family": "MonoLisa",
   "buffer_font_features": {
     "calt": true,
     "case": true,
     "liga": true,
     "ss01": true,
-    "ss02": true,
+    // "ss02": true,
     "ss03": true,
     "ss04": true,
     "ss05": true,
     "ss06": true,
     "ss07": true,
-    "ss08": true
+    "ss08": true,
   },
   "vim_mode": true,
   "autosave": "on_focus_change",
   "terminal": {
-    "option_as_meta": false
+    "option_as_meta": true,
   },
   "lsp": {
     "elixir-ls": {
       "settings": {
-        "dialyzerEnabled": false
-      }
-    }
+        "dialyzerEnabled": false,
+      },
+    },
   },
-  "context_servers": {
-    
-  }
-  // Settings specific to our elixir integration
-  // "languages": {
-  //   "Elixir": {
-  //     "format_on_save": {
-  //       "external": {
-  //         "command": "mix",
-  //         "arguments": ["format", "--stdin-filename", "{buffer_path}", "-"]
-  //       }
-  //     }
-  //   }
-  // }
+  "context_servers": {},
 }
