@@ -39,8 +39,7 @@ return {
 				-- yapf = {},
 
 				-- RUBY
-				ruby_lsp = {},
-				rubocop = {},
+				solargraph = {},
 
 				sourcekit = {},
 				tailwindcss = {},
