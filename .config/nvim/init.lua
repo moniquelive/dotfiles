@@ -171,3 +171,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 300 }) end,
 	group = init_lua_grp,
 })
+
+-- closes QuickFix window when empty
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	pattern = "*",
+	command = "cwindow",
+	group = init_lua_grp,
+})
