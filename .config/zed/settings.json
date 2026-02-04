@@ -7,13 +7,20 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "vim": {
+    "use_smartcase_find": true,
+    "use_system_clipboard": "on_yank"
+  },
+  "rounded_selection": true,
+  "inline_code_actions": true,
+  "hover_popover_enabled": true,
   "git_panel": {
-    "tree_view": true
+    "tree_view": true,
   },
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)",
+    "dark": "Catppuccin Mocha",
   },
   "current_line_highlight": "all",
   "ui_font_size": 18.0,
@@ -57,6 +64,16 @@
     "elixir-ls": {
       "settings": {
         "dialyzerEnabled": false,
+      },
+    },
+  },
+  "languages": {
+    "JavaScript": {
+      "formatter": {
+        "external": {
+          "command": "prettier",
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
+        },
       },
     },
   },
