@@ -2,8 +2,9 @@
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
+      "tab": "editor::ToggleFold",
       "shift-k": "editor::Hover",
-      "g .": "editor::ToggleCodeActions" // zed specific
-    }
-  }
+      "g .": "editor::ToggleCodeActions", // zed specific
+    },
+  },
 ]

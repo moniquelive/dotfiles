@@ -9,7 +9,7 @@
 {
   "vim": {
     "use_smartcase_find": true,
-    "use_system_clipboard": "on_yank"
+    "use_system_clipboard": "on_yank",
   },
   "rounded_selection": true,
   "inline_code_actions": true,
