@@ -7,10 +7,6 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "restore_on_startup": "launchpad",
-  "edit_predictions": {
-    "provider": "zed"
-  },
   "disable_ai": true,
   "vim": {
     "use_smartcase_find": true,
@@ -36,6 +32,9 @@
       "provider": "openai",
       "model": "gpt-5-codex",
     },
+  },
+  "features": {
+    "edit_prediction_provider": "zed",
   },
   "theme": {
     "mode": "system",
