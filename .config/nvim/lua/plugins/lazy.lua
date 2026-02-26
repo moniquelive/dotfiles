@@ -43,6 +43,7 @@ return {
 		ft = "lua",
 		opts = {
 			library = {
+				"~/.dotfiles/.config/nvim",
 				"~/.config/nvim",
 				"~/Exercism/lua",
 				"rfc.nvim",

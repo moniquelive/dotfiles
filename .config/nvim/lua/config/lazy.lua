@@ -15,9 +15,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -----------------------------------------------------------------------------
-require("lazy").setup({
-	spec = { { import = "plugins" } },
+require("lazy").setup("plugins", {
 	defaults = { lazy = true },
+	change_detection = { notify = false },
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"netrwPlugin",
+				"rplugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
+	},
 })
 
 local map_opts = { noremap = true, silent = true }
