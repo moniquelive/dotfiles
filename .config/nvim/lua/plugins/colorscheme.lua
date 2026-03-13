@@ -11,7 +11,7 @@ return {
 				show_end_of_buffer = true,
 				dim_inactive = { enabled = true },
 			})
-			vim.cmd.colorscheme("catppuccin")
+			vim.cmd.colorscheme("catppuccin-nvim")
 		end,
 	},
 }
