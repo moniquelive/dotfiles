@@ -42,7 +42,6 @@ return {
 				k("n", "gD", vim.lsp.buf.declaration, opts)
 				k("n", "<F4>", vim.lsp.codelens.run, opts)
 				-- k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)
-				k("n", "<leader>f", function() vim.lsp.buf.format({ async = true }) end, opts)
 				local client_id = args.data.client_id
 				if not client_id then return end
 				local client = vim.lsp.get_client_by_id(client_id)

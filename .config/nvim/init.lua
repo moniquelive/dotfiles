@@ -139,7 +139,7 @@ vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 -- stylua: ignore
 local cmds = {
-  { "QuickFixCmdPost", "*", [[copen]] },      -- Open quickfix window when errors are found
+  { "QuickFixCmdPost", "*", [[cwindow]] },    -- Open quickfix window when errors are found
   { "FocusLost",       "*", [[silent! wa]] }, -- Autosave on focus lost
   { "VimResized",      "*", [[wincmd =]] },   -- let terminal resize scale the internal windows
   {
@@ -169,12 +169,5 @@ vim.api.nvim_create_autocmd("BufRead", {
 vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 	callback = function() vim.hl.on_yank({ higroup = "Visual", timeout = 300 }) end,
-	group = init_lua_grp,
-})
-
--- closes QuickFix window when empty
-vim.api.nvim_create_autocmd("QuickFixCmdPost", {
-	pattern = "*",
-	command = "cwindow",
 	group = init_lua_grp,
 })

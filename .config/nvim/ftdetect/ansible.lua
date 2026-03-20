@@ -6,9 +6,12 @@ local function match_any(str, patterns)
 end
 
 local function is_ansible()
-	local path, fullpath, filename = vim.fn.expand("%:h"), vim.fn.expand("%:p"), vim.fn.expand("%:t")
+	local fullpath, filename = vim.fn.expand("%:p"), vim.fn.expand("%:t")
+	if fullpath == "" then return false end
+
+	local path = vim.fn.fnamemodify(fullpath, ":h")
 	local ext = vim.fn.expand("%:e")
-	local has_cfg = vim.fn.filereadable(vim.fs.joinpath(path, "ansible.cfg")) == 1
+	local has_cfg = #vim.fs.find({ "ansible.cfg" }, { path = path, upward = true }) > 0
 
 	local yaml = { yml = true, yaml = true }
 	local root = yaml[ext] and has_cfg

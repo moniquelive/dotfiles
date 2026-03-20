@@ -8,7 +8,15 @@ return {
 			opts = {
 				disable_inline_completion = true, -- disables inline completion for use with cmp
 				disable_keymaps = true, -- disables built in keymaps for more manual control
+				log_level = "off",
 			},
+			config = function(_, opts)
+				local logger = require("supermaven-nvim.logger")
+				local warn = logger.warn
+				logger.warn = function() end
+				require("supermaven-nvim").setup(opts)
+				logger.warn = warn
+			end,
 		},
 		{ "huijiro/blink-cmp-supermaven" },
 	},
