@@ -46,6 +46,7 @@ if status is-interactive
     command -q zoxide; and zoxide init --cmd cd fish | source
     command -q tailscale; and tailscale completion fish | source
     command -q carapace; and carapace _carapace fish | source
+    command -q mole; and mole completion fish | source
     if command -q tv
         tv init fish | source
     else
