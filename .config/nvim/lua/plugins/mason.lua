@@ -12,7 +12,7 @@ return {
 					"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
 					"elm-format", "elm-language-server", "expert", "flake8", "gitlint", "goimports-reviser",
 					"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
-					"lua-language-server", "luacheck", "markdownlint", "powershell-editor-services", "prettierd",
+					"lua-language-server", "markdownlint", "powershell-editor-services", "prettierd",
 					"pylint", "python-lsp-server", "revive",
 					"solargraph", "staticcheck", "stylua", "tailwindcss-language-server", "tombi", "typescript-language-server",
 					"vim-language-server", "yaml-language-server", "yapf", -- "zls",
@@ -28,9 +28,9 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
 			callback = function(args)
-				vim.lsp.codelens.refresh()
-
 				local bufnr = args.buf
+				vim.lsp.codelens.enable(true, { bufnr = bufnr })
+
 				local opts = { noremap = true, silent = true, buffer = bufnr }
 				local k = vim.keymap.set
 				-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",

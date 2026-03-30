@@ -1,7 +1,6 @@
 return {
 	{
 		"neovim/nvim-lspconfig",
-		dependencies = { "saghen/blink.cmp" },
 		event = { "BufRead", "BufNewFile" },
 		init = function()
 			-- global config
@@ -48,7 +47,6 @@ return {
 				zls = {},
 			}
 			for server, config in pairs(servers) do
-				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
 				vim.lsp.config(server, config)
 				vim.lsp.enable(server)
 			end
