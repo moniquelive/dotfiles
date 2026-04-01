@@ -37,6 +37,7 @@ vim.o.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 vim.o.hidden = false
 vim.o.history = 1000
 vim.o.ignorecase = true
+vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 vim.o.inccommand = "split"
 vim.o.incsearch = true
 vim.o.joinspaces = false
