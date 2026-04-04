@@ -2,6 +2,8 @@
 if vim.b.did_ftplugin_zig then return end
 vim.b.did_ftplugin_zig = true
 
+local path = require("config.path")
+
 -- vim.api.nvim_create_autocmd('BufWritePre', {
 -- 	pattern = { "*.zig", "*.zon" },
 -- 	callback = function()
@@ -15,18 +17,11 @@ vim.b.did_ftplugin_zig = true
 
 vim.g.zig_fmt_parse_errors = 0
 
-local command = ""
-if string.find(vim.fn.expand("%:p:h"):lower(), "/exercism/") ~= nil then -- are we exercisming?
-	command = [[lcd %:p:h | compiler zig_test | setlocal makeprg=zig\ test\ test_%:t]]
-elseif #vim.fs.find({ "build.zig" }, { stop = vim.env.HOME }) > 0 then -- are we in a project?
-	command = [[setlocal makeprg=zig\ build\ run]]
+if path.is_exercism(vim.fn.expand("%:p:h")) then
+	vim.cmd.compiler("zig_test")
+	vim.opt_local.makeprg = "cd %:p:h && zig test test_%:t"
+elseif #vim.fs.find({ "build.zig" }, { path = vim.fn.expand("%:p:h"), upward = true, stop = vim.env.HOME }) > 0 then
+	vim.opt_local.makeprg = "zig build run"
 else -- standalone
-	command = [[setlocal makeprg=zig\ run\ %]]
+	vim.opt_local.makeprg = "zig run %"
 end
-
-local group = vim.api.nvim_create_augroup("zig_config", { clear = true })
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-	group = group,
-	pattern = "*.zig",
-	command = command,
-})

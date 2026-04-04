@@ -6,13 +6,9 @@ require("config.lazy")
 require("config.diagnostics").setup({ keymap = "<c-w>d" })
 -----------------------------------------------------------------------------
 
-vim.g.netrw_altfile = 1 -- <C-6> returns to files
-
 vim.opt.iskeyword:remove({ ".", "#", "-" })
 vim.opt.tags:prepend({ "./.git/tags;" })
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
-vim.scriptencoding = "utf-8"
 
 --vim.opt.backspace = "indent,eol,start"
 vim.o.autoindent = true
@@ -142,11 +138,11 @@ local cmds = {
   { "QuickFixCmdPost", "*", [[cwindow]] },    -- Open quickfix window when errors are found
   { "FocusLost",       "*", [[silent! wa]] }, -- Autosave on focus lost
   { "VimResized",      "*", [[wincmd =]] },   -- let terminal resize scale the internal windows
-  {
-    "FileType",
-    { "qf", "fugitive", "fugitiveblame", "netrw" },
-    [[ nnoremap <buffer><silent> q <cmd>close<CR> ]],
-  },
+	{
+		"FileType",
+		{ "qf", "fugitive", "fugitiveblame" },
+		[[ nnoremap <buffer><silent> q <cmd>close<CR> ]],
+	},
 }
 -- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
 for _, c in ipairs(cmds) do

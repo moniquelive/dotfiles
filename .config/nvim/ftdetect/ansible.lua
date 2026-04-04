@@ -1,8 +1,8 @@
-local M = {}
-
 -- TODO: h: plenary-test
 local function match_any(str, patterns)
-	return vim.tbl_contains(vim.tbl_map(function(p) return str:match(p) ~= nil end, patterns), true)
+	return vim.iter(patterns):any(function(pattern)
+		return str:match(pattern) ~= nil
+	end)
 end
 
 local function is_ansible()
@@ -34,15 +34,6 @@ local function is_ansible()
 		"^#!.*bin/ansible%-playbook",
 	}
 
-	-- vim.print(
-	-- 	filename_patterns ,
-	-- 	filename,
-	-- 	root,
-	-- 	match_any(fullpath, file_patterns),
-	-- 	match_any(filename, filename_patterns),
-	-- 	match_any(vim.fn.getline(1), shebang_patterns)
-	-- )
-
 	return root
 		or match_any(fullpath, file_patterns)
 		or match_any(filename, filename_patterns)
@@ -60,18 +51,14 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	callback = function()
 		local syntaxes = vim.g.ansible_template_syntaxes or {}
 		local fullpath = vim.fn.expand("%:p")
-		for pattern, syntax in pairs(syntaxes) do
-			if fullpath:match(vim.fn.glob2regpat(pattern)) then
-				vim.bo.filetype = syntax .. ".jinja2"
-				return
-			end
-		end
-		vim.bo.filetype = "jinja2"
+		local _, syntax = vim.iter(syntaxes):find(function(pattern)
+			return vim.regex(vim.fn.glob2regpat(pattern)):match_str(fullpath) ~= nil
+		end)
+
+		vim.bo.filetype = syntax and (syntax .. ".jinja2") or "jinja2"
 	end,
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "hosts",
 	callback = function() vim.bo.filetype = "ansible_hosts" end,
 })
-
-return M

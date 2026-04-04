@@ -1,7 +1,6 @@
 local function k(name)
 	return function()
 		local harpoon = require("harpoon")
-		harpoon:setup()
 		if name == "menu" then
 			return harpoon.ui:toggle_quick_menu(harpoon:list())
 		elseif name == "add" then
@@ -22,6 +21,7 @@ return {
 			{ "<M-9>", k("add") },
 		},
 		config = function()
+			require("harpoon"):setup()
 			for i = 1, 8 do
 				vim.keymap.set("n", ("<M-%d>"):format(i), k("nav" .. i), { noremap = true, silent = true })
 			end
