@@ -37,7 +37,6 @@ vim.o.grepprg = [[rg --vimgrep --no-heading --smart-case]]
 vim.o.hidden = false
 vim.o.history = 1000
 vim.o.ignorecase = true
-vim.o.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 vim.o.inccommand = "split"
 vim.o.incsearch = true
 vim.o.joinspaces = false
@@ -153,17 +152,6 @@ local cmds = {
 for _, c in ipairs(cmds) do
 	vim.api.nvim_create_autocmd(c[1], { pattern = c[2], command = c[3], group = init_lua_grp })
 end
-
--- enable treesitter when available
-vim.api.nvim_create_autocmd("BufRead", {
-	pattern = "*",
-	callback = function(args)
-		if nil == vim.treesitter.get_parser(args.buf, nil, { error = false }) then return end
-		vim.treesitter.start(args.buf)
-		vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-	end,
-	group = init_lua_grp,
-})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`

@@ -1,23 +1,12 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		branch = "main",
 		lazy = false,
 		build = ":TSUpdate",
-		opts = {
-			endwise = { enable = true },
-			textobjects = { enable = false },
-			matchup = { enable = true }, -- mandatory, false will disable the whole extension ,
-			incremental_selection = {
-				enable = true,
-				keymaps = {
-					init_selection = "<M-UP>", -- set to `false` to disable one of the mappings
-					node_incremental = "<M-UP>",
-					scope_incremental = "<M-RIGHT>",
-					node_decremental = "<M-DOWN>",
-				},
-			},
-		},
-		init = function()
+		config = function()
+			local treesitter = require("nvim-treesitter")
+
 			local ensure_installed = {
 				"bash",
 				"c",
@@ -49,26 +38,41 @@ return {
 				"yaml",
 				"zig",
 			}
-			local alreadyInstalled = require("nvim-treesitter.config").get_installed()
-			local parsersToInstall = vim.iter(ensure_installed)
-				:filter(function(parser) return not vim.tbl_contains(alreadyInstalled, parser) end)
+
+			local already_installed = treesitter.get_installed("parsers") or {}
+			local parsers_to_install = vim.iter(ensure_installed)
+				:filter(function(parser) return not vim.tbl_contains(already_installed, parser) end)
 				:totable()
-			require("nvim-treesitter").install(parsersToInstall)
+			if #parsers_to_install > 0 then treesitter.install(parsers_to_install) end
+
+			local treesitter_group = vim.api.nvim_create_augroup("treesitter_features", { clear = true })
 
 			vim.api.nvim_create_autocmd("FileType", {
-				callback = function()
+				group = treesitter_group,
+				callback = function(ev)
 					-- Enable treesitter highlighting and disable regex syntax
-					pcall(vim.treesitter.start)
+					local ok = pcall(vim.treesitter.start, ev.buf)
 					-- Enable treesitter-based indentation
-					vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					if ok then
+						vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
 				end,
 			})
 
-			require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, _)
+			vim.keymap.set("n", "<M-UP>", "van", { silent = true, desc = "Treesitter init selection" })
+			vim.keymap.set("x", "<M-UP>", "an", { silent = true, desc = "Treesitter expand selection" })
+			vim.keymap.set("x", "<M-RIGHT>", "]n", { silent = true, desc = "Treesitter next node" })
+			vim.keymap.set("x", "<M-DOWN>", "in", { silent = true, desc = "Treesitter shrink selection" })
+
+			vim.treesitter.query.add_predicate("is-mise?", function(_, _, bufnr, _)
 				local filepath = vim.api.nvim_buf_get_name(tonumber(bufnr) or 0)
 				local filename = vim.fn.fnamemodify(filepath, ":t")
 				return string.match(filename, ".*mise.*%.toml$") ~= nil
 			end, { force = true, all = false })
 		end,
+	},
+	{
+		"RRethy/nvim-treesitter-endwise",
+		event = "InsertEnter",
 	},
 }
