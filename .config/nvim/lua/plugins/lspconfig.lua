@@ -46,10 +46,10 @@ return {
 				yamlls = {},
 				zls = {},
 			}
-			for server, config in pairs(servers) do
+			vim.iter(servers):each(function(server, config)
 				vim.lsp.config(server, config)
 				vim.lsp.enable(server)
-			end
+			end)
 		end,
 	},
 }

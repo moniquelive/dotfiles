@@ -40,8 +40,13 @@ return {
 			}
 
 			local already_installed = treesitter.get_installed("parsers") or {}
+			local installed_set = {}
+			vim.iter(already_installed):each(function(parser)
+				installed_set[parser] = true
+			end)
+
 			local parsers_to_install = vim.iter(ensure_installed)
-				:filter(function(parser) return not vim.tbl_contains(already_installed, parser) end)
+				:filter(function(parser) return not installed_set[parser] end)
 				:totable()
 			if #parsers_to_install > 0 then treesitter.install(parsers_to_install) end
 
