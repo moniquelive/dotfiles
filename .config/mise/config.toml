@@ -1,8 +1,8 @@
 [settings]
 experimental = true
-vfox = false
 idiomatic_version_file_enable_tools = ["ruby"]
 python.uv_venv_auto = true
+disable_backends = ["asdf"]
 
 [tools]
 go = "latest"
