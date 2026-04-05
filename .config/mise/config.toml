@@ -6,10 +6,8 @@ disable_backends = ["asdf"]
 
 [tools]
 go = "latest"
-golangci-lint = "latest"
 erlang = "latest"
 elixir = "latest"
-usage = "latest"
 ghcup = "latest"
 node = "latest"
 watchexec = "latest"
@@ -17,3 +15,5 @@ rust = "latest"
 uv = "latest"
 ruby = "4.0.0"
 lua = "latest"
+"aqua:golangci/golangci-lint" = "latest"
+"aqua:jdx/usage" = "latest"
