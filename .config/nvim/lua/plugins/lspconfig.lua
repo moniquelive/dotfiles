@@ -13,9 +13,14 @@ return {
 				elmls = {},
 				expert = {},
 				fish_lsp = {},
-				ghcide = {},
 				gopls = {},
-				hls = {},
+				hls = {
+					cmd = { "haskell-language-server-wrapper", "--lsp" },
+					root_markers = { "hie.yaml", "stack.yaml", "cabal.project", "*.cabal", "package.yaml" },
+					on_attach = function(client)
+						client.server_capabilities.semanticTokensProvider = nil
+					end,
+				},
 				jsonls = {},
 				bashls = {},
 				shellcheck = {},
