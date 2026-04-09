@@ -1,7 +1,6 @@
 return {
 	"williamboman/mason.nvim",
 	dependencies = {
-		"saghen/blink.cmp",
 		{
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			build = ":MasonToolsUpdate",
@@ -20,34 +19,8 @@ return {
 			},
 		},
 	},
-	event = { "BufRead", "BufNewFile" },
+	event = "VeryLazy",
 	cmd = { "Mason", "MasonUpdate" },
 	build = ":MasonUpdate",
-	config = true,
-	init = function()
-		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-			callback = function(args)
-				local bufnr = args.buf
-				vim.lsp.codelens.enable(true, { bufnr = bufnr })
-
-				local opts = { noremap = true, silent = true, buffer = bufnr }
-				local k = vim.keymap.set
-				-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
-				-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
-				-- k("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-				-- k("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
-				k("i", "<C-Space>", "<cmd>lua vim.lsp.completion.trigger()<cr>")
-				k("n", "K", vim.lsp.buf.hover, opts)
-				k("n", "gD", vim.lsp.buf.declaration, opts)
-				k("n", "<F4>", vim.lsp.codelens.run, opts)
-				-- k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)
-				local client_id = args.data.client_id
-				if not client_id then return end
-				local client = vim.lsp.get_client_by_id(client_id)
-				if not client then return end
-				vim.notify(string.format("📡️ %s attached", client.name))
-			end,
-		})
-	end,
+	config = function(_, opts) require("mason").setup(opts) end,
 }

@@ -1,6 +1,4 @@
 return {
-	-- misc
-	{ "wincent/terminus", event = { "BufRead", "BufNewFile" } },
 	-- coding
 	{ "andymass/vim-matchup", keys = "%" },
 	{

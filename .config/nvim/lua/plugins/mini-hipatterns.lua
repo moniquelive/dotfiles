@@ -291,7 +291,7 @@ local colors = {
 
 return {
 	"nvim-mini/mini.hipatterns",
-	event = { "BufRead", "BufNewFile" },
+	event = "VeryLazy",
 	opts = function()
 		local hi = require("mini.hipatterns")
 		return {

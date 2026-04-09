@@ -22,7 +22,7 @@ return {
 	},
 
 	version = "1.*",
-	event = { "CmdlineEnter" },
+	event = { "InsertEnter", "CmdlineEnter" },
 
 	---@module 'blink.cmp'
 	---@type blink.cmp.Config

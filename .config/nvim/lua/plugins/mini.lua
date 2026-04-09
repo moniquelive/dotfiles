@@ -2,7 +2,7 @@ return {
 	{
 		"echasnovski/mini.nvim",
 		version = false,
-		event = { "BufRead", "BufNewFile" },
+		event = "VeryLazy",
 		config = function()
 			require("mini.icons").setup()
 			require("mini.ai").setup()
