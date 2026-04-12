@@ -1,13 +1,13 @@
 function vars_fzf
-    set BACKGROUND "#232136"
-    set FOREGROUND "#e0def4"
-    set BG_PLUS "#393552"
-    set BORDER "#9ccfd8"
-    set MARKER "#eb6f92"
-    set INFO "#eb6f92"
-    set HL "#f6c177"
-    set LABEL "#6e6a86"
-    set PROMPT "#3e8fb0"
+    set BACKGROUND "#1e1e2e"
+    set FOREGROUND "#cdd6f4"
+    set BG_PLUS "#313244"
+    set BORDER "#89b4fa"
+    set MARKER "#f38ba8"
+    set INFO "#89b4fa"
+    set HL "#f9e2af"
+    set LABEL "#6c7086"
+    set PROMPT "#89b4fa"
     set -gx FZF_THEME "\
         --color=fg:$FOREGROUND,bg:$BACKGROUND,hl:$HL \
         --color=fg+:bold:$FOREGROUND,bg+:$BG_PLUS,hl+:$HL \

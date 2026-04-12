@@ -1,4 +1,4 @@
-#include ".gruvbox-dark.xresources"
+#include ".catppuccin-mocha.xresources"
 
 ! URxvt
 URxvt.perl-lib: /home/cyber/.urxvt/perls
@@ -38,10 +38,10 @@ URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 ! *background:              #002b36
 ! *foreground:              #839496
 *fading:                  40
-*fadeColor:               #002b36
-*cursorColor:             #93a1a1
-*pointerColorBackground:  #586e75
-*pointerColorForeground:  #93a1a1
+*fadeColor:               #1e1e2e
+*cursorColor:             #f5e0dc
+*pointerColorBackground:  #45475a
+*pointerColorForeground:  #cdd6f4
 
 ! Xterm
 !!! xterm*termName: xterm-256color
@@ -57,4 +57,4 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
-sxiv.background: #808080
+sxiv.background: #1e1e2e

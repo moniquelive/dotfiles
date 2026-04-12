@@ -10,7 +10,7 @@ output = "{strip_ansi|split:\\::..2}"
 
 [preview]
 command = "bat -n --color=always '{strip_ansi|split:\\::0}'"
-env = { BAT_THEME = "ansi" }
+env = { BAT_THEME = "Catppuccin Mocha" }
 offset = '{strip_ansi|split:\::1}'
 
 [ui]

@@ -1,8 +1,8 @@
 {
   "theme": {
-    "name": "Ozean Theme",
-    "url": "assets:///Users/cyber/.logseq/plugins/logseq-ozean-theme/main.css",
-    "pid": "logseq-ozean-theme"
+    "name": "Catppuccin Mocha",
+    "url": "file:///Users/cyber/.logseq/plugins/logseq-catppuccin/ctp-mocha.css",
+    "pid": "logseq-catppuccin"
   },
   "themes": {
     "mode": "dark",
@@ -16,12 +16,12 @@
       "group-desc": "light themes"
     },
     "dark": {
-      "name": "Catppuccin Macchiato",
-      "url": "file:///Users/cyber/.logseq/plugins/logseq-catppuccin/ctp-macchiato.css",
-      "description": "Catppuccin Macchiato",
+      "name": "Catppuccin Mocha",
+      "url": "file:///Users/cyber/.logseq/plugins/logseq-catppuccin/ctp-mocha.css",
+      "description": "Catppuccin Mocha",
       "mode": "dark",
       "pid": "logseq-catppuccin",
-      "selected": false
+      "selected": true
     }
   },
   "externals": []
