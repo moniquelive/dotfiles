@@ -47,6 +47,7 @@ if status is-interactive
     command -q tailscale; and tailscale completion fish | source
     command -q carapace; and carapace _carapace fish | source
     command -q mole; and mole completion fish | source
+    command -q fj; and fj completion fish | source
     if command -q tv
         tv init fish | source
     else
