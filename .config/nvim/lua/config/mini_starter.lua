@@ -129,6 +129,15 @@ end
 local function header()
 	local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 	local date = os.date("%a %d %b %Y")
+	local startup_time = "n/a"
+
+	local ok, lazy = pcall(require, "lazy")
+	if ok then
+		local stats = lazy.stats()
+		if type(stats) == "table" and type(stats.startuptime) == "number" then
+			startup_time = string.format("%.2fms", stats.startuptime)
+		end
+	end
 
 	return table.concat({
 		[[ _   _                 _         ]],
@@ -139,6 +148,7 @@ local function header()
 		"",
 		"cwd: " .. cwd,
 		"date: " .. date,
+		"startup: " .. startup_time,
 	}, "\n")
 end
 
