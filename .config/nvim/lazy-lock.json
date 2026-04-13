@@ -8,7 +8,7 @@
   "go.nvim": { "branch": "master", "commit": "dcffbd33d04781c10c4246929c07e90a07689358" },
   "guihua.lua": { "branch": "master", "commit": "d178056728548ed8a99cce94de47b7500bd6889a" },
   "harpoon": { "branch": "harpoon2", "commit": "87b1a3506211538f460786c23f98ec63ad9af4e5" },
-  "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
+  "lazy.nvim": { "branch": "main", "commit": "85c7ff3711b730b4030d03144f6db6375044ae82" },
   "lazydev.nvim": { "branch": "main", "commit": "ff2cbcba459b637ec3fd165a2be59b7bbaeedf0d" },
   "luassert-types": { "branch": "main", "commit": "d3528bb679302cbfdedefabb37064515ab95f7b9" },
   "mason-tool-installer.nvim": { "branch": "main", "commit": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc" },

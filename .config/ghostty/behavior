@@ -1,4 +1,5 @@
 command=/opt/homebrew/bin/fish
+command=/usr/bin/fish
 quit-after-last-window-closed=true
 macos-option-as-alt=true
 macos-secure-input-indication=true
