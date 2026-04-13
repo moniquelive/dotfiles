@@ -34,7 +34,13 @@ function M.setup(mini)
 		function() require("mini.diff").setup() end,
 		function() mini.pick.setup() end,
 		function() mini.extra.setup() end,
-		function() mini.notify.setup() end,
+		function()
+			mini.notify.setup({
+				content = {
+					format = function(notif) return notif.msg end,
+				},
+			})
+		end,
 		function() mini_starter.setup(mini.starter) end,
 		function()
 			mini.indentscope.setup({
