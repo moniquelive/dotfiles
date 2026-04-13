@@ -1,4 +1,4 @@
-fish_add_path opt/1Password \
+fish_add_path /opt/1Password \
     /Applications/1Password.app/Contents/MacOS \
     $HOME/.local/bin \
     $HOME/.spicetify \
