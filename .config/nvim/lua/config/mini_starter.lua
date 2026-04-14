@@ -182,6 +182,36 @@ local function should_open()
 	return true
 end
 
+local function starter_query(bufnr)
+	local ok, starter = pcall(require, "mini.starter")
+	if not ok or type(starter.set_query) ~= "function" then
+		return nil
+	end
+
+	local _, internals = debug.getupvalue(starter.set_query, 1)
+	if type(internals) ~= "table" or type(internals.buffer_data) ~= "table" then
+		return nil
+	end
+
+	local data = internals.buffer_data[bufnr]
+	if type(data) ~= "table" or type(data.query) ~= "string" then
+		return nil
+	end
+
+	return data.query
+end
+
+local function starter_escape()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local query = starter_query(bufnr)
+	if query == nil or query ~= "" then
+		require("mini.starter").set_query("")
+		return
+	end
+
+	vim.cmd.enew()
+end
+
 function M.setup(starter)
 	starter.setup({
 		autoopen = false,
@@ -201,6 +231,25 @@ function M.setup(starter)
 			starter.gen_hook.padding(3, 1),
 			align_with_right_padding(starter, 3, "center", "center"),
 		},
+	})
+
+	local starter_keymaps = vim.api.nvim_create_augroup("mini_starter_keymaps", { clear = true })
+	vim.api.nvim_create_autocmd("User", {
+		group = starter_keymaps,
+		pattern = "MiniStarterOpened",
+		callback = function()
+			local bufnr = vim.api.nvim_get_current_buf()
+			if vim.bo[bufnr].filetype ~= "ministarter" then
+				return
+			end
+
+			vim.keymap.set("n", "<Esc>", starter_escape, {
+				buffer = bufnr,
+				nowait = true,
+				silent = true,
+				desc = "Reset query or edit blank",
+			})
+		end,
 	})
 
 	vim.schedule(function()
