@@ -47,7 +47,7 @@ return {
 				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 				callback = function(args)
 					local bufnr = args.buf
-					vim.lsp.codelens.enable(true, { bufnr = bufnr })
+					vim.lsp.codelens.enable(false, { bufnr = bufnr })
 
 					local opts = { noremap = true, silent = true, buffer = bufnr }
 					local k = vim.keymap.set

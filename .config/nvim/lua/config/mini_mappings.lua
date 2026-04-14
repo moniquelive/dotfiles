@@ -2,12 +2,11 @@ local M = {}
 
 local unpack_fn = table.unpack or unpack
 local map_defaults = { noremap = true, silent = true }
+local is_list = vim.islist or vim.tbl_islist
 
 local function as_list(value)
-	if value == nil then
-		return {}
-	end
-	return vim.tbl_islist(value) and value or { value }
+	if value == nil then return {} end
+	return is_list(value) and value or { value }
 end
 
 local function diagnostics_is_enabled()
@@ -16,30 +15,22 @@ local function diagnostics_is_enabled()
 end
 
 local function set_diagnostics_enabled(enabled)
-	if pcall(vim.diagnostic.enable, enabled, { bufnr = 0 }) then
-		return
-	end
+	if pcall(vim.diagnostic.enable, enabled, { bufnr = 0 }) then return end
 
 	if enabled then
 		pcall(vim.diagnostic.enable, 0)
 		return
 	end
 
-	if type(vim.diagnostic.disable) == "function" then
-		pcall(vim.diagnostic.disable, 0)
-	end
+	if type(vim.diagnostic.disable) == "function" then pcall(vim.diagnostic.disable, 0) end
 end
 
 local function inlay_hints_is_enabled()
 	local inlay_hint = vim.lsp.inlay_hint
-	if type(inlay_hint) ~= "table" or type(inlay_hint.is_enabled) ~= "function" then
-		return false
-	end
+	if type(inlay_hint) ~= "table" or type(inlay_hint.is_enabled) ~= "function" then return false end
 
 	local ok, enabled = pcall(inlay_hint.is_enabled, { bufnr = 0 })
-	if ok then
-		return enabled
-	end
+	if ok then return enabled end
 
 	ok, enabled = pcall(inlay_hint.is_enabled, 0)
 	return ok and enabled or false
@@ -47,27 +38,37 @@ end
 
 local function set_inlay_hints_enabled(enabled)
 	local inlay_hint = vim.lsp.inlay_hint
-	if type(inlay_hint) ~= "table" or type(inlay_hint.enable) ~= "function" then
-		return
-	end
+	if type(inlay_hint) ~= "table" or type(inlay_hint.enable) ~= "function" then return end
 
-	if pcall(inlay_hint.enable, enabled, { bufnr = 0 }) then
-		return
-	end
+	if pcall(inlay_hint.enable, enabled, { bufnr = 0 }) then return end
 
 	pcall(inlay_hint.enable, 0, enabled)
 end
 
+local function codelens_is_enabled()
+	local codelens = vim.lsp.codelens
+	if type(codelens) ~= "table" or type(codelens.is_enabled) ~= "function" then return false end
+
+	local ok, enabled = pcall(codelens.is_enabled, { bufnr = 0 })
+	if ok then return enabled end
+
+	ok, enabled = pcall(codelens.is_enabled, 0)
+	return ok and enabled or false
+end
+
+local function set_codelens_enabled(enabled)
+	local codelens = vim.lsp.codelens
+	if type(codelens) ~= "table" or type(codelens.enable) ~= "function" then return end
+
+	if pcall(codelens.enable, enabled, { bufnr = 0 }) then return end
+
+	pcall(codelens.enable, 0, enabled)
+end
+
 local function compare_position(lhs, rhs)
-	if lhs.file ~= rhs.file then
-		return lhs.file < rhs.file and -1 or 1
-	end
-	if lhs.lnum ~= rhs.lnum then
-		return lhs.lnum < rhs.lnum and -1 or 1
-	end
-	if lhs.col ~= rhs.col then
-		return lhs.col < rhs.col and -1 or 1
-	end
+	if lhs.file ~= rhs.file then return lhs.file < rhs.file and -1 or 1 end
+	if lhs.lnum ~= rhs.lnum then return lhs.lnum < rhs.lnum and -1 or 1 end
+	if lhs.col ~= rhs.col then return lhs.col < rhs.col and -1 or 1 end
 	return 0
 end
 
@@ -76,9 +77,7 @@ local function collect_reference_locations(results)
 	local seen = {}
 
 	vim.iter(results or {}):each(function(client_id, response)
-		if response.err or not response.result then
-			return
-		end
+		if response.err or not response.result then return end
 
 		local client = vim.lsp.get_client_by_id(tonumber(client_id))
 		local encoding = client and client.offset_encoding or "utf-16"
@@ -87,15 +86,11 @@ local function collect_reference_locations(results)
 
 		vim.iter(items):enumerate():each(function(index, item)
 			local raw_location = raw_locations[index]
-			if raw_location == nil then
-				return
-			end
+			if raw_location == nil then return end
 
 			local file = vim.fn.fnamemodify(item.filename, ":p")
 			local key = string.format("%s:%d:%d", file, item.lnum, item.col)
-			if seen[key] then
-				return
-			end
+			if seen[key] then return end
 
 			seen[key] = true
 			locations[#locations + 1] = {
@@ -108,25 +103,21 @@ local function collect_reference_locations(results)
 		end)
 	end)
 
-	table.sort(locations, function(lhs, rhs)
-		return compare_position(lhs, rhs) < 0
-	end)
+	table.sort(locations, function(lhs, rhs) return compare_position(lhs, rhs) < 0 end)
 
 	return locations
 end
 
 local function find_next_index(locations, current)
-	local index = vim.iter(locations):enumerate():find(function(_, location)
-		return compare_position(location, current) > 0
-	end)
+	local index = vim.iter(locations)
+		:enumerate()
+		:find(function(_, location) return compare_position(location, current) > 0 end)
 	return index
 end
 
 local function find_previous_index(locations, current)
 	return vim.iter(locations):enumerate():fold(nil, function(acc, index, location)
-		if compare_position(location, current) < 0 then
-			return index
-		end
+		if compare_position(location, current) < 0 then return index end
 		return acc
 	end)
 end
@@ -188,9 +179,7 @@ local function browse_github()
 	end
 
 	vim.system(cmd, { cwd = root }, function(result)
-		if result.code == 0 then
-			return
-		end
+		if result.code == 0 then return end
 
 		local message = result.stderr ~= "" and result.stderr or result.stdout
 		vim.schedule(function() vim.notify(message, vim.log.levels.ERROR) end)
@@ -199,9 +188,7 @@ end
 
 local function explorer_cwd()
 	local file = vim.api.nvim_buf_get_name(0)
-	if file == "" then
-		return vim.fn.getcwd()
-	end
+	if file == "" then return vim.fn.getcwd() end
 
 	local cwd = vim.fn.fnamemodify(file, ":p:h")
 	return vim.fn.isdirectory(cwd) == 1 and cwd or vim.fn.getcwd()
@@ -280,27 +267,22 @@ function M.setup(mini)
 		{ "ghx", browse_github, "Browse on GitHub" },
 		{ "<m-right>", function() jump_reference(vim.v.count1) end, "Next Reference" },
 		{ "<m-left>", function() jump_reference(-vim.v.count1) end, "Prev Reference" },
-	}):each(function(spec)
-		map_nt(spec[1], spec[2], spec[3])
-	end)
+	}):each(function(spec) map_nt(spec[1], spec[2], spec[3]) end)
 
 	vim.iter({
 		{ "<leader>fn", mini.notify.show_history, "Notifier" },
 		{ "<leader>hn", mini.notify.clear, "Dismiss All Notifications" },
-	}):each(function(spec)
-		set_map("n", spec[1], spec[2], { desc = spec[3] })
-	end)
+	}):each(function(spec) set_map("n", spec[1], spec[2], { desc = spec[3] }) end)
 
 	vim.iter({
 		{ "yow", function() vim.wo.wrap = not vim.wo.wrap end, "Toggle wrap" },
 		{ "yoi", toggle_indent_scope, "Toggle indent scope" },
 		{ "yod", function() set_diagnostics_enabled(not diagnostics_is_enabled()) end, "Toggle diagnostics" },
 		{ "yon", function() vim.wo.number = not vim.wo.number end, "Toggle line numbers" },
+		{ "yoc", function() set_codelens_enabled(not codelens_is_enabled()) end, "Toggle codelens" },
 		{ "<leader>ih", function() set_inlay_hints_enabled(not inlay_hints_is_enabled()) end, "Toggle inlay hints" },
 		{ "yoz", toggle_zoom, "Toggle zoom" },
-	}):each(function(spec)
-		set_map("n", spec[1], spec[2], spec[3] and { desc = spec[3] } or nil)
-	end)
+	}):each(function(spec) set_map("n", spec[1], spec[2], spec[3] and { desc = spec[3] } or nil) end)
 end
 
 return M
