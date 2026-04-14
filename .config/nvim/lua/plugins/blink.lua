@@ -1,3 +1,16 @@
+local comment_node_types = {
+	comment = true,
+	line_comment = true,
+	block_comment = true,
+}
+
+local function default_sources()
+	local success, node = pcall(vim.treesitter.get_node)
+	if success and node and comment_node_types[node:type()] then return { "buffer" } end
+	if vim.bo.filetype == "lua" then return { "lazydev", "lsp", "path", "supermaven", "snippets" } end
+	return { "lsp", "path", "supermaven", "snippets" }
+end
+
 return {
 	"saghen/blink.cmp",
 	dependencies = {
@@ -29,7 +42,16 @@ return {
 	opts = {
 		keymap = { preset = "super-tab" },
 		cmdline = {
-			completion = { list = { selection = { preselect = false } } },
+			completion = {
+				list = { selection = { preselect = false, auto_insert = false } },
+				menu = {
+					auto_show = function(ctx)
+						if ctx.mode == "cmdwin" then return true end
+						local cmdtype = vim.fn.getcmdtype()
+						return cmdtype ~= "/" and cmdtype ~= "?"
+					end,
+				},
+			},
 			keymap = { preset = "enter" },
 		},
 
@@ -76,9 +98,6 @@ return {
 			documentation = { auto_show = true, auto_show_delay_ms = 200 },
 			trigger = { show_in_snippet = false },
 			menu = {
-				-- stylua: ignore
-				auto_show = function(_ --[[ctx]], _ --[[items]]) return not vim.tbl_contains({ "/", "?" }, vim.fn.getcmdtype()) end,
-
 				-- nvim-cmp style menu
 				draw = {
 					treesitter = { "lsp" },
@@ -99,23 +118,10 @@ return {
 				},
 			},
 			ghost_text = { enabled = false },
-			list = {
-				selection = {
-					preselect = function(ctx) return ctx.mode ~= "cmdline" end,
-					auto_insert = function(ctx) return ctx.mode ~= "cmdline" end,
-				},
-			},
 		},
 		signature = { enabled = true },
 		sources = {
-			default = function()
-				local success, node = pcall(vim.treesitter.get_node)
-				-- stylua: ignore
-				if success and node and vim.tbl_contains({ "comment", "line_comment", "block_comment" }, node:type()) then
-					return { "buffer" }
-				end
-				return { "lazydev", "lsp", "path", "supermaven", "snippets" }
-			end,
+			default = default_sources,
 			providers = {
 				lsp = { fallbacks = { "lazydev" } }, -- dont show LuaLS require statements when lazydev has items
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", score_offset = 100 },

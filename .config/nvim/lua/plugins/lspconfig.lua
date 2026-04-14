@@ -55,7 +55,6 @@ return {
 					-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
 					-- k("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 					-- k("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
-					k("i", "<C-Space>", "<cmd>lua vim.lsp.completion.trigger()<cr>")
 					k("n", "K", vim.lsp.buf.hover, opts)
 					k("n", "gD", vim.lsp.buf.declaration, opts)
 					k("n", "<F4>", vim.lsp.codelens.run, opts)
