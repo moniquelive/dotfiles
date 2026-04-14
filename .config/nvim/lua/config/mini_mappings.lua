@@ -261,21 +261,23 @@ function M.setup(mini)
 		{ "<leader>fd", function() mini.extra.pickers.diagnostic({ scope = "current" }) end, "List diagnostics" },
 		{ "<leader>fl", function() mini.pick.builtin.grep_live() end, "Grep" },
 		{ "<leader>fr", function() mini.extra.pickers.registers() end, "List registers" },
+		{ "<leader>fs", function() mini.extra.pickers.history({ scope = "/" }) end, "Search history" },
 		{ "<leader>fh", function() mini.pick.builtin.help() end, "Search help tags" },
+		{ "<leader>fq", function() mini.extra.pickers.history({ scope = ":" }) end, "Command history" },
 		{ "<leader>fm", function() mini.extra.pickers.keymaps() end, "List keymaps" },
 		{ "<leader>qf", function() mini.extra.pickers.list({ scope = "quickfix" }) end, "List quickfix items" },
 		{ "<leader>fgf", function() mini.extra.pickers.git_files() end, "Find git files" },
-		{ "<leader>fk", function() mini.extra.pickers.marks() end },
-		{ "<leader>fo", function() mini.extra.pickers.commands() end },
+		{ "<leader>fk", function() mini.extra.pickers.marks() end, "List marks" },
+		{ "<leader>fo", function() mini.extra.pickers.commands() end, "List commands" },
 		{
 			"<leader>fc",
 			function() mini.pick.builtin.files({}, { source = { cwd = vim.fn.stdpath("config") } }) end,
 			"Find config files",
 		},
-		{ "<leader><space>", function() mini.extra.pickers.buf_lines() end },
-		{ "<leader>ft", function() mini.extra.pickers.colorschemes() end },
-		{ "<s-tab>", function() mini.extra.pickers.explorer({ cwd = explorer_cwd() }) end },
-		{ "ghx", browse_github },
+		{ "<leader><space>", function() mini.extra.pickers.buf_lines() end, "Search current buffer" },
+		{ "<leader>ft", function() mini.extra.pickers.colorschemes() end, "Choose colorscheme" },
+		{ "<s-tab>", function() mini.extra.pickers.explorer({ cwd = explorer_cwd() }) end, "File explorer" },
+		{ "ghx", browse_github, "Browse on GitHub" },
 		{ "<m-right>", function() jump_reference(vim.v.count1) end, "Next Reference" },
 		{ "<m-left>", function() jump_reference(-vim.v.count1) end, "Prev Reference" },
 	}):each(function(spec)
@@ -290,14 +292,14 @@ function M.setup(mini)
 	end)
 
 	vim.iter({
-		{ "yow", function() vim.wo.wrap = not vim.wo.wrap end },
-		{ "yoi", toggle_indent_scope },
-		{ "yod", function() set_diagnostics_enabled(not diagnostics_is_enabled()) end },
-		{ "yon", function() vim.wo.number = not vim.wo.number end },
-		{ "<leader>ih", function() set_inlay_hints_enabled(not inlay_hints_is_enabled()) end },
-		{ "yoz", toggle_zoom },
+		{ "yow", function() vim.wo.wrap = not vim.wo.wrap end, "Toggle wrap" },
+		{ "yoi", toggle_indent_scope, "Toggle indent scope" },
+		{ "yod", function() set_diagnostics_enabled(not diagnostics_is_enabled()) end, "Toggle diagnostics" },
+		{ "yon", function() vim.wo.number = not vim.wo.number end, "Toggle line numbers" },
+		{ "<leader>ih", function() set_inlay_hints_enabled(not inlay_hints_is_enabled()) end, "Toggle inlay hints" },
+		{ "yoz", toggle_zoom, "Toggle zoom" },
 	}):each(function(spec)
-		set_map("n", spec[1], spec[2])
+		set_map("n", spec[1], spec[2], spec[3] and { desc = spec[3] } or nil)
 	end)
 end
 
