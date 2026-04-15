@@ -248,7 +248,7 @@ function M.setup(mini)
 		{ "<leader>fd", function() mini.extra.pickers.diagnostic({ scope = "current" }) end, "List diagnostics" },
 		{ "<leader>fl", function() mini.pick.builtin.grep_live() end, "Grep" },
 		{ "<leader>fr", function() mini.extra.pickers.registers() end, "List registers" },
-		{ "<leader>fs", function() mini.extra.pickers.history({ scope = "/" }) end, "Search history" },
+		{ "<leader>f/", function() mini.extra.pickers.history({ scope = "/" }) end, "Search history" },
 		{ "<leader>fh", function() mini.pick.builtin.help() end, "Search help tags" },
 		{ "<leader>fq", function() mini.extra.pickers.history({ scope = ":" }) end, "Command history" },
 		{ "<leader>fm", function() mini.extra.pickers.keymaps() end, "List keymaps" },
