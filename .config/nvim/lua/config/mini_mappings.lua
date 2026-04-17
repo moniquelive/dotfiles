@@ -65,6 +65,12 @@ local function set_codelens_enabled(enabled)
 	pcall(codelens.enable, 0, enabled)
 end
 
+local function toggle_codelens()
+	set_codelens_enabled(not codelens_is_enabled())
+	local status = codelens_is_enabled() and "enabled" or "disabled"
+	vim.notify(string.format("CodeLens %s", status), vim.log.levels.INFO)
+end
+
 local function compare_position(lhs, rhs)
 	if lhs.file ~= rhs.file then return lhs.file < rhs.file and -1 or 1 end
 	if lhs.lnum ~= rhs.lnum then return lhs.lnum < rhs.lnum and -1 or 1 end
@@ -279,7 +285,7 @@ function M.setup(mini)
 		{ "yoi", toggle_indent_scope, "Toggle indent scope" },
 		{ "yod", function() set_diagnostics_enabled(not diagnostics_is_enabled()) end, "Toggle diagnostics" },
 		{ "yon", function() vim.wo.number = not vim.wo.number end, "Toggle line numbers" },
-		{ "yoc", function() set_codelens_enabled(not codelens_is_enabled()) end, "Toggle codelens" },
+		{ "yoc", toggle_codelens, "Toggle codelens" },
 		{ "<leader>ih", function() set_inlay_hints_enabled(not inlay_hints_is_enabled()) end, "Toggle inlay hints" },
 		{ "yoz", toggle_zoom, "Toggle zoom" },
 	}):each(function(spec) set_map("n", spec[1], spec[2], spec[3] and { desc = spec[3] } or nil) end)
