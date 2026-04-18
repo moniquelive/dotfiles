@@ -1,5 +1,6 @@
 local M = {}
 local mini_starter = require("config.mini_starter")
+local mini_hipatterns = require("config.mini_hipatterns")
 
 function M.setup(mini)
 	vim.iter({
@@ -53,6 +54,7 @@ function M.setup(mini)
 				},
 			})
 		end,
+		function() mini_hipatterns.setup() end,
 		function() require("mini.statusline").setup() end,
 		function() require("mini.trailspace").setup() end,
 		function() mini.misc.setup_restore_cursor() end,
