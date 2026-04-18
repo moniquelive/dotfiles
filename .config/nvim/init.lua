@@ -3,7 +3,6 @@
 
 ------------------------------------------------------------ local plugins --
 require("config.lazy")
-require("config.diagnostics").setup({ keymap = "<c-w>d" })
 -----------------------------------------------------------------------------
 
 vim.opt.iskeyword:remove({ ".", "#", "-" })
@@ -56,7 +55,6 @@ vim.o.spelllang = "pt_br,en_us"
 vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.startofline = true
-vim.o.statusline = table.concat({ " %t", "%r", "%m", "%=", "%{&filetype}", " %2p%%", " %3l:%-2c " })
 vim.o.swapfile = false
 vim.o.switchbuf = "useopen"
 vim.o.tabstop = 2
@@ -118,6 +116,19 @@ local maps = {
 for _, m in ipairs(maps) do
 	vim.keymap.set(m[1], m[2], m[3], map_opts)
 end
+
+vim.keymap.set(
+	"n",
+	"<C-w>d",
+	function()
+		vim.diagnostic.open_float(nil, {
+			scope = "line",
+			source = "if_many",
+			border = "rounded",
+		})
+	end,
+	map_opts
+)
 
 -- Allow saving of files as sudo when I forgot to start vim using sudo.
 vim.keymap.set("c", "w!!", [[w !sudo tee > /dev/null %]])

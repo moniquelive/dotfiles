@@ -21,7 +21,6 @@
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "supermaven-nvim": { "branch": "main", "commit": "07d20fce48a5629686aefb0a7cd4b25e33947d50" },
   "tailwind-sorter.nvim": { "branch": "main", "commit": "717e5c9761ed8334dadbb9357df7d826aae97b92" },
-  "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
   "vim-characterize": { "branch": "master", "commit": "a8bffac6cead6b2869d939ecad06312b187a4c79" },
   "vim-matchup": { "branch": "master", "commit": "dccb2d12ef2a703d2f076b3cda36a3339449d1eb" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },

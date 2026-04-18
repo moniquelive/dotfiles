@@ -8,13 +8,13 @@ return {
 			opts = {
 				-- stylua: ignore
 				ensure_installed = {
-					"autopep8", "bash-language-server", "css-lsp", "djlint", "dockerfile-language-server",
+					"autopep8", "bash-language-server", "djlint", "dockerfile-language-server",
 					"elm-format", "elm-language-server", "expert", "flake8", "gitlint", "goimports-reviser",
-					"golangci-lint-langserver", "gopls", "html-lsp", "iferr", "isort", "json-lsp",
-					"lua-language-server", "markdownlint", "powershell-editor-services", "prettierd",
+					"golangci-lint-langserver", "gopls", "iferr", "isort", "json-lsp",
+					"lua-language-server", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
 					"pylint", "python-lsp-server", "revive",
-					"solargraph", "staticcheck", "stylua", "tailwindcss-language-server", "tombi", "typescript-language-server",
-					"vim-language-server", "yaml-language-server", "yapf", -- "zls",
+					"solargraph", "staticcheck", "stylua", "tailwindcss-language-server", "tombi",
+					"yaml-language-server", "yapf", -- "zls",
 				},
 			},
 		},
