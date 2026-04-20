@@ -8,7 +8,7 @@ return {
 			opts = {
 				-- stylua: ignore
 				ensure_installed = {
-					"autopep8", "bash-language-server", "djlint", "dockerfile-language-server",
+					"autopep8", "bash-language-server", "clojure-lsp", "djlint", "dockerfile-language-server",
 					"elm-format", "elm-language-server", "expert", "flake8", "gitlint", "goimports-reviser",
 					"golangci-lint-langserver", "gopls", "iferr", "isort", "json-lsp",
 					"lua-language-server", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
