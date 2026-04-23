@@ -126,6 +126,12 @@ local function relabel(section_name, section)
 	end
 end
 
+local function quick_actions(starter)
+	return vim.iter(starter.sections.builtin_actions())
+		:filter(function(item) return item.action ~= "qall" end)
+		:totable()
+end
+
 local function header()
 	local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
 	local date = os.date("%a %d %b %Y")
@@ -217,12 +223,16 @@ function M.setup(starter)
 		autoopen = false,
 		evaluate_single = true,
 		header = header,
-		footer = "",
+		footer = table.concat({
+			"Type query to filter items",
+			"<BS> deletes latest character from query",
+			"<Esc>/q resets query (or opens empty buffer)",
+		}, "\n"),
 		items = {
 			relabel("Pickers", starter.sections.pick()),
 			relabel("MRU (cwd)", starter.sections.recent_files(8, true, false)),
 			relabel("Recent files", starter.sections.recent_files(8, false, compact_path)),
-			relabel("Quick actions", starter.sections.builtin_actions()),
+			relabel("Quick actions", function() return quick_actions(starter) end),
 		},
 		content_hooks = {
 			starter.gen_hook.adding_bullet("| ", false),
@@ -244,6 +254,13 @@ function M.setup(starter)
 			end
 
 			vim.keymap.set("n", "<Esc>", starter_escape, {
+				buffer = bufnr,
+				nowait = true,
+				silent = true,
+				desc = "Reset query or edit blank",
+			})
+
+			vim.keymap.set("n", "q", starter_escape, {
 				buffer = bufnr,
 				nowait = true,
 				silent = true,
