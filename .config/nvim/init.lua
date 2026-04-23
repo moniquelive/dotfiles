@@ -121,8 +121,8 @@ vim.keymap.set(
 	"n",
 	"<C-w>d",
 	function()
-		vim.diagnostic.open_float(nil, {
-			scope = "line",
+		vim.diagnostic.open_float({
+			scope = "cursor",
 			source = "if_many",
 			border = "rounded",
 		})
