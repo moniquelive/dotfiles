@@ -11,7 +11,7 @@
   "luassert-types": { "branch": "main", "commit": "d3528bb679302cbfdedefabb37064515ab95f7b9" },
   "mason-tool-installer.nvim": { "branch": "main", "commit": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc" },
   "mason.nvim": { "branch": "main", "commit": "12ddd182d9efbdc848b540f16484a583d52da0fb" },
-  "mini.nvim": { "branch": "main", "commit": "5849ef04c32a6a8e55957b946c0a275801d87530" },
+  "mini.nvim": { "branch": "main", "commit": "4f6f84a96b076747b736d100388a8d7844771d7d" },
   "nvim-lspconfig": { "branch": "master", "commit": "81878de76c0de4ce289513734ad80c31ec7871b8" },
   "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },
   "nvim-treesitter-endwise": { "branch": "master", "commit": "8fe8a95630f4f2c72a87ba1927af649e0bfaa244" },
