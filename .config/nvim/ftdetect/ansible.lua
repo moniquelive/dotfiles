@@ -1,8 +1,5 @@
--- TODO: h: plenary-test
 local function match_any(str, patterns)
-	return vim.iter(patterns):any(function(pattern)
-		return str:match(pattern) ~= nil
-	end)
+	return vim.iter(patterns):any(function(pattern) return str:match(pattern) ~= nil end)
 end
 
 local function is_ansible()
@@ -11,7 +8,7 @@ local function is_ansible()
 
 	local path = vim.fn.fnamemodify(fullpath, ":h")
 	local ext = vim.fn.expand("%:e")
-	local has_cfg = #vim.fs.find({ "ansible.cfg" }, { path = path, upward = true }) > 0
+	local has_cfg = #vim.fs.find({ "ansible.cfg" }, { path = path, upward = true, stop = vim.env.HOME }) > 0
 
 	local yaml = { yml = true, yaml = true }
 	local root = yaml[ext] and has_cfg
@@ -51,9 +48,9 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	callback = function()
 		local syntaxes = vim.g.ansible_template_syntaxes or {}
 		local fullpath = vim.fn.expand("%:p")
-		local _, syntax = vim.iter(syntaxes):find(function(pattern)
-			return vim.regex(vim.fn.glob2regpat(pattern)):match_str(fullpath) ~= nil
-		end)
+		local _, syntax = vim.iter(syntaxes):find(
+			function(pattern) return vim.regex(vim.fn.glob2regpat(pattern)):match_str(fullpath) ~= nil end
+		)
 
 		vim.bo.filetype = syntax and (syntax .. ".jinja2") or "jinja2"
 	end,

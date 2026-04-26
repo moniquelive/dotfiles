@@ -1,4 +1,5 @@
 return {
+	{ "RRethy/nvim-treesitter-endwise", event = "InsertEnter" },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
@@ -7,45 +8,20 @@ return {
 		config = function()
 			local treesitter = require("nvim-treesitter")
 
+			-- stylua: ignore
 			local ensure_installed = {
-				"bash",
-				"c",
-				"clojure",
-				"css",
-				"dockerfile",
-				"elixir",
-				"gitcommit",
-				"go",
-				"gomod",
-				"gosum",
-				"gowork",
-				"haskell",
-				"heex",
-				"html",
-				"javascript",
-				"json",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"python",
-				"query",
-				"ruby",
-				"rust",
-				"swift",
-				"toml",
-				"tsx",
-				"typescript",
-				"vim",
-				"vimdoc",
-				"yaml",
-				"zig",
+				"bash", "c", "clojure", "css", "dockerfile", "elixir",
+				"gitcommit", "go", "gomod", "gosum", "gowork",
+				"haskell", "heex", "html", "javascript", "json",
+				"lua", "markdown", "markdown_inline",
+				"python", "query", "ruby", "rust",
+				"swift", "toml", "tsx", "typescript",
+				"vim", "vimdoc", "yaml", "zig",
 			}
 
 			local already_installed = treesitter.get_installed("parsers") or {}
 			local installed_set = {}
-			vim.iter(already_installed):each(function(parser)
-				installed_set[parser] = true
-			end)
+			vim.iter(already_installed):each(function(parser) installed_set[parser] = true end)
 
 			local parsers_to_install = vim.iter(ensure_installed)
 				:filter(function(parser) return not installed_set[parser] end)
@@ -60,9 +36,7 @@ return {
 					-- Enable treesitter highlighting and disable regex syntax
 					local ok = pcall(vim.treesitter.start, ev.buf)
 					-- Enable treesitter-based indentation
-					if ok then
-						vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-					end
+					if ok then vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
 				end,
 			})
 
@@ -77,9 +51,5 @@ return {
 				return string.match(filename, "^%.?mise%.toml$") ~= nil
 			end, { force = true, all = false })
 		end,
-	},
-	{
-		"RRethy/nvim-treesitter-endwise",
-		event = "InsertEnter",
 	},
 }
