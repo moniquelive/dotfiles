@@ -36,9 +36,19 @@ return {
 				return "[LSP]", "PmenuKindSourceLsp"
 			end
 
+			local function completion_detail_text(item)
+				local detail = vim.tbl_get(item, "labelDetails", "description")
+				if detail == nil or detail == vim.NIL or detail == "" then detail = item.detail end
+
+				if detail == nil or detail == vim.NIL then return "" end
+				if type(detail) ~= "string" then return "" end
+
+				return detail
+			end
+
 			local function convert_completion_item(item)
 				local source_label, source_hl = completion_source_style(item)
-				local detail = vim.tbl_get(item, "labelDetails", "description") or item.detail or ""
+				local detail = completion_detail_text(item)
 				if detail ~= "" then detail = " " .. detail end
 
 				local converted = { menu = source_label .. detail }
