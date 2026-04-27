@@ -171,7 +171,11 @@ local function update_insert_autocomplete()
 		return
 	end
 
-	if enabled and vim.fn.pumvisible() == 0 and (prefix_len == autocomplete_min_chars or (from_lsp_trigger and prefix_len == 0)) then
+	if
+		enabled
+		and vim.fn.pumvisible() == 0
+		and (prefix_len == autocomplete_min_chars or (from_lsp_trigger and prefix_len == 0))
+	then
 		vim.schedule(function()
 			if vim.api.nvim_get_mode().mode ~= "i" then return end
 			local still_enabled, still_prefix_len, still_from_trigger = should_enable_insert_autocomplete()
@@ -184,10 +188,19 @@ local function update_insert_autocomplete()
 end
 
 vim.keymap.set({ "i", "s" }, "<Tab>", function()
-	if vim.fn.pumvisible() == 1 then return "<C-n>" end
-
 	local has_supermaven, suggestion = pcall(require, "supermaven-nvim.completion_preview")
-	if has_supermaven and suggestion.has_suggestion() then
+	local has_suggestion = has_supermaven and suggestion.has_suggestion()
+
+	if vim.fn.pumvisible() == 1 then
+		if has_suggestion and vim.fn.complete_info({ "selected" }).selected == -1 then
+			vim.schedule(suggestion.on_accept_suggestion)
+			return ""
+		end
+
+		return "<C-n>"
+	end
+
+	if has_suggestion then
 		vim.schedule(suggestion.on_accept_suggestion)
 		return ""
 	end
@@ -221,6 +234,18 @@ vim.keymap.set("i", "<CR>", function()
 end, { expr = true, silent = true })
 
 vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get, { silent = true })
+
+vim.keymap.set("i", "<C-e>", function()
+	local has_supermaven, suggestion = pcall(require, "supermaven-nvim.completion_preview")
+	if has_supermaven and suggestion.has_suggestion() then
+		suggestion.on_dispose_inlay()
+		return ""
+	end
+
+	if vim.fn.pumvisible() == 1 then return "<C-e>" end
+
+	return ""
+end, { expr = true, silent = true })
 
 vim.keymap.set("c", "<Up>", function()
 	if vim.fn.wildmenumode() == 1 then return "<C-E><Up>" end

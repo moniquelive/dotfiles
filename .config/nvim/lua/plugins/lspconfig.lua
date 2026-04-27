@@ -14,6 +14,45 @@ return {
 			"yaml", "zig", "zsh",
 		},
 		config = function()
+			local completion_kind = vim.lsp.protocol.CompletionItemKind
+
+			local function set_completion_source_highlights()
+				vim.api.nvim_set_hl(0, "PmenuKindSourceLsp", { link = "Type" })
+				vim.api.nvim_set_hl(0, "PmenuKindSourceSnippet", { link = "Special" })
+				vim.api.nvim_set_hl(0, "PmenuKindSourcePath", { link = "Directory" })
+			end
+
+			local function completion_source_style(item)
+				if item.kind == completion_kind.Snippet
+					or item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet
+				then
+					return "[SNIP]", "PmenuKindSourceSnippet"
+				end
+
+				if item.kind == completion_kind.File or item.kind == completion_kind.Folder then
+					return "[PATH]", "PmenuKindSourcePath"
+				end
+
+				return "[LSP]", "PmenuKindSourceLsp"
+			end
+
+			local function convert_completion_item(item)
+				local source_label, source_hl = completion_source_style(item)
+				local detail = vim.tbl_get(item, "labelDetails", "description") or item.detail or ""
+				if detail ~= "" then detail = " " .. detail end
+
+				local converted = { menu = source_label .. detail }
+				if item.kind ~= completion_kind.Color then converted.kind_hlgroup = source_hl end
+
+				return converted
+			end
+
+			set_completion_source_highlights()
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				group = vim.api.nvim_create_augroup("UserCompletionSourceColors", { clear = true }),
+				callback = set_completion_source_highlights,
+			})
+
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("UserLspConfig", { clear = true }),
 				callback = function(args)
@@ -36,7 +75,10 @@ return {
 					if not client then return end
 
 					if client:supports_method("textDocument/completion") then
-						vim.lsp.completion.enable(true, client.id, bufnr, { autotrigger = true })
+						vim.lsp.completion.enable(true, client.id, bufnr, {
+							autotrigger = true,
+							convert = convert_completion_item,
+						})
 					end
 
 					vim.notify(string.format("📡️ %s attached", client.name))
