@@ -13,6 +13,11 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.o.autoindent = true
 vim.o.autoread = true
 vim.o.autowriteall = true
+vim.o.autocomplete = true
+vim.o.complete = ".,w,b,u,t,o"
+vim.o.completeopt = "menuone,noselect,popup,fuzzy"
+vim.o.wildmode = "noselect:lastused,full"
+vim.o.wildoptions = "pum,fuzzy,tagfile"
 vim.o.breakindent = true
 vim.o.colorcolumn = "+1"
 vim.o.copyindent = true
@@ -117,6 +122,116 @@ for _, m in ipairs(maps) do
 	vim.keymap.set(m[1], m[2], m[3], map_opts)
 end
 
+local autocomplete_min_chars = 3
+
+local function completion_context()
+	local cursor = vim.api.nvim_win_get_cursor(0)
+	local line = vim.api.nvim_get_current_line()
+	local before_cursor = line:sub(1, cursor[2])
+	local prefix = vim.fn.matchstr(before_cursor, [[\k\+$]])
+	local trigger_char
+
+	if #before_cursor > #prefix then
+		local index = #before_cursor - #prefix
+		trigger_char = before_cursor:sub(index, index)
+	end
+
+	return vim.fn.strchars(prefix), trigger_char
+end
+
+local function has_lsp_trigger_char(char)
+	for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+		local provider = client.server_capabilities.completionProvider
+		if provider and provider.triggerCharacters then
+			for _, trigger in ipairs(provider.triggerCharacters) do
+				if trigger == char then return true end
+			end
+		end
+	end
+
+	return false
+end
+
+local function should_enable_insert_autocomplete()
+	if vim.bo.buftype ~= "" then return false, 0, false end
+
+	local prefix_len, trigger_char = completion_context()
+	if prefix_len >= autocomplete_min_chars then return true, prefix_len, false end
+	if trigger_char and has_lsp_trigger_char(trigger_char) then return true, prefix_len, true end
+
+	return false, prefix_len, false
+end
+
+local function update_insert_autocomplete()
+	local enabled, prefix_len, from_lsp_trigger = should_enable_insert_autocomplete()
+	vim.opt_local.autocomplete = enabled
+
+	if not enabled and vim.fn.pumvisible() == 1 then
+		vim.api.nvim_feedkeys(vim.keycode("<C-e>"), "n", false)
+		return
+	end
+
+	if enabled and vim.fn.pumvisible() == 0 and (prefix_len == autocomplete_min_chars or (from_lsp_trigger and prefix_len == 0)) then
+		vim.schedule(function()
+			if vim.api.nvim_get_mode().mode ~= "i" then return end
+			local still_enabled, still_prefix_len, still_from_trigger = should_enable_insert_autocomplete()
+			if not still_enabled or vim.fn.pumvisible() == 1 then return end
+			if still_prefix_len == autocomplete_min_chars or (still_from_trigger and still_prefix_len == 0) then
+				vim.api.nvim_feedkeys(vim.keycode("<C-n>"), "n", false)
+			end
+		end)
+	end
+end
+
+vim.keymap.set({ "i", "s" }, "<Tab>", function()
+	if vim.fn.pumvisible() == 1 then return "<C-n>" end
+
+	local has_supermaven, suggestion = pcall(require, "supermaven-nvim.completion_preview")
+	if has_supermaven and suggestion.has_suggestion() then
+		vim.schedule(suggestion.on_accept_suggestion)
+		return ""
+	end
+
+	if vim.snippet.active({ direction = 1 }) then
+		vim.snippet.jump(1)
+		return ""
+	end
+
+	return "<Tab>"
+end, { expr = true, silent = true })
+
+vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+	if vim.fn.pumvisible() == 1 then return "<C-p>" end
+
+	if vim.snippet.active({ direction = -1 }) then
+		vim.snippet.jump(-1)
+		return ""
+	end
+
+	return "<S-Tab>"
+end, { expr = true, silent = true })
+
+vim.keymap.set("i", "<CR>", function()
+	if vim.fn.pumvisible() == 1 then
+		if vim.fn.complete_info({ "selected" }).selected ~= -1 then return "<C-y>" end
+		return "<C-e><CR>"
+	end
+
+	return "<CR>"
+end, { expr = true, silent = true })
+
+vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get, { silent = true })
+
+vim.keymap.set("c", "<Up>", function()
+	if vim.fn.wildmenumode() == 1 then return "<C-E><Up>" end
+	return "<Up>"
+end, { expr = true, silent = true })
+
+vim.keymap.set("c", "<Down>", function()
+	if vim.fn.wildmenumode() == 1 then return "<C-E><Down>" end
+	return "<Down>"
+end, { expr = true, silent = true })
+
 vim.keymap.set(
 	"n",
 	"<C-w>d",
@@ -144,11 +259,18 @@ vim.cmd([[highlight LspReferenceRead cterm=bold ctermbg=green guibg=#104010]])
 vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
+
+vim.api.nvim_create_autocmd({ "InsertEnter", "TextChangedI" }, {
+	group = init_lua_grp,
+	callback = update_insert_autocomplete,
+})
+
 -- stylua: ignore
 local cmds = {
   { "QuickFixCmdPost", "*", [[cwindow]] },    -- Open quickfix window when errors are found
   { "FocusLost",       "*", [[silent! wa]] }, -- Autosave on focus lost
   { "VimResized",      "*", [[wincmd =]] },   -- let terminal resize scale the internal windows
+	{ "CmdlineChanged", "[:/\\?]", [[silent! call wildtrigger()]] },
 	{
 		"FileType",
 		{ "qf", "fugitive", "fugitiveblame" },
