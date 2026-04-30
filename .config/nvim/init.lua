@@ -285,7 +285,7 @@ vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 
-vim.api.nvim_create_autocmd({ "InsertEnter", "TextChangedI" }, {
+vim.api.nvim_create_autocmd({ "TextChangedI" }, {
 	group = init_lua_grp,
 	callback = update_insert_autocomplete,
 })
