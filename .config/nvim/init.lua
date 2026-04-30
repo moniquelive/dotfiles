@@ -247,16 +247,6 @@ vim.keymap.set("i", "<C-e>", function()
 	return ""
 end, { expr = true, silent = true })
 
-vim.keymap.set("c", "<Up>", function()
-	if vim.fn.wildmenumode() == 1 then return "<C-E><Up>" end
-	return "<Up>"
-end, { expr = true, silent = true })
-
-vim.keymap.set("c", "<Down>", function()
-	if vim.fn.wildmenumode() == 1 then return "<C-E><Down>" end
-	return "<Down>"
-end, { expr = true, silent = true })
-
 vim.keymap.set(
 	"n",
 	"<C-w>d",
