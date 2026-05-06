@@ -1,9 +1,9 @@
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "56971d0"
-hash = "56fdabc96fc1f4d53c96eb884b02a5be"
+rev = "ac82af3"
+hash = "187cc58ba7ac3befd49c342129e6f1b6"
 
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
-rev = "9cd2ac4"
-hash = "f54b45bdd33f607ddde47f0afad96142"
+rev = "0670801"
+hash = "7dfe41c9c3d9be76da8a844263d0bbed"
