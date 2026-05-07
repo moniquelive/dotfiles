@@ -12,7 +12,7 @@ return {
 					"elm-format", "elm-language-server", "expert", "flake8", "gitlint", "goimports-reviser",
 					"golangci-lint-langserver", "gopls", "iferr", "isort", "json-lsp",
 					"lua-language-server", "markdownlint", "omnisharp", "powershell-editor-services", "prettierd",
-					"pylint", "python-lsp-server", "revive",
+					"pylint", "python-lsp-server", "revive", "rubyfmt",
 					"solargraph", "staticcheck", "stylua", "tailwindcss-language-server", "tombi",
 					"yaml-language-server", "yapf", -- "zls",
 				},
