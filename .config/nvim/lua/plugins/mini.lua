@@ -8,8 +8,8 @@ return {
 	{
 		"moniquelive/rfc.nvim",
 		branch = "mini-pick-conversion",
-		dependencies = { { "echasnovski/mini.pick", opts = {} } },
-		lazy = false,
+		dependencies = { "echasnovski/mini.nvim" },
+		event = "VeryLazy",
 		config = function() require("rfc").setup() end,
 	},
 }
