@@ -23,7 +23,8 @@ return {
 			end
 
 			local function completion_source_style(item)
-				if item.kind == completion_kind.Snippet
+				if
+					item.kind == completion_kind.Snippet
 					or item.insertTextFormat == vim.lsp.protocol.InsertTextFormat.Snippet
 				then
 					return "[SNIP]", "PmenuKindSourceSnippet"
@@ -55,6 +56,27 @@ return {
 				if item.kind ~= completion_kind.Color then converted.kind_hlgroup = source_hl end
 
 				return converted
+			end
+
+			local function notify_lsp_attach(client, bufnr)
+				local filename = vim.api.nvim_buf_get_name(bufnr)
+				filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
+
+				local features = vim.iter({
+					{ "textDocument/completion", "completion" },
+					{ "textDocument/hover", "hover" },
+					{ "textDocument/codeAction", "actions" },
+					{ "textDocument/formatting", "formatting" },
+				}):fold(setmetatable({}, { __index = table }), function(acc, feature)
+					if client:supports_method(feature[1], bufnr) then acc:insert(feature[2]) end
+					return acc
+				end)
+
+				local suffix = #features > 0 and (" · " .. features:concat(", ")) or ""
+				vim.notify(
+					string.format("📡 %s attached to %s%s", client.name, filename, suffix),
+					vim.log.levels.INFO
+				)
 			end
 
 			set_completion_source_highlights()
@@ -91,7 +113,7 @@ return {
 						})
 					end
 
-					vim.notify(string.format("📡️ %s attached", client.name))
+					notify_lsp_attach(client, bufnr)
 				end,
 			})
 
