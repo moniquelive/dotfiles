@@ -62,17 +62,17 @@ return {
 				local filename = vim.api.nvim_buf_get_name(bufnr)
 				filename = filename == "" and "[No Name]" or vim.fn.fnamemodify(filename, ":t")
 
-				local features = vim.iter({
+				local capabilities = vim.iter({
 					{ "textDocument/completion", "completion" },
 					{ "textDocument/hover", "hover" },
 					{ "textDocument/codeAction", "actions" },
 					{ "textDocument/formatting", "formatting" },
 				}):fold(setmetatable({}, { __index = table }), function(acc, feature)
-					if client:supports_method(feature[1], bufnr) then acc:insert(feature[2]) end
+					if client:supports_method(feature[1], bufnr) then acc:insert("- " .. feature[2]) end
 					return acc
 				end)
 
-				local suffix = #features > 0 and (" · " .. features:concat(", ")) or ""
+				local suffix = #capabilities > 0 and ("\n\n" .. capabilities:concat("\n")) or ""
 				vim.notify(
 					string.format("📡 %s attached to %s%s", client.name, filename, suffix),
 					vim.log.levels.INFO
