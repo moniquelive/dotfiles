@@ -269,7 +269,7 @@ function M.setup(mini)
 		},
 		{ "<leader><space>", function() mini.extra.pickers.buf_lines() end, "Search current buffer" },
 		{ "<leader>ft", function() mini.extra.pickers.colorschemes() end, "Choose colorscheme" },
-		{ "<s-tab>", function() mini.extra.pickers.explorer({ cwd = explorer_cwd() }) end, "File explorer" },
+		{ "<s-tab>", function() require("oil").toggle_float(explorer_cwd()) end, "File explorer" },
 		{ "ghx", browse_github, "Browse on GitHub" },
 		{ "<m-right>", function() jump_reference(vim.v.count1) end, "Next Reference" },
 		{ "<m-left>", function() jump_reference(-vim.v.count1) end, "Prev Reference" },
