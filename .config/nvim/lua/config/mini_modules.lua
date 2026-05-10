@@ -5,6 +5,7 @@ local mini_hipatterns = require("config.mini_hipatterns")
 function M.setup(mini)
 	vim.iter({
 		function() require("mini.icons").setup() end,
+		function() require("mini.animate").setup() end,
 		function() require("mini.ai").setup() end,
 		function()
 			require("mini.align").setup({
