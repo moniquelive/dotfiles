@@ -3,7 +3,8 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
-		lazy = false,
+		event = { "BufReadPre", "BufNewFile" },
+		cmd = { "TSInstall", "TSUpdate", "TSUninstall" },
 		build = ":TSUpdate",
 		config = function()
 			local treesitter = require("nvim-treesitter")

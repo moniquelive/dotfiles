@@ -1,7 +1,15 @@
 return {
 	{
 		"folke/snacks.nvim",
-		event = "VeryLazy",
+		init = function()
+			local fallback_input = vim.ui.input
+			local function lazy_input(...)
+				require("lazy").load({ plugins = { "snacks.nvim" } })
+				if vim.ui.input ~= lazy_input then return vim.ui.input(...) end
+				return fallback_input(...)
+			end
+			vim.ui.input = lazy_input
+		end,
 		opts = {
 			input = { enabled = true },
 		},

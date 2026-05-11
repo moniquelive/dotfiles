@@ -17,14 +17,17 @@ return {
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		keys = {
-			{ "<M-0>", k("menu") },
-			{ "<M-9>", k("add") },
+			{ "<M-0>", k("menu"), desc = "Harpoon menu" },
+			{ "<M-1>", k("nav1"), desc = "Harpoon file 1" },
+			{ "<M-2>", k("nav2"), desc = "Harpoon file 2" },
+			{ "<M-3>", k("nav3"), desc = "Harpoon file 3" },
+			{ "<M-4>", k("nav4"), desc = "Harpoon file 4" },
+			{ "<M-5>", k("nav5"), desc = "Harpoon file 5" },
+			{ "<M-6>", k("nav6"), desc = "Harpoon file 6" },
+			{ "<M-7>", k("nav7"), desc = "Harpoon file 7" },
+			{ "<M-8>", k("nav8"), desc = "Harpoon file 8" },
+			{ "<M-9>", k("add"), desc = "Harpoon add file" },
 		},
-		config = function()
-			require("harpoon"):setup()
-			for i = 1, 8 do
-				vim.keymap.set("n", ("<M-%d>"):format(i), k("nav" .. i), { noremap = true, silent = true })
-			end
-		end,
+		config = function() require("harpoon"):setup() end,
 	},
 }

@@ -1,6 +1,6 @@
 local M = {}
-local mini_starter = require("config.mini_starter")
 local mini_hipatterns = require("config.mini_hipatterns")
+local mini_starter = require("config.mini_starter")
 
 function M.setup(mini)
 	vim.iter({
@@ -34,7 +34,13 @@ function M.setup(mini)
 		function() require("mini.splitjoin").setup() end,
 		function() require("mini.surround").setup() end,
 		function() require("mini.diff").setup() end,
-		function() mini.pick.setup() end,
+		function()
+			mini.pick.setup()
+			mini.pick.registry.rfc = function(...)
+				require("lazy").load({ plugins = { "rfc.nvim" } })
+				return require("rfc").picker(...)
+			end
+		end,
 		function() mini.extra.setup() end,
 		function()
 			mini.notify.setup({
@@ -72,9 +78,7 @@ function M.setup(mini)
 		end,
 		function() mini.misc.setup_restore_cursor() end,
 		function() mini.misc.setup_termbg_sync() end,
-	}):each(function(setup)
-		setup()
-	end)
+	}):each(function(setup) setup() end)
 end
 
 return M
