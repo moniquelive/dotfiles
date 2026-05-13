@@ -80,6 +80,13 @@ local function compact_path(path)
 	return " (" .. vim.fn.pathshorten(vim.fn.fnamemodify(path, ":~"), 1) .. ")"
 end
 
+local function normal_window_count()
+	return vim.iter(vim.api.nvim_list_wins()):fold(0, function(count, win)
+		local config = vim.api.nvim_win_get_config(win)
+		return config.relative == "" and count + 1 or count
+	end)
+end
+
 local function align_with_right_padding(starter, right, horizontal, vertical)
 	right = math.max(right or 0, 0)
 	horizontal = horizontal or "left"
@@ -167,7 +174,7 @@ local function should_open()
 		return false
 	end
 
-	if #vim.api.nvim_list_wins() ~= 1 then
+	if normal_window_count() ~= 1 then
 		return false
 	end
 

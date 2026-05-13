@@ -3,6 +3,8 @@
 
 ------------------------------------------------------------ local plugins --
 require("config.lazy")
+-- Experimental core cmdline/messages UI.
+require("vim._core.ui2").enable()
 -----------------------------------------------------------------------------
 
 vim.opt.iskeyword:remove({ ".", "#", "-" })
@@ -20,6 +22,7 @@ vim.o.wildmode = "noselect:lastused,full"
 vim.o.wildoptions = "pum,fuzzy,tagfile"
 vim.o.breakindent = true
 vim.o.colorcolumn = "+1"
+vim.o.cmdheight = 0
 vim.o.copyindent = true
 vim.o.cursorline = true
 vim.o.encoding = "utf-8"
