@@ -122,7 +122,9 @@ return {
 			-- specific ones
 			local servers = {
 				clangd = {},
-				clojure_lsp = {},
+				clojure_lsp = {
+					root_markers = { "bb.edn", "deps.edn", "project.clj", "build.boot", ".git" },
+				},
 				djlint = {},
 				dockerls = {},
 				elmls = {},
