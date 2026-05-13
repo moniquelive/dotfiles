@@ -19,3 +19,4 @@ lua = "latest"
 "aqua:jdx/usage" = "latest"
 leiningen = "latest"
 opencode = "latest"
+babashka = { version = "latest", exe = "bb" }
