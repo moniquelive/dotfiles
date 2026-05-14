@@ -7,6 +7,32 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "use_system_window_tabs": false,
+  "focus_follows_mouse": {
+    "enabled": true
+  },
+  "bottom_dock_layout": "contained",
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "title_bar": {
+    "show_menus": false,
+    "show_branch_status_icon": true
+  },
+  "project_panel": {
+    "hide_root": false,
+    "hide_hidden": false,
+    "bold_folder_labels": true,
+    "git_status": true,
+    "file_icons": true,
+    "folder_icons": false,
+    "entry_spacing": "standard",
+    "hide_gitignore": true,
+    "default_width": 235.0,
+    "dock": "left",
+    "button": true
+  },
   "restore_on_startup": "launchpad",
   "edit_predictions": {
     "provider": "zed"
@@ -24,14 +50,16 @@
   },
   "icon_theme": {
     "mode": "system",
-    "light": "Zed (Default)",
+    "light": "Catppuccin Latte",
     "dark": "Catppuccin Mocha",
   },
   "current_line_highlight": "all",
   "ui_font_size": 18.0,
   "buffer_line_height": "standard",
   "agent": {
-    "always_allow_tool_actions": true,
+    "tool_permissions": {
+      "default": "allow"
+    },
     "default_model": {
       "provider": "openai",
       "model": "gpt-5-codex",
@@ -39,10 +67,10 @@
   },
   "theme": {
     "mode": "system",
-    "light": "Catppuccin Mocha",
+    "light": "Catppuccin Latte",
     "dark": "Catppuccin Mocha",
   },
-  "buffer_font_size": 20.0,
+  "buffer_font_size": 18.0,
   "buffer_font_family": "MonoLisa",
   "buffer_font_features": {
     "calt": true,
