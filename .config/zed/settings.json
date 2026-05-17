@@ -7,6 +7,26 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "agent_servers": {
+    "opencode": {
+      "favorite_config_option_values": {
+        "model": [
+          "openai/gpt-5.3-codex",
+          "openai/gpt-5.5"
+        ],
+        "effort": [
+          "xhigh"
+        ]
+      },
+      "type": "registry"
+    }
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "collaboration_panel": {
+    "dock": "left"
+  },
   "use_system_window_tabs": false,
   "focus_follows_mouse": {
     "enabled": true
@@ -37,7 +57,7 @@
   "edit_predictions": {
     "provider": "zed"
   },
-  "disable_ai": true,
+  "disable_ai": false,
   "vim": {
     "use_smartcase_find": true,
     "use_system_clipboard": "on_yank",
@@ -46,6 +66,7 @@
   "inline_code_actions": true,
   "hover_popover_enabled": true,
   "git_panel": {
+    "dock": "left",
     "tree_view": true,
   },
   "icon_theme": {
@@ -57,6 +78,7 @@
   "ui_font_size": 18.0,
   "buffer_line_height": "standard",
   "agent": {
+    "dock": "right",
     "tool_permissions": {
       "default": "allow"
     },
