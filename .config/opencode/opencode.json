@@ -9,9 +9,9 @@
       ],
       "enabled": true,
       "environment": {
-        "VAULT_PATH": "/Users/cyber/Library/Mobile Documents/iCloud~md~obsidian/Documents/Personal",
         "WS_UI_PORT": "9711"
-      }
+      },
+      "timeout": 30000
     },
     "browsermcp": {
       "type": "local",
