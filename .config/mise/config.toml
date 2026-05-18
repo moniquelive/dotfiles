@@ -20,3 +20,5 @@ lua = "latest"
 leiningen = "latest"
 opencode = "latest"
 babashka = { version = "latest", exe = "bb" }
+lazygit = "latest"
+delta = "latest"
