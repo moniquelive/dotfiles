@@ -34,6 +34,14 @@
         "chrome-devtools-mcp@latest"
       ],
       "enabled": true
+    },
+    "obsidian": {
+      "type": "remote",
+      "url": "https://127.0.0.1:27124/mcp/",
+      "enabled": true,
+      "headers": {
+        "Authorization": "Bearer ${OBSIDIAN_API_KEY}"
+      }
     }
   }
 }
