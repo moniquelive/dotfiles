@@ -8,7 +8,7 @@
      default))
  '(org-preview-latex-default-process 'dvisvgm nil nil "Customized with use-package org")
  '(package-selected-packages
-   '(auto-package-update auto-virtualenv catppuccin-theme company
+   '(auto-package-update auto-virtualenv gruvbox-theme company
                          company-box company-posframe consult corfu
                          csharp-mode dashboard dockerfile-mode
                          doom-modeline elisp-autofmt elixir-mode

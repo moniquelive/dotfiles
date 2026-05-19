@@ -1,13 +1,13 @@
 function vars_fzf
-    set BACKGROUND "#1e1e2e"
-    set FOREGROUND "#cdd6f4"
-    set BG_PLUS "#313244"
-    set BORDER "#89b4fa"
-    set MARKER "#f38ba8"
-    set INFO "#89b4fa"
-    set HL "#f9e2af"
-    set LABEL "#6c7086"
-    set PROMPT "#89b4fa"
+    set BACKGROUND "#1d2021"
+    set FOREGROUND "#ebdbb2"
+    set BG_PLUS "#3c3836"
+    set BORDER "#665c54"
+    set MARKER "#fabd2f"
+    set INFO "#83a598"
+    set HL "#fabd2f"
+    set LABEL "#928374"
+    set PROMPT "#b8bb26"
     set -gx FZF_THEME "\
         --color=fg:$FOREGROUND,bg:$BACKGROUND,hl:$HL \
         --color=fg+:bold:$FOREGROUND,bg+:$BG_PLUS,hl+:$HL \
@@ -35,7 +35,7 @@ vars_fzf
 
 set -gx HELPDIR /usr/local/share/zsh/helpfiles
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -gx BAT_THEME "Catppuccin Mocha"
+set -gx BAT_THEME "gruvbox-dark"
 set -gx BAT_STYLE "plain"
 set -gx LESSCHARSET utf-8
 set -gx LESS "-FRmX"

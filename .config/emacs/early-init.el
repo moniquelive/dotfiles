@@ -1,7 +1,7 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 
-(push '(background-color . "#222134") default-frame-alist)
-(push '(foreground-color . "#f0f0f0") default-frame-alist)
+(push '(background-color . "#1d2021") default-frame-alist)
+(push '(foreground-color . "#ebdbb2") default-frame-alist)
 
 (customize-set-variable 'load-prefer-newer t)
 

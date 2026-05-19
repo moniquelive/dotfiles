@@ -235,10 +235,9 @@
   (add-to-list 'global-mode-string '("" keycast-mode-line))
   (keycast-mode 1))
 
-(use-package catppuccin-theme
+(use-package gruvbox-theme
   :pin melpa
-  :custom (catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'frappe
-  :config (load-theme 'catppuccin :no-confirm))
+  :config (load-theme 'gruvbox-dark-hard :no-confirm))
 
 (use-package doom-modeline
   :custom

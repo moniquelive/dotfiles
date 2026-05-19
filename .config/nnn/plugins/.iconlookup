@@ -18,29 +18,29 @@
 icon_lookup() {
 awk 'BEGIN {
 # Set your ANSI colorscheme below (https://en.wikipedia.org/wiki/ANSI_escape_code#Colors).
-# Default uses standard nnn icon colors, 8 and 24-bit nord themes are commented out.
+# Gruvbox dark hard 256-color approximations.
     colordepth=8      #colordepth=8        #colordepth=24
-    color_dirtxt=39   #color_dirtxt=111    #color_dirtxt="129;161;193"
-    color_filetxt=15  #color_filetxt=111   #color_filetxt="129;161;193"
-    color_default=39  #color_default=111   #color_default="129;161;193"
-    color_video=93    #color_video=110     #color_video="136;192;208"
-    color_audio=220   #color_audio=150     #color_audio="163;190;140"
-    color_image=82    #color_image=150     #color_image="163;190;140"
-    color_docs=202    #color_docs=173      #color_docs="208;135;112"
-    color_archive=209 #color_archive=179   #color_archive="235;203;139"
-    color_c=81        #color_c=150         #color_c="163;190;140"
-    color_java=32     #color_java=139      #color_java="180;142;173"
-    color_js=47       #color_js=109        #color_js="143;188;187"
-    color_react=39    #color_react=111     #color_react="129;161;193"
-    color_css=199     #color_css=110       #color_css="136;192;208"
-    color_python=227  #color_python=68     #color_python="94;129;172"
-    color_lua=19      #color_lua=167       #color_lua="191;97;106"
-    color_document=15 #color_document=173  #color_document="208;135;112"
-    color_fsharp=31   #color_fsharp=179    #color_fsharp="180;142;173"
-    color_ruby=160    #color_ruby=150      #color_ruby="163;190;140"
-    color_scala=196   #color_scala=139     #color_scala="143;188;187"
-    color_shell=47    #color_shell=109     #color_shell="143;188;187"
-    color_vim=28      #color_vim=109       #color_vim="143;188;187"
+    color_dirtxt=109
+    color_filetxt=223
+    color_default=223
+    color_video=109
+    color_audio=142
+    color_image=108
+    color_docs=208
+    color_archive=214
+    color_c=142
+    color_java=175
+    color_js=214
+    color_react=109
+    color_css=109
+    color_python=109
+    color_lua=203
+    color_document=208
+    color_fsharp=175
+    color_ruby=167
+    color_scala=203
+    color_shell=142
+    color_vim=142
 
 # icons[][1] contains icon and icons[][2] contains color
     icons["directory"][1] = ""; icons["directory"][2] = color_default

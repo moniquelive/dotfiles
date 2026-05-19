@@ -5,35 +5,35 @@ gui:
 
   theme:
     activeBorderColor:
-      - "#f5e0dc"
+      - "#fabd2f"
       - bold
     inactiveBorderColor:
-      - "#a6adc8"
+      - "#928374"
     optionsTextColor:
-      - "#89b4fa"
+      - "#83a598"
     selectedLineBgColor:
-      - "#313244"
+      - "#3c3836"
     cherryPickedCommitBgColor:
-      - "#45475a"
+      - "#504945"
     cherryPickedCommitFgColor:
-      - "#f5e0dc"
+      - "#fabd2f"
     unstagedChangesColor:
-      - "#f38ba8"
+      - "#fb4934"
     defaultFgColor:
-      - "#cdd6f4"
+      - "#ebdbb2"
     searchingActiveBorderColor:
-      - "#f9e2af"
+      - "#fabd2f"
 
   branchColors:
-    "feature": "#89b4fa"
-    "feat": "#89b4fa"
-    "master": "#b4befe"
-    "main": "#b4befe"
+    "feature": "#83a598"
+    "feat": "#83a598"
+    "master": "#d3869b"
+    "main": "#d3869b"
 
   authorColors:
-    "Cyber Oliveira": "#FFC0CB"
-    "Monique Oliveira": "#FFC0CB"
-    "*": "#b4befe"
+    "Cyber Oliveira": "#d3869b"
+    "Monique Oliveira": "#d3869b"
+    "*": "#83a598"
 
 git:
   parseEmoji: true
