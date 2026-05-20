@@ -41,10 +41,7 @@ return {
 				end,
 			})
 
-			vim.keymap.set("n", "<M-UP>", "van", { silent = true, desc = "Treesitter init selection" })
-			vim.keymap.set("x", "<M-UP>", "an", { silent = true, desc = "Treesitter expand selection" })
-			vim.keymap.set("x", "<M-RIGHT>", "]n", { silent = true, desc = "Treesitter next node" })
-			vim.keymap.set("x", "<M-DOWN>", "in", { silent = true, desc = "Treesitter shrink selection" })
+			require("config.mappings").setup_treesitter()
 
 			vim.treesitter.query.add_predicate("is-mise?", function(_, _, bufnr, _)
 				local filepath = vim.api.nvim_buf_get_name(tonumber(bufnr) or 0)

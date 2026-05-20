@@ -10,7 +10,7 @@ function M.setup()
 	}
 
 	require("config.mini_modules").setup(mini)
-	require("config.mini_mappings").setup(mini)
+	require("config.mappings").setup_mini(mini)
 end
 
 return M

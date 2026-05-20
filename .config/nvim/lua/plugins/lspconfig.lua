@@ -90,17 +90,8 @@ return {
 				callback = function(args)
 					local bufnr = args.buf
 					vim.lsp.codelens.enable(false, { bufnr = bufnr })
+					require("config.mappings").setup_lsp(bufnr)
 
-					local opts = { noremap = true, silent = true, buffer = bufnr }
-					local k = vim.keymap.set
-					-- grr : ["gr"] = "<cmd>Telescope lsp_references<CR>",
-					-- c-s : vim.keymap.set("i", "<F1>", vim.lsp.buf.signature_help, opts)
-					-- k("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-					-- k("n", "<leader>d", "<cmd>Telescope lsp_definitions<CR>", opts)
-					k("n", "K", vim.lsp.buf.hover, opts)
-					k("n", "gD", vim.lsp.buf.declaration, opts)
-					k("n", "<F4>", vim.lsp.codelens.run, opts)
-					-- k("n", "<leader>e", function() vim.diagnostic.open_float({ source = "if_many" }) end, opts)
 					local client_id = args.data.client_id
 					if not client_id then return end
 					local client = vim.lsp.get_client_by_id(client_id)

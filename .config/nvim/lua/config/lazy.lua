@@ -32,6 +32,3 @@ require("lazy").setup("plugins", {
 		},
 	},
 })
-
-local map_opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>ll", require("lazy").home, map_opts)
