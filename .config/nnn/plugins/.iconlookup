@@ -18,29 +18,29 @@
 icon_lookup() {
 awk 'BEGIN {
 # Set your ANSI colorscheme below (https://en.wikipedia.org/wiki/ANSI_escape_code#Colors).
-# Gruvbox dark hard 256-color approximations.
+# Rosé Pine Moon 256-color approximations.
     colordepth=8      #colordepth=8        #colordepth=24
-    color_dirtxt=109
-    color_filetxt=223
-    color_default=223
-    color_video=109
-    color_audio=142
-    color_image=108
-    color_docs=208
-    color_archive=214
-    color_c=142
-    color_java=175
-    color_js=214
-    color_react=109
-    color_css=109
-    color_python=109
-    color_lua=203
-    color_document=208
-    color_fsharp=175
-    color_ruby=167
-    color_scala=203
-    color_shell=142
-    color_vim=142
+    color_dirtxt=152
+    color_filetxt=189
+    color_default=189
+    color_video=152
+    color_audio=67
+    color_image=217
+    color_docs=216
+    color_archive=183
+    color_c=67
+    color_java=183
+    color_js=216
+    color_react=152
+    color_css=152
+    color_python=152
+    color_lua=204
+    color_document=216
+    color_fsharp=183
+    color_ruby=204
+    color_scala=204
+    color_shell=67
+    color_vim=67
 
 # icons[][1] contains icon and icons[][2] contains color
     icons["directory"][1] = ""; icons["directory"][2] = color_default

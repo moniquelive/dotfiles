@@ -2,14 +2,14 @@
   "name": "OddBox",
   "author": "Kai Klostermann",
   "version": "0.1.9",
-  "description": "A Logseq theme based on Gruvbox dark hard.",
+  "description": "A Logseq theme based on Rosé Pine Moon.",
   "repo": "OddDev/oddbox",
   "logseq": {
     "themes": [
       {
         "name": "OddBox",
-        "url": "./gruvbox.css",
-        "description": "Gruvbox Dark Hard for Logseq.",
+        "url": "./rose-pine-moon.css",
+        "description": "Rosé Pine Moon for Logseq.",
         "mode": "dark"
       }
     ],

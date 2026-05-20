@@ -235,9 +235,9 @@
   (add-to-list 'global-mode-string '("" keycast-mode-line))
   (keycast-mode 1))
 
-(use-package gruvbox-theme
+(use-package rose-pine-theme
   :pin melpa
-  :config (load-theme 'gruvbox-dark-hard :no-confirm))
+  :config (load-theme 'rose-pine-moon :no-confirm))
 
 (use-package doom-modeline
   :custom

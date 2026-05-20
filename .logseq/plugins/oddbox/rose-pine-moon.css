@@ -1,0 +1,89 @@
+/* OddBox - Rosé Pine Moon for Logseq */
+.dark-theme,
+html[data-theme="dark"] {
+  --ls-primary-background-color: #232136;
+  --ls-secondary-background-color: #2a273f;
+  --ls-tertiary-background-color: #393552;
+  --ls-quaternary-background-color: #44415a;
+  --ls-table-tr-even-background-color: #393552;
+  --ls-block-properties-background-color: var(--ls-secondary-background-color);
+  --ls-page-properties-background-color: var(--ls-secondary-background-color);
+  --ls-search-background-color: var(--ls-primary-background-color);
+  --ls-border-color: #56526e;
+  --ls-secondary-border-color: #44415a;
+  --ls-tertiary-border-color: #393552;
+  --ls-guideline-color: #56526e;
+  --ls-menu-hover-color: var(--ls-tertiary-background-color);
+  --ls-primary-text-color: #e0def4;
+  --ls-secondary-text-color: #908caa;
+  --ls-title-text-color: #e0def4;
+  --ls-link-text-color: #9ccfd8;
+  --ls-link-text-hover-color: #c4a7e7;
+  --ls-link-ref-text-color: var(--ls-link-text-color);
+  --ls-link-ref-text-hover-color: var(--ls-link-text-hover-color);
+  --ls-tag-text-color: #3e8fb0;
+  --ls-tag-text-hover-color: #f6c177;
+  --ls-slide-background-color: var(--ls-primary-background-color);
+  --ls-block-bullet-border-color: #ea9a97;
+  --ls-block-bullet-color: #f6c177;
+  --ls-block-highlight-color: #2a283e;
+  --ls-selection-background-color: #44415a;
+  --ls-selection-text-color: #e0def4;
+  --ls-page-checkbox-color: #9ccfd8;
+  --ls-page-checkbox-border-color: #56526e;
+  --ls-page-blockquote-color: #f6c177;
+  --ls-page-blockquote-bg-color: #2a273f;
+  --ls-page-blockquote-border-color: #56526e;
+  --ls-page-mark-color: #232136;
+  --ls-page-mark-bg-color: #f6c177;
+  --ls-page-inline-code-color: #ea9a97;
+  --ls-page-inline-code-bg-color: #2a273f;
+  --ls-scrollbar-foreground-color: #56526e;
+  --ls-scrollbar-background-color: #2a273f;
+  --ls-scrollbar-thumb-hover-color: #6e6a86;
+  --ls-icon-color: var(--ls-link-text-color);
+  --ls-search-icon-color: var(--ls-primary-text-color);
+  --ls-search-icon-hover-color: var(--ls-secondary-text-color);
+  --ls-a-chosen-bg: var(--ls-tertiary-background-color);
+  --ls-pie-bg-color: #3e8fb0;
+  --ls-pie-fg-color: #9ccfd8;
+  --ls-error-text-color: #eb6f92;
+  --ls-warning-text-color: #f6c177;
+  --ls-success-text-color: #3e8fb0;
+  --ls-header-button-background: #393552;
+  --ls-left-sidebar-text-color: #e0def4;
+  --ls-left-sidebar-active-item-color: #e0def4;
+  --ls-left-sidebar-active-item-bg-color: #393552;
+  --color-level-1: #2a273f;
+  --color-level-2: #393552;
+  --color-level-3: #44415a;
+  --color-level-4: #56526e;
+  --color-level-5: #6e6a86;
+  --color-level-6: #908caa;
+  --popover: 246, 24.1%, 17.1%;
+  --border: 249, 14.6%, 37.6%;
+  --accent: 2, 71%, 75.5%;
+  --accent-foreground: 35, 87.6%, 71.6%;
+  --primary: 2, 71%, 75.5%;
+  --background: 246, 24.1%, 17.1%;
+  --lx-accent-01: #f6c177;
+  --lx-accent-02: #44415a;
+}
+
+.left-sidebar-inner a.item.active,
+.left-sidebar-inner a.item:hover {
+  color: var(--ls-left-sidebar-active-item-color);
+  background-color: var(--ls-left-sidebar-active-item-bg-color);
+}
+
+a.tag {
+  color: var(--ls-tag-text-color);
+}
+
+a {
+  color: var(--ls-link-text-color);
+}
+
+a:hover {
+  color: var(--ls-link-text-hover-color);
+}

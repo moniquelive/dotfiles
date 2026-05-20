@@ -1,7 +1,7 @@
 {
   "theme": {
     "name": "OddBox",
-    "url": "file:///Users/cyber/.logseq/plugins/oddbox/gruvbox.css",
+    "url": "file:///Users/cyber/.logseq/plugins/oddbox/rose-pine-moon.css",
     "pid": "oddbox"
   },
   "themes": {
@@ -17,8 +17,8 @@
     },
     "dark": {
       "name": "OddBox",
-      "url": "file:///Users/cyber/.logseq/plugins/oddbox/gruvbox.css",
-      "description": "Gruvbox Dark Hard",
+      "url": "file:///Users/cyber/.logseq/plugins/oddbox/rose-pine-moon.css",
+      "description": "Rosé Pine Moon",
       "mode": "dark",
       "pid": "oddbox",
       "selected": true

@@ -117,7 +117,7 @@ unset SCRIPT_NAME
 # set these after omz
 (( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="gruvbox-dark"
+export BAT_THEME="Rosé Pine Moon"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
@@ -280,15 +280,15 @@ unsetopt print_exit_value
 
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
-BACKGROUND="#1d2021"
-FOREGROUND="#ebdbb2"
-BG_PLUS="#3c3836"
-BORDER="#665c54"
-MARKER="#fabd2f"
-INFO="#83a598"
-HL="#fabd2f"
-LABEL="#928374"
-PROMPT="#b8bb26"
+BACKGROUND="#232136"
+FOREGROUND="#e0def4"
+BG_PLUS="#393552"
+BORDER="#56526e"
+MARKER="#f6c177"
+INFO="#9ccfd8"
+HL="#f6c177"
+LABEL="#908caa"
+PROMPT="#3e8fb0"
 FZF_THEME="
   --color=fg:${FOREGROUND},bg:${BACKGROUND},hl:${HL}
   --color=fg+:bold:${FOREGROUND},bg+:${BG_PLUS},hl+:${HL}

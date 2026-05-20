@@ -5,7 +5,7 @@ right_format = "$cmd_duration$time"
 
 # Inserts a blank line between shell prompts
 add_newline = true
-palette = "gruvbox_dark_hard"
+palette = "rose_pine_moon"
 
 [os]
 disabled = false
@@ -38,26 +38,26 @@ disabled = false
 disabled = false
 
 
-[palettes.gruvbox_dark_hard]
-black = "#1d2021"
-red = "#fb4934"
-green = "#b8bb26"
-yellow = "#fabd2f"
-blue = "#83a598"
-purple = "#d3869b"
-cyan = "#8ec07c"
-white = "#ebdbb2"
-bright-black = "#928374"
-bright-red = "#fb4934"
-bright-green = "#b8bb26"
-bright-yellow = "#fabd2f"
-bright-blue = "#83a598"
-bright-purple = "#d3869b"
-bright-cyan = "#8ec07c"
-bright-white = "#fbf1c7"
-base = "#1d2021"
-surface0 = "#3c3836"
-surface1 = "#504945"
-surface2 = "#665c54"
-text = "#ebdbb2"
-muted = "#928374"
+[palettes.rose_pine_moon]
+black = "#393552"
+red = "#eb6f92"
+green = "#3e8fb0"
+yellow = "#f6c177"
+blue = "#9ccfd8"
+purple = "#c4a7e7"
+cyan = "#ea9a97"
+white = "#e0def4"
+bright-black = "#6e6a86"
+bright-red = "#eb6f92"
+bright-green = "#3e8fb0"
+bright-yellow = "#f6c177"
+bright-blue = "#9ccfd8"
+bright-purple = "#c4a7e7"
+bright-cyan = "#ea9a97"
+bright-white = "#e0def4"
+base = "#232136"
+surface0 = "#2a273f"
+surface1 = "#393552"
+surface2 = "#44415a"
+text = "#e0def4"
+muted = "#908caa"
