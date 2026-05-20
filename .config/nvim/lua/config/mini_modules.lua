@@ -1,6 +1,5 @@
 local M = {}
 local mini_hipatterns = require("config.mini_hipatterns")
-local mini_starter = require("config.mini_starter")
 
 function M.setup(mini)
 	vim.iter({
@@ -49,7 +48,6 @@ function M.setup(mini)
 				},
 			})
 		end,
-		function() mini_starter.setup(mini.starter) end,
 		function()
 			mini.indentscope.setup({
 				symbol = "│",

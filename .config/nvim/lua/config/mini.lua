@@ -5,7 +5,6 @@ function M.setup()
 		pick = require("mini.pick"),
 		extra = require("mini.extra"),
 		notify = require("mini.notify"),
-		starter = require("mini.starter"),
 		indentscope = require("mini.indentscope"),
 		misc = require("mini.misc"),
 	}
