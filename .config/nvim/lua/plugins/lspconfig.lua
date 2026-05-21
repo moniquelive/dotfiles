@@ -116,11 +116,11 @@ return {
 				clojure_lsp = {
 					root_markers = { "bb.edn", "deps.edn", "project.clj", "build.boot", ".git" },
 				},
-				djlint = {},
 				dockerls = {},
 				elmls = {},
 				expert = {},
 				fish_lsp = {},
+				golangci_lint_ls = {},
 				gopls = {},
 				hls = {
 					cmd = { "haskell-language-server-wrapper", "--lsp" },
@@ -129,7 +129,6 @@ return {
 				},
 				jsonls = {},
 				bashls = {},
-				shellcheck = {},
 
 				-- LUA
 				lua_ls = {},
@@ -145,17 +144,16 @@ return {
 				-- flake8 = {},
 				-- isort = {}, -- called by conform.nvim
 				pylsp = {},
-				pylint = {},
 				-- yapf = {},
 
 				-- RUBY
 				solargraph = {},
 
-				sourcekit = {},
+				sourcekit = { filetypes = { "swift" } },
 				tailwindcss = {},
 				tombi = {},
 				yamlls = {},
-				zls = {},
+				zls = { cmd = { "mise", "exec", "--", "zls" } },
 			}
 			vim.iter(servers):each(function(server, config)
 				vim.lsp.config(server, config)
