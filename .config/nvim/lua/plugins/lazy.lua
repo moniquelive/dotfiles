@@ -21,15 +21,18 @@ return {
 			},
 		},
 		opts = {
+			format_on_save = function(bufnr)
+				local timeout_ms = vim.bo[bufnr].filetype == "python" and 3000 or 500
+				return { lsp_format = "fallback", timeout_ms = timeout_ms }
+			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
 				python = { "isort", "black" },
-				ruby = { "rubyfmt", stop_after_first = true },
+				ruby = { "rubyfmt", lsp_format = "prefer" },
 				rust = { "rustfmt", lsp_format = "fallback" },
 				javascript = { "prettierd", "prettier", stop_after_first = true },
 			},
 			default_format_opts = { lsp_format = "fallback" },
-			format_on_save = { lsp_format = "fallback", timeout_ms = 500 },
 			formatters = { shfmt = { append_args = { "-i", "2" } } },
 		},
 	},

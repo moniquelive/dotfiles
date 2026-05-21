@@ -147,7 +147,7 @@ return {
 				-- yapf = {},
 
 				-- RUBY
-				solargraph = {},
+				ruby_lsp = {},
 
 				sourcekit = { filetypes = { "swift" } },
 				tailwindcss = {},

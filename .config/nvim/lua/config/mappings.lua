@@ -406,7 +406,7 @@ local function should_enable_insert_autocomplete()
 end
 
 local function update_insert_autocomplete()
-	local enabled, prefix_len, from_lsp_trigger = should_enable_insert_autocomplete()
+	local enabled, prefix_len = should_enable_insert_autocomplete()
 	vim.opt_local.autocomplete = enabled
 
 	if not enabled and vim.fn.pumvisible() == 1 then
@@ -414,16 +414,12 @@ local function update_insert_autocomplete()
 		return
 	end
 
-	if
-		enabled
-		and vim.fn.pumvisible() == 0
-		and (prefix_len == autocomplete_min_chars or (from_lsp_trigger and prefix_len == 0))
-	then
+	if enabled and vim.fn.pumvisible() == 0 and prefix_len == autocomplete_min_chars then
 		vim.schedule(function()
 			if vim.api.nvim_get_mode().mode ~= "i" then return end
 			local still_enabled, still_prefix_len, still_from_trigger = should_enable_insert_autocomplete()
 			if not still_enabled or vim.fn.pumvisible() == 1 then return end
-			if still_prefix_len == autocomplete_min_chars or (still_from_trigger and still_prefix_len == 0) then
+			if still_prefix_len == autocomplete_min_chars and not still_from_trigger then
 				vim.api.nvim_feedkeys(vim.keycode("<C-n>"), "n", false)
 			end
 		end)
