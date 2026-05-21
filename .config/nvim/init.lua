@@ -5,6 +5,7 @@
 require("config.lazy")
 -- Experimental core cmdline/messages UI.
 require("vim._core.ui2").enable()
+require("config.input").setup()
 -----------------------------------------------------------------------------
 
 vim.opt.iskeyword:remove({ ".", "#", "-" })

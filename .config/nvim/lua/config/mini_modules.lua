@@ -15,7 +15,6 @@ function M.setup(mini)
 			})
 		end,
 		function() require("mini.bracketed").setup() end,
-		function() require("mini.comment").setup() end,
 		function()
 			require("mini.move").setup({
 				mappings = {
