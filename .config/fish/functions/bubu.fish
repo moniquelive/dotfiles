@@ -8,6 +8,6 @@ function bubu
     and brew autoremove
     mise p up
     and mise prune
-    and mise up
+    and mise up --bump
     and mise up
 end
