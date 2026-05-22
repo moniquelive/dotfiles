@@ -1,15 +1,23 @@
 return {
 	{
 		"williamboman/mason.nvim",
-		cmd = { "Mason", "MasonUpdate" },
+		cmd = { "Mason", "MasonInstall", "MasonLog", "MasonUninstall", "MasonUninstallAll", "MasonUpdate" },
 		build = ":MasonUpdate",
-		config = function(_, opts) require("mason").setup(opts) end,
+		config = function(_, opts)
+			require("mason").setup(opts)
+		end,
 	},
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		dependencies = { "williamboman/mason.nvim" },
 		build = ":MasonToolsUpdate",
-		cmd = { "MasonToolsClean", "MasonToolsInstall", "MasonToolsUpdate" },
+		cmd = {
+			"MasonToolsClean",
+			"MasonToolsInstall",
+			"MasonToolsInstallSync",
+			"MasonToolsUpdate",
+			"MasonToolsUpdateSync",
+		},
 		opts = {
 			-- stylua: ignore
 			ensure_installed = {
