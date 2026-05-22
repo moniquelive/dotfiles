@@ -2,3 +2,8 @@
 use = "yazi-rs/plugins:smart-enter"
 rev = "ac82af3"
 hash = "187cc58ba7ac3befd49c342129e6f1b6"
+
+[[flavor.deps]]
+use = "Mintass/rose-pine-moon"
+rev = "94385fe"
+hash = "edbe0dfb5db8ff37281dba62adc7e750"
