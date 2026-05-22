@@ -20,7 +20,7 @@ vim.iter({
 	autowriteall = true,
 	autocomplete = true,
 	complete = "o,.,w,b,u,t",
-	completeopt = "menuone,noselect,popup,fuzzy,nosort",
+	completeopt = "menuone,noselect,popup,fuzzy",
 	wildmode = "noselect:lastused,full",
 	wildoptions = "pum,fuzzy,tagfile",
 	breakindent = true,
