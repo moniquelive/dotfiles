@@ -1138,9 +1138,23 @@ button[aria-label="User Settings"] .lottieIcon__5eb9b svg path {
 
 /* ---------------------------- Settings ---------------------------- */
 
+.standardSidebarView__23e6b,
+[class*="standardSidebarView_"] {
+    background: var(--base) !important;
+}
+
 .sidebarRegion__23e6b,
-.contentRegion__23e6b {
-    background-color: var(--overlay) !important;
+.sidebarRegionScroller__23e6b,
+[class*="sidebarRegion_"],
+[class*="sidebarRegionScroller_"] {
+    background: var(--surface) !important;
+}
+
+.contentRegion__23e6b,
+.contentRegionScroller__23e6b,
+[class*="contentRegion_"],
+[class*="contentRegionScroller_"] {
+    background: var(--base) !important;
 }
 
 .accountProfileCard__1fed1 {
@@ -2113,4 +2127,55 @@ Collapsible Search Bar
 .visual-refresh .privateChannels__35e86 a[aria-current="page"],
 .visual-refresh [class*="privateChannels"] a[aria-current="page"] {
     background-color: var(--highlightMed) !important;
+}
+
+/* Local fix: keep user settings on the Moon palette.
+   The visual-refresh layout clears these backgrounds later in the cascade,
+   which lets Discord's black fallback show through. */
+.visual-refresh .standardSidebarView__23e6b,
+.visual-refresh [class*="standardSidebarView_"] {
+    background: var(--base) !important;
+    background-color: var(--base) !important;
+}
+
+.visual-refresh .sidebarRegion__23e6b,
+.visual-refresh .sidebarRegionScroller__23e6b,
+.visual-refresh [class*="sidebarRegion_"],
+.visual-refresh [class*="sidebarRegionScroller_"] {
+    background: var(--surface) !important;
+    background-color: var(--surface) !important;
+}
+
+.visual-refresh .contentRegion__23e6b,
+.visual-refresh .contentRegionScroller__23e6b,
+.visual-refresh [class*="contentRegion_"],
+.visual-refresh [class*="contentRegionScroller_"] {
+    background: var(--base) !important;
+    background-color: var(--base) !important;
+}
+
+/* Local fix: current Discord settings panels mostly use semantic background
+   variables instead of the old settings class backgrounds. */
+:root,
+.theme-dark,
+.theme-midnight,
+.visual-refresh {
+    --background-primary: var(--base) !important;
+    --background-secondary: var(--surface) !important;
+    --background-secondary-alt: var(--surface) !important;
+    --background-tertiary: var(--overlay) !important;
+    --background-floating: var(--overlay) !important;
+    --background-base-lowest: var(--base) !important;
+    --background-base-lower: var(--base) !important;
+    --background-base-low: var(--surface) !important;
+    --background-surface-high: var(--surface) !important;
+    --background-surface-higher: var(--overlay) !important;
+    --background-surface-highest: var(--highlightMed) !important;
+    --bg-base-primary: var(--base) !important;
+    --bg-base-secondary: var(--surface) !important;
+    --bg-base-tertiary: var(--overlay) !important;
+    --bg-overlay-floating: var(--overlay) !important;
+    --input-background: var(--overlay) !important;
+    --modal-background: var(--base) !important;
+    --modal-footer-background: var(--surface) !important;
 }
