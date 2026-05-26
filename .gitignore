@@ -17,3 +17,5 @@
 /.config/zed/.*
 
 /.logseq/graphs
+
+/Library/Application Support/BetterDiscord/data/stable/addon-store.json
