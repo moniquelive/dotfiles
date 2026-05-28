@@ -18,7 +18,9 @@ lua = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
 "aqua:jdx/usage" = { version = "latest", os = ["linux", "macos"] }
 leiningen = "latest"
-opencode = { version = "latest", os = ["linux", "macos"] }
+opencode = { version = "latest", os = ["macos"] }
 babashka = { version = "latest", exe = "bb" }
 lazygit = "latest"
 delta = { version = "latest", os = ["linux", "macos"] }
+
+"github:sst/opencode" = { version = "latest", os = ["linux"] }
