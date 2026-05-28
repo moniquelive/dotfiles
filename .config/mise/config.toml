@@ -5,7 +5,7 @@ python.uv_venv_auto = true
 disable_backends = ["asdf"]
 
 [tools]
-go = "latest"
+go = { version = "latest", os = ["linux", "macos"] }
 erlang = { version = "latest", os = ["linux", "macos"] }
 elixir = { version = "latest", os = ["linux", "macos"] }
 ghcup = "latest"
@@ -13,8 +13,8 @@ node = { version = "latest", os = ["linux", "macos"] }
 watchexec = { version = "latest", os = ["linux", "macos"] }
 rust = { version = "latest", os = ["linux", "macos"] }
 uv = { version = "latest", os = ["linux", "macos"] }
-ruby = "latest"
-lua = "latest"
+ruby = { version = "latest", os = ["linux", "macos"] }
+lua = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
 "aqua:jdx/usage" = { version = "latest", os = ["linux", "macos"] }
 leiningen = "latest"
