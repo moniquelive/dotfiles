@@ -6,19 +6,19 @@ disable_backends = ["asdf"]
 
 [tools]
 go = "latest"
-erlang = "latest"
-elixir = "latest"
+erlang = { version = "latest", os = ["linux", "macos"] }
+elixir = { version = "latest", os = ["linux", "macos"] }
 ghcup = "latest"
-node = "latest"
-watchexec = "latest"
-rust = "latest"
-uv = "latest"
+node = { version = "latest", os = ["linux", "macos"] }
+watchexec = { version = "latest", os = ["linux", "macos"] }
+rust = { version = "latest", os = ["linux", "macos"] }
+uv = { version = "latest", os = ["linux", "macos"] }
 ruby = "latest"
 lua = "latest"
 "aqua:golangci/golangci-lint" = "latest"
-"aqua:jdx/usage" = "latest"
+"aqua:jdx/usage" = { version = "latest", os = ["linux", "macos"] }
 leiningen = "latest"
-opencode = "latest"
+opencode = { version = "latest", os = ["linux", "macos"] }
 babashka = { version = "latest", exe = "bb" }
 lazygit = "latest"
-delta = "latest"
+delta = { version = "latest", os = ["linux", "macos"] }
