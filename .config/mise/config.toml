@@ -13,6 +13,8 @@ node = { version = "latest", os = ["linux", "macos"] }
 watchexec = { version = "latest", os = ["linux", "macos"] }
 rust = { version = "latest", os = ["linux", "macos"] }
 uv = { version = "latest", os = ["linux", "macos"] }
+fd = { version = "latest", os = ["linux", "macos"] }
+"cargo:fd-find" = { version = "latest", os = ["freebsd"] }
 ruby = { version = "latest", os = ["linux", "macos"] }
 lua = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
