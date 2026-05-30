@@ -110,6 +110,9 @@ fi
 
 unset SCRIPT_NAME
 
+#------------------------------------------------------------- ls colors ---
+(( $+commands[vivid] )) && export LS_COLORS="$(vivid generate rose-pine-moon)"
+
 #---------------------------------------------------------------- load OMZ ---
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
 # unalias fd
@@ -469,8 +472,6 @@ if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
   setopt PROMPT_SUBST
   PROMPT=$PROMPT'%{$(vterm_prompt_end)%}'
 fi
-
-[[ -f $HOME/lscolors.sh ]] && source $HOME/lscolors.sh
 
 # carapace autocomplete
 (( $+commands[carapace] )) && source <(carapace _carapace zsh)
