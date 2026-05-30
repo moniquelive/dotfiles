@@ -25,11 +25,17 @@ if status is-interactive
 
     test -f $HOME/.awskeys.sh; and source $HOME/.awskeys.sh
 
-    test -z "$SSH_ENV"; and set -xg SSH_ENV $HOME/.ssh/environment
-    __ssh_agent_is_started; or __ssh_agent_start
-
-    if command -q brew
-        set -l brew_prefix (/opt/homebrew/bin/brew --prefix)
+    set -l brew_prefix
+    for prefix in /opt/homebrew /home/linuxbrew/.linuxbrew /usr/local
+        if test -x $prefix/bin/brew
+            set brew_prefix $prefix
+            break
+        end
+    end
+    if test -z "$brew_prefix"; and command -q brew
+        set brew_prefix (brew --prefix)
+    end
+    if test -n "$brew_prefix"
         set -ax MANPATH $brew_prefix/opt/coreutils/libexec/gnuman
         fish_add_path \
             $brew_prefix/bin \
@@ -44,12 +50,13 @@ if status is-interactive
     command -q starship; and starship init fish | source; and enable_transience
     command -q mise; and mise activate fish | source
     command -q zoxide; and zoxide init --cmd cd fish | source
-    command -q tailscale; and tailscale completion fish | source
     command -q carapace; and carapace _carapace fish | source
-    command -q mole; and mole completion fish | source
     command -q fj; and fj completion fish | source
     if command -q tv
-        tv init fish | source
+        for mode in default insert
+            bind --mode $mode ctrl-t tv_smart_autocomplete
+            bind --mode $mode ctrl-r tv_shell_history
+        end
     else
         command -q fzf; and fzf --fish | source
     end
