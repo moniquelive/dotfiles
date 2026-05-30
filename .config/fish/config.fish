@@ -51,7 +51,7 @@ if status is-interactive
     command -q mise; and mise activate fish | source
     command -q zoxide; and zoxide init --cmd cd fish | source
     command -q carapace; and carapace _carapace fish | source
-    command -q fj; and fj completion fish | source
+    command -q fj; and fj completion fish 2>/dev/null | source
     if command -q tv
         for mode in default insert
             bind --mode $mode ctrl-t tv_smart_autocomplete
@@ -59,6 +59,29 @@ if status is-interactive
         end
     else
         command -q fzf; and fzf --fish | source
+    end
+
+    if status is-login
+        set -l missing_tools
+        command -q nvim; or set -a missing_tools "nvim      brew install neovim"
+        command -q brew; or set -a missing_tools "brew      https://brew.sh"
+        command -q starship; or set -a missing_tools "starship  brew install starship"
+        command -q mise; or set -a missing_tools "mise      brew install mise"
+        command -q zoxide; or set -a missing_tools "zoxide    brew install zoxide"
+        command -q carapace; or set -a missing_tools "carapace  brew install carapace"
+        command -q fj; or set -a missing_tools "fj        brew install forgejo-cli"
+        command -q tv; or set -a missing_tools "tv        brew install television"
+        command -q fzf; or set -a missing_tools "fzf       brew install fzf"
+        command -q vivid; or set -a missing_tools "vivid     brew install vivid"
+
+        if test (count $missing_tools) -gt 0
+            set_color yellow
+            echo "Optional shell tools missing:"
+            set_color normal
+            for tool in $missing_tools
+                echo "  $tool"
+            end
+        end
     end
 else
     mise activate fish --shims | source
