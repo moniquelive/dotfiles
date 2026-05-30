@@ -10,6 +10,8 @@ export LC_ALL=${LANG}.UTF-8
 export LC_CTYPE=${LANG}.UTF-8
 [[ -x nproc ]] && export MAKEFLAGS=-j$(nproc)
 export TIG_DIFF_OPTS="--patience --ignore-all-space"
+# Carapace honors XDG_CONFIG_HOME on macOS; keep its styles stow-managed.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
 # binaries
 [[ -d "$HOME/.local/bin" ]]  && path=($HOME/.local/bin $path)

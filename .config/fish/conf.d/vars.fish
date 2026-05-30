@@ -1,3 +1,6 @@
+# Carapace honors XDG_CONFIG_HOME on macOS; keep its styles stow-managed.
+set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
+
 function vars_fzf
     set BACKGROUND "#232136"
     set FOREGROUND "#e0def4"
