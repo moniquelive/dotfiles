@@ -42,7 +42,7 @@ end
 vars_ls_colors
 
 set -gx HELPDIR /usr/local/share/zsh/helpfiles
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANPAGER 'nvim +Man!'
 set -gx BAT_THEME "Rosé Pine Moon"
 set -gx BAT_STYLE "plain"
 set -gx LESSCHARSET utf-8
