@@ -1,4 +1,5 @@
 config-file = behavior
 config-file = appearance
 config-file = appearance.effects
+config-file = ?appearance.local
 config-file = keyboard

@@ -16,6 +16,8 @@
 
 /.config/opencode/opencode-notifier-state.json
 
+/.config/ghostty/appearance.local
+
 /.config/zed/.*
 
 /.logseq/graphs
