@@ -12,7 +12,7 @@ return {
 	},
 	{
 		"moniquelive/man.nvim",
-		dir = "/Users/cyber/prj/lua/man.nvim",
+		branch = "mini.picker",
 		dependencies = { "echasnovski/mini.nvim" },
 	},
 }
