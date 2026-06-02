@@ -1,0 +1,4 @@
+background-opacity=0.95
+background-blur=20
+
+custom-shader=./shaders/cursor_blaze.glsl
