@@ -38,6 +38,10 @@ function M.setup(mini)
 				require("lazy").load({ plugins = { "rfc.nvim" } })
 				return require("rfc").picker(...)
 			end
+			mini.pick.registry.man = function(...)
+				require("lazy").load({ plugins = { "man.nvim" } })
+				return require("man_nvim").picker(...)
+			end
 		end,
 		function() mini.extra.setup() end,
 		function()

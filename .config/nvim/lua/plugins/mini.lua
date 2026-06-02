@@ -10,4 +10,9 @@ return {
 		branch = "mini-pick-conversion",
 		dependencies = { "echasnovski/mini.nvim" },
 	},
+	{
+		"moniquelive/man.nvim",
+		dir = "/Users/cyber/prj/lua/man.nvim",
+		dependencies = { "echasnovski/mini.nvim" },
+	},
 }

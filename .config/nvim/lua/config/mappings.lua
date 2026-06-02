@@ -673,6 +673,7 @@ function M.setup_mini(mini)
 	vim.iter({
 		{ "<c-p>", function() mini.pick.builtin.files() end, "Find Files" },
 		{ "<leader>fb", function() mini.pick.builtin.buffers() end, "List buffers" },
+		{ "<leader>fa", function() mini.pick.registry.man() end, "Search man pages" },
 		{ "<leader>fd", function() mini.extra.pickers.diagnostic({ scope = "current" }) end, "List diagnostics" },
 		{ "<leader>fl", function() mini.pick.builtin.grep_live() end, "Grep" },
 		{ "<leader>fr", function() mini.extra.pickers.registers() end, "List registers" },

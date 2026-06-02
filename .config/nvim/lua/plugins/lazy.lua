@@ -48,6 +48,7 @@ return {
 				"~/.config/nvim",
 				"~/Exercism/lua",
 				"rfc.nvim",
+				"man.nvim",
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				{ path = "${3rd}/love2d/library", words = { "love%." } },
 				{ path = "LazyVim", words = { "LazyVim" } },
