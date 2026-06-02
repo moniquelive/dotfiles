@@ -1,8 +1,183 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "plugin": [
-    "./plugin/obsidian-env.js"
+    "./plugin/obsidian-env.js",
+    "@mohak34/opencode-notifier"
   ],
+  "lsp": {
+    "bashls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/bash-language-server",
+        "start"
+      ],
+      "extensions": [
+        ".bash",
+        ".bats",
+        ".sh",
+        ".zsh"
+      ]
+    },
+    "clangd": {
+      "command": [
+        "/usr/bin/clangd"
+      ],
+      "extensions": [
+        ".c",
+        ".cc",
+        ".cpp",
+        ".cxx",
+        ".h",
+        ".hh",
+        ".hpp",
+        ".hxx"
+      ]
+    },
+    "clojure_lsp": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/clojure-lsp"
+      ],
+      "extensions": [
+        ".bb",
+        ".clj",
+        ".cljc",
+        ".cljs",
+        ".edn"
+      ]
+    },
+    "dockerls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/docker-langserver",
+        "--stdio"
+      ],
+      "extensions": [
+        "Dockerfile"
+      ]
+    },
+    "elmls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/elm-language-server"
+      ],
+      "extensions": [
+        ".elm"
+      ]
+    },
+    "expert": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/expert"
+      ],
+      "extensions": [
+        ".ex",
+        ".exs",
+        ".heex"
+      ]
+    },
+    "golangci_lint_ls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/golangci-lint-langserver"
+      ],
+      "extensions": [
+        ".go"
+      ]
+    },
+    "gopls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/gopls"
+      ],
+      "extensions": [
+        ".go"
+      ]
+    },
+    "hls": {
+      "command": [
+        "/Users/cyber/.ghcup/bin/haskell-language-server-wrapper",
+        "--lsp"
+      ],
+      "extensions": [
+        ".cabal",
+        ".hs",
+        ".lhs"
+      ]
+    },
+    "jsonls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/vscode-json-language-server",
+        "--stdio"
+      ],
+      "extensions": [
+        ".json",
+        ".jsonc"
+      ]
+    },
+    "lua_ls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/lua-language-server"
+      ],
+      "extensions": [
+        ".lua"
+      ]
+    },
+    "omnisharp": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/OmniSharp",
+        "--languageserver"
+      ],
+      "extensions": [
+        ".cs"
+      ]
+    },
+    "pylsp": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/pylsp"
+      ],
+      "extensions": [
+        ".py"
+      ]
+    },
+    "ruby_lsp": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/ruby-lsp"
+      ],
+      "extensions": [
+        ".rb",
+        ".rake"
+      ]
+    },
+    "tailwindcss": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/tailwindcss-language-server",
+        "--stdio"
+      ],
+      "extensions": [
+        ".css",
+        ".html",
+        ".js",
+        ".jsx",
+        ".svelte",
+        ".ts",
+        ".tsx",
+        ".vue"
+      ]
+    },
+    "tombi": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/tombi",
+        "lsp"
+      ],
+      "extensions": [
+        ".toml"
+      ]
+    },
+    "yamlls": {
+      "command": [
+        "/Users/cyber/.local/share/nvim/mason/bin/yaml-language-server",
+        "--stdio"
+      ],
+      "extensions": [
+        ".yaml",
+        ".yml"
+      ]
+    }
+  },
   "mcp": {
     "browsermcp": {
       "type": "local",
