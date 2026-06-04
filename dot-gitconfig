@@ -76,7 +76,7 @@
 [url "git@github.com:"]
   insteadOf = gh:
 
-[url "git@codeberg.org/"]
+[url "git@codeberg.org:"]
   insteadOf = cb:
 
 ; [url "git@github.com:"]
