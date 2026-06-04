@@ -9,7 +9,7 @@
   "man.nvim": { "branch": "mini.picker", "commit": "0d8aab33bff0ddce2e57fe34a2f50bdf23b3cd3b" },
   "mason-tool-installer.nvim": { "branch": "main", "commit": "443f1ef8b5e6bf47045cb2217b6f748a223cf7dc" },
   "mason.nvim": { "branch": "main", "commit": "16ba83bfc8a25f52bb545134f5bee082b195c460" },
-  "mini.nvim": { "branch": "main", "commit": "11afe78a10570fe1d0c7ed0b6fc2b5b19098cb45" },
+  "mini.nvim": { "branch": "main", "commit": "cbae4fa396bbf9c802b3d2dc2e9c5362e8fb9468" },
   "nvim-lspconfig": { "branch": "master", "commit": "229b79051b380377664edc4cbd534930154921a1" },
   "nvim-treesitter": { "branch": "main", "commit": "4916d6592ede8c07973490d9322f187e07dfefac" },
   "nvim-treesitter-endwise": { "branch": "master", "commit": "8fe8a95630f4f2c72a87ba1927af649e0bfaa244" },
