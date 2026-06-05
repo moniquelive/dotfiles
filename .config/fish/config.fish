@@ -52,6 +52,7 @@ if status is-interactive
     command -q zoxide; and zoxide init --cmd cd fish | source
     command -q carapace; and carapace _carapace fish | source
     command -q fj; and fj completion fish 2>/dev/null | source
+    command -q bdcli; and bdcli completion fish | source
     if command -q tv
         for mode in default insert
             bind --mode $mode ctrl-t tv_smart_autocomplete
@@ -73,6 +74,7 @@ if status is-interactive
         command -q tv; or set -a missing_tools "tv        brew install television"
         command -q fzf; or set -a missing_tools "fzf       brew install fzf"
         command -q vivid; or set -a missing_tools "vivid     brew install vivid"
+        command -q bdcli; or set -a missing_tools "bdcli     brew tap betterdiscord/tap/bdcli; brew install bdcli"
 
         if test (count $missing_tools) -gt 0
             set_color yellow
