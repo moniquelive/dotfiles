@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+entry=Windows
+reboot=false
+
+usage() {
+  printf 'Usage: %s [--reboot]\n' "${0##*/}"
+  printf '\n'
+  printf 'Sets the Limine one-shot boot entry to Windows without changing EFI BootOrder.\n'
+  printf 'With --reboot, reboots immediately after setting the one-shot entry.\n'
+}
+
+case "${1:-}" in
+  "") ;;
+  --reboot)
+    reboot=true
+    ;;
+  -h|--help)
+    usage
+    exit 0
+    ;;
+  *)
+    usage >&2
+    exit 2
+    ;;
+esac
+
+if ! command -v bootctl >/dev/null 2>&1; then
+  printf 'bootctl is required but was not found.\n' >&2
+  exit 1
+fi
+
+if command -v limine-entry-tool >/dev/null 2>&1; then
+  if ! limine-entry-tool --tree | grep -Fxq "$entry"; then
+    printf 'Limine entry %s was not found. Current Limine tree:\n\n' "$entry" >&2
+    limine-entry-tool --tree >&2
+    exit 1
+  fi
+fi
+
+sudo bootctl set-oneshot "$entry"
+
+printf 'Next boot is set to Limine entry: %s\n' "$entry"
+printf 'EFI BootOrder was not changed.\n'
+
+if "$reboot"; then
+  systemctl reboot
+else
+  printf 'Reboot when ready, or run %s --reboot next time.\n' "${0##*/}"
+fi
