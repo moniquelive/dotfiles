@@ -1,7 +1,70 @@
 {
     "currentVersionInfo": {
-        "version": "1.2.9",
+        "version": "2.1.13",
         "hasShownChangelog": true
     },
-    "hasShownV2Modal": true
+    "hasShownV2Modal": true,
+    "prompts": {
+        "hardwareAcceleration": false
+    },
+    "catalog": {
+        "cache": {
+            "items": [
+                {
+                    "filename": "olDays.pack.json",
+                    "thumbnailSrc": "https://i.imgur.com/Zmzwona.png",
+                    "name": "Ol' Days",
+                    "version": "1.1.1",
+                    "author": "arg0NNY",
+                    "description": "An accurate port of all the animations from BetterAnimations V1, reproducing all their beauty, and all their flaws too.",
+                    "invite": "M8DBtcZjXD",
+                    "authorLink": "https://github.com/okdevme/BetterAnimationsPacks",
+                    "donate": "https://boosty.to/arg0nny/donate",
+                    "official": true,
+                    "hash": 4615589489415744,
+                    "size": 21200,
+                    "history": {
+                        "1.1.0": {
+                            "hash": 8322720962056025
+                        },
+                        "1.0.0": {
+                            "hash": 7616929500973968
+                        }
+                    },
+                    "updatedAt": "2026-06-04T20:42:20.418Z",
+                    "createdAt": "2025-07-30T19:30:07.988Z"
+                },
+                {
+                    "filename": "pureFade.pack.json",
+                    "thumbnailSrc": "https://i.imgur.com/MkCpJa6.jpeg",
+                    "name": "Pure Fade",
+                    "version": "1.1.1",
+                    "author": "arg0NNY",
+                    "description": "A collection of transparency switch animations from BetterAnimations with a true fade transition — eliminating the slight flicker of the background at the cost of lacking support for transparent Discord themes.",
+                    "invite": "M8DBtcZjXD",
+                    "authorLink": "https://github.com/okdevme/BetterAnimationsPacks",
+                    "donate": "https://boosty.to/arg0nny/donate",
+                    "official": true,
+                    "hash": 2841317390468723,
+                    "size": 6689,
+                    "history": {
+                        "1.1.0": {
+                            "hash": 7161450505921098
+                        },
+                        "1.0.0": {
+                            "hash": 263818792456494
+                        }
+                    },
+                    "updatedAt": "2026-06-04T20:42:20.418Z",
+                    "createdAt": "2025-07-30T21:23:31.322Z"
+                }
+            ],
+            "authors": [
+                {
+                    "username": "arg0NNY",
+                    "githubId": "52377180"
+                }
+            ]
+        }
+    }
 }
