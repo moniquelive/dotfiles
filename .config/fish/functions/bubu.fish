@@ -21,6 +21,8 @@ function bubu
         case Linux
             if test -f /etc/arch-release
                 yay -Syuu --noconfirm --devel --needed
+            else if test -f /etc/fedora-release
+                sudo dnf upgrade --refresh -y
             else
                 echo "bubu: unsupported Linux distribution" >&2
                 return 1
