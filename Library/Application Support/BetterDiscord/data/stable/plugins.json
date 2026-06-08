@@ -1,13 +1,13 @@
 {
     "BetterAnimations": true,
-    "SpotifyControls": true,
-    "ReadAllNotificationsButton": true,
-    "HideDisabledEmojis": true,
-    "BDFDB": true,
-    "BetterFriendList": true,
-    "DoNotTrack": true,
-    "StaffTag": true,
-    "CharCounter": true,
-    "LastMessageDate": true,
-    "BetterFolders": true
+    "SpotifyControls": false,
+    "ReadAllNotificationsButton": false,
+    "HideDisabledEmojis": false,
+    "BDFDB": false,
+    "BetterFriendList": false,
+    "DoNotTrack": false,
+    "StaffTag": false,
+    "CharCounter": false,
+    "LastMessageDate": false,
+    "BetterFolders": false
 }
