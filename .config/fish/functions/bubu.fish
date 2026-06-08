@@ -8,6 +8,7 @@ end
 function bubu
     switch (uname -s)
         case Darwin
+            set -lx HOMEBREW_NO_ASK 1
             brew update
             and brew outdated
             and brew upgrade
