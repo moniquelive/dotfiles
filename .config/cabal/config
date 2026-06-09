@@ -25,8 +25,8 @@ repository hackage.haskell.org
 -- store-dir:
 -- active-repositories:
 -- local-no-index-repo:
-remote-repo-cache: /Users/cyber/.cache/cabal/packages
--- logs-dir: /Users/cyber/.cache/cabal/logs
+-- remote-repo-cache:
+-- logs-dir:
 -- default-user-config:
 -- verbose: 1
 -- compiler: ghc
@@ -104,7 +104,7 @@ remote-repo-cache: /Users/cyber/.cache/cabal/packages
 -- index-state:
 -- root-cmd:
 -- symlink-bindir:
-build-summary: /Users/cyber/.cache/cabal/logs/build.log
+-- build-summary:
 -- build-log:
 remote-build-reporting: none
 -- report-planning-failure: False
@@ -117,7 +117,7 @@ jobs: $ncpus
 -- package-env:
 -- overwrite-policy:
 -- install-method:
-installdir: /Users/cyber/.local/bin
+-- installdir:
 -- username:
 -- password:
 -- password-command:
@@ -155,7 +155,7 @@ init
   -- source-dir: src
 
 install-dirs user
-  -- prefix: /Users/cyber/.cabal
+  -- prefix:
   -- bindir: $prefix/bin
   -- libdir: $prefix/lib
   -- libsubdir: $abi/$libname
