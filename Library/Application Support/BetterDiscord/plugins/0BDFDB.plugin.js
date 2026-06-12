@@ -2,7 +2,7 @@
  * @name BDFDB
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.5.3
+ * @version 4.5.4
  * @description Required Library for DevilBro's Plugins
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -6081,7 +6081,6 @@ module.exports = (_ => {
 																		label: BDFDB.LanguageUtils.getName(BDFDB.LanguageUtils.languages[id])
 																	})),
 																	searchable: true,
-																	optionRenderer: lang => lang.label,
 																	onChange: value => {
 																		this.props.language = value == "$discord" ? undefined : value;
 																		this.handleChange.apply(this, []);
@@ -6248,7 +6247,8 @@ module.exports = (_ => {
 				}
 				
 				CustomComponents.EmojiPickerButton = reactInitialized && class BDFDB_EmojiPickerButton extends Internal.LibraryModules.React.Component {
-					handleEmojiChange(emoji) {
+					handleEmojiChange(value) {
+						let emoji = value.emoji || value;
 						if (emoji != null) {
 							this.props.emoji = emoji.id ? {
 								id: emoji.id,
@@ -7209,7 +7209,7 @@ module.exports = (_ => {
 										className: this.props.inputClassName,
 										autoFocus: this.props.autoFocus ? this.props.autoFocus : false,
 										maxVisibleItems: this.props.maxVisibleItems || 7,
-										renderOptionLabel: this.props.optionRenderer,
+										renderOptionLabel: typeof this.props.optionRenderer == "function" ? this.props.optionRenderer : (n => n.label),
 										select: this.handleChange.bind(this),
 										serialize: typeof this.props.serialize == "function" ? this.props.serialize : _ => {},
 										isSelected: typeof this.props.isSelected == "function" ? this.props.isSelected : (value => this.props.value == value)
