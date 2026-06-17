@@ -19,7 +19,7 @@ ruby = { version = "latest", os = ["linux", "macos"] }
 lua = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
 "aqua:jdx/usage" = { version = "latest", os = ["linux", "macos"] }
-leiningen = "latest"
+leiningen = "2.12.0"
 babashka = { version = "latest", exe = "bb" }
 lazygit = "latest"
 delta = { version = "latest", os = ["linux", "macos"] }
