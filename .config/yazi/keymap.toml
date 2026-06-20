@@ -7,3 +7,28 @@ desc = "Cancel input"
 on = "l"
 run = "plugin smart-enter"
 desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
+on = ["e", "t"]
+run = "plugin eza-preview"
+desc = "Toggle tree/list directory preview"
+
+[[mgr.prepend_keymap]]
+on = ["e", "+"]
+run = "plugin eza-preview inc-level"
+desc = "Increase directory preview depth"
+
+[[mgr.prepend_keymap]]
+on = ["e", "-"]
+run = "plugin eza-preview dec-level"
+desc = "Decrease directory preview depth"
+
+[[mgr.prepend_keymap]]
+on = ["D", "h"]
+run = "plugin duckdb -1"
+desc = "Scroll data preview one column left"
+
+[[mgr.prepend_keymap]]
+on = ["D", "l"]
+run = "plugin duckdb +1"
+desc = "Scroll data preview one column right"
