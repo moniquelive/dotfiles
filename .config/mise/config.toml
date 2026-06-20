@@ -26,3 +26,4 @@ delta = { version = "latest", os = ["linux", "macos"] }
 "cargo:git-delta" = { version = "latest", os = ["freebsd"] }
 
 "github:sst/opencode" = { version = "latest", os = ["linux", "macos"] }
+"aqua:spinel-coop/rv" = "latest"
