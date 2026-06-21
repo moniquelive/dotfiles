@@ -75,6 +75,11 @@ if status is-interactive
         command -q fzf; or set -a missing_tools "fzf       brew install fzf"
         command -q vivid; or set -a missing_tools "vivid     brew install vivid"
         command -q bdcli; or set -a missing_tools "bdcli     brew install betterdiscord/tap/bdcli"
+        command -q eza; or set -a missing_tools "eza       brew install eza"
+        command -q duckdb; or set -a missing_tools "duckdb    brew install duckdb"
+        command -q rich; or set -a missing_tools "rich      brew install rich-cli"
+        command -q mediainfo; or set -a missing_tools "mediainfo brew install media-info"
+        command -q magick; or set -a missing_tools "magick    brew install imagemagick"
 
         if test (count $missing_tools) -gt 0
             set_color yellow
