@@ -12,5 +12,6 @@ font-thicken=false
 
 unfocused-split-opacity=1
 
-# official, blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray, custom-style
-macos-icon=xray
+# macOS app icon; Linux/FreeBSD use the XDG icon files in ~/.local/share/icons.
+macos-icon=custom
+macos-custom-icon=~/.config/ghostty/icons/rose-pine-moon.icns
