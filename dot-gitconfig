@@ -9,6 +9,44 @@
   excludesfile = ~/.gitignore_global
   whitespace   = fix,-indent-with-non-tab,trailing-space,cr-at-eol
   autocrlf     = input
+  pager       = delta
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  dark                       = true
+  features                   = rose-pine-moon
+  hyperlinks                 = true
+  line-numbers               = true
+  line-numbers-left-style    = "#908caa"
+  line-numbers-minus-style   = "#eb6f92"
+  line-numbers-plus-style    = "#3e8fb0"
+  line-numbers-right-style   = "#908caa"
+  line-numbers-zero-style    = "#6e6a86"
+  navigate                   = true
+  side-by-side               = true
+  true-color                 = always
+
+[delta "rose-pine-moon"]
+  commit-decoration-style      = "box ul #56526e"
+  commit-style                 = raw
+  file-decoration-style        = "ul #56526e"
+  file-style                   = "bold #9ccfd8"
+  hunk-header-decoration-style = "#56526e"
+  hunk-header-file-style       = "bold #c4a7e7"
+  hunk-header-line-number-style = "#f6c177"
+  hunk-header-style            = file line-number syntax
+  minus-emph-style             = "syntax bold #4d2f42"
+  minus-empty-line-marker-style = "normal #3a283d"
+  minus-style                  = "syntax #3a283d"
+  plus-emph-style              = "syntax bold #2a4a57"
+  plus-empty-line-marker-style = "normal #243847"
+  plus-style                   = "syntax #243847"
+  search-match-style           = "bold #232136 #f6c177"
+  syntax-theme                 = none
+  whitespace-error-style       = "reverse #eb6f92"
+  zero-style                   = syntax
 
 [diff]
 [color]
@@ -31,9 +69,9 @@
   co          = checkout
   commit      = commit -v
   amend       = commit --amend --no-edit
-  d           = diff --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
-  dc          = diff --cached --color-words --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
-  df          = diff --color-words --ignore-space-at-eol -b -w
+  d           = diff --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
+  dc          = diff --cached --minimal --ignore-space-at-eol -b -w --ignore-blank-lines
+  df          = diff --ignore-space-at-eol -b -w
   h           = !git head
 
   head        = !git l -1
@@ -103,6 +141,7 @@
   ; context = 5
 [merge]
   tool = bc
+	conflictStyle = zdiff3
 [mergetool "bc"]
   trustExitCode = true
 
