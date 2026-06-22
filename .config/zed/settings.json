@@ -93,7 +93,7 @@
     "dark": "Rosé Pine Moon",
   },
   "buffer_font_size": 18.0,
-  "buffer_font_family": "MonoLisa",
+  "buffer_font_family": "MonoLisaCode",
   "buffer_font_features": {
     "calt": true,
     "case": true,

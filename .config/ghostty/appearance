@@ -2,7 +2,7 @@ theme=Rose Pine Moon
 foreground=#d0d0d0
 
 font-family = ""
-font-family=MonoLisa
+font-family=MonoLisaCode
 font-family = "Symbols Nerd Font Mono"
 # font-family = "Geist Mono"
 # font-family = "Google Sans Code"
