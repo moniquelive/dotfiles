@@ -89,7 +89,7 @@
   rl          = reflog --all --decorate --pretty='format:%C(blue)%h%C(auto)%d%C(reset) %ar %C(green)%an%C(reset) %s'
 
   s           = status -sb
-  sh          = show --color-words --minimal
+  sh          = show --minimal
   show        = show -b
   ribbon      = tag --force _ribbon origin/master
   catchup     = log --patch --reverse --topo-order _ribbon..origin/master
