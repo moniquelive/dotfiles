@@ -87,6 +87,8 @@ vim.cmd([[highlight Search ctermbg=black ctermfg=yellow term=underline]])
 vim.cmd([[highlight Comment cterm=italic gui=italic]])
 
 -- LSP hover colors
+-- Yank highlight needs to differ from CursorLine (#393552)
+vim.cmd([[highlight Visual guibg=#44415a]])
 vim.cmd([[highlight LspReferenceText cterm=bold ctermbg=gray guibg=#404010]])
 vim.cmd([[highlight LspReferenceRead cterm=bold ctermbg=green guibg=#104010]])
 vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
