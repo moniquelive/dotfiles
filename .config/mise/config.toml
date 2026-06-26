@@ -19,6 +19,7 @@ ruby = { version = "latest", os = ["linux", "macos"] }
 lua = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
 "aqua:jdx/usage" = { version = "latest", os = ["linux", "macos"] }
+# 2.13.0 ships a launcher that self-installs 2.12.1-SNAPSHOT, which 404s.
 leiningen = "2.13.0"
 babashka = { version = "latest", exe = "bb" }
 lazygit = "latest"
