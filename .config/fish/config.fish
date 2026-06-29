@@ -64,22 +64,28 @@ if status is-interactive
 
     if status is-login
         set -l missing_tools
-        command -q nvim; or set -a missing_tools "nvim      brew install neovim"
-        command -q brew; or set -a missing_tools "brew      https://brew.sh"
-        command -q starship; or set -a missing_tools "starship  brew install starship"
-        command -q mise; or set -a missing_tools "mise      brew install mise"
-        command -q zoxide; or set -a missing_tools "zoxide    brew install zoxide"
-        command -q carapace; or set -a missing_tools "carapace  brew install carapace"
-        command -q fj; or set -a missing_tools "fj        brew install forgejo-cli"
-        command -q tv; or set -a missing_tools "tv        brew install television"
-        command -q fzf; or set -a missing_tools "fzf       brew install fzf"
-        command -q vivid; or set -a missing_tools "vivid     brew install vivid"
-        command -q bdcli; or set -a missing_tools "bdcli     brew install betterdiscord/tap/bdcli"
-        command -q eza; or set -a missing_tools "eza       brew install eza"
-        command -q duckdb; or set -a missing_tools "duckdb    brew install duckdb"
-        command -q rich; or set -a missing_tools "rich      brew install rich-cli"
-        command -q mediainfo; or set -a missing_tools "mediainfo brew install media-info"
-        command -q magick; or set -a missing_tools "magick    brew install imagemagick"
+        set -l optional_tools \
+            "nvim|brew install neovim" \
+            "brew|https://brew.sh" \
+            "starship|brew install starship" \
+            "mise|brew install mise" \
+            "zoxide|brew install zoxide" \
+            "carapace|brew install carapace" \
+            "fj|brew install forgejo-cli" \
+            "tv|brew install television" \
+            "fzf|brew install fzf" \
+            "vivid|brew install vivid" \
+            "bdcli|brew install betterdiscord/tap/bdcli" \
+            "eza|brew install eza" \
+            "duckdb|brew install duckdb" \
+            "rich|brew install rich-cli" \
+            "mediainfo|brew install media-info" \
+            "magick|brew install imagemagick"
+
+        for tool_spec in $optional_tools
+            set -l tool_parts (string split -m 1 "|" $tool_spec)
+            command -q $tool_parts[1]; or set -a missing_tools (printf "%-9s %s" $tool_parts[1] $tool_parts[2])
+        end
 
         if test (count $missing_tools) -gt 0
             set_color yellow
