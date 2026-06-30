@@ -19,7 +19,6 @@ ruby = { version = "latest", os = ["linux", "macos"] }
 lua = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
 "aqua:jdx/usage" = { version = "latest", os = ["linux", "macos"] }
-leiningen = "2.13.0"
 babashka = { version = "latest", exe = "bb" }
 lazygit = "latest"
 delta = { version = "latest", os = ["linux", "macos"] }
@@ -27,3 +26,4 @@ delta = { version = "latest", os = ["linux", "macos"] }
 
 "github:sst/opencode" = { version = "latest", os = ["linux", "macos"] }
 "aqua:spinel-coop/rv" = "latest"
+leiningen = "2.12"
