@@ -5,7 +5,7 @@ return {
 		init = function()
 			vim.g["conjure#filetypes"] = { "clojure" }
 
-			vim.g["conjure#mapping#prefix"] = ","
+			-- vim.g["conjure#mapping#prefix"] = ","
 			vim.g["conjure#mapping#doc_word"] = { "gK" }
 
 			vim.g["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = true
