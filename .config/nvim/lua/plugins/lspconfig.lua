@@ -110,10 +110,28 @@ return {
 
 			-- global config
 			vim.lsp.config("*", { root_markers = { ".git" } })
+
+			local clojure_lsp_init_options = {}
+			if vim.fn.executable("clojure") == 0 then
+				clojure_lsp_init_options["project-specs"] = {}
+				for _, spec in ipairs({
+					{ "project.clj", { "lein", "classpath" } },
+					{ "bb.edn", { "bb", "print-deps", "--format", "classpath" } },
+				}) do
+					if vim.fn.executable(spec[2][1]) == 1 then
+						table.insert(clojure_lsp_init_options["project-specs"], {
+							["project-path"] = spec[1],
+							["classpath-cmd"] = spec[2],
+						})
+					end
+				end
+			end
+
 			-- specific ones
 			local servers = {
 				clangd = {},
 				clojure_lsp = {
+					init_options = clojure_lsp_init_options,
 					root_markers = { "bb.edn", "deps.edn", "project.clj", "build.boot", ".git" },
 				},
 				dockerls = {},
