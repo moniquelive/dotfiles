@@ -1,6 +1,6 @@
 local path = require("config.path")
 
-vim.opt_local.makeprg = "bb %"
+vim.opt_local.makeprg = "bb %:p:S"
 if path.is_exercism() then
 	vim.opt_local.makeprg = "lein test"
 elseif path.is_lein(vim.fn.expand("%:p:h")) then

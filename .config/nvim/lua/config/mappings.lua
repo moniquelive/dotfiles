@@ -15,7 +15,8 @@ end
 
 local function diagnostics_is_enabled()
 	local ok, enabled = pcall(vim.diagnostic.is_enabled, { bufnr = 0 })
-	return ok and enabled or true
+	if ok then return enabled end
+	return true
 end
 
 local function set_diagnostics_enabled(enabled)
@@ -92,32 +93,30 @@ local function collect_reference_locations(results)
 	local locations = {}
 	local seen = {}
 
-	vim.iter(results or {}):each(function(client_id, response)
-		if response.err or not response.result then return end
+	for client_id, response in pairs(results or {}) do
+		if not response.err and response.result then
+			local client = vim.lsp.get_client_by_id(tonumber(client_id))
+			local encoding = client and client.offset_encoding or "utf-16"
+			local items = vim.lsp.util.locations_to_items(as_list(response.result), encoding)
 
-		local client = vim.lsp.get_client_by_id(tonumber(client_id))
-		local encoding = client and client.offset_encoding or "utf-16"
-		local raw_locations = as_list(response.result)
-		local items = vim.lsp.util.locations_to_items(raw_locations, encoding)
+			vim.iter(items):each(function(item)
+				if item.user_data == nil then return end
 
-		vim.iter(items):enumerate():each(function(index, item)
-			local raw_location = raw_locations[index]
-			if raw_location == nil then return end
+				local file = vim.fn.fnamemodify(item.filename, ":p")
+				local key = string.format("%s:%d:%d", file, item.lnum, item.col)
+				if seen[key] then return end
 
-			local file = vim.fn.fnamemodify(item.filename, ":p")
-			local key = string.format("%s:%d:%d", file, item.lnum, item.col)
-			if seen[key] then return end
-
-			seen[key] = true
-			locations[#locations + 1] = {
-				file = file,
-				lnum = item.lnum,
-				col = item.col,
-				location = raw_location,
-				encoding = encoding,
-			}
-		end)
-	end)
+				seen[key] = true
+				locations[#locations + 1] = {
+					file = file,
+					lnum = item.lnum,
+					col = item.col,
+					location = item.user_data,
+					encoding = encoding,
+				}
+			end)
+		end
+	end
 
 	table.sort(locations, function(lhs, rhs) return compare_position(lhs, rhs) < 0 end)
 
@@ -139,23 +138,43 @@ local function find_previous_index(locations, current)
 end
 
 local function jump_reference(direction)
-	local params = vim.lsp.util.make_position_params()
-	params.context = { includeDeclaration = false }
+	local origin_buf = vim.api.nvim_get_current_buf()
+	local origin_win = vim.api.nvim_get_current_win()
+	local origin_cursor = vim.api.nvim_win_get_cursor(origin_win)
+	local current = {
+		file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(origin_buf), ":p"),
+		lnum = origin_cursor[1],
+		col = origin_cursor[2] + 1,
+	}
 	local steps = math.max(math.abs(direction), 1)
+	local clients = vim.iter(vim.lsp.get_clients({ bufnr = origin_buf }))
+		:filter(function(client) return client:supports_method("textDocument/references", origin_buf) end)
+		:totable()
+	if #clients == 0 then
+		vim.notify("No LSP client supports references", vim.log.levels.INFO)
+		return
+	end
 
-	vim.lsp.buf_request_all(0, "textDocument/references", params, function(results)
+	local pending = #clients
+	local results = {}
+	local function handle_results()
+		pending = pending - 1
+		if pending > 0 then return end
+
+		if
+			not vim.api.nvim_buf_is_valid(origin_buf)
+			or not vim.api.nvim_win_is_valid(origin_win)
+			or vim.api.nvim_win_get_buf(origin_win) ~= origin_buf
+		then
+			vim.notify("Reference request cancelled: source buffer changed", vim.log.levels.INFO)
+			return
+		end
+
 		local locations = collect_reference_locations(results)
 		if #locations == 0 then
 			vim.notify("No references found", vim.log.levels.INFO)
 			return
 		end
-
-		local cursor = vim.api.nvim_win_get_cursor(0)
-		local current = {
-			file = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":p"),
-			lnum = cursor[1],
-			col = cursor[2] + 1,
-		}
 
 		local target_index
 		if direction > 0 then
@@ -167,7 +186,23 @@ local function jump_reference(direction)
 		end
 
 		local target = locations[target_index]
-		vim.lsp.util.jump_to_location(target.location, target.encoding, true)
+		vim.api.nvim_win_call(
+			origin_win,
+			function() vim.lsp.util.jump_to_location(target.location, target.encoding, true) end
+		)
+	end
+
+	vim.iter(clients):each(function(client)
+		local params = vim.lsp.util.make_position_params(origin_win, client.offset_encoding)
+		params.context = { includeDeclaration = false }
+		local success = client:request("textDocument/references", params, function(err, result)
+			results[client.id] = { err = err, result = result }
+			vim.schedule(handle_results)
+		end, origin_buf)
+		if success then return end
+
+		results[client.id] = { err = "request failed" }
+		vim.schedule(handle_results)
 	end)
 end
 
@@ -578,9 +613,13 @@ function M.setup()
 	set_map("n", "<leader>ll", function() require("lazy").home() end)
 
 	local group = vim.api.nvim_create_augroup("config_mappings", { clear = true })
-	vim.api.nvim_create_autocmd("TextChangedI", {
+	vim.api.nvim_create_autocmd({ "InsertEnter", "CursorMovedI", "TextChangedI" }, {
 		group = group,
 		callback = update_insert_autocomplete,
+	})
+	vim.api.nvim_create_autocmd("InsertLeave", {
+		group = group,
+		callback = function() vim.opt_local.autocomplete = false end,
 	})
 	vim.api.nvim_create_autocmd("FileType", {
 		group = group,

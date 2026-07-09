@@ -8,42 +8,41 @@ local function is_ansible()
 
 	local path = vim.fn.fnamemodify(fullpath, ":h")
 	local ext = vim.fn.expand("%:e")
-	local has_cfg = #vim.fs.find({ "ansible.cfg" }, { path = path, upward = true, stop = vim.env.HOME }) > 0
-
-	local yaml = { yml = true, yaml = true }
-	local root = yaml[ext] and has_cfg
-
-	local file_patterns = {
-		"/tasks/[^/]*%.ya?ml$",
-		"/roles/[^/]*%.ya?ml$",
-		"/handlers/[^/]*%.ya?ml$",
-		"/defaults/[^/]*%.ya?ml$",
-		"/vars/[^/]*%.ya?ml$",
-		"/group_vars/",
-		"/host_vars/",
-	}
-
-	local filename_patterns = vim.g.ansible_ftdetect_filename_regex and { vim.g.ansible_ftdetect_filename_regex }
-		or { "^playbook%.ya?ml$", "^site%.ya?ml$", "^main%.ya?ml$", "^local%.ya?ml$", "^requirements%.ya?ml$" }
 
 	local shebang_patterns = {
 		"^#!.*bin/env%s+ansible%-playbook",
 		"^#!.*bin/ansible%-playbook",
 	}
+	if match_any(vim.fn.getline(1), shebang_patterns) then return true end
+	if ext ~= "yml" and ext ~= "yaml" then return false end
 
-	return root
-		or match_any(fullpath, file_patterns)
-		or match_any(filename, filename_patterns)
-		or match_any(vim.fn.getline(1), shebang_patterns)
+	if #vim.fs.find("ansible.cfg", { path = path, upward = true, stop = vim.env.HOME }) > 0 then return true end
+	if vim.g.ansible_ftdetect_filename_regex and filename:match(vim.g.ansible_ftdetect_filename_regex) ~= nil then
+		return true
+	end
+
+	return match_any(fullpath, {
+		"/group_vars/[^/]*%.ya?ml$",
+		"/host_vars/[^/]*%.ya?ml$",
+		"/playbooks/[^/]*%.ya?ml$",
+		"/roles/[^/]+/defaults/[^/]*%.ya?ml$",
+		"/roles/[^/]+/handlers/[^/]*%.ya?ml$",
+		"/roles/[^/]+/tasks/[^/]*%.ya?ml$",
+		"/roles/[^/]+/vars/[^/]*%.ya?ml$",
+	})
 end
 
+local ansible_group = vim.api.nvim_create_augroup("config_ansible_ftdetect", { clear = true })
+
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = ansible_group,
 	pattern = "*",
 	callback = function()
 		if is_ansible() then vim.bo.filetype = "yaml.ansible" end
 	end,
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = ansible_group,
 	pattern = "*.j2",
 	callback = function()
 		local syntaxes = vim.g.ansible_template_syntaxes or {}
@@ -56,6 +55,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	end,
 })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	group = ansible_group,
 	pattern = "hosts",
 	callback = function() vim.bo.filetype = "ansible_hosts" end,
 })

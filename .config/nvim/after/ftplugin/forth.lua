@@ -1,1 +1,1 @@
-vim.opt_local.makeprg = "gforth % -e bye"
+vim.opt_local.makeprg = "gforth %:p:S -e bye"

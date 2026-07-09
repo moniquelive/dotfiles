@@ -66,18 +66,56 @@ function M.setup(mini)
 		function() require("mini.statusline").setup() end,
 		function()
 			local trailspace = require("mini.trailspace")
+			local trim_filetypes = {
+				bash = true,
+				c = true,
+				clojure = true,
+				cpp = true,
+				cs = true,
+				css = true,
+				dockerfile = true,
+				elixir = true,
+				elm = true,
+				fish = true,
+				go = true,
+				haskell = true,
+				heex = true,
+				html = true,
+				javascript = true,
+				javascriptreact = true,
+				json = true,
+				jsonc = true,
+				lua = true,
+				python = true,
+				ruby = true,
+				rust = true,
+				scss = true,
+				sh = true,
+				svelte = true,
+				swift = true,
+				toml = true,
+				typescript = true,
+				typescriptreact = true,
+				vue = true,
+				yaml = true,
+				zig = true,
+				zsh = true,
+			}
 			trailspace.setup()
 
 			vim.api.nvim_create_autocmd("BufWritePre", {
 				group = vim.api.nvim_create_augroup("UserMiniTrailspace", { clear = true }),
-				callback = function()
-					if vim.bo.buftype ~= "" or vim.bo.readonly or not vim.bo.modifiable then return end
+				callback = function(event)
+					local bo = vim.bo[event.buf]
+					if not trim_filetypes[bo.filetype] or vim.b[event.buf].trim_trailing_whitespace == false then
+						return
+					end
+					if bo.buftype ~= "" or bo.readonly or not bo.modifiable then return end
 					trailspace.trim()
 					trailspace.trim_last_lines()
 				end,
 			})
 		end,
-		function() mini.misc.setup_restore_cursor() end,
 		function() mini.misc.setup_termbg_sync() end,
 	}):each(function(setup) setup() end)
 end

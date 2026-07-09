@@ -7,6 +7,7 @@ return {
 
 			-- vim.g["conjure#mapping#prefix"] = ","
 			vim.g["conjure#mapping#doc_word"] = { "gK" }
+			vim.g["conjure#mapping#log_jump_to_latest"] = false
 
 			vim.g["conjure#client#clojure#nrepl#connection#auto_repl#enabled"] = true
 			vim.g["conjure#client#clojure#nrepl#connection#auto_repl#cmd"] = "bb nrepl-server localhost:$port"

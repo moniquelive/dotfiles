@@ -95,15 +95,45 @@ vim.cmd([[highlight LspReferenceWrite cterm=bold ctermbg=red guibg=#401010]])
 
 local init_lua_grp = vim.api.nvim_create_augroup("init_lua", { clear = true })
 
+vim.api.nvim_create_autocmd("BufReadPost", {
+	group = init_lua_grp,
+	callback = function(event)
+		if vim.bo[event.buf].buftype ~= "" then return end
+		if vim.tbl_contains({ "gitcommit", "gitrebase" }, vim.bo[event.buf].filetype) then return end
+
+		local win = vim.fn.bufwinid(event.buf)
+		if win == -1 or vim.api.nvim_win_get_cursor(win)[1] > 1 then return end
+
+		local mark_line = vim.api.nvim_buf_get_mark(event.buf, [["]])[1]
+		if mark_line < 1 or mark_line > vim.api.nvim_buf_line_count(event.buf) then return end
+
+		vim.api.nvim_win_call(win, function()
+			vim.cmd([[normal! g`"zv]])
+			vim.cmd([[normal! zz]])
+		end)
+	end,
+})
+
 vim.iter({
 	-- { { "BufRead", "BufNewFile" }, "*.gohtml", [[setlocal filetype="template"]] },
-	{ "QuickFixCmdPost", "*", [[cwindow]] }, -- Open quickfix window when errors are found
 	{ "FocusLost", "*", [[silent! wa]] }, -- Autosave on focus lost
 	{ "VimResized", "*", [[wincmd =]] }, -- let terminal resize scale the internal windows
 	{ "CmdlineChanged", "[:/\\?]", [[silent! call wildtrigger()]] },
 }):each(
 	function(cmd) vim.api.nvim_create_autocmd(cmd[1], { pattern = cmd[2], command = cmd[3], group = init_lua_grp }) end
 )
+
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+	pattern = "*",
+	group = init_lua_grp,
+	callback = function(event)
+		if event.match:sub(1, 1) == "l" then
+			vim.cmd.lwindow()
+		else
+			vim.cmd.cwindow()
+		end
+	end,
+})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.hl.on_yank()`

@@ -15,7 +15,7 @@
   (string) @injection.content @injection.language
 
   (#is-mise?)
-  (#match? @injection.language "^['\"]{3}\n*#!(/\\w+)+\s*\n") ; multiline shebang
+  (#match? @injection.language "^['\"]{3}\n*#!(/\\w+)+\\s*\n") ; multiline shebang
   (#gsub! @injection.language "^.*#!/.*/([^/%s]+).*" "%1") ; extract lang
   (#offset! @injection.content 0 3 0 -3) ; rm quotes
 )

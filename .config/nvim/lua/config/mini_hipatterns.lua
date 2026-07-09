@@ -331,15 +331,12 @@ function M.setup()
 
 	if type(opts.tailwind) == "table" and opts.tailwind.enabled then
 		vim.api.nvim_create_autocmd("ColorScheme", {
-			callback = function()
-				hl = {}
-			end,
+			group = vim.api.nvim_create_augroup("UserMiniHipatterns", { clear = true }),
+			callback = function() hl = {} end,
 		})
 		opts.highlighters.tailwind = {
 			pattern = function()
-				if not vim.tbl_contains(opts.tailwind.ft, vim.bo.filetype) then
-					return
-				end
+				if not vim.tbl_contains(opts.tailwind.ft, vim.bo.filetype) then return end
 				if opts.tailwind.style == "full" then
 					return "%f[%w:-]()[%w:-]+%-[a-z%-]+%-%d+()%f[^%w:-]"
 				elseif opts.tailwind.style == "compact" then

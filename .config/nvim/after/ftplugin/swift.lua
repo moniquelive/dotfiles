@@ -5,7 +5,7 @@ vim.b.did_ftplugin_swift = true
 local path = require("config.path")
 
 if path.is_exercism(vim.fn.expand("%:p:h")) then
-	vim.opt_local.makeprg = "cd %:p:h && RUNALL=true swift test -j 10"
+	vim.opt_local.makeprg = "cd %:p:h:S && RUNALL=true swift test -j 10"
 else
-	vim.opt_local.makeprg = "swift %:p"
+	vim.opt_local.makeprg = "swift %:p:S"
 end

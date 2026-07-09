@@ -1,7 +1,7 @@
 local skeleton = require("config.skeleton")
 
 vim.cmd.compiler("go")
-vim.opt_local.makeprg = "go run %"
+vim.opt_local.makeprg = "go run %:p:S"
 
 local bufname = vim.api.nvim_buf_get_name(0)
 if bufname:match("main%.go$") then

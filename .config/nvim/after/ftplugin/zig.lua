@@ -15,9 +15,9 @@ vim.g.zig_fmt_parse_errors = 0
 
 if path.is_exercism(vim.fn.expand("%:p:h")) then
 	vim.cmd.compiler("zig_test")
-	vim.opt_local.makeprg = "cd %:p:h && zig test test_%:t"
+	vim.opt_local.makeprg = "cd %:p:h:S && zig test test_%:t:S"
 elseif #vim.fs.find({ "build.zig" }, { path = vim.fn.expand("%:p:h"), upward = true, stop = vim.env.HOME }) > 0 then
 	vim.opt_local.makeprg = "zig build run"
 else -- standalone
-	vim.opt_local.makeprg = "zig run %"
+	vim.opt_local.makeprg = "zig run %:p:S"
 end

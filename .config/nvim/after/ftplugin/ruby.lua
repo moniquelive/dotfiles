@@ -2,9 +2,12 @@ local path = require("config.path")
 local skeleton = require("config.skeleton")
 
 vim.cmd.compiler("ruby")
-vim.opt_local.makeprg = "ruby --zjit %"
+vim.opt_local.makeprg = "ruby --zjit %:p:S"
 
-vim.cmd.iabbrev("fsl", "# frozen_string_literal: true")
+vim.cmd.iabbrev("<buffer>", "fsl", "# frozen_string_literal: true")
+local undo_ftplugin = vim.b.undo_ftplugin
+vim.b.undo_ftplugin = (undo_ftplugin and undo_ftplugin ~= "" and (undo_ftplugin .. " | ") or "")
+	.. "silent! iunabbrev <buffer> fsl"
 
 if path.is_exercism() then vim.opt_local.makeprg = "minitest ." end
 

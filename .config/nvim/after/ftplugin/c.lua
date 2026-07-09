@@ -8,7 +8,7 @@ skeleton.insert_if_empty(c_skeleton, { 3, 1 })
 
 local first_line = vim.api.nvim_buf_get_lines(0, 0, 1, false)[1]
 if first_line == script_header then
-	vim.opt_local.makeprg = "chmod +x ./% && ./%"
+	vim.opt_local.makeprg = "chmod +x %:p:S && %:p:S"
 else
 	vim.opt_local.makeprg = "make"
 end
