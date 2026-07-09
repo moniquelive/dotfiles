@@ -1,13 +1,8 @@
+local prettier = { "prettierd", "prettier", stop_after_first = true }
+
 return {
 	-- coding
 	{ "andymass/vim-matchup", keys = "%" },
-	{
-		"laytan/tailwind-sorter.nvim",
-		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-lua/plenary.nvim" },
-		ft = { "html", "heex" },
-		build = "cd formatter && npm ci && npm run build",
-		opts = { on_save_enabled = true },
-	},
 	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
@@ -26,11 +21,23 @@ return {
 				return { lsp_format = "fallback", timeout_ms = timeout_ms }
 			end,
 			formatters_by_ft = {
+				bash = { "shfmt" },
+				css = prettier,
+				html = prettier,
+				javascript = prettier,
+				javascriptreact = prettier,
+				json = prettier,
+				jsonc = prettier,
 				lua = { "stylua" },
 				python = { "isort", "black" },
 				ruby = { "rubyfmt", lsp_format = "prefer" },
 				rust = { "rustfmt", lsp_format = "fallback" },
-				javascript = { "prettierd", "prettier", stop_after_first = true },
+				scss = prettier,
+				sh = { "shfmt" },
+				svelte = prettier,
+				typescript = prettier,
+				typescriptreact = prettier,
+				vue = prettier,
 			},
 			default_format_opts = { lsp_format = "fallback" },
 			formatters = { shfmt = { append_args = { "-i", "2" } } },

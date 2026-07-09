@@ -1,11 +1,11 @@
 return {
-	{ "RRethy/nvim-treesitter-endwise", event = "InsertEnter" },
+	{ "RRethy/nvim-treesitter-endwise", event = { "BufReadPre", "BufNewFile" } },
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
-		event = { "BufReadPre", "BufNewFile" },
 		cmd = { "TSInstall", "TSUpdate", "TSUninstall" },
 		build = ":TSUpdate",
+		lazy = false,
 		config = function()
 			local treesitter = require("nvim-treesitter")
 
@@ -20,26 +20,38 @@ return {
 				"vim", "vimdoc", "yaml", "zig",
 			}
 
-			local already_installed = treesitter.get_installed("parsers") or {}
-			local installed_set = {}
-			vim.iter(already_installed):each(function(parser) installed_set[parser] = true end)
-
-			local parsers_to_install = vim.iter(ensure_installed)
-				:filter(function(parser) return not installed_set[parser] end)
-				:totable()
-			if #parsers_to_install > 0 then treesitter.install(parsers_to_install) end
-
 			local treesitter_group = vim.api.nvim_create_augroup("treesitter_features", { clear = true })
+			local function enable_features(bufnr)
+				if not vim.api.nvim_buf_is_loaded(bufnr) or vim.bo[bufnr].filetype == "" then return end
+
+				-- Enable treesitter highlighting and disable regex syntax.
+				local ok = pcall(vim.treesitter.start, bufnr)
+				-- Enable treesitter-based indentation.
+				if ok then vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+			end
 
 			vim.api.nvim_create_autocmd("FileType", {
 				group = treesitter_group,
-				callback = function(ev)
-					-- Enable treesitter highlighting and disable regex syntax
-					local ok = pcall(vim.treesitter.start, ev.buf)
-					-- Enable treesitter-based indentation
-					if ok then vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
-				end,
+				callback = function(event) enable_features(event.buf) end,
 			})
+
+			local installed_set = {}
+			vim.iter(treesitter.get_installed("parsers") or {}):each(function(parser) installed_set[parser] = true end)
+			local parsers_to_install = vim.iter(ensure_installed)
+				:filter(function(parser) return not installed_set[parser] end)
+				:totable()
+			if #parsers_to_install > 0 then
+				treesitter.install(parsers_to_install):await(function(err, installed)
+					vim.schedule(function()
+						if err or not installed then
+							vim.notify("Treesitter parser installation failed: " .. tostring(err), vim.log.levels.ERROR)
+							return
+						end
+
+						vim.iter(vim.api.nvim_list_bufs()):each(enable_features)
+					end)
+				end)
+			end
 
 			require("config.mappings").setup_treesitter()
 

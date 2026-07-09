@@ -8,7 +8,7 @@ return {
 			"dockerfile", "elixir", "elm", "fish",
 			"go", "gomod", "gowork", "haskell", "heex", "html",
 			"javascript", "javascriptreact", "json", "jsonc",
-			"lhaskell", "lua", "ps1", "psm1", "python",
+			"lhaskell", "lua", "ps1", "psd1", "psm1", "python",
 			"ruby", "sass", "scss", "sh", "svelte", "swift",
 			"toml", "typescript", "typescriptreact", "vue",
 			"yaml", "zig", "zsh",
@@ -155,7 +155,15 @@ return {
 
 				-- Microsoft
 				omnisharp = {},
-				powershell_es = {},
+				powershell_es = {
+					bundle_path = vim.fs.joinpath(
+						vim.fn.stdpath("data"),
+						"mason",
+						"packages",
+						"powershell-editor-services"
+					),
+					filetypes = { "ps1", "psd1", "psm1" },
+				},
 
 				-- PYTHON
 				-- autopep8 = {},
@@ -170,7 +178,9 @@ return {
 				sourcekit = { filetypes = { "swift" } },
 				tailwindcss = {},
 				tombi = {},
-				yamlls = {},
+				yamlls = {
+					filetypes = { "yaml", "yaml.ansible", "yaml.docker-compose", "yaml.gitlab", "yaml.helm-values" },
+				},
 				zls = { cmd = { "mise", "exec", "--", "zls" } },
 			}
 			vim.iter(servers):each(function(server, config)
