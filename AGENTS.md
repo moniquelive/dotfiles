@@ -18,8 +18,7 @@
   - `.config/nvim/lua/plugins/mini.lua` (plugin spec)
   - `.config/nvim/lua/config/mini.lua` (orchestrator)
   - `.config/nvim/lua/config/mini_modules.lua`
-  - `.config/nvim/lua/config/mini_mappings.lua`
-  - `.config/nvim/lua/config/mini_starter.lua`
+  - `.config/nvim/lua/config/mappings.lua`
 
 ## Neovim Couplings Easy to Miss
 - LSP/tooling changes often require edits in both places:
@@ -28,6 +27,10 @@
 - TOML `run` language injection for mise depends on both:
   - `.config/nvim/after/queries/toml/injections.scm`
   - custom `is-mise?` predicate in `.config/nvim/lua/plugins/treesitter.lua`
+- Tailwind class sorting is provided by project-local Prettier configuration:
+  - `.config/nvim/lua/plugins/lazy.lua` maps supported web filetypes to Prettier
+  - projects must install and configure `prettier-plugin-tailwindcss`
+- Mason tool reconciliation runs three seconds after startup, at most once per day; use `:MasonToolsUpdateSync` to force it.
 
 ## Validation Commands (focused, repo has no root CI)
 - Neovim runtime sanity:
@@ -40,3 +43,4 @@
 ## Formatting
 - Neovim Lua formatting uses `.config/nvim/stylua.toml` (`sort_requires.enabled = true`).
 - Prefer formatting only touched files.
+- Check all Neovim Lua with `$HOME/.local/share/nvim/mason/bin/stylua --check .config/nvim`.
