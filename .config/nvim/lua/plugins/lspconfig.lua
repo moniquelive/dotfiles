@@ -111,7 +111,9 @@ return {
 			-- global config
 			vim.lsp.config("*", { root_markers = { ".git" } })
 
-			local clojure_lsp_init_options = {}
+			local clojure_lsp_init_options = {
+				cljfmt = { ["remove-multiple-non-indenting-spaces?"] = true },
+			}
 			if vim.fn.executable("clojure") == 0 then
 				clojure_lsp_init_options["project-specs"] = {}
 				for _, spec in ipairs({
