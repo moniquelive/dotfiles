@@ -454,9 +454,7 @@ local function update_insert_autocomplete()
 			if vim.api.nvim_get_mode().mode ~= "i" then return end
 			local still_enabled, still_prefix_len, still_from_trigger = should_enable_insert_autocomplete()
 			if not still_enabled or vim.fn.pumvisible() == 1 then return end
-			if still_prefix_len == autocomplete_min_chars and not still_from_trigger then
-				vim.api.nvim_feedkeys(vim.keycode("<C-n>"), "n", false)
-			end
+			if still_prefix_len == autocomplete_min_chars and not still_from_trigger then vim.lsp.completion.get() end
 		end)
 	end
 end
