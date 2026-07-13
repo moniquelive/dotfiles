@@ -1,1 +1,7 @@
+.headers on
 .mode qbox
+.nullvalue NULL
+.timeout 5000
+.timer on
+
+PRAGMA foreign_keys = ON;
