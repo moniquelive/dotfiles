@@ -1,8 +1,7 @@
 function __bubu_mise_update
-    mise p up
+    mise plugins update
+    and mise upgrade --bump
     and mise prune
-    and mise up --bump
-    and mise up
 end
 
 function bubu
@@ -10,12 +9,9 @@ function bubu
         case Darwin
             set -lx HOMEBREW_NO_ASK 1
             brew update
-            and brew outdated
-            and brew upgrade
-            and brew upgrade --greedy
-            and brew upgrade --cask --greedy
-            and brew cleanup
+            and brew upgrade --greedy-auto-updates
             and brew autoremove
+            and brew cleanup
         case FreeBSD
             sudo pkg update
             and sudo pkg upgrade -y
