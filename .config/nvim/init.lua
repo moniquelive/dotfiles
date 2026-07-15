@@ -4,7 +4,9 @@
 ------------------------------------------------------------ local plugins --
 require("config.lazy")
 -- Experimental core cmdline/messages UI.
-require("vim._core.ui2").enable()
+require("vim._core.ui2").enable({
+	msg = { targets = "msg" },
+})
 require("config.input").setup()
 -----------------------------------------------------------------------------
 
