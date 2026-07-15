@@ -63,7 +63,15 @@ function M.setup(mini)
 			})
 		end,
 		function() mini_hipatterns.setup() end,
-		function() require("mini.statusline").setup() end,
+		function()
+			local statusline = require("mini.statusline")
+			statusline.setup()
+			local default_active = statusline.active
+			statusline.active = function()
+				local content = default_active()
+				return content == "" and content or content .. "%S"
+			end
+		end,
 		function()
 			local trailspace = require("mini.trailspace")
 			local trim_filetypes = {

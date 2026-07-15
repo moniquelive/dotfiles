@@ -56,6 +56,7 @@ vim.iter({
 	shiftround = true,
 	shiftwidth = 2,
 	showcmd = true,
+	showcmdloc = "statusline",
 	showmode = false,
 	showtabline = 1,
 	signcolumn = "yes",
