@@ -7,13 +7,10 @@ return {
 	},
 	{
 		"moniquelive/rfc.nvim",
-		branch = "mini-pick-conversion",
 		dependencies = { "echasnovski/mini.nvim" },
 	},
 	{
 		"moniquelive/man.nvim",
-		branch = "mini.picker",
-		-- dir = "~/prj/lua/man.nvim",
 		dependencies = { "echasnovski/mini.nvim" },
 	},
 }
