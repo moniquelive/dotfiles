@@ -34,6 +34,7 @@ function M.setup(mini)
 		function() require("mini.diff").setup() end,
 		function()
 			mini.pick.setup()
+			mini.pick.registry.undo = function() return require("config.mini_undotree").pick(mini.pick) end
 			mini.pick.registry.rfc = function(...)
 				require("lazy").load({ plugins = { "rfc.nvim" } })
 				return require("rfc").picker(...)

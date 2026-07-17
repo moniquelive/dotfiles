@@ -714,6 +714,7 @@ function M.setup_mini(mini)
 		{ "<leader>fd", function() mini.extra.pickers.diagnostic({ scope = "current" }) end, "List diagnostics" },
 		{ "<leader>fl", function() mini.pick.builtin.grep_live() end, "Grep" },
 		{ "<leader>fr", function() mini.extra.pickers.registers() end, "List registers" },
+		{ "<leader>fu", function() mini.pick.registry.undo() end, "Undo tree" },
 		{ "<leader>f/", function() mini.extra.pickers.history({ scope = "/" }) end, "Search history" },
 		{ "<leader>fh", function() mini.pick.builtin.help() end, "Search help tags" },
 		{ "<leader>fq", function() mini.extra.pickers.history({ scope = ":" }) end, "Command history" },
