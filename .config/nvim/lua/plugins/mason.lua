@@ -1,7 +1,7 @@
 local function tools_to_install()
 	-- stylua: ignore
 	local tools = {
-		"bash-language-server", "black", "clojure-lsp", "dockerfile-language-server",
+		"bash-language-server", "black", "clj-kondo", "clojure-lsp", "dockerfile-language-server",
 		"elm-language-server", "expert", "golangci-lint", "golangci-lint-langserver", "gopls",
 		"isort", "json-lsp", "lua-language-server", "omnisharp", "powershell-editor-services",
 		"prettierd", "pylint", "python-lsp-server", "ruby-lsp", "rubyfmt", "shfmt", "stylua",
@@ -11,6 +11,7 @@ local function tools_to_install()
 	if vim.uv.os_uname().sysname ~= "FreeBSD" then return tools end
 
 	local unsupported = {
+		["clj-kondo"] = true,
 		["clojure-lsp"] = true,
 		["expert"] = true,
 		["lua-language-server"] = true,

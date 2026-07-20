@@ -64,4 +64,28 @@ return {
 			},
 		},
 	},
+	{
+		"mfussenegger/nvim-lint",
+		dependencies = { "williamboman/mason.nvim" },
+		ft = { "clojure", "edn" },
+		config = function()
+			local lint = require("lint")
+			local clojure_filetypes = { clojure = true, edn = true }
+			lint.linters_by_ft.clojure = { "clj-kondo" }
+			lint.linters_by_ft.edn = { "clj-kondo" }
+
+			local function try_lint(bufnr)
+				if not vim.api.nvim_buf_is_valid(bufnr) or not clojure_filetypes[vim.bo[bufnr].filetype] then return end
+				vim.api.nvim_buf_call(bufnr, lint.try_lint)
+			end
+
+			vim.api.nvim_create_autocmd({ "FileType", "InsertLeave", "BufWritePost" }, {
+				group = vim.api.nvim_create_augroup("UserClojureLint", { clear = true }),
+				callback = function(event) try_lint(event.buf) end,
+			})
+
+			local bufnr = vim.api.nvim_get_current_buf()
+			vim.schedule(function() try_lint(bufnr) end)
+		end,
+	},
 }
