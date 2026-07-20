@@ -3,7 +3,6 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		branch = "main",
-		cmd = { "TSInstall", "TSUpdate", "TSUninstall" },
 		build = ":TSUpdate",
 		lazy = false,
 		config = function()
@@ -26,8 +25,11 @@ return {
 
 				-- Enable treesitter highlighting and disable regex syntax.
 				local ok = pcall(vim.treesitter.start, bufnr)
-				-- Enable treesitter-based indentation.
-				if ok then vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
+				if not ok then return end
+
+				local lang = vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+				local query_ok, query = pcall(vim.treesitter.query.get, lang, "indents")
+				if query_ok and query then vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" end
 			end
 
 			vim.api.nvim_create_autocmd("FileType", {
@@ -59,7 +61,7 @@ return {
 				local filepath = vim.api.nvim_buf_get_name(tonumber(bufnr) or 0)
 				local filename = vim.fn.fnamemodify(filepath, ":t")
 				return string.match(filename, "^%.?mise%.toml$") ~= nil
-			end, { force = true, all = false })
+			end, { force = true })
 		end,
 	},
 }
