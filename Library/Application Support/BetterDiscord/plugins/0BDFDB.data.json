@@ -3421,7 +3421,7 @@
 		"vi":			{"name":"Vietnamese",						"id":"vi",		"ownlang":"Tiếng Việt Nam"},
 		"cy":			{"name":"Welsh",						"id":"cy",		"ownlang":"Cymraeg"},
 		"xh":			{"name":"Xhosa",						"id":"xh",		"ownlang":"Xhosa"},
-		"yi":			{"name":"Yiddish",						"id":"yi",		"ownlang":"ייִדיש ייִדיש‬"},
+		"yi":			{"name":"Yiddish",						"id":"yi",		"ownlang":"ייִדיש ייִדיש"},
 		"yo":			{"name":"Yoruba",						"id":"yo",		"ownlang":"Èdè Yorùbá"},
 		"zu":			{"name":"Zulu",							"id":"zu",		"ownlang":"Zulu"}
 	},
