@@ -51,7 +51,6 @@ if status is-interactive
     command -q mise; and mise activate fish | source
     command -q zoxide; and zoxide init --cmd cd fish | source
     command -q carapace; and carapace _carapace fish | source
-    command -q fj; and fj completion fish 2>/dev/null | source
     command -q bdcli; and bdcli completion fish | source
     if command -q tv
         for mode in default insert
