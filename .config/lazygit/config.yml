@@ -47,10 +47,8 @@ git:
   parseEmoji: true
   ignoreWhitespaceInDiffView: true
   pagers:
+    - pager: delta --dark --paging=never --features=rose-pine-moon
     - pager: delta --dark --paging=never
-    - pager: ydiff -p cat -s --wrap --width={{columnWidth}}
-      colorArg: never
-    - externalDiffCommand: difft --color=always
 
 confirmOnQuit: false
 promptToReturnFromSubprocess: false
