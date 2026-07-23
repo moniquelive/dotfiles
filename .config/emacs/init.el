@@ -35,6 +35,9 @@
 (declare-function eglot-code-action-organize-imports "eglot")
 (declare-function eglot-format-buffer "eglot")
 (declare-function eglot-managed-p "eglot")
+(declare-function eglot-server-capable "eglot")
+(declare-function flymake-diagnostic-oneliner "flymake")
+(declare-function flymake-diagnostics "flymake")
 (declare-function flymake-goto-next-error "flymake")
 (declare-function flymake-goto-prev-error "flymake")
 
@@ -197,6 +200,11 @@
   (defvar-keymap my-leader-map
     "RET" #'evil-ex-nohighlight
     "\\" #'switch-to-buffer
+    "e b" #'cider-load-buffer
+    "e e" #'cider-eval-defun-at-point
+    "e j" #'cider-jack-in-clj
+    "e l" #'cider-eval-last-sexp
+    "f f" #'my-format-buffer
     "p" project-prefix-map
     "g" #'magit-status
     "t" #'vterm)
@@ -391,6 +399,26 @@
                   (alist-get major-mode my-eglot-server-executables))
     (eglot-ensure)))
 
+(defun my-format-buffer ()
+  "Format the current buffer with Eglot or its indentation rules."
+  (interactive)
+  (if (and (fboundp 'eglot-managed-p)
+           (eglot-managed-p)
+           (eglot-server-capable :documentFormattingProvider))
+      (eglot-format-buffer)
+    (save-restriction
+      (widen)
+      (indent-region (point-min) (point-max)))))
+
+(defun my-eglot-format-on-save ()
+  "Format on save when the current Eglot server supports it."
+  (if (and (eglot-managed-p)
+           (eglot-server-capable :documentFormattingProvider))
+      (add-hook 'before-save-hook #'eglot-format-buffer t t)
+    (remove-hook 'before-save-hook #'eglot-format-buffer t)))
+
+(add-hook 'eglot-managed-mode-hook #'my-eglot-format-on-save)
+
 (dolist (hook '(csharp-ts-mode-hook
                 clojure-ts-mode-hook
                 dockerfile-ts-mode-hook
@@ -398,12 +426,26 @@
                 heex-ts-mode-hook
                 elm-mode-hook
                 haskell-mode-hook
-                zig-mode-hook))
+                 zig-mode-hook))
   (add-hook hook #'my-eglot-ensure))
+
+(defun my-flymake-show-line-diagnostics ()
+  "Display Flymake diagnostics for the current line."
+  (interactive)
+  (if-let ((diagnostics
+            (flymake-diagnostics (line-beginning-position)
+                                 (line-end-position))))
+      (message "%s"
+               (mapconcat #'flymake-diagnostic-oneliner diagnostics "\n"))
+    (message "No diagnostics on this line")))
 
 (with-eval-after-load 'flymake
   (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
-  (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
+  (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error)
+
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal flymake-mode-map
+      (kbd "C-w d") #'my-flymake-show-line-diagnostics)))
 
 (with-eval-after-load 'eglot
   (add-to-list
@@ -429,22 +471,16 @@
   (setq cider-use-xref nil)
   :config
   (with-eval-after-load 'evil
-    (evil-define-key 'normal cider-mode-map
-      (kbd "\\ e b") #'cider-load-buffer
-      (kbd "\\ e e") #'cider-eval-defun-at-point
-      (kbd "\\ e j") #'cider-jack-in-clj
-      (kbd "\\ e l") #'cider-eval-last-sexp)
     (evil-define-key 'visual cider-mode-map
       (kbd "\\ e r") #'cider-eval-region)))
 
 ;;;; Go
 
 (defun my-go-before-save ()
-  "Organize imports and format a Go buffer managed by Eglot."
+  "Organize imports in a Go buffer managed by Eglot."
   (when (and (fboundp 'eglot-managed-p)
              (eglot-managed-p))
-    (eglot-code-action-organize-imports (point-min) (point-max))
-    (eglot-format-buffer)))
+    (eglot-code-action-organize-imports (point-min) (point-max))))
 
 (defun my-go-setup ()
   "Start Eglot and configure save actions for Go."
@@ -529,6 +565,17 @@
   :ensure t
   :commands magit-status
   :bind ("C-x g" . magit-status))
+
+(use-package diff-hl
+  :ensure t
+  :custom-face
+  (diff-hl-insert ((t (:foreground "#9ccfd8"))))
+  (diff-hl-change ((t (:foreground "#f6c177"))))
+  (diff-hl-delete ((t (:foreground "#eb6f92"))))
+  :config
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
 (use-package vterm
   :ensure t

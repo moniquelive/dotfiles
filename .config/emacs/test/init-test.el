@@ -247,6 +247,30 @@
       (should (= (length checked) 6))
       (should (zerop eglot-calls)))))
 
+(ert-deftest my-test-eglot-format-on-save-follows-server-capability ()
+  (let ((managed nil)
+        (formatting nil))
+    (cl-letf (((symbol-function 'eglot-managed-p) (lambda () managed))
+              ((symbol-function 'eglot-server-capable)
+               (lambda (_) formatting)))
+      (with-temp-buffer
+        (my-eglot-format-on-save)
+        (should-not (memq #'eglot-format-buffer before-save-hook))
+
+        (setq managed t)
+        (my-eglot-format-on-save)
+        (should-not (memq #'eglot-format-buffer before-save-hook))
+
+        (setq formatting t)
+        (my-eglot-format-on-save)
+        (my-eglot-format-on-save)
+        (should (local-variable-p 'before-save-hook))
+        (should (= (cl-count #'eglot-format-buffer before-save-hook) 1))
+
+        (setq managed nil)
+        (my-eglot-format-on-save)
+        (should-not (memq #'eglot-format-buffer before-save-hook))))))
+
 (ert-deftest my-test-clojure-modes-use-clojure-lsp ()
   (dolist (mode '(clojure-ts-mode
                   clojure-ts-clojurescript-mode
@@ -296,7 +320,7 @@
         (should (null calls))
         (setq managed t)
         (my-go-before-save)
-        (should (equal (nreverse calls) '((organize 1 1) format)))))))
+        (should (equal calls '((organize 1 1))))))))
 
 (ert-deftest my-test-go-before-save-ignores-unloaded-eglot ()
   (let ((calls 0))
