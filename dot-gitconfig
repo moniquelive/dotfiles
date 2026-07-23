@@ -16,7 +16,7 @@
 
 [delta]
   dark                       = true
-  features                   = rose-pine-moon
+  features                   = rose-pine-moon side-by-side
   hyperlinks                 = true
   line-numbers               = true
   line-numbers-left-style    = "#908caa"
@@ -25,8 +25,10 @@
   line-numbers-right-style   = "#908caa"
   line-numbers-zero-style    = "#6e6a86"
   navigate                   = true
-  side-by-side               = true
   true-color                 = always
+
+[delta "side-by-side"]
+  side-by-side = true
 
 [delta "rose-pine-moon"]
   commit-decoration-style      = "box ul #56526e"
