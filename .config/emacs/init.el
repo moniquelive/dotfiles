@@ -1,686 +1,561 @@
-(toggle-debug-on-error)
-(with-eval-after-load "~/.config/emacs/gcmh.el"
-  (gcmh-mode 1))
+;;; init.el --- Emacs 30 configuration -*- lexical-binding: t; -*-
 
-(when (file-exists-p "/opt/homebrew/etc/libressl/cert.pem")
-  (require 'gnutls)
-  (add-to-list 'gnutls-trustfiles "/opt/homebrew/etc/libressl/cert.pem"))
+;;;; State
 
-(defun package-reinstall-all-activated-packages ()
-  "Refresh and reinstall all activated packages."
-  (interactive)
-  (package-refresh-contents)
-  (dolist (package-name package-activated-list)
-    (when (package-installed-p package-name)
-      (unless (ignore-errors		;some packages may fail to install
-                (package-reinstall package-name))
-        (warn "Package %s failed to reinstall" package-name)))))
+(defconst my-state-directory
+  (expand-file-name "var/" user-emacs-directory))
 
-(defun my-message-with-timestamp (old-func fmt-string &rest args)
-   "Prepend current timestamp (with microsecond precision) to a message"
-   (apply old-func
-          (concat (format-time-string "[%F %T.%3N %Z] ")
-                   fmt-string)
-          args))
-(advice-add 'message :around #'my-message-with-timestamp)
+(dolist (directory '("backups/" "auto-save/"))
+  (make-directory (expand-file-name directory my-state-directory) t))
+
+(setq custom-file (expand-file-name "custom.el" my-state-directory)
+      backup-directory-alist
+      `(("." . ,(expand-file-name "backups/" my-state-directory)))
+      auto-save-file-name-transforms
+      `((".*" ,(expand-file-name "auto-save/" my-state-directory) t))
+      savehist-file (expand-file-name "history" my-state-directory)
+      save-place-file (expand-file-name "places" my-state-directory)
+      recentf-save-file (expand-file-name "recentf" my-state-directory)
+      project-list-file (expand-file-name "projects" my-state-directory)
+      backup-by-copying t
+      version-control t
+      delete-old-versions t
+      kept-new-versions 5
+      kept-old-versions 2)
+
+(load custom-file 'noerror 'nomessage)
+
+;;;; Packages
 
 (require 'package)
-(setq package-archives
-      '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-        ("org"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/org/")
-        ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
-(setq package-archive-priorities '(("melpa" . 2)))
-(when (version< emacs-version "28")
-	(package-initialize))
+(require 'seq)
+(require 'treesit)
 
-(defconst font-ligature-mode--ligatures
-  '("-->" "//" "/**" "/*" "*/" "<!--" ":=" "->>" "<<-" "->" "<-"
-    "<=>" "==" "!=" "<=" ">=" "=:=" "!==" "&&" "||" "..." ".."
-    "|||" "///" "&&&" "===" "++" "--" "=>" "|>" "<|" "||>" "<||"
-    "|||>" "<|||" ">>" "<<" "::=" "|]" "[|" "{|" "|}"
-    "[<" ">]" ":?>" ":?" "/=" "[||]" "!!" "?:" "?." "::"
-    "+++" "??" "###" "##" ":::" "####" ".?" "?=" "=!=" "<|>"
-    "<:" ":<" ":>" ">:" "<>" "***" ";;" "/==" ".=" ".-" "__"
-    "=/=" "<-<" "<<<" ">>>" "<=<" "<<=" "<==" "<==>" "==>" "=>>"
-    ">=>" ">>=" ">>-" ">-" "<~>" "-<" "-<<" "=<<" "---" "<-|"
-    "<=|" "/\\" "\\/" "|=>" "|~>" "<~~" "<~" "~~" "~~>" "~>"
-    "<$>" "<$" "$>" "<+>" "<+" "+>" "<*>" "<*" "*>" "</>" "</" "/>"
-    "<->" "..<" "~=" "~-" "-~" "~@" "^=" "-|" "_|_" "|-" "||-"
-    "|=" "||=" "#{" "#[" "]#" "#(" "#?" "#_" "#_(" "#:" "#!" "#="
-    "&="))
-(sort font-ligature-mode--ligatures (lambda (x y) (> (length x) (length y))))
-(dolist (pat font-ligature-mode--ligatures)
-  (set-char-table-range composition-function-table
-                        (aref pat 0)
-                        (nconc (char-table-range composition-function-table (aref pat 0))
-                               (list (vector (regexp-quote pat) 0
-                                             'compose-gstring-for-graphic)))))
+(declare-function dired-hide-details-mode "dired")
+(declare-function eglot-code-action-organize-imports "eglot")
+(declare-function eglot-format-buffer "eglot")
+(declare-function eglot-managed-p "eglot")
+(declare-function flymake-goto-next-error "flymake")
+(declare-function flymake-goto-prev-error "flymake")
+
+(defvar flymake-mode-map)
+
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa" . "https://melpa.org/packages/"))
+      package-archive-priorities
+      '(("gnu" . 30) ("nongnu" . 20) ("melpa" . 10))
+      package-install-upgrade-built-in nil)
+
+(package-initialize)
+(require 'use-package)
+
+;;;; macOS
 
 (when (eq system-type 'darwin)
-  (when (featurep 'ns)
-    (defun ns-raise-emacs () (ns-do-applescript "tell application \"Emacs\" to activate"))
-    (defun ns-raise-emacs-with-frame (frame)
-      (with-selected-frame frame
-        (when (display-graphic-p)
-          (ns-raise-emacs))))
-    (add-hook 'after-make-frame-functions 'ns-raise-emacs-with-frame)
-    (when (display-graphic-p)
-      (ns-raise-emacs)))
-  (setq dired-use-ls-dired t
-        insert-directory-program "/opt/homebrew/bin/gls"
-        dired-listing-switches "-aBhl --group-directories-first"))
+  (setq ns-function-modifier 'hyper
+        dired-listing-switches "-alh --group-directories-first")
 
-;;
-;; Packages
-;;
-(setq use-package-always-ensure t)
-;; (setq use-package-verbose t)
-(unless (package-installed-p 'use-package)
-  ;; (package-refresh-contents)
-  (package-install 'use-package))
-(eval-when-compile (require 'use-package)) ;; This is only needed once, near the top of the file
+  (defun my-macos-focus-frame (&optional frame)
+    "Activate Emacs and focus graphical FRAME on macOS."
+    (let ((frame (or frame (selected-frame))))
+      (when (display-graphic-p frame)
+        (with-selected-frame frame
+          (ns-do-applescript
+           "tell application id \"org.gnu.Emacs\" to activate")
+          (raise-frame frame)
+          (select-frame-set-input-focus frame)))))
 
-;; first one please
-(use-package no-littering)
+  (add-hook 'window-setup-hook #'my-macos-focus-frame)
+  (add-hook 'after-make-frame-functions #'my-macos-focus-frame)
 
-;; A few more useful configurations...
-(use-package emacs
-  :delight
-  (auto-fill-function " AF")
-  :custom
-  (completion-ignore-case t)
-  (completion-cycle-threshold 3) ;; TAB cycle if there are only few candidates
-  (text-mode-ispell-word-completion nil) ;; Emacs 30 and newer: Disable Ispell completion function. As an alternative, try `cape-dict'.
-  (read-extended-command-predicate #'command-completion-default-include-p) ;; Emacs 28 and newer: Hide commands in M-x which do not apply to the current mode.  Corfu commands are hidden, since they are not used via M-x. This setting is useful beyond Corfu.
-  (tab-width 4)
-  (indent-tabs-mode nil)
-  (fast-but-imprecise-scrolling t)
-  (scroll-conservatively 101)
-  (scroll-margin 0)
-  (visible-bell nil)
-  (scroll-preserve-screen-position t)
-  (global-auto-revert-non-file-buffers t)
-  (large-file-warning-threshold 100000000) ;; change to ~100 MB
-  (make-backup-files nil)
-  (mouse-wheel-tilt-scroll t)
-  (mouse-wheel-flip-direction t)
-  (truncate-lines t)
-  (save-place-mode t)
-  (ns-function-modifier 'hyper)
-  (explicit-shell-file-name "/bin/zsh")
-  ;; Emacs 28: Hide commands in M-x which do not work in the current mode.
-  ;; Vertico commands are hidden in normal buffers.
-  (read-extended-command-predicate #'command-completion-default-include-p)
-  ;; Do not allow the cursor in the minibuffer prompt
-  (minibuffer-prompt-properties '(read-only t cursor-intangible t face minibuffer-prompt))
-  (enable-recursive-minibuffers t)
-  (image-types (cons 'svg image-types))
-  (custom-file (expand-file-name "custom.el" user-emacs-directory))
-  (auto-window-vscroll nil)
-  (bidi-paragraph-direction 'left-to-right)
-  (bidi-inhibit-bpa t)
-  (ring-bell-function '(lambda ()
-                         (invert-face 'mode-line)
-                         (run-with-timer 0.1 nil #'invert-face 'mode-line)))
-  :preface
-  (defun infer-indentation-style ()
-    ;; if our source file uses tabs, we use tabs, if spaces spaces, and if
-    ;; neither, we use the current indent-tabs-mode
-    (let ((space-count (how-many "^  " (point-min) (point-max)))
-          (tab-count (how-many "^\t" (point-min) (point-max))))
-      (if (> space-count tab-count) (setq indent-tabs-mode nil))
-      (if (> tab-count space-count) (setq indent-tabs-mode t))))
-  :hook
-  (prog-mode . display-line-numbers-mode)
-  (prog-mode . infer-indentation-style)
-  (dired-mode . dired-hide-details-mode)
-  (minibuffer-setup . cursor-intangible-mode)
-  (focus-out . (lambda () (save-some-buffers t) ;; autosave on buffer focus lost
-				 (delete-trailing-whitespace)))
-  (ibuffer . (lambda ()
-			   (ibuffer-vc-set-filter-groups-by-vc-root)
-			   (unless (eq ibuffer-sorting-mode 'alphabetic)
-				 (ibuffer-do-sort-by-alphabetic))))
-  :bind
-  (("<escape>" . keyboard-escape-quit) ;; Make ESC quit prompts
-   ("s-b" . ibuffer)
-   ("s-k" . kill-this-buffer)
-   ("s-K" . delete-window)
-   ("s-<left>" . previous-buffer)
-   ("s-<right>" . next-buffer)
-   ("s-W" . delete-frame)				; ⌘-W = Close window
-   ("s-}" . tab-bar-switch-to-next-tab) ; ⌘-} = Next tab
-   ("s-{" . tab-bar-switch-to-prev-tab) ; ⌘-{ = Previous tab
-   ("s-t" . tab-bar-new-tab)			; ⌘-t = New tab
-   ("s-w" . tab-bar-close-tab))			; ⌘-w = Close tab
-  :init
-  ;; Add prompt indicator to `completing-read-multiple'.
-  ;; We display [CRM<separator>], e.g., [CRM,] if the separator is a comma.
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-                  (replace-regexp-in-string
-                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-                   crm-separator)
-                  (car args))
-          (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-  :config
-  (set-language-environment "UTF-8")
-  (set-default-coding-systems 'utf-8)
-  (load custom-file)
-  (file-name-shadow-mode 1)
-  (mouse-wheel-mode 1)
-  (pixel-scroll-precision-mode 1)
-  (global-auto-revert-mode 1)
-  (global-hl-line-mode 1)
-  (global-so-long-mode 1)
-  (global-visual-line-mode -1)
-  (tab-bar-mode 1)
-  (tool-bar-mode -1)
-  (server-mode 1))
+  (dolist (directory '("/opt/homebrew/bin"
+                       "~/.local/bin"
+                       "~/.local/share/nvim/mason/bin"
+                       "~/.local/share/mise/shims"
+                       "~/go/bin"
+                       "~/.ghcup/bin"))
+    (when (file-directory-p directory)
+      (add-to-list 'exec-path (expand-file-name directory))))
 
-(use-package treesit-auto
-  :pin melpa
-  :custom (treesit-auto-install 'prompt)
-  :config
-  (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode))
-;; (unless (string-equal "aarch64-unknown-linux-gnu" system-configuration)
-  ;; (use-package tree-sitter
-  ;;   :delight
-  ;;   :custom (global-tree-sitter-mode t))
+  (setenv "PATH" (mapconcat #'identity exec-path path-separator)))
 
-  ;; (use-package tree-sitter-langs
-  ;;   ;; https://github.com/casouri/tree-sitter-module
-  ;;   ;; https://github.com/jimeh/.emacs.d/
-  ;;   :hook (tree-sitter-after-on . tree-sitter-hl-mode)))
+(setq shell-file-name "/bin/zsh"
+      explicit-shell-file-name "/bin/zsh")
 
-(use-package auto-package-update
-  :custom (auto-package-update-delete-old-versions t)
-  :config (auto-package-update-maybe))
+;;;; Editing
 
-(use-package spacious-padding
-  ;; :custom
-  ;; (spacious-padding-subtle-mode-line t)
-  :if (display-graphic-p)
-  :hook (after-init . spacious-padding-mode))
+(setq-default indent-tabs-mode nil
+              tab-width 4
+              truncate-lines t)
 
-(use-package delight
-  :config
-  (delight '((eldoc-mode nil "eldoc")
-	     (flymake-mode nil "Flymake"))))
-(use-package rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode))
-(use-package nerd-icons)
-(use-package nerd-icons-completion
-  :after (nerd-icons marginalia)
-  :hook ((marginalia-mode . nerd-icons-completion-marginalia-setup)
-         (after-init . nerd-icons-completion-mode)))
+(setq completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      read-file-name-completion-ignore-case t
+      completion-cycle-threshold 3
+      read-extended-command-predicate
+      #'command-completion-default-include-p
+      text-mode-ispell-word-completion nil
+      enable-recursive-minibuffers t
+      minibuffer-prompt-properties
+      '(read-only t cursor-intangible t face minibuffer-prompt)
+      global-auto-revert-non-file-buffers t
+      scroll-conservatively 101
+      scroll-preserve-screen-position t
+      large-file-warning-threshold 100000000)
 
-(use-package vterm
-  :custom (vterm-kill-buffer-on-exit t))
+(add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(add-hook 'dired-mode-hook #'dired-hide-details-mode)
+(add-hook 'before-save-hook #'delete-trailing-whitespace)
 
-(use-package ibuffer-vc
-  :config (ibuffer-vc-set-filter-groups-by-vc-root))
+(defvar my-focus-out-save-timer nil)
 
-(use-package keycast
-  :config
-  (define-minor-mode keycast-mode
-    "Show current command and its key binding in the mode line."
-    :global t
-    (if keycast-mode
-        (add-hook 'pre-command-hook 'keycast--update t)
-      (remove-hook 'pre-command-hook 'keycast--update)))
+(defun my-save-buffers-if-unfocused ()
+  "Save modified buffers when every Emacs frame is unfocused."
+  (setq my-focus-out-save-timer nil)
+  (when (seq-every-p (lambda (frame)
+                       (null (frame-focus-state frame)))
+                     (frame-list))
+    (save-some-buffers t)))
 
-  (add-to-list 'global-mode-string '("" keycast-mode-line))
-  (keycast-mode 1))
+(defun my-save-buffers-on-focus-change ()
+  "Debounce saving until asynchronous focus events have settled."
+  (when (timerp my-focus-out-save-timer)
+    (cancel-timer my-focus-out-save-timer))
+  (setq my-focus-out-save-timer
+        (run-with-idle-timer 0 nil #'my-save-buffers-if-unfocused)))
 
-(use-package rose-pine-theme
-  :pin melpa
-  :config (load-theme 'rose-pine-moon :no-confirm))
+(add-function :after after-focus-change-function
+              #'my-save-buffers-on-focus-change)
 
-(use-package doom-modeline
-  :custom
-  (doom-modeline-height 25)
-  (doom-modeline-minor-modes t)
-  (doom-modeline-support-imenu t)
-  (doom-modeline-buffer-file-name-style 'relative-to-project)
-  (doom-modeline-unicode-fallback t)
-  (doom-modeline-battery t)
-  (doom-modeline-enable-word-count nil)
-  :hook
-  (after-init . (lambda ()
-				  (display-battery-mode 1)
-				  (doom-modeline-mode 1))))
+(delete-selection-mode 1)
+(editorconfig-mode 1)
+(file-name-shadow-mode 1)
+(global-auto-revert-mode 1)
+(global-completion-preview-mode 1)
+(global-hl-line-mode 1)
+(global-so-long-mode 1)
+(pixel-scroll-precision-mode 1)
+(recentf-mode 1)
+(repeat-mode 1)
+(savehist-mode 1)
+(save-place-mode 1)
+(show-paren-mode 1)
+(tab-bar-mode 1)
+(which-key-mode 1)
+(fido-vertical-mode 1)
+(display-battery-mode 1)
 
-(use-package which-key
-  :delight
-  :defer 0
-  :custom
-  ((which-key-use-C-h-commands nil)
-   (which-key-popup-type 'side-window)
-   (which-key-side-window-location 'bottom)
-   (which-key-side-window-max-width 0.5)
-   (which-key-side-window-max-height 0.5))
-  :hook (after-init . which-key-mode))
+(unless (package-installed-p 'rose-pine-emacs)
+  (require 'package-vc)
+  (package-vc-install
+   "https://github.com/thongpv87/rose-pine-emacs"
+   "adcf6f8fe719884f7e32acb9130bdbcaccd6c4c9"
+   nil
+   'rose-pine-emacs))
 
-(use-package helpful
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
-  :bind (("C-h f" . helpful-callable)
-	 ("C-h v" . helpful-variable)
-	 ("C-h k" . helpful-key)
-	 ("C-h x" . helpful-command)))
+(load-theme 'rose-pine-moon t)
 
-(use-package consult
-  :bind (;; C-c bindings in `mode-specific-map'
-         ("C-c M-x" . consult-mode-command)
-         ("C-c h" . consult-history)
-         ("C-c k" . consult-kmacro)
-         ("C-c m" . consult-man)
-         ("C-c i" . consult-info)
-         ([remap Info-search] . consult-info)
-         ;; C-x bindings in `ctl-x-map'
-         ("C-x M-:" . consult-complex-command) ;; orig. repeat-complex-command
-         ("C-x b" . consult-buffer) ;; orig. switch-to-buffer
-         ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-         ("C-x 5 b" . consult-buffer-other-frame) ;; orig. switch-to-buffer-other-frame
-         ("C-x r b" . consult-bookmark)	;; orig. bookmark-jump
-         ("C-x p b" . consult-project-buffer) ;; orig. project-switch-to-buffer
-         ;; Custom M-# bindings for fast register access
-         ("M-#" . consult-register-load)
-         ("M-'" . consult-register-store) ;; orig. abbrev-prefix-mark (unrelated)
-         ("C-M-#" . consult-register)
-         ;; Other custom bindings
-         ("M-y" . consult-yank-pop) ;; orig. yank-pop
-         ;; M-g bindings in `goto-map'
-         ("M-g e" . consult-compile-error)
-         ("M-g f" . consult-flymake) ;; Alternative: consult-flycheck
-         ("M-g g" . consult-goto-line)	 ;; orig. goto-line
-         ("M-g M-g" . consult-goto-line) ;; orig. goto-line
-         ("M-g o" . consult-outline) ;; Alternative: consult-org-heading
-         ("M-g m" . consult-mark)
-         ("M-g k" . consult-global-mark)
-         ("M-g i" . consult-imenu)
-         ("M-g I" . consult-imenu-multi)
-         ;; M-s bindings in `search-map'
-         ("M-s d" . consult-fd)
-         ("M-s D" . consult-locate)
-         ("M-s g" . consult-grep)
-         ("M-s G" . consult-git-grep)
-         ("M-s r" . consult-ripgrep)
-         ("M-s l" . consult-line)
-         ("M-s L" . consult-line-multi)
-         ("M-s k" . consult-keep-lines)
-         ("M-s u" . consult-focus-lines)
-         ;; Isearch integration
-         ("M-s e" . consult-isearch-history)
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history) ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history) ;; orig. isearch-edit-string
-         ;; ("M-s l" . consult-line) ;; needed by consult-line to detect isearch
-         ;; ("M-s L" . consult-line-multi)	;; needed by consult-line to detect isearch
-         ;; Minibuffer history
-         :map minibuffer-local-map
-         ("M-s" . consult-history) ;; orig. next-matching-history-element
-         ("M-r" . consult-history)) ;; orig. previous-matching-history-element
+;;;; Keys
 
-  ;; Enable automatic preview at point in the *Completions* buffer. This is
-  ;; relevant when you use the default completion UI.
-  :hook (completion-list-mode . consult-preview-at-point-mode)
+(keymap-global-set "<escape>" #'keyboard-escape-quit)
+(keymap-global-set "s-b" #'ibuffer)
+(keymap-global-set "s-k" #'kill-current-buffer)
+(keymap-global-set "s-K" #'delete-window)
+(keymap-global-set "s-<left>" #'previous-buffer)
+(keymap-global-set "s-<right>" #'next-buffer)
+(keymap-global-set "s-W" #'delete-frame)
+(keymap-global-set "s-{" #'tab-bar-switch-to-prev-tab)
+(keymap-global-set "s-}" #'tab-bar-switch-to-next-tab)
+(keymap-global-set "s-t" #'tab-bar-new-tab)
+(keymap-global-set "s-w" #'tab-bar-close-tab)
 
-  :init
+;;;; Projects
 
-  ;; Optionally configure the register formatting. This improves the register
-  ;; preview for `consult-register', `consult-register-load',
-  ;; `consult-register-store' and the Emacs built-ins.
-  (setq register-preview-delay 0.5
-        register-preview-function #'consult-register-format)
+(require 'project)
 
-  ;; Optionally tweak the register preview window.
-  ;; This adds thin lines, sorting and hides the mode line of the window.
-  (advice-add #'register-preview :override #'consult-register-window)
+(setq project-mode-line t
+      project-file-history-behavior 'relativize)
 
-  ;; Use Consult to select xref locations with preview
-  (setq xref-show-xrefs-function #'consult-xref
-        xref-show-definitions-function #'consult-xref)
+(keymap-global-set "s-p" project-prefix-map)
+(keymap-global-set "C-c p" project-prefix-map)
 
-  :config
-
-  (defun consult--fd-builder (input)
-    (let ((fd-command
-           (if (eq 0 (process-file-shell-command "fdfind")) "fdfind" "fd")))
-      (pcase-let* ((`(,arg . ,opts) (consult--command-split input))
-                   (`(,re . ,hl) (funcall consult--regexp-compiler
-                                          arg 'extended t)))
-	(when re
-          (cons (append (list fd-command "--color=never" "--full-path" (consult--join-regexps re 'extended)) opts)
-		hl)))))
-
-  (defun consult-fd (&optional dir initial)
-    (interactive "P")
-    (pcase-let* ((`(,prompt ,paths ,dir) (consult--directory-prompt "Fd" dir))
-		 (default-directory dir))
-      (find-file (consult--find prompt #'consult--fd-builder initial))))
-
-  (consult-customize
-   consult-theme :preview-key '(:debounce 0.2 any)
-   consult-ripgrep consult-git-grep consult-grep
-   consult-bookmark consult-recent-file consult-xref
-   consult--source-bookmark consult--source-file-register
-   consult--source-recent-file consult--source-project-recent-file
-   :preview-key '(:debounce 0.4 any))
-
-  ;; Optionally configure the narrowing key.
-  ;; Both < and C-+ work reasonably well.
-  (setq consult-narrow-key "<") ;; "C-+"
-  (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'embark-prefix-help-command)
-
-  (autoload 'projectile-project-root "projectile")
-  (setq consult-project-function (lambda (_) (projectile-project-root))))
-
-;; (use-package undo-tree
-  ;; :delight
-  ;; :custom (undo-tree-auto-save-history t)
-  ;; :hook (after-init . global-undo-tree-mode))
+;;;; Evil
 
 (use-package evil
-  :delight
-  :custom
-  (evil-want-keybinding nil)
-  (evil-want-integration t)
-  ;(evil-undo-system 'undo-tree)
-  (evil-split-window-below t)
-  (evil-vsplit-window-right t)
-  (evil-cross-lines t)
-  (evil-start-of-line t)
+  :ensure t
+  :init
+  (setq evil-want-integration t
+        evil-want-keybinding nil
+        evil-undo-system 'undo-redo
+        evil-split-window-below t
+        evil-vsplit-window-right t
+        evil-cross-lines t)
   :config
   (evil-mode 1)
-  (evil-global-set-key 'normal "-" 'dired-jump)
-  (evil-global-set-key 'normal (kbd "C-.") nil)
-  (evil-global-set-key 'normal (kbd "C-6") nil))
 
-  ;; (setq
-  ;;  original-background (face-attribute 'mode-line :background)
-  ;;  emacs-state-background "#31748f")
-  ;; (add-hook 'evil-emacs-state-entry-hook
-  ;; 	    (lambda () (set-face-attribute 'mode-line nil :background emacs-state-background)))
-  ;; (add-hook 'evil-emacs-state-exit-hook
-  ;; 	    (lambda () (set-face-attribute 'mode-line nil :background original-background))))
-(use-package evil-leader
-  :after (evil evil-search-highlight-persist)
-  :custom
-  (evil-want-keybinding nil)
-  :config
-  (global-evil-leader-mode)
-  (evil-leader/set-key
-    (kbd "RET") 'evil-search-highlight-persist-remove-all
-    "\\" 'evil-buffer))
-(use-package evil-search-highlight-persist
-  :after evil
-  :config (global-evil-search-highlight-persist t))
-(use-package evil-surround
-  :after evil
-  :config (global-evil-surround-mode 1))
+  (defvar-keymap my-leader-map
+    "RET" #'evil-ex-nohighlight
+    "\\" #'switch-to-buffer
+    "p" project-prefix-map
+    "g" #'magit-status
+    "t" #'vterm)
+
+  (evil-global-set-key 'normal (kbd "\\") my-leader-map)
+  (evil-global-set-key 'normal (kbd "SPC") #'evil-forward-char)
+  (evil-global-set-key 'normal (kbd "-") #'dired-jump)
+  (evil-global-set-key 'normal (kbd "gcc") #'comment-line)
+  (evil-global-set-key 'visual (kbd "gc") #'comment-dwim))
+
 (use-package evil-collection
-  :delight evil-collection-unimpaired-mode
-  :after evil
-  :config (evil-collection-init))
-(use-package evil-nerd-commenter
+  :ensure t
   :after evil
   :config
-  (evil-define-key 'normal 'prog-mode-map "gcc" 'evilnc-comment-or-uncomment-lines)
-  (evil-define-key 'visual 'prog-mode-map "gc" 'evilnc-comment-or-uncomment-lines))
+  (evil-collection-init))
 
-(use-package vertico
-  :custom
-  (vertico-scroll-margin 0)
-  (vertico-count 15)
-  (vertico-resize nil)
-  (vertico-cycle t)
-  :hook ((rfn-eshadow-update-overlay . vertico-directory-tidy)
-         (after-init . (lambda ()
-                         (vertico-mode 1)
-                         (vertico-mouse-mode 1)))))
+(use-package evil-surround
+  :ensure t
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
 
-(use-package vertico-posframe
-  :custom
-  (vertico-posframe-parameters
-   '((left-fringe . 8)
-     (right-fringe . 8)))
-  :hook (after-init . vertico-posframe-mode))
+;;;; Tree-sitter
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :hook (after-init . savehist-mode))
+(setq treesit-language-source-alist
+      '((c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
+        (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+        (elixir "https://github.com/elixir-lang/tree-sitter-elixir")
+        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (go "https://github.com/tree-sitter/tree-sitter-go")
+        (heex "https://github.com/phoenixframework/tree-sitter-heex")
+        (python "https://github.com/tree-sitter/tree-sitter-python")))
 
-(use-package orderless
-  :custom
-  (completion-styles '(tab orderless basic))
-  (orderless-matching-styles '(orderless-literal orderless-initialism orderless-regexp))
-  (orderless-component-separator #'orderless-escapable-split-on-space)
-  (completion-category-defaults nil)
-  (completion-category-overrides '((file (styles partial-completion))))
+(dolist (mapping '((csharp-mode . csharp-ts-mode)
+                   (python-mode . python-ts-mode)))
+  (add-to-list 'major-mode-remap-alist mapping))
+
+(dolist (mapping '(("\\.go\\'" . go-ts-mode)
+                   ("\\.exs?\\'" . elixir-ts-mode)
+                   ("\\.heex\\'" . heex-ts-mode)
+                   ("\\(?:\\`\\|/\\)Dockerfile\\(?:\\..*\\)?\\'"
+                    . dockerfile-ts-mode)))
+  (add-to-list 'auto-mode-alist mapping))
+
+(defun my-emacs-lisp-fontify-setq-variable
+    (node override start end &rest _)
+  "Fontify NODE when it is a variable position in a setq form."
+  (let ((position
+         (seq-position
+          (seq-remove
+           (lambda (child)
+             (equal (treesit-node-type child) "comment"))
+           (treesit-node-children (treesit-node-parent node) t))
+          node
+          #'treesit-node-eq)))
+    (when (and position (zerop (% position 2)))
+      (treesit-fontify-with-override
+       (treesit-node-start node) (treesit-node-end node)
+       'font-lock-variable-name-face override start end))))
+
+(defun my-emacs-lisp-treesit-setup ()
+  "Enable tree-sitter parsing and font locking for Emacs Lisp."
+  (when (treesit-ready-p 'elisp)
+    (treesit-parser-create 'elisp)
+    (setq-local treesit-font-lock-level 4
+                treesit-font-lock-feature-list
+                 '((comment string)
+                   (keyword definition)
+                   (constant variable)
+                   (bracket operator))
+                treesit-font-lock-settings
+                (treesit-font-lock-rules
+                 :language 'elisp
+                 :override t
+                 :feature 'comment
+                 '((comment) @font-lock-comment-face)
+
+                 :language 'elisp
+                 :override t
+                 :feature 'string
+                 '((string) @font-lock-string-face)
+
+                 :language 'elisp
+                 :override t
+                 :feature 'keyword
+                 '(["and" "catch" "cond" "condition-case"
+                    "defconst" "defmacro" "defsubst" "defun" "defvar"
+                    "function" "if" "interactive" "lambda" "let" "let*"
+                    "or" "prog1" "prog2" "progn" "quote"
+                    "save-current-buffer" "save-excursion" "save-restriction"
+                    "setq" "setq-default" "unwind-protect" "while"]
+                   @font-lock-keyword-face)
+
+                 :language 'elisp
+                 :override t
+                 :feature 'definition
+                 "(function_definition
+                    name: (symbol) @font-lock-function-name-face
+                    parameters: (list (symbol) @font-lock-variable-name-face)
+                    docstring: (string)? @font-lock-doc-face)
+                  (macro_definition
+                    name: (symbol) @font-lock-function-name-face
+                    parameters: (list (symbol) @font-lock-variable-name-face)
+                    docstring: (string)? @font-lock-doc-face)"
+
+                 :language 'elisp
+                 :override t
+                 :feature 'constant
+                 '((integer) @font-lock-number-face
+                   (float) @font-lock-number-face
+                   (char) @font-lock-number-face
+                   ["nil" "t"] @font-lock-constant-face)
+
+                 :language 'elisp
+                 :override t
+                 :feature 'variable
+                 "(special_form
+                    [\"defconst\" \"defvar\"]
+                    . (symbol) @font-lock-variable-name-face)
+                  (special_form
+                    [\"setq\" \"setq-default\"]
+                    (symbol) @my-emacs-lisp-fontify-setq-variable)
+                  (special_form
+                    [\"let\" \"let*\"]
+                    (list (list . (symbol) @font-lock-variable-name-face)))"
+
+                 :language 'elisp
+                 :override t
+                 :feature 'bracket
+                 '(["(" ")" "#[" "[" "]"] @font-lock-bracket-face)
+
+                 :language 'elisp
+                 :override t
+                 :feature 'operator
+                 '(["`" "#'" "'" "," ",@"] @font-lock-operator-face)))
+    (setq-local font-lock-defaults nil)
+    (treesit-major-mode-setup)))
+
+(add-hook 'emacs-lisp-mode-hook #'my-emacs-lisp-treesit-setup)
+
+(use-package clojure-ts-mode
+  :ensure t
+  :mode (("\\.clj\\'" . clojure-ts-mode)
+         ("\\.cljs\\'" . clojure-ts-clojurescript-mode)
+         ("\\.cljc\\'" . clojure-ts-clojurec-mode)
+         ("\\.edn\\'" . clojure-ts-mode)))
+
+;;;; Eglot
+
+(setq eglot-autoshutdown t)
+
+(defconst my-eglot-server-executables
+  '((clojure-ts-mode "clojure-lsp")
+    (clojure-ts-clojurescript-mode "clojure-lsp")
+    (clojure-ts-clojurec-mode "clojure-lsp")
+    (csharp-ts-mode "omnisharp" "OmniSharp" "csharp-ls")
+    (dockerfile-ts-mode "docker-langserver")
+    (elixir-ts-mode "language_server.sh" "start_lexical.sh")
+    (heex-ts-mode "language_server.sh" "start_lexical.sh")
+    (elm-mode "elm-language-server")
+    (go-ts-mode "gopls")
+    (haskell-mode "haskell-language-server-wrapper")
+    (python-ts-mode "pylsp" "basedpyright-langserver"
+                    "pyright-langserver" "pyrefly"
+                    "jedi-language-server" "ruff")
+    (zig-mode "zls")))
+
+(defun my-clojure-lsp-initialization-options (_server)
+  "Return clojure-lsp options suited to the available build tools."
+  (append
+   '(:cljfmt (:remove-multiple-non-indenting-spaces? t))
+   (unless (executable-find "clojure")
+     (list
+      :project-specs
+      (vconcat
+       (delq nil
+             (list
+              (when (executable-find "lein")
+                '(:project-path "project.clj"
+                  :classpath-cmd ["lein" "classpath"]))
+              (when (executable-find "bb")
+                '(:project-path "bb.edn"
+                  :classpath-cmd ["bb" "print-deps" "--format"
+                                  "classpath"])))))))))
+
+(defun my-eglot-ensure ()
+  "Start Eglot when a server for the current mode is available."
+  (when (seq-some #'executable-find
+                  (alist-get major-mode my-eglot-server-executables))
+    (eglot-ensure)))
+
+(dolist (hook '(csharp-ts-mode-hook
+                clojure-ts-mode-hook
+                dockerfile-ts-mode-hook
+                elixir-ts-mode-hook
+                heex-ts-mode-hook
+                elm-mode-hook
+                haskell-mode-hook
+                zig-mode-hook))
+  (add-hook hook #'my-eglot-ensure))
+
+(with-eval-after-load 'flymake
+  (keymap-set flymake-mode-map "M-n" #'flymake-goto-next-error)
+  (keymap-set flymake-mode-map "M-p" #'flymake-goto-prev-error))
+
+(with-eval-after-load 'eglot
+  (add-to-list
+   'eglot-server-programs
+   '((clojure-ts-mode
+      clojure-ts-clojurescript-mode
+      clojure-ts-clojurec-mode)
+     . ("clojure-lsp"
+        :initializationOptions my-clojure-lsp-initialization-options)))
+
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal eglot-mode-map
+      (kbd "K") #'eldoc-doc-buffer
+      (kbd "gr") #'xref-find-references)))
+
+;;;; Clojure
+
+(use-package cider
+  :ensure t
+  :commands (cider-connect-clj cider-jack-in-clj)
+  :hook (clojure-ts-mode . cider-mode)
   :init
-  (add-to-list 'completion-styles-alist
-               '(tab completion-basic-try-completion ignore
-                     "Completion style which provides TAB completion only.")))
-
-(use-package marginalia
-  :custom (marginalia-annotators '(marginalia-annotators-heavy marginalia-annotators-light nil))
-  :hook (after-init . marginalia-mode))
-
-(use-package embark
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :custom
-  (prefix-help-command #'embark-prefix-help-command)
-  (eldoc-documentation-strategy #'eldoc-documentation-compose-eagerly)
-  :hook (eldoc-documentation-functions . embark-eldoc-first-target)
+  (setq cider-use-xref nil)
   :config
-  (defun embark-which-key-indicator ()
-    "An embark indicator that displays keymaps using which-key.
-    The which-key help message will show the type and value of the
-    current target followed by an ellipsis if there are further
-    targets."
-    (lambda (&optional keymap targets prefix)
-      (if (null keymap)
-          (which-key--hide-popup-ignore-command)
-	(which-key--show-keymap
-	 (if (eq (plist-get (car targets) :type) 'embark-become)
-             "Become"
-           (format "Act on %s '%s'%s"
-                   (plist-get (car targets) :type)
-                   (embark--truncate-target (plist-get (car targets) :target))
-                   (if (cdr targets) "…" "")))
-	 (if prefix
-             (pcase (lookup-key keymap prefix 'accept-default)
-               ((and (pred keymapp) km) km)
-               (_ (key-binding prefix 'accept-default)))
-           keymap)
-	 nil nil t (lambda (binding)
-                     (not (string-suffix-p "-argument" (cdr binding))))))))
+  (with-eval-after-load 'evil
+    (evil-define-key 'normal cider-mode-map
+      (kbd "\\ e b") #'cider-load-buffer
+      (kbd "\\ e e") #'cider-eval-defun-at-point
+      (kbd "\\ e j") #'cider-jack-in-clj
+      (kbd "\\ e l") #'cider-eval-last-sexp)
+    (evil-define-key 'visual cider-mode-map
+      (kbd "\\ e r") #'cider-eval-region)))
 
-  (setq embark-indicators
-	'(embark-which-key-indicator
-	  embark-highlight-indicator
-	  embark-isearch-highlight-indicator))
+;;;; Go
 
-  (defun embark-hide-which-key-indicator (fn &rest args)
-    "Hide the which-key indicator immediately when using the completing-read prompter."
-    (which-key--hide-popup-ignore-command)
-    (let ((embark-indicators
-           (remq #'embark-which-key-indicator embark-indicators)))
-      (apply fn args)))
+(defun my-go-before-save ()
+  "Organize imports and format a Go buffer managed by Eglot."
+  (when (and (fboundp 'eglot-managed-p)
+             (eglot-managed-p))
+    (eglot-code-action-organize-imports (point-min) (point-max))
+    (eglot-format-buffer)))
 
-  (advice-add #'embark-completing-read-prompter
-              :around #'embark-hide-which-key-indicator))
-(use-package embark-consult
-  :after (embark consult)
-  :demand t
-  :hook (embark-collect-mode . consult-preview-at-point-mode))
+(defun my-go-setup ()
+  "Start Eglot and configure save actions for Go."
+  (my-eglot-ensure)
+  (add-hook 'before-save-hook #'my-go-before-save nil t))
 
-(use-package elisp-autofmt
-  :commands (elisp-autofmt-mode elisp-autofmt-buffer)
-  :hook (emacs-lisp-mode . elisp-autofmt-mode))
+(add-hook 'go-ts-mode-hook #'my-go-setup)
 
-(use-package flymake
-  :ensure nil
-  :bind
-  (:map flymake-mode-map
-   ("M-n" . flymake-goto-next-error)
-   ("M-p" . flymake-goto-prev-error)))
+;;;; Python
 
-(use-package lsp-mode
-  :delight lsp-mode
-  :delight lsp-lens-mode nil lsp-lens
-  :pin melpa
-  :commands (lsp lsp-deferred)
-  :custom
-  (lsp-keymap-prefix "s-l")
-  (lsp-semantic-tokens-enable t)
-  (lsp-completion-provider :none)
-  ;; :hook
-  ;; (lsp-mode . lsp-enable-which-key-integration)
-  :config (lsp-enable-which-key-integration t)
-  (evil-define-minor-mode-key 'normal 'lsp-mode "K" 'lsp-ui-doc-glance)
-  (evil-define-minor-mode-key 'normal 'lsp-mode "gr" 'lsp-find-references))
-(use-package lsp-ui
-  :delight
-  :custom
-  (lsp-ui-doc-position 'at-point)
-  (lsp-ui-sideline-enable t)
-  (lsp-ui-sideline-show-diagnostics t)
-  (lsp-ui-sideline-show-hover t)
-  :commands lsp-ui-mode)
-(use-package dockerfile-mode
-  :delight
-  :hook (dockerfile-mode . lsp-deferred))
-(use-package csharp-mode
-  :delight
-  :custom (lsp-csharp-omnisharp-roslyn-binary-path "/Users/cyber/.dotnet/omnisharp/OmniSharp")
-  :hook (csharp-mode . lsp-deferred))
-(use-package elixir-mode
-  :delight
-  :mode ("\\.heex\\'" "\\.ex\\'" "\\.exs\\'")
-  :custom (lsp-elixir-local-server-command "/opt/homebrew/bin/elixir-ls")
-  :hook (elixir-mode . lsp-deferred))
-(use-package go-mode
-  :delight
-  :mode ("\\.go\\'" . go-ts-mode)
-  :hook (go-ts-mode . lsp-deferred)
-	(before-save . lsp-format-buffer)
-	(before-save . lsp-organize-imports))
+(defvar-local my-python-base-exec-path nil)
+(defvar-local my-python-base-process-environment nil)
+(defvar-local my-python-base-virtualenv-root nil)
+(defvar-local my-python-base-virtualenv-root-local-p nil)
+
+(defun my-python-configure ()
+  "Use a project-local Python environment and start Eglot."
+  (unless (local-variable-p 'my-python-base-exec-path)
+    (setq-local my-python-base-exec-path exec-path
+                my-python-base-process-environment process-environment
+                my-python-base-virtualenv-root-local-p
+                (local-variable-p 'python-shell-virtualenv-root)
+                my-python-base-virtualenv-root
+                (and (boundp 'python-shell-virtualenv-root)
+                     python-shell-virtualenv-root)))
+  (setq-local exec-path (copy-sequence my-python-base-exec-path)
+              process-environment
+              (copy-sequence my-python-base-process-environment))
+  (if my-python-base-virtualenv-root-local-p
+      (setq-local python-shell-virtualenv-root
+                  my-python-base-virtualenv-root)
+    (kill-local-variable 'python-shell-virtualenv-root))
+  (when-let* ((project (project-current nil))
+              (root (project-root project))
+              (virtualenv
+               (seq-find
+                (lambda (directory)
+                  (let ((bin (expand-file-name "bin/" directory)))
+                    (seq-some
+                     #'file-executable-p
+                     (list (expand-file-name "python" bin)
+                           (expand-file-name "python3" bin)))))
+                (list (expand-file-name ".venv/" root)
+                      (expand-file-name "venv/" root)))))
+    (let ((bin (expand-file-name "bin/" virtualenv))
+          (path (getenv "PATH")))
+      (setq-local python-shell-virtualenv-root virtualenv
+                  exec-path (cons bin exec-path)
+                  process-environment (copy-sequence process-environment))
+      (setenv "VIRTUAL_ENV" virtualenv)
+      (setenv "PATH" (if (and path (> (length path) 0))
+                         (concat bin path-separator path)
+                       bin))))
+  (my-eglot-ensure))
+
+(defun my-python-setup ()
+  "Configure Python after file and directory-local variables are applied."
+  (if buffer-file-name
+      (add-hook 'hack-local-variables-hook #'my-python-configure nil t)
+    (my-python-configure)))
+
+(add-hook 'python-ts-mode-hook #'my-python-setup)
+
+;;;; External language modes
+
 (use-package elm-mode
-  :delight elm-format-on-save-mode
-  :delight elm-indent-mode
+  :ensure t
   :mode "\\.elm\\'"
-  :hook (elm-mode . lsp-deferred)
-  (elm-mode . elm-format-on-save-mode))
-(use-package python
-  :delight
-  :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python" . python-mode))
-(use-package lsp-pyright
-  :delight
-  :custom
-  (lsp-pyright-disable-language-service nil)
-  (lsp-pyright-disable-organize-imports nil)
-  (lsp-pyright-auto-import-completions t)
-  (lsp-pyright-use-library-code-for-types t)
-  :hook (python-mode . (lambda ()
-			 (require 'lsp-pyright) (lsp-deferred))))
-(use-package pyvenv
-  :delight
-  :custom
-  (pyvenv-activate "./venv")
-  (pyvenv-menu t)
-  :config (pyvenv-mode 1)
-  (add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python)
-  :hook (python-mode . pyvenv-mode))
-(use-package auto-virtualenv
-  :after (pyvenv projectile)
-  :hook
-  ((python-mode . auto-virtualenv-set-virtualenv)
-   (projectile-after-switch-project . auto-virtualenv-set-virtualenv)))
-(use-package lsp-haskell
-  :delight
-  :custom
-  (lsp-haskell-formatting-provider "fourmolu")
-  (lsp-haskell-plugin-tactics-config-timeout-duration 15)
-  ;; (lsp-haskell-server-path "~/.ghcup/bin/haskell-language-server-wrapper")
-  :hook (haskell-mode . lsp-deferred))
-(use-package zig-ts-mode)
+  :hook (elm-mode . elm-format-on-save-mode))
 
-(use-package corfu
-  ;; Optional customizations
-  :custom
-  (corfu-cycle t)                ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto t)                 ;; Enable auto completion
-  (corfu-auto-prefix 2)
-  (corfu-quit-at-boundary 'separator)   ;; Never quit at completion boundary
-  (corfu-echo-documentation 0.25)   ;; Never quit at completion boundary
-  (corfu-preview-current 'insert)    ;; Disable current candidate preview
-  (corfu-popupinfo-delay '(0.4 . 0.2))
-  (corfu-preselect 'prompt)      ;; Preselect the prompt
-  (corfu-separator ?\s)          ;; Orderless field separator
-  ;; (corfu-quit-no-match nil)      ;; Never quit, even if there is no match
-  ;; (corfu-on-exact-match nil)     ;; Configure handling of exact matches
-  ;; (corfu-scroll-margin 5)        ;; Use scroll margin
+(use-package haskell-mode
+  :ensure t
+  :mode "\\.hs\\'")
 
-  :bind (:map corfu-map
-              ("TAB" . corfu-next)
-              ([tab] . corfu-next)
-              ("S-TAB" . corfu-previous)
-              ([backtab] . corfu-previous))
-  ;; Enable Corfu only for certain modes. See also `global-corfu-modes'.
-  ;; :hook ((prog-mode . corfu-mode)
-  ;;        (shell-mode . corfu-mode)
-  ;;        (eshell-mode . corfu-mode))
+(use-package zig-mode
+  :ensure t
+  :mode "\\.zig\\'")
 
-  ;; Recommended: Enable Corfu globally.  This is recommended since Dabbrev can
-  ;; be used globally (M-/).  See also the customization variable
-  ;; `global-corfu-modes' to exclude certain modes.
-  :init
-  (global-corfu-mode)
-  (corfu-history-mode)
-  (corfu-popupinfo-mode))
-
-(use-package projectile
-  :delight
-  :delight '(:eval (concat " " (projectile-project-name)))
-  :custom (projectile-switch-project-action #'projectile-dired)
-  :init
-  (when (file-directory-p "~/prj")
-    (setq projectile-project-search-path '("~/prj")))
-  :bind-keymap
-  (("s-p" . projectile-command-map)
-   ("C-c p" . projectile-command-map))
-  :hook (after-init . projectile-mode))
-(use-package projectile-ripgrep :after projectile)
-
-(use-package dashboard
-  :custom
-  (dashboard-projects-backend 'projectile)
-  (dashboard-items '((recents . 10)
-                     (bookmarks . 5)
-                     (projects . 5)
-                     (registers . 5)))
-  (tab-bar-new-tab-choice (lambda () (get-buffer-create "*dashboard*")))
-  (dashboard-startup-banner (expand-file-name "logo.png" user-emacs-directory))
-  (dashboard-set-navigator t)
-  (dashboard-center-content t)
-  (dashboard-display-icons-p t)
-  (dashboard-set-heading-icons t)
-  (dashboard-icon-type 'nerd-icons)
-  :hook (after-init . dashboard-setup-startup-hook))
+;;;; Git and terminal
 
 (use-package magit
+  :ensure t
   :commands magit-status
-  :bind (("C-x g" . magit-status)))
+  :bind ("C-x g" . magit-status))
+
+(use-package vterm
+  :ensure t
+  :commands vterm
+  :custom
+  (vterm-kill-buffer-on-exit t))
+
+;;;; Org
+
+(use-package org
+  :ensure nil
+  :custom
+  (org-startup-folded t)
+  (org-startup-indented t)
+  (org-startup-with-inline-images t)
+  (org-confirm-babel-evaluate t)
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((awk . t)
+     (emacs-lisp . t)
+     (haskell . t)
+     (python . t)
+     (ruby . t)
+     (sed . t)
+     (shell . t))))
+
+;;;; Twitch IRC
 
 (use-package rcirc
   :ensure nil
@@ -691,67 +566,14 @@
   (rcirc-auto-authenticate-flag t)
   (rcirc-reconnect-delay 5)
   (rcirc-server-alist
-   '(("irc.chat.twitch.tv" :port 6697 :encryption tls
-	  :channels ("#moniquelive" "#theprimeagen"))))
+   '(("irc.chat.twitch.tv"
+      :port 6697
+      :encryption tls
+      :channels ("#moniquelive" "#theprimeagen"))))
   :hook
   (rcirc-mode . rcirc-track-minor-mode))
 
-(use-package org
-  :ensure nil
-  :custom
-  (org-startup-folded t)
-  (org-startup-indented t)
-  (org-startup-with-inline-images t)
-  (org-confirm-babel-evaluate nil)
-  (org-latex-create-formula-image-program 'dvisvgm)
-  (org-latex-src-block-backend 'minted)
-  (org-latex-default-packages-alist
-   '(("hidelinks" "hyperref" nil)))
-  (org-latex-pdf-process
-   '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-     "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-     "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-  (org-latex-minted-langs '((awk "awk")
-							(emacs-lisp "emacs-lisp")
-							(haskell "haskell")
-							(python "python")
-							(ruby "ruby")
-							(sed "sed")
-							(eshell "shell")))
+(unless noninteractive
+  (server-mode 1))
 
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((awk . t)
-							   (emacs-lisp . t)
-							   (haskell . t)
-							   (processing . t)
-							   (python . t)
-							   (ruby . t)
-							   (sed . t)
-							   (shell . t))))
-
-(use-package org-superstar
-  :custom (org-superstar-special-todo-items 'hide)
-  :hook (org-mode . org-superstar-mode))
-
-(use-package evil-org
-  :pin melpa
-  :after (evil org)
-  :hook
-  (org-mode . evil-org-mode)
-  (evil-org-mode . (lambda ()
-					 (evil-org-set-key-theme '(navigation
-											   insert
-											   textobjects
-											   additional
-											   calendar)))))
-
-(use-package pdf-tools
-  :hook (after-init . pdf-loader-install))
-
-
-;; Make GC pauses faster by decreasing the threshold.
-(setq gc-cons-threshold (* 2 1000 1000))
-
-(advice-remove 'message #'my-message-with-timestamp)
-(toggle-debug-on-error)
+;;; init.el ends here

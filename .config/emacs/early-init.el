@@ -1,23 +1,18 @@
-(setq gc-cons-threshold (* 50 1000 1000))
+;;; early-init.el --- Early initialization -*- lexical-binding: t; -*-
 
-(push '(background-color . "#1d2021") default-frame-alist)
-(push '(foreground-color . "#ebdbb2") default-frame-alist)
+(setq package-enable-at-startup nil
+      inhibit-startup-screen t
+      frame-inhibit-implied-resize t
+      load-prefer-newer t)
 
-(customize-set-variable 'load-prefer-newer t)
+(setq default-frame-alist
+      (append '((tool-bar-lines . 0)
+                (menu-bar-lines . 0)
+                (vertical-scroll-bars . nil)
+                (internal-border-width . 12)
+                (background-color . "#232136")
+                (foreground-color . "#e0def4")
+                (font . "MonoLisaCode 15"))
+              default-frame-alist))
 
-(when (featurep 'native-compile)
-  (setq native-comp-async-report-warnings-errors nil)
-  (setq native-comp-deferred-compilation t)
-  (when (fboundp 'startup-redirect-eln-cache)
-    (if (version< emacs-version "29")
-        (add-to-list 'native-comp-eln-load-path (convert-standard-filename (expand-file-name "var/eln-cache/" user-emacs-directory)))
-      (startup-redirect-eln-cache (convert-standard-filename (expand-file-name "var/eln-cache/" user-emacs-directory)))))
-  (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory)))
-
-(setq inhibit-startup-message t)
-(push '(tool-bar-lines . 0) default-frame-alist)
-(push '(menu-bar-lines . 0) default-frame-alist)
-(push '(vertical-scroll-bars) default-frame-alist)
-(push '(mouse-color . "white") default-frame-alist)
-
-(customize-set-variable 'initial-major-mode 'fundamental-mode)
+;;; early-init.el ends here
