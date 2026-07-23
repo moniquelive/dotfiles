@@ -105,8 +105,13 @@
 
 (ert-deftest my-test-emacs-lisp-treesit-setup-does-nothing-when-unavailable ()
   (let ((parser-calls 0)
-        (setup-calls 0))
-    (cl-letf (((symbol-function 'treesit-ready-p) (lambda (_) nil))
+        (ready-arguments nil)
+        (setup-calls 0)
+        (treesit-auto-install nil))
+    (cl-letf (((symbol-function 'treesit-ready-p)
+               (lambda (&rest arguments)
+                 (setq ready-arguments arguments)
+                 nil))
               ((symbol-function 'treesit-parser-create)
                (lambda (_) (cl-incf parser-calls)))
               ((symbol-function 'treesit-major-mode-setup)
@@ -114,15 +119,37 @@
       (with-temp-buffer
         (setq-local treesit-font-lock-level 'unchanged)
         (my-emacs-lisp-treesit-setup)
+        (should (equal ready-arguments '(elisp t)))
         (should (eq treesit-font-lock-level 'unchanged))
         (should (zerop parser-calls))
         (should (zerop setup-calls))))))
+
+(ert-deftest my-test-emacs-lisp-treesit-setup-offers-to-install-grammar ()
+  (let ((install-language nil)
+        (prompt nil)
+        (treesit-auto-install 'prompt))
+    (cl-letf (((symbol-function 'treesit-ready-p) (lambda (&rest _) nil))
+              ((symbol-function 'y-or-n-p)
+               (lambda (message)
+                 (setq prompt message)
+                 t))
+              ((symbol-function 'treesit-install-language-grammar)
+               (lambda (language) (setq install-language language))))
+      (with-temp-buffer
+        (my-emacs-lisp-treesit-setup)
+        (should (equal prompt
+                       "Tree-sitter grammar for elisp is missing.  Install it? "))
+        (should (eq install-language 'elisp))))))
 
 (ert-deftest my-test-emacs-lisp-treesit-setup-configures-an-available-parser ()
   (let ((parser-calls 0)
         (rules-arguments nil)
         (setup-calls 0))
-    (cl-letf (((symbol-function 'treesit-ready-p) (lambda (_) t))
+    (cl-letf (((symbol-function 'treesit-ready-p)
+               (lambda (language quiet)
+                 (should (eq language 'elisp))
+                 (should quiet)
+                 t))
               ((symbol-function 'treesit-parser-create)
                (lambda (language)
                  (should (eq language 'elisp))
@@ -146,7 +173,7 @@
   (let ((treesit-extra-load-path
          (cons (expand-file-name "tree-sitter/" my-test-config-directory)
                treesit-extra-load-path)))
-    (skip-unless (treesit-ready-p 'elisp))
+    (skip-unless (treesit-ready-p 'elisp t))
     (with-temp-buffer
       (insert "(defun foo (bar) bar)\n"
               "(setq first 1 second 2)\n"

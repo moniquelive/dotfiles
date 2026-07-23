@@ -3,7 +3,9 @@
 (setq package-enable-at-startup nil
       inhibit-startup-screen t
       frame-inhibit-implied-resize t
-      load-prefer-newer t)
+      load-prefer-newer t
+      evil-want-integration t
+      evil-want-keybinding nil)
 
 (setq default-frame-alist
       (append '((tool-bar-lines . 0)

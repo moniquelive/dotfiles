@@ -187,9 +187,7 @@
 (use-package evil
   :ensure t
   :init
-  (setq evil-want-integration t
-        evil-want-keybinding nil
-        evil-undo-system 'undo-redo
+  (setq evil-undo-system 'undo-redo
         evil-split-window-below t
         evil-vsplit-window-right t
         evil-cross-lines t)
@@ -232,16 +230,13 @@
         (heex "https://github.com/phoenixframework/tree-sitter-heex")
         (python "https://github.com/tree-sitter/tree-sitter-python")))
 
-(dolist (mapping '((csharp-mode . csharp-ts-mode)
-                   (python-mode . python-ts-mode)))
-  (add-to-list 'major-mode-remap-alist mapping))
-
-(dolist (mapping '(("\\.go\\'" . go-ts-mode)
-                   ("\\.exs?\\'" . elixir-ts-mode)
-                   ("\\.heex\\'" . heex-ts-mode)
-                   ("\\(?:\\`\\|/\\)Dockerfile\\(?:\\..*\\)?\\'"
-                    . dockerfile-ts-mode)))
-  (add-to-list 'auto-mode-alist mapping))
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode 1))
 
 (defun my-emacs-lisp-fontify-setq-variable
     (node override start end &rest _)
@@ -261,7 +256,13 @@
 
 (defun my-emacs-lisp-treesit-setup ()
   "Enable tree-sitter parsing and font locking for Emacs Lisp."
-  (when (treesit-ready-p 'elisp)
+  (unless (treesit-ready-p 'elisp t)
+    (when (or (eq treesit-auto-install t)
+              (and (eq treesit-auto-install 'prompt)
+                   (y-or-n-p
+                    "Tree-sitter grammar for elisp is missing.  Install it? ")))
+      (treesit-install-language-grammar 'elisp)))
+  (when (treesit-ready-p 'elisp t)
     (treesit-parser-create 'elisp)
     (setq-local treesit-font-lock-level 4
                 treesit-font-lock-feature-list
