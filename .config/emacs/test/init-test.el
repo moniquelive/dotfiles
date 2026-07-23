@@ -292,6 +292,11 @@
                   (file-name-as-directory root))))
       (delete-directory root t))))
 
+(ert-deftest my-test-eglot-negotiates-markdown-hover-content ()
+  (require 'eglot)
+  (should (fboundp 'gfm-view-mode))
+  (should (equal (eglot--accepted-formats) ["markdown" "plaintext"])))
+
 (ert-deftest my-test-clojure-lsp-options-use-available-fallbacks ()
   (cl-letf (((symbol-function 'executable-find)
              (lambda (executable)

@@ -358,6 +358,10 @@
          ("\\.cljc\\'" . clojure-ts-clojurec-mode)
          ("\\.edn\\'" . clojure-ts-mode)))
 
+(use-package markdown-mode
+  :ensure t
+  :commands gfm-view-mode)
+
 ;;;; Eglot
 
 (setq eglot-autoshutdown t)
