@@ -38,10 +38,51 @@
     (should (equal my-state-directory state-directory))
     (should (file-directory-p (expand-file-name "backups/" state-directory)))
     (should (file-directory-p (expand-file-name "auto-save/" state-directory)))
-    (dolist (file (list custom-file savehist-file save-place-file
-                        recentf-save-file project-list-file))
+    (dolist (file (list custom-file my-frame-geometry-file savehist-file
+                        save-place-file recentf-save-file project-list-file))
       (should (file-in-directory-p file state-directory)))
     (should-not (bound-and-true-p server-mode))))
+
+(ert-deftest my-test-frame-geometry-round-trips ()
+  (let ((my-frame-geometry-file (make-temp-file "emacs-frame-geometry-"))
+        (my-frame-geometry-restored nil)
+        (frame 'graphical-frame)
+        (calls nil))
+    (unwind-protect
+        (progn
+          (cl-letf (((symbol-function 'display-graphic-p) (lambda (&optional _) t))
+                    ((symbol-function 'selected-frame) (lambda () frame))
+                    ((symbol-function 'frame-geometry)
+                     (lambda (_) '((outer-position . (120 . 80)))))
+                    ((symbol-function 'frame-text-width) (lambda (_) 1200))
+                    ((symbol-function 'frame-text-height) (lambda (_) 800))
+                    ((symbol-function 'frame-parameter)
+                     (lambda (_ parameter)
+                       (and (eq parameter 'fullscreen) 'maximized))))
+            (my-save-frame-geometry))
+          (with-temp-buffer
+            (insert-file-contents my-frame-geometry-file)
+            (should
+             (equal (read (current-buffer))
+                    '(:left 120 :top 80 :width 1200 :height 800
+                      :fullscreen maximized))))
+          (cl-letf (((symbol-function 'display-graphic-p) (lambda (_) t))
+                    ((symbol-function 'set-frame-size)
+                     (lambda (&rest arguments) (push (cons 'size arguments) calls)))
+                    ((symbol-function 'set-frame-position)
+                     (lambda (&rest arguments)
+                       (push (cons 'position arguments) calls)))
+                    ((symbol-function 'set-frame-parameter)
+                     (lambda (&rest arguments)
+                       (push (cons 'parameter arguments) calls))))
+            (my-restore-frame-geometry frame)
+            (my-restore-frame-geometry frame))
+          (should
+           (equal (nreverse calls)
+                  `((size ,frame 1200 800 t)
+                    (position ,frame 120 80)
+                    (parameter ,frame fullscreen maximized)))))
+      (delete-file my-frame-geometry-file))))
 
 (ert-deftest my-test-focus-change-debounces-save-checks ()
   (let ((my-focus-out-save-timer 'old-timer)

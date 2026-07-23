@@ -5,6 +5,9 @@
 (defconst my-state-directory
   (expand-file-name "var/" user-emacs-directory))
 
+(defconst my-frame-geometry-file
+  (expand-file-name "frame-geometry.el" my-state-directory))
+
 (dolist (directory '("backups/" "auto-save/"))
   (make-directory (expand-file-name directory my-state-directory) t))
 
@@ -17,6 +20,7 @@
       save-place-file (expand-file-name "places" my-state-directory)
       recentf-save-file (expand-file-name "recentf" my-state-directory)
       project-list-file (expand-file-name "projects" my-state-directory)
+      frame-resize-pixelwise t
       backup-by-copying t
       version-control t
       delete-old-versions t
@@ -24,6 +28,53 @@
       kept-old-versions 2)
 
 (load custom-file 'noerror 'nomessage)
+
+(defvar my-frame-geometry-restored nil)
+
+(defun my-save-frame-geometry ()
+  "Save the selected graphical frame's size and position."
+  (when-let* ((frame (if (display-graphic-p)
+                         (selected-frame)
+                       (seq-find #'display-graphic-p (frame-list))))
+              (position (alist-get 'outer-position (frame-geometry frame))))
+    (with-temp-file my-frame-geometry-file
+      (prin1 (list :left (car position)
+                   :top (cdr position)
+                   :width (frame-text-width frame)
+                   :height (frame-text-height frame)
+                   :fullscreen (frame-parameter frame 'fullscreen))
+             (current-buffer)))))
+
+(defun my-restore-frame-geometry (&optional frame)
+  "Restore saved size and position to the first graphical FRAME."
+  (let ((frame (or frame (selected-frame))))
+    (when (and (not my-frame-geometry-restored)
+               (display-graphic-p frame))
+      (setq my-frame-geometry-restored t)
+      (when (file-readable-p my-frame-geometry-file)
+        (condition-case nil
+            (let ((geometry
+                   (with-temp-buffer
+                     (insert-file-contents my-frame-geometry-file)
+                     (read (current-buffer)))))
+              (when (and (natnump (plist-get geometry :width))
+                         (natnump (plist-get geometry :height)))
+                (set-frame-size frame
+                                (plist-get geometry :width)
+                                (plist-get geometry :height)
+                                t))
+              (when (and (integerp (plist-get geometry :left))
+                         (integerp (plist-get geometry :top)))
+                (set-frame-position frame
+                                    (plist-get geometry :left)
+                                    (plist-get geometry :top)))
+              (set-frame-parameter frame 'fullscreen
+                                   (plist-get geometry :fullscreen)))
+          (error nil))))))
+
+(add-hook 'window-setup-hook #'my-restore-frame-geometry)
+(add-hook 'after-make-frame-functions #'my-restore-frame-geometry)
+(add-hook 'kill-emacs-hook #'my-save-frame-geometry)
 
 ;;;; Packages
 
