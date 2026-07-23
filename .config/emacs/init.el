@@ -274,10 +274,10 @@
     (treesit-parser-create 'elisp)
     (setq-local treesit-font-lock-level 4
                 treesit-font-lock-feature-list
-                 '((comment string)
-                   (keyword definition)
-                   (constant variable)
-                   (bracket operator))
+                '((comment string)
+                  (keyword definition)
+                  (constant variable)
+                  (bracket operator))
                 treesit-font-lock-settings
                 (treesit-font-lock-rules
                  :language 'elisp
@@ -387,11 +387,11 @@
              (list
               (when (executable-find "lein")
                 '(:project-path "project.clj"
-                  :classpath-cmd ["lein" "classpath"]))
+                                :classpath-cmd ["lein" "classpath"]))
               (when (executable-find "bb")
                 '(:project-path "bb.edn"
-                  :classpath-cmd ["bb" "print-deps" "--format"
-                                  "classpath"])))))))))
+                                :classpath-cmd ["bb" "print-deps" "--format"
+                                                "classpath"])))))))))
 
 (defun my-eglot-ensure ()
   "Start Eglot when a server for the current mode is available."
@@ -426,7 +426,7 @@
                 heex-ts-mode-hook
                 elm-mode-hook
                 haskell-mode-hook
-                 zig-mode-hook))
+                zig-mode-hook))
   (add-hook hook #'my-eglot-ensure))
 
 (defun my-flymake-show-line-diagnostics ()
