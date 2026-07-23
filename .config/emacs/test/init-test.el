@@ -280,6 +280,18 @@
   (should (memq #'my-eglot-ensure clojure-ts-mode-hook))
   (should (memq #'cider-mode clojure-ts-mode-hook)))
 
+(ert-deftest my-test-clojure-build-files-mark-project-roots ()
+  (let* ((root (make-temp-file "clojure-project-" t))
+         (source-directory (expand-file-name "src/example/" root)))
+    (unwind-protect
+        (progn
+          (make-directory source-directory t)
+          (write-region "" nil (expand-file-name "project.clj" root))
+          (should
+           (equal (project-root (project-current nil source-directory))
+                  (file-name-as-directory root))))
+      (delete-directory root t))))
+
 (ert-deftest my-test-clojure-lsp-options-use-available-fallbacks ()
   (cl-letf (((symbol-function 'executable-find)
              (lambda (executable)

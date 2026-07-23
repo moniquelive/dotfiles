@@ -179,6 +179,9 @@
 
 (require 'project)
 
+(dolist (marker '("bb.edn" "build.boot" "deps.edn" "project.clj"))
+  (add-to-list 'project-vc-extra-root-markers marker))
+
 (setq project-mode-line t
       project-file-history-behavior 'relativize)
 
@@ -458,7 +461,7 @@
 
   (with-eval-after-load 'evil
     (evil-define-key 'normal eglot-mode-map
-      (kbd "K") #'eldoc-doc-buffer
+      (kbd "K") #'eldoc
       (kbd "gr") #'xref-find-references)))
 
 ;;;; Clojure
