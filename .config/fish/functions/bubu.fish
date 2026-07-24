@@ -17,7 +17,8 @@ function bubu
             and sudo pkg upgrade -y
         case Linux
             if test -f /etc/arch-release
-                yay -Syuu --noconfirm --devel --needed
+                # Remove this ignore once ghostty-git accepts Zig 0.16.
+                yay -Syuu --noconfirm --devel --needed --ignore ghostty-git,ghostty-shell-integration-git,ghostty-terminfo-git
             else if test -f /etc/fedora-release
                 sudo dnf upgrade --refresh -y
             else
