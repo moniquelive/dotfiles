@@ -7,7 +7,7 @@ require("git"):setup({
 })
 
 require("eza-preview"):setup({
-	default_tree = true,
+	default_tree = false,
 	level = 3,
 	icons = true,
 	follow_symlinks = true,
