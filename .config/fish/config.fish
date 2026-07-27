@@ -1,9 +1,9 @@
-fish_add_path /opt/1Password \
+fish_add_path -g /opt/1Password \
     /Applications/1Password.app/Contents/MacOS \
     $HOME/.local/bin \
     $HOME/.spicetify \
     $HOME/.ghcup/bin
-fish_add_path -a $HOME/bin \
+fish_add_path -g -a $HOME/bin \
     $HOME/.yarn/bin \
     $HOME/go/bin \
     /usr/local/sbin \
@@ -37,7 +37,7 @@ if status is-interactive
     end
     if test -n "$brew_prefix"
         set -ax MANPATH $brew_prefix/opt/coreutils/libexec/gnuman
-        fish_add_path \
+        fish_add_path -g \
             $brew_prefix/bin \
             $brew_prefix/opt/node/bin \
             $brew_prefix/opt/coreutils/bin \
@@ -47,11 +47,10 @@ if status is-interactive
             $brew_prefix/opt/mysql-client/bin
     end
 
-    command -q starship; and starship init fish | source; and enable_transience
+    command -q starship; and starship init fish --print-full-init | source; and enable_transience
     command -q mise; and mise activate fish | source
     command -q zoxide; and zoxide init --cmd cd fish | source
     command -q carapace; and carapace _carapace fish | source
-    command -q bdcli; and bdcli completion fish | source
     if command -q tv
         for mode in default insert
             bind --mode $mode ctrl-t tv_smart_autocomplete
