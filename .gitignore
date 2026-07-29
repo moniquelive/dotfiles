@@ -7,6 +7,7 @@
 /.config/emacs/.last-package-update-day
 /.config/emacs/.lsp-session-*
 /.config/emacs/elpa
+/.config/emacs/eln-cache
 /.config/emacs/history
 /.config/emacs/places
 /.config/emacs/projects

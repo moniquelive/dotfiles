@@ -287,7 +287,7 @@
       '((c-sharp "https://github.com/tree-sitter/tree-sitter-c-sharp")
         (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
         (elixir "https://github.com/elixir-lang/tree-sitter-elixir")
-        (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+        (elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.6.1")
         (go "https://github.com/tree-sitter/tree-sitter-go")
         (heex "https://github.com/phoenixframework/tree-sitter-heex")
         (python "https://github.com/tree-sitter/tree-sitter-python")))
