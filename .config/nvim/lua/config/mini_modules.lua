@@ -127,6 +127,14 @@ function M.setup(mini)
 		end,
 		function() mini.misc.setup_termbg_sync() end,
 		function() require("mini.visits").setup() end,
+		function()
+			require("mini.files").setup({
+				options = {
+					permanent_delete = false,
+					use_as_default_explorer = false,
+				},
+			})
+		end,
 	}):each(function(setup) setup() end)
 end
 

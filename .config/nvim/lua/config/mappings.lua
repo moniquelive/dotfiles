@@ -237,14 +237,6 @@ local function browse_github()
 	end)
 end
 
-local function explorer_cwd()
-	local file = vim.api.nvim_buf_get_name(0)
-	if file == "" then return vim.fn.getcwd() end
-
-	local cwd = vim.fn.fnamemodify(file, ":p:h")
-	return vim.fn.isdirectory(cwd) == 1 and cwd or vim.fn.getcwd()
-end
-
 local function previous_char_col(row, col)
 	local line = vim.api.nvim_buf_get_lines(0, row, row + 1, false)[1] or ""
 	local limit = math.min(col, #line)
@@ -749,7 +741,14 @@ function M.setup_mini(mini)
 		},
 		{ "<leader><space>", function() mini.extra.pickers.buf_lines() end, "Search current buffer" },
 		{ "<leader>ft", function() mini.extra.pickers.colorschemes() end, "Choose colorscheme" },
-		{ "<s-tab>", function() require("oil").toggle_float(explorer_cwd()) end, "File explorer" },
+		{
+			"<s-tab>",
+			function()
+				local file = vim.api.nvim_buf_get_name(0)
+				require("mini.files").open(file)
+			end,
+			"File explorer",
+		},
 		{ "ghx", browse_github, "Browse on GitHub" },
 		{ "<m-right>", function() jump_reference(vim.v.count1) end, "Next Reference" },
 		{ "<m-left>", function() jump_reference(-vim.v.count1) end, "Prev Reference" },
