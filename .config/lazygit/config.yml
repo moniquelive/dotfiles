@@ -2,7 +2,6 @@ gui:
   sidePanelWidth: 0.3333
   nerdFontsVersion: "3"
   showFileTree: false
-
   theme:
     activeBorderColor:
       - "#3e8fb0"
@@ -31,24 +30,20 @@ gui:
     searchingActiveBorderColor:
       - "#ea9a97"
       - bold
-
   branchColors:
     "feature": "#9ccfd8"
     "feat": "#9ccfd8"
     "master": "#c4a7e7"
     "main": "#c4a7e7"
-
   authorColors:
     "Cyber Oliveira": "#c4a7e7"
     "Monique Oliveira": "#c4a7e7"
     "*": "#9ccfd8"
-
 git:
   parseEmoji: true
   ignoreWhitespaceInDiffView: true
-  pagers:
-    - pager: delta --dark --paging=never --features=rose-pine-moon
-    - pager: delta --dark --paging=never
-
+  diffRenderers:
+    - command: delta --dark --paging=never --features=rose-pine-moon
+    - command: delta --dark --paging=never
 confirmOnQuit: false
 promptToReturnFromSubprocess: false
