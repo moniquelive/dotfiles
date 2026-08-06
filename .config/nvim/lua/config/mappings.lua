@@ -707,6 +707,25 @@ function M.setup_mini(mini)
 		mini.indentscope.draw()
 	end
 
+	local function visit_index_list(index)
+		return function()
+			local paths = require("mini.visits").list_paths()
+			if index <= #paths then vim.cmd.edit(paths[index]) end
+		end
+	end
+
+	local function add_visit()
+		local name = vim.api.nvim_buf_get_name(0)
+		if name ~= "" then require("mini.visits").add_path(name) end
+	end
+
+	map_nt("<M-0>", function() mini.extra.pickers.visit_paths() end, "Visited paths")
+
+	vim.iter({ 1, 2, 3, 4, 5, 6, 7, 8 })
+		:each(function(index) map_nt("<M-" .. index .. ">", visit_index_list(index), "Visit path " .. index) end)
+
+	map_nt("<M-9>", add_visit, "Add visited path")
+
 	vim.iter({
 		{ "<c-p>", function() mini.pick.builtin.files() end, "Find Files" },
 		{ "<leader>fb", function() mini.pick.builtin.buffers() end, "List buffers" },

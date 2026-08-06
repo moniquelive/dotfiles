@@ -126,6 +126,7 @@ function M.setup(mini)
 			})
 		end,
 		function() mini.misc.setup_termbg_sync() end,
+		function() require("mini.visits").setup() end,
 	}):each(function(setup) setup() end)
 end
 
