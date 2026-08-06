@@ -21,6 +21,7 @@ _darcs
 ^/README.*
 ^/LICENSE.*
 ^/COPYING
+^/AGENTS.*
 
 update-submodules\.sh
 \.jj
