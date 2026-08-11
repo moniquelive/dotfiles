@@ -10,7 +10,7 @@ require("vim._core.ui2").enable({
 require("config.input").setup()
 -----------------------------------------------------------------------------
 
-vim.opt.iskeyword:remove({ ".", "#", "-" })
+--vim.opt.iskeyword:remove({ ".", "#", "-" })
 vim.opt.shortmess:append("I")
 vim.opt.tags:prepend({ "./.git/tags;" })
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
