@@ -44,7 +44,6 @@
 			"PictureInPicture": "201181",
 			"PrivateChannel": "403796",
 			"Scroller": "947876",
-			"SearchBar": "372461",
 			"SettingsItems": "488920",
 			"Slider": "300839",
 			"Tooltip": "622399",
@@ -53,7 +52,8 @@
 			"UserHeaderUsername": "211180",
 			"UserPopoutBody": "890717",
 			"UserSummaryItem": "250296",
-			"UserTheme": "518295"
+			"UserTheme": "518295",
+			"VoiceChannel": "79362"
 		},
 		"ModuleIdCache": {
 			"AnalyticsContext": "820284",
@@ -61,8 +61,8 @@
 			"EmojiPickerListRow": "267889",
 			"Menu": "980707",
 			"PeopleListItem": "414711",
-			"PeopleListSectionedLazy": "163512",
-			"PeopleListSectionedNonLazy": "163512",
+			"PeopleListSectionedLazy": "378881",
+			"PeopleListSectionedNonLazy": "378881",
 			"TabBar": "761508",
 			"UnreadDMs": "961998",
 			"UserProfile": "939496"
@@ -87,7 +87,7 @@
 			"useChromium": false
 		},
 		"hashes": {
-			"0BDFDB.data.json": "57d995f0a798d25301103823c8dd78cbaff23414",
+			"0BDFDB.data.json": "5d701a674fcc2d19eadae9c5e8b1631a274f887a",
 			"0BDFDB.raw.css": "09d4361abbf6390a119b6d7fd069912fb115d966"
 		}
 	}
