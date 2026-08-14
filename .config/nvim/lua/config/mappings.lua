@@ -657,6 +657,10 @@ function M.setup_lua()
 	end
 end
 
+function M.setup_clojure()
+	set_map("n", "<M-CR>", "<cmd>ConjureEvalRootForm<CR>", { buffer = true, desc = "Evaluate root form" })
+end
+
 function M.setup_mini(mini)
 	local function run_from_normal_mode(fn)
 		return function(...)

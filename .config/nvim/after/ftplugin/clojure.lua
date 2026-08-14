@@ -6,3 +6,5 @@ if path.is_exercism() then
 elseif path.is_lein(vim.fn.expand("%:p:h")) then
 	vim.opt_local.makeprg = "lein run"
 end
+
+require("config.mappings").setup_clojure()
