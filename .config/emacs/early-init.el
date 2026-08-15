@@ -12,8 +12,8 @@
                 (menu-bar-lines . 0)
                 (vertical-scroll-bars . nil)
                 (internal-border-width . 12)
-                (background-color . "#232136")
-                (foreground-color . "#e0def4")
+                (background-color . "#190a0f")
+                (foreground-color . "#d3cfcf")
                 (font . "MonoLisaCode 15"))
               default-frame-alist))
 

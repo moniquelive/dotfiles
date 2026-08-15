@@ -202,15 +202,10 @@
 (fido-vertical-mode 1)
 (display-battery-mode 1)
 
-(unless (package-installed-p 'rose-pine-emacs)
-  (require 'package-vc)
-  (package-vc-install
-   "https://github.com/thongpv87/rose-pine-emacs"
-   "adcf6f8fe719884f7e32acb9130bdbcaccd6c4c9"
-   nil
-   'rose-pine-emacs))
-
-(load-theme 'rose-pine-moon t)
+(use-package ef-themes
+  :ensure t
+  :config
+  (load-theme 'ef-cherie t))
 
 ;;;; Keys
 
