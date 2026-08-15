@@ -202,6 +202,20 @@
 (fido-vertical-mode 1)
 (display-battery-mode 1)
 
+(use-package consult
+  :ensure t
+  :bind
+  (("C-x b" . consult-buffer)
+   ("M-g i" . consult-imenu)
+   ("M-s l" . consult-line)
+   ("M-s r" . consult-ripgrep)
+   ("M-y" . consult-yank-pop)))
+
+(use-package marginalia
+  :ensure t
+  :config
+  (marginalia-mode 1))
+
 (use-package ef-themes
   :ensure t
   :config
@@ -248,7 +262,7 @@
 
   (defvar-keymap my-leader-map
     "RET" #'evil-ex-nohighlight
-    "\\" #'switch-to-buffer
+    "\\" #'consult-buffer
     "e b" #'cider-load-buffer
     "e e" #'cider-eval-defun-at-point
     "e j" #'cider-jack-in-clj
