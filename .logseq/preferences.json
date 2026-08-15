@@ -1,7 +1,7 @@
 {
   "theme": {
-    "name": "OddBox",
-    "url": "file:///Users/cyber/.logseq/plugins/oddbox/rose-pine-moon.css",
+    "name": "Ef Cherie",
+    "url": "file:///Users/cyber/.logseq/plugins/oddbox/ef-cherie.css",
     "pid": "oddbox"
   },
   "themes": {
@@ -16,9 +16,9 @@
       "group-desc": "light themes"
     },
     "dark": {
-      "name": "OddBox",
-      "url": "file:///Users/cyber/.logseq/plugins/oddbox/rose-pine-moon.css",
-      "description": "Rosé Pine Moon",
+      "name": "Ef Cherie",
+      "url": "file:///Users/cyber/.logseq/plugins/oddbox/ef-cherie.css",
+      "description": "Ef Cherie",
       "mode": "dark",
       "pid": "oddbox",
       "selected": true

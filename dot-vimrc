@@ -43,8 +43,6 @@ Plug 'andymass/vim-matchup'
 
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'rose-pine/vim'
-
 packadd! editexisting
 
 " Initialize plugin system
@@ -171,8 +169,7 @@ if has("termguicolors")
 endif
 
 set background=dark " for the dark version
-let g:disable_bg = 1
-colorscheme rosepine_moon
+colorscheme ef_cherie
 
 "---------------------------------------------------------------- folding {{{2
 nnoremap z0 :setlocal foldlevel=0<cr>

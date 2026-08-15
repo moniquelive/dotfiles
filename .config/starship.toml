@@ -5,7 +5,7 @@ right_format = "$cmd_duration$time"
 
 # Inserts a blank line between shell prompts
 add_newline = true
-palette = "rose_pine_moon"
+palette = "ef_cherie"
 
 [os]
 disabled = false
@@ -38,26 +38,26 @@ disabled = false
 disabled = false
 
 
-[palettes.rose_pine_moon]
-black = "#393552"
-red = "#eb6f92"
-green = "#3e8fb0"
-yellow = "#f6c177"
-blue = "#9ccfd8"
-purple = "#c4a7e7"
-cyan = "#ea9a97"
+[palettes.ef_cherie]
+black = "#190a0f"
+red = "#ff7359"
+green = "#60b444"
+yellow = "#e5b76f"
+blue = "#8fa5f6"
+purple = "#ef80bf"
+cyan = "#8fbaef"
 white = "#d0d0d0"
-bright-black = "#6e6a86"
-bright-red = "#eb6f92"
-bright-green = "#3e8fb0"
-bright-yellow = "#f6c177"
-bright-blue = "#9ccfd8"
-bright-purple = "#c4a7e7"
-bright-cyan = "#ea9a97"
+bright-black = "#808898"
+bright-red = "#ff656f"
+bright-green = "#60bf88"
+bright-yellow = "#ea9955"
+bright-blue = "#a897ef"
+bright-purple = "#df7fff"
+bright-cyan = "#8fcfdf"
 bright-white = "#d0d0d0"
-base = "#232136"
-surface0 = "#2a273f"
-surface1 = "#393552"
-surface2 = "#44415a"
+base = "#190a0f"
+surface0 = "#291f26"
+surface1 = "#392a2f"
+surface2 = "#594a4f"
 text = "#d0d0d0"
-muted = "#908caa"
+muted = "#808898"

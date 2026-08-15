@@ -111,7 +111,7 @@ fi
 unset SCRIPT_NAME
 
 #------------------------------------------------------------- ls colors ---
-(( $+commands[vivid] )) && export LS_COLORS="$(vivid generate rose-pine-moon)"
+(( $+commands[vivid] )) && export LS_COLORS="$(vivid generate ef-cherie)"
 
 #---------------------------------------------------------------- load OMZ ---
 [[ -s "$ZSH/oh-my-zsh.sh" ]] && source $ZSH/oh-my-zsh.sh
@@ -120,7 +120,7 @@ unset SCRIPT_NAME
 # set these after omz
 (( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
-export BAT_THEME="Rosé Pine Moon"
+export BAT_THEME="Ef Cherie"
 export BAT_STYLE="plain"
 export LESSCHARSET=utf-8
 export LESS="-FRmX"
@@ -283,15 +283,15 @@ unsetopt print_exit_value
 
 # Setting fd as the default source for fzf
 # export FZF_DEFAULT_COMMAND="fdfind --hidden --follow --exclude '.git' --exclude 'node_modules'"
-BACKGROUND="#232136"
-FOREGROUND="#e0def4"
-BG_PLUS="#393552"
-BORDER="#56526e"
-MARKER="#f6c177"
-INFO="#9ccfd8"
-HL="#f6c177"
-LABEL="#908caa"
-PROMPT="#3e8fb0"
+BACKGROUND="#190a0f"
+FOREGROUND="#d3cfcf"
+BG_PLUS="#4a1937"
+BORDER="#695960"
+MARKER="#df7fff"
+INFO="#808898"
+HL="#f470df"
+LABEL="#808898"
+PROMPT="#7f9ab4"
 FZF_THEME="
   --color=fg:${FOREGROUND},bg:${BACKGROUND},hl:${HL}
   --color=fg+:bold:${FOREGROUND},bg+:${BG_PLUS},hl+:${HL}

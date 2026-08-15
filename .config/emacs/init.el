@@ -636,9 +636,9 @@
 (use-package diff-hl
   :ensure t
   :custom-face
-  (diff-hl-insert ((t (:foreground "#9ccfd8"))))
-  (diff-hl-change ((t (:foreground "#f6c177"))))
-  (diff-hl-delete ((t (:foreground "#eb6f92"))))
+  (diff-hl-insert ((t (:foreground "#60b444"))))
+  (diff-hl-change ((t (:foreground "#ea9955"))))
+  (diff-hl-delete ((t (:foreground "#ff656f"))))
   :config
   (global-diff-hl-mode 1)
   (diff-hl-flydiff-mode 1)

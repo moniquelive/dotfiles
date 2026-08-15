@@ -1,8 +1,8 @@
 {
   "carapace": {
-    "Description": "fg-#908caa",
-    "Highlight": "fg-#f6c177,bold",
-    "Prefix": "fg-#9ccfd8",
+    "Description": "fg-#808898",
+    "Highlight": "fg-#f470df,bold",
+    "Prefix": "fg-#8fbaef",
     "Value": "fg-#d0d0d0"
   }
 }

@@ -1,0 +1,36 @@
+! Ef Cherie
+*background: #190a0f
+*foreground: #d3cfcf
+*cursorColor: #ff5aaf
+
+! black
+*color0: #190a0f
+*color8: #594a4f
+
+! red
+*color1: #ff7359
+*color9: #ff656f
+
+! green
+*color2: #60b444
+*color10: #60bf88
+
+! yellow
+*color3: #e5b76f
+*color11: #ea9955
+
+! blue
+*color4: #8fa5f6
+*color12: #a897ef
+
+! magenta
+*color5: #ef80bf
+*color13: #df7fff
+
+! cyan
+*color6: #8fbaef
+*color14: #8fcfdf
+
+! white
+*color7: #d3cfcf
+*color15: #ffffff

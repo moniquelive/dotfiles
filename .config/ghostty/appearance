@@ -1,5 +1,5 @@
-theme=Rose Pine Moon
-foreground=#d0d0d0
+theme=ef-cherie
+foreground=#d3cfcf
 
 font-family = ""
 font-family=MonoLisaCode
@@ -14,4 +14,4 @@ unfocused-split-opacity=1
 
 # macOS app icon; Linux/FreeBSD use the XDG icon files in ~/.local/share/icons.
 macos-icon=custom
-macos-custom-icon=~/.config/ghostty/icons/rose-pine-moon.icns
+macos-custom-icon=~/.config/ghostty/icons/ef-cherie.icns

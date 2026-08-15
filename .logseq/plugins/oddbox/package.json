@@ -2,14 +2,14 @@
   "name": "OddBox",
   "author": "Kai Klostermann",
   "version": "0.1.9",
-  "description": "A Logseq theme based on Rosé Pine Moon.",
+  "description": "An Ef Cherie theme for Logseq.",
   "repo": "OddDev/oddbox",
   "logseq": {
     "themes": [
       {
-        "name": "OddBox",
-        "url": "./rose-pine-moon.css",
-        "description": "Rosé Pine Moon for Logseq.",
+        "name": "Ef Cherie",
+        "url": "./ef-cherie.css",
+        "description": "Ef Cherie for Logseq.",
         "mode": "dark"
       }
     ],

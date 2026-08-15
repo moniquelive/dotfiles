@@ -1,17 +1,15 @@
 return {
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"oonamo/ef-themes.nvim",
 		priority = 1000,
 		lazy = false,
 		opts = {
-			variant = "moon",
-			dark_variant = "moon",
-			styles = { transparency = true },
+			transparent = true,
+			options = { compile = false },
 		},
 		config = function(_, opts)
-			require("rose-pine").setup(opts)
-			vim.cmd.colorscheme("rose-pine-moon")
+			require("ef-themes").setup(opts)
+			vim.cmd.colorscheme("ef-cherie")
 		end,
 	},
 }

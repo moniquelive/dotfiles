@@ -2,15 +2,15 @@
 set -q XDG_CONFIG_HOME; or set -gx XDG_CONFIG_HOME $HOME/.config
 
 function vars_fzf
-    set BACKGROUND "#232136"
-    set FOREGROUND "#e0def4"
-    set BG_PLUS "#393552"
-    set BORDER "#56526e"
-    set MARKER "#f6c177"
-    set INFO "#9ccfd8"
-    set HL "#f6c177"
-    set LABEL "#908caa"
-    set PROMPT "#3e8fb0"
+    set BACKGROUND "#190a0f"
+    set FOREGROUND "#d3cfcf"
+    set BG_PLUS "#4a1937"
+    set BORDER "#695960"
+    set MARKER "#df7fff"
+    set INFO "#808898"
+    set HL "#f470df"
+    set LABEL "#808898"
+    set PROMPT "#7f9ab4"
     set -gx FZF_THEME "\
         --color=fg:$FOREGROUND,bg:$BACKGROUND,hl:$HL \
         --color=fg+:bold:$FOREGROUND,bg+:$BG_PLUS,hl+:$HL \
@@ -37,13 +37,13 @@ end
 vars_fzf
 
 function vars_ls_colors
-    command -q vivid; and set -gx LS_COLORS (vivid generate rose-pine-moon)
+    command -q vivid; and set -gx LS_COLORS (vivid generate ef-cherie)
 end
 vars_ls_colors
 
 set -gx HELPDIR /usr/local/share/zsh/helpfiles
 set -gx MANPAGER 'nvim +Man!'
-set -gx BAT_THEME "Rosé Pine Moon"
+set -gx BAT_THEME "Ef Cherie"
 set -gx BAT_STYLE "plain"
 set -gx LESSCHARSET utf-8
 set -gx LESS "-FRmX"

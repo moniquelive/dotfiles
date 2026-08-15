@@ -3,24 +3,24 @@
 <plist version="1.0">
 <dict>
   <key>name</key>
-  <string>Rosé Pine Moon</string>
+  <string>Ef Cherie</string>
   <key>settings</key>
   <array>
     <dict>
       <key>settings</key>
       <dict>
         <key>background</key>
-        <string>#232136</string>
+        <string>#190a0f</string>
         <key>caret</key>
-        <string>#56526e</string>
+        <string>#ff5aaf</string>
         <key>foreground</key>
-        <string>#e0def4</string>
+        <string>#d3cfcf</string>
         <key>invisibles</key>
-        <string>#2a273f</string>
+        <string>#291f26</string>
         <key>lineHighlight</key>
-        <string>#2a283e</string>
+        <string>#401f33</string>
         <key>selection</key>
-        <string>#44415a</string>
+        <string>#232f3f</string>
       </dict>
     </dict>
     <dict>
@@ -33,7 +33,7 @@
         <key>fontStyle</key>
         <string>italic</string>
         <key>foreground</key>
-        <string>#908caa</string>
+        <string>#bf9f8f</string>
       </dict>
     </dict>
     <dict>
@@ -44,7 +44,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#f6c177</string>
+        <string>#e5b76f</string>
       </dict>
     </dict>
     <dict>
@@ -55,7 +55,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#f6c177</string>
+        <string>#ff78aa</string>
       </dict>
     </dict>
     <dict>
@@ -68,7 +68,7 @@
         <key>fontStyle</key>
         <string>italic</string>
         <key>foreground</key>
-        <string>#e0def4</string>
+        <string>#df7fff</string>
       </dict>
     </dict>
     <dict>
@@ -79,7 +79,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#3e8fb0</string>
+        <string>#ef80bf</string>
       </dict>
     </dict>
     <dict>
@@ -90,7 +90,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#9ccfd8</string>
+        <string>#f470df</string>
       </dict>
     </dict>
     <dict>
@@ -103,7 +103,7 @@
         <key>fontStyle</key>
         <string>bold</string>
         <key>foreground</key>
-        <string>#3e8fb0</string>
+        <string>#f59280</string>
       </dict>
     </dict>
     <dict>
@@ -116,7 +116,7 @@
         <key>fontStyle</key>
         <string>italic</string>
         <key>foreground</key>
-        <string>#ea9a97</string>
+        <string>#f59280</string>
       </dict>
     </dict>
     <dict>
@@ -127,7 +127,7 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#c4a7e7</string>
+        <string>#cc9bcf</string>
       </dict>
     </dict>
     <dict>
@@ -140,7 +140,7 @@
         <key>fontStyle</key>
         <string>bold</string>
         <key>foreground</key>
-        <string>#9ccfd8</string>
+        <string>#a897ef</string>
       </dict>
     </dict>
     <dict>
@@ -151,9 +151,9 @@
       <key>settings</key>
       <dict>
         <key>background</key>
-        <string>#eb6f92</string>
+        <string>#461017</string>
         <key>foreground</key>
-        <string>#e0def4</string>
+        <string>#ff656f</string>
       </dict>
     </dict>
     <dict>
@@ -164,17 +164,17 @@
       <key>settings</key>
       <dict>
         <key>foreground</key>
-        <string>#908caa</string>
+        <string>#808898</string>
       </dict>
     </dict>
   </array>
   <key>colorSpaceName</key>
   <string>sRGB</string>
   <key>semanticClass</key>
-  <string>theme.dark.rose-pine-moon</string>
+  <string>theme.dark.ef-cherie</string>
   <key>author</key>
-  <string>Rosé Pine</string>
+  <string>Protesilaos Stavrou</string>
   <key>comment</key>
-  <string>All natural pine, faux fur and a bit of soho vibes for the classy minimalist</string>
+  <string>Legible dark theme with warm pink, magenta, and gold colors</string>
 </dict>
 </plist>

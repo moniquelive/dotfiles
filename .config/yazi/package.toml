@@ -32,8 +32,3 @@ hash = "87b9233a74325e95011670ed20bbd0d4"
 use = "boydaihungst/mediainfo"
 rev = "a6d30a1"
 hash = "7d4dd1afcb7ecbd3609c29a82d6dbc5c"
-
-[[flavor.deps]]
-use = "Mintass/rose-pine-moon"
-rev = "94385fe"
-hash = "edbe0dfb5db8ff37281dba62adc7e750"

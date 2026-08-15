@@ -1,10 +1,8 @@
 /**
-* @name Rosé Pine Moon
-* @author Ardo
-* @version 4.5.0
-* @description All natural pine, faux fur and a bit of soho vibes for the classy minimalist.
-* @source https://github.com/rose-pine/discord
-* @updateUrl https://raw.githubusercontent.com/rose-pine/discord/main/dist/rose-pine-moon.css
+* @name Ef Cherie
+* @author Protesilaos Stavrou; Discord port by Monique Oliveira
+* @version 1.0.0
+* @description Legible dark theme with warm pink, magenta, and gold colors.
 */
 
 /* 
@@ -18,21 +16,21 @@ CONFIGURATION 📝‼️
     --topbar-hidden: 1;
 
 
-    --base: #232136;
-    --surface: #2a273f;
-    --overlay: #393552;
-    --muted: #6e6a86;
-    --subtle: #908caa;
-    --text: #e0def4;
-    --love: #eb6f92;
-    --gold: #f6c177;
-    --rose: #ea9a97;
-    --pine: #3e8fb0;
-    --foam: #9ccfd8;
-    --iris: #c4a7e7;
-    --highlightLow: #2a283e;
-    --highlightMed: #44415a;
-    --highlightHigh: #56526e;
+    --base: #190a0f;
+    --surface: #291f26;
+    --overlay: #392a2f;
+    --muted: #695960;
+    --subtle: #808898;
+    --text: #d3cfcf;
+    --love: #ff7359;
+    --gold: #e5b76f;
+    --rose: #f59280;
+    --pine: #8fa5f6;
+    --foam: #8fbaef;
+    --iris: #ef80bf;
+    --highlightLow: #291f26;
+    --highlightMed: #401f33;
+    --highlightHigh: #695960;
 }
 
 
@@ -44,30 +42,9 @@ CONFIGURATION 📝‼️
     background-color: var(--overlay) !important;
 }
 
-/* Custom Logo Icon */
-.wrapper__6e9f8[aria-owns="guild-list-unread-dms"] .childWrapper__6e9f8 svg,
-.wrapper__6e9f8[data-list-item-id^="guildsnav___"] .childWrapper__6e9f8 svg {
-    display: none !important;
-    /* Hide the original SVG */
-}
-
-.wrapper__6e9f8[aria-owns="guild-list-unread-dms"] .childWrapper__6e9f8,
-.wrapper__6e9f8[data-list-item-id^="guildsnav___"] .childWrapper__6e9f8 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent !important;
-    background-image: url("https://raw.githubusercontent.com/rose-pine/rose-pine-theme/main/assets/icon.png") !important;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 55px !important;
-    height: 55px !important;
-}
-
 /* Top left custom text */
 .bar_c38106::before {
-    content: "Rosé Pine Moon";
+    content: "Ef Cherie";
     position: absolute;
     top: 10px;
     left: 16px;
@@ -1057,7 +1034,7 @@ button[aria-label="User Settings"] .lottieIcon__5eb9b svg path {
 
 
 .mention {
-    background-color: rgba(var(--rose), 0.1) !important;
+    background-color: color-mix(in srgb, var(--rose), transparent 90%) !important;
     /* Adjust alpha for intensity */
     color: var(--rose) !important;
     font-weight: bold !important;
@@ -2041,7 +2018,7 @@ Collapsible Search Bar
 /* Main search icon */
 .icon__97492 {
     position: absolute !important;
-    right: 0.1 !important;
+    right: 0.1px !important;
     top: 50% !important;
     transform: translateY(-50%);
     cursor: pointer !important;
@@ -2093,7 +2070,7 @@ Collapsible Search Bar
     display: block !important;
 }
 
-/* Local fix: keep the direct messages sidebar on the Moon surface.
+/* Local fix: keep the direct messages sidebar on the Ef Cherie surface.
    Upstream clears these backgrounds in the visual-refresh layout, which
    lets Discord's near-black fallback show through. */
 .visual-refresh .sidebarList_c48ade,
@@ -2129,7 +2106,7 @@ Collapsible Search Bar
     background-color: var(--highlightMed) !important;
 }
 
-/* Local fix: keep user settings on the Moon palette.
+/* Local fix: keep user settings on the Ef Cherie palette.
    The visual-refresh layout clears these backgrounds later in the cascade,
    which lets Discord's black fallback show through. */
 .visual-refresh .standardSidebarView__23e6b,

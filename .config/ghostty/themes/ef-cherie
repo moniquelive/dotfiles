@@ -1,0 +1,23 @@
+# Ef Cherie
+background = #190a0f
+foreground = #d3cfcf
+selection-background = #232f3f
+selection-foreground = #d3cfcf
+cursor-color = #ff5aaf
+
+palette = 0=#190a0f
+palette = 1=#ff7359
+palette = 2=#60b444
+palette = 3=#e5b76f
+palette = 4=#8fa5f6
+palette = 5=#ef80bf
+palette = 6=#8fbaef
+palette = 7=#d3cfcf
+palette = 8=#594a4f
+palette = 9=#ff656f
+palette = 10=#60bf88
+palette = 11=#ea9955
+palette = 12=#a897ef
+palette = 13=#df7fff
+palette = 14=#8fcfdf
+palette = 15=#ffffff

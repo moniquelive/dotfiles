@@ -16,38 +16,38 @@
 
 [delta]
   dark                       = true
-  features                   = rose-pine-moon side-by-side
+  features                   = ef-cherie side-by-side
   hyperlinks                 = true
   line-numbers               = true
-  line-numbers-left-style    = "#908caa"
-  line-numbers-minus-style   = "#eb6f92"
-  line-numbers-plus-style    = "#3e8fb0"
-  line-numbers-right-style   = "#908caa"
-  line-numbers-zero-style    = "#6e6a86"
+  line-numbers-left-style    = "#808898"
+  line-numbers-minus-style   = "#ff656f"
+  line-numbers-plus-style    = "#60b444"
+  line-numbers-right-style   = "#808898"
+  line-numbers-zero-style    = "#695960"
   navigate                   = true
   true-color                 = always
 
 [delta "side-by-side"]
   side-by-side = true
 
-[delta "rose-pine-moon"]
-  commit-decoration-style      = "box ul #56526e"
+[delta "ef-cherie"]
+  commit-decoration-style      = "box ul #695960"
   commit-style                 = raw
-  file-decoration-style        = "ul #56526e"
-  file-style                   = "bold #9ccfd8"
-  hunk-header-decoration-style = "#56526e"
-  hunk-header-file-style       = "bold #c4a7e7"
-  hunk-header-line-number-style = "#f6c177"
+  file-decoration-style        = "ul #695960"
+  file-style                   = "bold #8fbaef"
+  hunk-header-decoration-style = "#695960"
+  hunk-header-file-style       = "bold #ef80bf"
+  hunk-header-line-number-style = "#e5b76f"
   hunk-header-style            = file line-number syntax
-  minus-emph-style             = "syntax bold #4d2f42"
-  minus-empty-line-marker-style = "normal #3a283d"
-  minus-style                  = "syntax #3a283d"
-  plus-emph-style              = "syntax bold #2a4a57"
-  plus-empty-line-marker-style = "normal #243847"
-  plus-style                   = "syntax #243847"
-  search-match-style           = "bold #232136 #f6c177"
+  minus-emph-style             = "syntax bold #701a35"
+  minus-empty-line-marker-style = "normal #340a14"
+  minus-style                  = "syntax #510c28"
+  plus-emph-style              = "syntax bold #034d2f"
+  plus-empty-line-marker-style = "normal #002410"
+  plus-style                   = "syntax #00351f"
+  search-match-style           = "bold #190a0f #e5b76f"
   syntax-theme                 = none
-  whitespace-error-style       = "reverse #eb6f92"
+  whitespace-error-style       = "reverse #ff656f"
   zero-style                   = syntax
 
 [diff]

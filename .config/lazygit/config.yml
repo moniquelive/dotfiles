@@ -4,46 +4,46 @@ gui:
   showFileTree: false
   theme:
     activeBorderColor:
-      - "#3e8fb0"
+      - "#f59280"
       - bold
     inactiveBorderColor:
-      - "#6e6a86"
+      - "#695960"
     optionsTextColor:
-      - "#9ccfd8"
+      - "#bf9cdf"
     selectedLineBgColor:
-      - "#3e8fb0"
+      - "#232f3f"
     inactiveViewSelectedLineBgColor:
-      - "#393552"
+      - "#401f33"
       - bold
     cherryPickedCommitBgColor:
-      - "#ea9a97"
+      - "#ef80bf"
     cherryPickedCommitFgColor:
-      - "#2a273f"
+      - "#8fa5f6"
     markedBaseCommitFgColor:
-      - "#9ccfd8"
+      - "#8fa5f6"
     markedBaseCommitBgColor:
-      - "#f6c177"
+      - "#e5b76f"
     unstagedChangesColor:
-      - "#eb6f92"
+      - "#ff7359"
     defaultFgColor:
-      - "#e0def4"
+      - "#d3cfcf"
     searchingActiveBorderColor:
-      - "#ea9a97"
+      - "#3a3004"
       - bold
   branchColors:
-    "feature": "#9ccfd8"
-    "feat": "#9ccfd8"
-    "master": "#c4a7e7"
-    "main": "#c4a7e7"
+    "feature": "#8fbaef"
+    "feat": "#8fbaef"
+    "master": "#ef80bf"
+    "main": "#ef80bf"
   authorColors:
-    "Cyber Oliveira": "#c4a7e7"
-    "Monique Oliveira": "#c4a7e7"
-    "*": "#9ccfd8"
+    "Cyber Oliveira": "#ef80bf"
+    "Monique Oliveira": "#ef80bf"
+    "*": "#8fbaef"
 git:
   parseEmoji: true
   ignoreWhitespaceInDiffView: true
   diffRenderers:
-    - command: delta --dark --paging=never --features=rose-pine-moon
+    - command: delta --dark --paging=never --features=ef-cherie
     - command: delta --dark --paging=never
 confirmOnQuit: false
 promptToReturnFromSubprocess: false

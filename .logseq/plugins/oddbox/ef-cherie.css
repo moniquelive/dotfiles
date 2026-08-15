@@ -1,0 +1,89 @@
+/* Ef Cherie for Logseq */
+.dark-theme,
+html[data-theme="dark"] {
+  --ls-primary-background-color: #190a0f;
+  --ls-secondary-background-color: #291f26;
+  --ls-tertiary-background-color: #392a2f;
+  --ls-quaternary-background-color: #594a4f;
+  --ls-table-tr-even-background-color: #392a2f;
+  --ls-block-properties-background-color: var(--ls-secondary-background-color);
+  --ls-page-properties-background-color: var(--ls-secondary-background-color);
+  --ls-search-background-color: var(--ls-primary-background-color);
+  --ls-border-color: #695960;
+  --ls-secondary-border-color: #594a4f;
+  --ls-tertiary-border-color: #392a2f;
+  --ls-guideline-color: #695960;
+  --ls-menu-hover-color: var(--ls-tertiary-background-color);
+  --ls-primary-text-color: #d3cfcf;
+  --ls-secondary-text-color: #808898;
+  --ls-title-text-color: #d3cfcf;
+  --ls-link-text-color: #8fbaef;
+  --ls-link-text-hover-color: #df7fff;
+  --ls-link-ref-text-color: var(--ls-link-text-color);
+  --ls-link-ref-text-hover-color: var(--ls-link-text-hover-color);
+  --ls-tag-text-color: #ef80bf;
+  --ls-tag-text-hover-color: #f59280;
+  --ls-slide-background-color: var(--ls-primary-background-color);
+  --ls-block-bullet-border-color: #f59280;
+  --ls-block-bullet-color: #e5b76f;
+  --ls-block-highlight-color: #401f33;
+  --ls-selection-background-color: #232f3f;
+  --ls-selection-text-color: #d3cfcf;
+  --ls-page-checkbox-color: #60b444;
+  --ls-page-checkbox-border-color: #695960;
+  --ls-page-blockquote-color: #e5b76f;
+  --ls-page-blockquote-bg-color: #291f26;
+  --ls-page-blockquote-border-color: #695960;
+  --ls-page-mark-color: #190a0f;
+  --ls-page-mark-bg-color: #e5b76f;
+  --ls-page-inline-code-color: #f59280;
+  --ls-page-inline-code-bg-color: #291f26;
+  --ls-scrollbar-foreground-color: #695960;
+  --ls-scrollbar-background-color: #291f26;
+  --ls-scrollbar-thumb-hover-color: #808898;
+  --ls-icon-color: var(--ls-link-text-color);
+  --ls-search-icon-color: var(--ls-primary-text-color);
+  --ls-search-icon-hover-color: var(--ls-secondary-text-color);
+  --ls-a-chosen-bg: var(--ls-tertiary-background-color);
+  --ls-pie-bg-color: #8fa5f6;
+  --ls-pie-fg-color: #8fbaef;
+  --ls-error-text-color: #ff656f;
+  --ls-warning-text-color: #ea9955;
+  --ls-success-text-color: #60b444;
+  --ls-header-button-background: #392a2f;
+  --ls-left-sidebar-text-color: #d3cfcf;
+  --ls-left-sidebar-active-item-color: #d3cfcf;
+  --ls-left-sidebar-active-item-bg-color: #392a2f;
+  --color-level-1: #291f26;
+  --color-level-2: #392a2f;
+  --color-level-3: #401f33;
+  --color-level-4: #594a4f;
+  --color-level-5: #695960;
+  --color-level-6: #808898;
+  --popover: 340, 15.2%, 19.4%;
+  --border: 334, 8.2%, 38%;
+  --accent: 9, 85.4%, 73.1%;
+  --accent-foreground: 37, 69.4%, 66.7%;
+  --primary: 9, 85.4%, 73.1%;
+  --background: 340, 42.9%, 6.9%;
+  --lx-accent-01: #e5b76f;
+  --lx-accent-02: #401f33;
+}
+
+.left-sidebar-inner a.item.active,
+.left-sidebar-inner a.item:hover {
+  color: var(--ls-left-sidebar-active-item-color);
+  background-color: var(--ls-left-sidebar-active-item-bg-color);
+}
+
+a.tag {
+  color: var(--ls-tag-text-color);
+}
+
+a {
+  color: var(--ls-link-text-color);
+}
+
+a:hover {
+  color: var(--ls-link-text-hover-color);
+}
