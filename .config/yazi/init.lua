@@ -2,10 +2,6 @@ require("full-border"):setup({
 	type = ui.Border.ROUNDED,
 })
 
-require("git"):setup({
-	order = 1500,
-})
-
 require("eza-preview"):setup({
 	default_tree = false,
 	level = 3,

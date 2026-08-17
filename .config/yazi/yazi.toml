@@ -10,11 +10,6 @@ max_width = 1080
 max_height = 1920
 
 [plugin]
-prepend_fetchers = [
-  { url = "*", run = "git", group = "git" },
-  { url = "*/", run = "git", group = "git" },
-]
-
 prepend_preloaders = [
   { mime = "{audio,video}/*", run = "mediainfo" },
   { url = "*.csv", run = "duckdb" },

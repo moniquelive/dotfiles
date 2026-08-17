@@ -9,11 +9,6 @@ rev = "b9946d9"
 hash = "7b625412411be411153886894d9acaf"
 
 [[plugin.deps]]
-use = "yazi-rs/plugins:git"
-rev = "b9946d9"
-hash = "88e56a64b7ce7c4314427452343fef17"
-
-[[plugin.deps]]
 use = "ahkohd/eza-preview"
 rev = "dc9c103"
 hash = "949fc14ee6b6f8565ac7012d338b37c0"
