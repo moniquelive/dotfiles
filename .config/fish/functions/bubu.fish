@@ -21,6 +21,11 @@ function bubu
                 yay -Syuu --noconfirm --devel --needed --ignore ghostty-git,ghostty-shell-integration-git,ghostty-terminfo-git
             else if test -f /etc/fedora-release
                 sudo dnf upgrade --refresh -y
+            else if test -f /etc/debian_version
+                sudo apt update
+                and sudo apt upgrade -y
+                and sudo apt autoremove --purge -y
+                and sudo apt autoclean
             else
                 echo "bubu: unsupported Linux distribution" >&2
                 return 1
