@@ -1,5 +1,8 @@
 ;;; early-init.el --- Early initialization -*- lexical-binding: t; -*-
 
+(defvar evil-want-integration)
+(defvar evil-want-keybinding)
+
 (setq package-enable-at-startup nil
       inhibit-startup-screen t
       frame-inhibit-implied-resize t

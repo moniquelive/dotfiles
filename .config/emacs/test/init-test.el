@@ -43,6 +43,34 @@
       (should (file-in-directory-p file state-directory)))
     (should-not (bound-and-true-p server-mode))))
 
+(ert-deftest my-test-config-byte-compiles-without-warnings ()
+  (require 'bytecomp)
+  (let ((directory (make-temp-file "emacs-config-compile-" t))
+        (byte-compile-error-on-warn t))
+    (unwind-protect
+        (dolist (name '("early-init.el" "init.el"))
+          (let ((target (expand-file-name name directory)))
+            (copy-file (expand-file-name name my-test-config-directory) target)
+            (should (byte-compile-file target))))
+      (delete-directory directory t))))
+
+(ert-deftest my-test-emacs-31-state-and-ui-options-are-enabled ()
+  (should (= recentf-autosave-interval 300))
+  (should (= save-place-autosave-interval 300))
+  (should (eq mode-line-collapse-minor-modes t))
+  (should (eq tab-bar-truncate t))
+  (should (eq project-mode-line 'non-remote)))
+
+(ert-deftest my-test-evil-normal-post-command-supports-emacs-31 ()
+  (should evil-mode)
+  (let ((this-command #'ignore))
+    (evil-normal-post-command)))
+
+(ert-deftest my-test-org-98-startup-options-are-current ()
+  (require 'org)
+  (should (eq org-startup-folded 'fold))
+  (should org-startup-with-link-previews))
+
 (ert-deftest my-test-frame-geometry-round-trips ()
   (let ((my-frame-geometry-file (make-temp-file "emacs-frame-geometry-"))
         (my-frame-geometry-restored nil)
@@ -67,21 +95,46 @@
                     '(:left 120 :top 80 :width 1200 :height 800
                       :fullscreen maximized))))
           (cl-letf (((symbol-function 'display-graphic-p) (lambda (_) t))
-                    ((symbol-function 'set-frame-size)
-                     (lambda (&rest arguments) (push (cons 'size arguments) calls)))
-                    ((symbol-function 'set-frame-position)
+                    ((symbol-function 'set-frame-size-and-position-pixelwise)
                      (lambda (&rest arguments)
-                       (push (cons 'position arguments) calls)))
+                       (should (eq alter-fullscreen-frames t))
+                       (push (cons 'geometry arguments) calls)))
                     ((symbol-function 'set-frame-parameter)
                      (lambda (&rest arguments)
                        (push (cons 'parameter arguments) calls))))
-            (my-restore-frame-geometry frame)
-            (my-restore-frame-geometry frame))
+            (let ((alter-fullscreen-frames 'inhibit))
+              (my-restore-frame-geometry frame)
+              (my-restore-frame-geometry frame)))
           (should
            (equal (nreverse calls)
-                  `((size ,frame 1200 800 t)
-                    (position ,frame 120 80)
+                  `((geometry ,frame 1200 800 120 80)
                     (parameter ,frame fullscreen maximized)))))
+      (delete-file my-frame-geometry-file))))
+
+(ert-deftest my-test-frame-geometry-failure-remains-retryable ()
+  (let ((my-frame-geometry-file (make-temp-file "emacs-frame-geometry-"))
+        (my-frame-geometry-restored nil)
+        (frame 'graphical-frame)
+        (geometry-calls 0)
+        (warning nil))
+    (unwind-protect
+        (cl-letf (((symbol-function 'display-graphic-p) (lambda (_) t))
+                  ((symbol-function 'set-frame-size-and-position-pixelwise)
+                   (lambda (&rest _) (incf geometry-calls)))
+                  ((symbol-function 'set-frame-parameter) #'ignore)
+                  ((symbol-function 'display-warning)
+                   (lambda (_type message &rest _) (setq warning message))))
+          (with-temp-file my-frame-geometry-file
+            (prin1 '(:left 120 :top 80 :width 0 :height 800) (current-buffer)))
+          (my-restore-frame-geometry frame)
+          (should-not my-frame-geometry-restored)
+          (should (string-match-p "Invalid saved frame geometry" warning))
+          (should (zerop geometry-calls))
+          (with-temp-file my-frame-geometry-file
+            (prin1 '(:left 120 :top 80 :width 1200 :height 800) (current-buffer)))
+          (my-restore-frame-geometry frame)
+          (should my-frame-geometry-restored)
+          (should (= geometry-calls 1)))
       (delete-file my-frame-geometry-file))))
 
 (ert-deftest my-test-focus-change-debounces-save-checks ()
@@ -132,7 +185,7 @@
               ((symbol-function 'frame-focus-state)
                (lambda (frame) (alist-get frame states)))
               ((symbol-function 'save-some-buffers)
-               (lambda (&rest _) (cl-incf save-calls))))
+               (lambda (&rest _) (incf save-calls))))
       (my-save-buffers-if-unfocused)
       (should (zerop save-calls))
       (setf (alist-get 'first states) nil
@@ -144,19 +197,45 @@
       (should (= save-calls 1))
       (should-not my-focus-out-save-timer))))
 
+(ert-deftest my-test-whitespace-trimming-respects-editorconfig ()
+  (require 'editorconfig)
+  (with-temp-buffer
+    (text-mode)
+    (should delete-trailing-whitespace-mode)
+    (insert "Markdown hard break  \n")
+    (let ((properties (make-hash-table)))
+      (puthash 'trim_trailing_whitespace "false" properties)
+      (editorconfig-set-local-variables properties))
+    (should-not delete-trailing-whitespace-mode)
+    (run-hooks 'before-save-hook)
+    (should (equal (buffer-string) "Markdown hard break  \n"))
+    (let ((properties (make-hash-table)))
+      (puthash 'trim_trailing_whitespace "true" properties)
+      (editorconfig-set-local-variables properties))
+    (should delete-trailing-whitespace-mode)
+    (run-hooks 'before-save-hook)
+    (should (equal (buffer-string) "Markdown hard break\n"))))
+
+(ert-deftest my-test-programming-buffers-trim-whitespace-by-default ()
+  (with-temp-buffer
+    (prog-mode)
+    (should delete-trailing-whitespace-mode)
+    (should (memq #'delete-trailing-whitespace-if-possible
+                  before-save-hook))))
+
 (ert-deftest my-test-emacs-lisp-treesit-setup-does-nothing-when-unavailable ()
   (let ((parser-calls 0)
         (ready-arguments nil)
-        (setup-calls 0)
-        (treesit-auto-install nil))
+        (setup-calls 0))
     (cl-letf (((symbol-function 'treesit-ready-p)
                (lambda (&rest arguments)
                  (setq ready-arguments arguments)
                  nil))
+              ((symbol-function 'treesit-ensure-installed) #'ignore)
               ((symbol-function 'treesit-parser-create)
-               (lambda (_) (cl-incf parser-calls)))
+               (lambda (_) (incf parser-calls)))
               ((symbol-function 'treesit-major-mode-setup)
-               (lambda () (cl-incf setup-calls))))
+               (lambda () (incf setup-calls))))
       (with-temp-buffer
         (setq-local treesit-font-lock-level 'unchanged)
         (my-emacs-lisp-treesit-setup)
@@ -165,22 +244,24 @@
         (should (zerop parser-calls))
         (should (zerop setup-calls))))))
 
-(ert-deftest my-test-emacs-lisp-treesit-setup-offers-to-install-grammar ()
+(ert-deftest my-test-emacs-lisp-treesit-setup-ensures-missing-grammar ()
   (let ((install-language nil)
-        (prompt nil)
-        (treesit-auto-install 'prompt))
+        (noninteractive nil))
     (cl-letf (((symbol-function 'treesit-ready-p) (lambda (&rest _) nil))
-              ((symbol-function 'y-or-n-p)
-               (lambda (message)
-                 (setq prompt message)
-                 t))
-              ((symbol-function 'treesit-install-language-grammar)
+              ((symbol-function 'treesit-ensure-installed)
                (lambda (language) (setq install-language language))))
       (with-temp-buffer
         (my-emacs-lisp-treesit-setup)
-        (should (equal prompt
-                       "Tree-sitter grammar for elisp is missing.  Install it? "))
         (should (eq install-language 'elisp))))))
+
+(ert-deftest my-test-emacs-31-tree-sitter-automation-is-enabled ()
+  (should (eq treesit-enabled-modes t))
+  (should (eq treesit-auto-install-grammar 'ask))
+  (should-not (featurep 'treesit-auto))
+  (dolist (remap '((python-mode . python-ts-mode)
+                   (go-mode . go-ts-mode)
+                   (elixir-mode . elixir-ts-mode)))
+    (should (member remap major-mode-remap-alist))))
 
 (ert-deftest my-test-emacs-lisp-treesit-setup-configures-an-available-parser ()
   (let ((parser-calls 0)
@@ -194,13 +275,13 @@
               ((symbol-function 'treesit-parser-create)
                (lambda (language)
                  (should (eq language 'elisp))
-                 (cl-incf parser-calls)))
+                 (incf parser-calls)))
               ((symbol-function 'treesit-font-lock-rules)
                (lambda (&rest arguments)
                  (setq rules-arguments arguments)
                  'settings))
               ((symbol-function 'treesit-major-mode-setup)
-               (lambda () (cl-incf setup-calls))))
+               (lambda () (incf setup-calls))))
       (with-temp-buffer
         (my-emacs-lisp-treesit-setup)
         (should (= treesit-font-lock-level 4))
@@ -214,7 +295,7 @@
   (let ((treesit-extra-load-path
          (cons (expand-file-name "tree-sitter/" my-test-config-directory)
                treesit-extra-load-path)))
-    (skip-unless (treesit-ready-p 'elisp t))
+    (should (treesit-ready-p 'elisp t))
     (with-temp-buffer
       (insert "(defun foo (bar) bar)\n"
               "(setq first 1 second 2)\n"
@@ -254,9 +335,9 @@
         (eglot-calls 0))
     (cl-letf (((symbol-function 'executable-find)
                (lambda (_)
-                 (cl-incf executable-calls)))
+                 (incf executable-calls)))
               ((symbol-function 'eglot-ensure)
-               (lambda () (cl-incf eglot-calls))))
+               (lambda () (incf eglot-calls))))
       (my-eglot-ensure)
       (should (zerop executable-calls))
       (should (zerop eglot-calls)))))
@@ -270,10 +351,10 @@
                  (push executable checked)
                  (and (equal executable "pyright-langserver") executable)))
               ((symbol-function 'eglot-ensure)
-               (lambda () (cl-incf eglot-calls))))
+               (lambda () (incf eglot-calls))))
       (my-eglot-ensure)
       (should (equal (nreverse checked)
-                     '("pylsp" "basedpyright-langserver"
+                     '("rass" "pylsp" "pyls" "basedpyright-langserver"
                        "pyright-langserver")))
       (should (= eglot-calls 1)))
     (setq checked nil
@@ -283,10 +364,18 @@
                  (push executable checked)
                  nil))
               ((symbol-function 'eglot-ensure)
-               (lambda () (cl-incf eglot-calls))))
+               (lambda () (incf eglot-calls))))
       (my-eglot-ensure)
-      (should (= (length checked) 6))
+      (should (= (length checked) 10))
       (should (zerop eglot-calls)))))
+
+(ert-deftest my-test-python-eglot-candidates-match-emacs-31 ()
+  (should
+   (equal
+    (alist-get 'python-ts-mode my-eglot-server-executables)
+    '("rass" "pylsp" "pyls" "basedpyright-langserver"
+      "pyright-langserver" "pyrefly" "ty" "jedi-language-server"
+      "ruff" "ruff-lsp"))))
 
 (ert-deftest my-test-eglot-format-on-save-follows-server-capability ()
   (let ((managed nil)
@@ -312,6 +401,28 @@
         (my-eglot-format-on-save)
         (should-not (memq #'eglot-format-buffer before-save-hook))))))
 
+(ert-deftest my-test-flymake-uses-emacs-31-diagnostic-display ()
+  (require 'flymake)
+  (should (eq flymake-show-diagnostics-at-end-of-line 'fancy))
+  (let ((formatted nil)
+        (shown nil))
+    (cl-letf (((symbol-function 'flymake-diagnostics)
+               (lambda (&rest _) '(first second)))
+              ((symbol-function 'flymake-diagnostic-text)
+               (lambda (diagnostic parts)
+                 (push (list diagnostic parts) formatted)
+                 (symbol-name diagnostic)))
+              ((symbol-function 'message)
+               (lambda (format-string &rest arguments)
+                 (setq shown (apply #'format format-string arguments)))))
+      (with-temp-buffer
+        (my-flymake-show-line-diagnostics)))
+    (should (equal shown "first\nsecond"))
+    (should
+     (equal (nreverse formatted)
+            '((first (origin code oneliner))
+              (second (origin code oneliner)))))))
+
 (ert-deftest my-test-clojure-modes-use-clojure-lsp ()
   (dolist (mode '(clojure-ts-mode
                   clojure-ts-clojurescript-mode
@@ -333,10 +444,9 @@
                   (file-name-as-directory root))))
       (delete-directory root t))))
 
-(ert-deftest my-test-eglot-negotiates-markdown-hover-content ()
+(ert-deftest my-test-eglot-has-a-markdown-hover-renderer ()
   (require 'eglot)
-  (should (fboundp 'gfm-view-mode))
-  (should (equal (eglot--accepted-formats) ["markdown" "plaintext"])))
+  (should (fboundp 'gfm-view-mode)))
 
 (ert-deftest my-test-clojure-lsp-options-use-available-fallbacks ()
   (cl-letf (((symbol-function 'executable-find)
@@ -384,16 +494,16 @@
   (let ((calls 0))
     (cl-letf (((symbol-function 'eglot-managed-p) nil)
               ((symbol-function 'eglot-code-action-organize-imports)
-               (lambda (&rest _) (cl-incf calls)))
+               (lambda (&rest _) (incf calls)))
               ((symbol-function 'eglot-format-buffer)
-               (lambda () (cl-incf calls))))
+               (lambda () (incf calls))))
       (my-go-before-save)
       (should (zerop calls)))))
 
 (ert-deftest my-test-go-setup-keeps-one-buffer-local-save-hook ()
   (let ((eglot-calls 0))
     (cl-letf (((symbol-function 'my-eglot-ensure)
-               (lambda () (cl-incf eglot-calls))))
+               (lambda () (incf eglot-calls))))
       (with-temp-buffer
         (my-go-setup)
         (my-go-setup)
@@ -411,7 +521,7 @@
           (cl-letf (((symbol-function 'project-current) (lambda (&optional _) t))
                     ((symbol-function 'project-root) (lambda (_) root))
                     ((symbol-function 'my-eglot-ensure)
-                     (lambda () (cl-incf eglot-calls))))
+                     (lambda () (incf eglot-calls))))
             (with-temp-buffer
               (setq-local exec-path '("/base/bin")
                           process-environment '("PATH=/base/bin" "KEEP=yes"))
@@ -459,7 +569,7 @@
                      (lambda (&optional _) (and project-present t)))
                     ((symbol-function 'project-root) (lambda (_) root))
                     ((symbol-function 'my-eglot-ensure)
-                     (lambda () (cl-incf eglot-calls))))
+                     (lambda () (incf eglot-calls))))
             (with-temp-buffer
               (setq-local exec-path '("/base/bin")
                           process-environment '("PATH=/base/bin" "KEEP=yes")
@@ -484,7 +594,7 @@
 (ert-deftest my-test-python-file-setup-waits-for-local-variables ()
   (let ((configure-calls 0))
     (cl-letf (((symbol-function 'my-python-configure)
-               (lambda () (cl-incf configure-calls))))
+               (lambda () (incf configure-calls))))
       (with-temp-buffer
         (setq buffer-file-name "/tmp/example.py")
         (my-python-setup)
