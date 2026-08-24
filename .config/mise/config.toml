@@ -9,7 +9,7 @@ neovim = { version = "latest", os = ["linux"] }
 starship = { version = "latest", os = ["linux"] }
 opencode = { version = "latest", os = ["linux"] }
 bat = { version = "latest", os = ["linux"] }
-"aqua:fish-shell/fish-shell" = { version ="latest", os = ["linux"] }
+"aqua:fish-shell/fish-shell" = { version = "latest", os = ["linux"] }
 
 go = { version = "latest", os = ["linux", "macos"] }
 erlang = { version = "latest", os = ["linux", "macos"] }
@@ -34,4 +34,5 @@ babashka = { version = "latest", exe = "bb" }
 ghcup = "latest"
 lazygit = "latest"
 "aqua:spinel-coop/rv" = "latest"
+tree-sitter = "latest"
 leiningen = "2.12"
