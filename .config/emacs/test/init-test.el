@@ -11,10 +11,22 @@
 (defconst my-test-user-emacs-directory
   (file-name-as-directory (make-temp-file "emacs-init-test-" t)))
 
-(setq package-user-dir
-      (expand-file-name "elpa/" my-test-user-emacs-directory)
-      package-directory-list
-      (list (expand-file-name "elpa/" my-test-config-directory))
+(defconst my-test-installed-package-directory
+  (expand-file-name "emacs/elpa/"
+                    (or (getenv "XDG_DATA_HOME") "~/.local/share/")))
+
+(defconst my-test-installed-tree-sitter-directory
+  (expand-file-name "emacs/tree-sitter/"
+                    (or (getenv "XDG_DATA_HOME") "~/.local/share/")))
+
+(setenv "XDG_CACHE_HOME"
+        (expand-file-name "cache/" my-test-user-emacs-directory))
+(setenv "XDG_DATA_HOME"
+        (expand-file-name "data/" my-test-user-emacs-directory))
+(setenv "XDG_STATE_HOME"
+        (expand-file-name "state/" my-test-user-emacs-directory))
+
+(setq package-directory-list (list my-test-installed-package-directory)
       user-emacs-directory my-test-user-emacs-directory)
 
 (load (expand-file-name "early-init.el" my-test-config-directory) nil t)
@@ -34,8 +46,23 @@
 
 (ert-deftest my-test-startup-keeps-state-out-of-the-config-root ()
   (let ((state-directory
-         (expand-file-name "var/" my-test-user-emacs-directory)))
+         (expand-file-name "state/emacs/" my-test-user-emacs-directory)))
     (should (equal my-state-directory state-directory))
+    (should (equal my-cache-directory
+                   (expand-file-name "cache/emacs/"
+                                     my-test-user-emacs-directory)))
+    (should (equal my-data-directory
+                   (expand-file-name "data/emacs/"
+                                     my-test-user-emacs-directory)))
+    (should (file-in-directory-p package-user-dir my-data-directory))
+    (should (file-in-directory-p tramp-persistency-file-name
+                                 my-state-directory))
+    (dolist (file (list abbrev-file-name bookmark-default-file
+                        server-auth-dir transient-history-file
+                        transient-levels-file transient-values-file
+                        url-configuration-directory))
+      (should (file-in-directory-p file my-state-directory)))
+    (should (file-in-directory-p org-persist-directory my-cache-directory))
     (should (file-directory-p (expand-file-name "backups/" state-directory)))
     (should (file-directory-p (expand-file-name "auto-save/" state-directory)))
     (dolist (file (list custom-file my-frame-geometry-file savehist-file
@@ -60,6 +87,36 @@
   (should (eq mode-line-collapse-minor-modes t))
   (should (eq tab-bar-truncate t))
   (should (eq project-mode-line 'non-remote)))
+
+(ert-deftest my-test-macos-tools-are-portable-and-ordered ()
+  (skip-unless (eq system-type 'darwin))
+  (should delete-by-moving-to-trash)
+  (if (executable-find "gls")
+      (progn
+        (should (string-suffix-p "/gls" insert-directory-program))
+        (should (string-match-p "group-directories-first"
+                                dired-listing-switches)))
+    (should (equal insert-directory-program "ls"))
+    (should-not (string-match-p "group-directories-first"
+                                dired-listing-switches)))
+  (let ((configured
+         (seq-filter
+          #'file-directory-p
+          (mapcar #'expand-file-name
+                  '("/opt/homebrew/bin"
+                    "~/.local/bin"
+                    "~/.local/share/nvim/mason/bin"
+                    "~/.local/share/mise/shims"
+                    "~/go/bin"
+                    "~/.ghcup/bin")))))
+    (should (equal (seq-take exec-path (length configured)) configured))))
+
+(ert-deftest my-test-packages-have-an-explicit-manifest ()
+  (dolist (package '(browse-at-remote cider evil-surround reformatter
+                     fish-mode powershell svelte-mode swift-mode
+                     treesit-fold vue-mode))
+    (should (memq package package-selected-packages)))
+  (should-not use-package-always-ensure))
 
 (ert-deftest my-test-evil-normal-post-command-supports-emacs-31 ()
   (should evil-mode)
@@ -256,7 +313,7 @@
 
 (ert-deftest my-test-emacs-31-tree-sitter-automation-is-enabled ()
   (should (eq treesit-enabled-modes t))
-  (should (eq treesit-auto-install-grammar 'ask))
+  (should (eq treesit-auto-install-grammar 'never))
   (should-not (featurep 'treesit-auto))
   (dolist (remap '((python-mode . python-ts-mode)
                    (go-mode . go-ts-mode)
@@ -293,7 +350,7 @@
 
 (ert-deftest my-test-emacs-lisp-treesit-queries-compile ()
   (let ((treesit-extra-load-path
-         (cons (expand-file-name "tree-sitter/" my-test-config-directory)
+         (cons my-test-installed-tree-sitter-directory
                treesit-extra-load-path)))
     (should (treesit-ready-p 'elisp t))
     (with-temp-buffer
@@ -330,76 +387,85 @@
                     (cdr expected)))))))
 
 (ert-deftest my-test-eglot-ensure-ignores-unsupported-modes ()
-  (let ((major-mode 'unsupported-mode)
-        (executable-calls 0)
+  (require 'eglot)
+  (let ((guess-calls 0)
         (eglot-calls 0))
-    (cl-letf (((symbol-function 'executable-find)
-               (lambda (_)
-                 (incf executable-calls)))
+    (cl-letf (((symbol-function 'eglot--guess-contact)
+               (lambda (&optional _)
+                 (incf guess-calls)
+                 (user-error "No server")))
               ((symbol-function 'eglot-ensure)
                (lambda () (incf eglot-calls))))
       (my-eglot-ensure)
-      (should (zerop executable-calls))
+      (should (= guess-calls 1))
       (should (zerop eglot-calls)))))
 
-(ert-deftest my-test-eglot-ensure-starts-only-for-an-available-candidate ()
-  (let ((major-mode 'python-ts-mode)
-        (checked nil)
+(ert-deftest my-test-eglot-ensure-uses-eglots-resolved-contact ()
+  (let ((guess-calls 0)
+        (eglot-calls 0))
+    (cl-letf (((symbol-function 'eglot--guess-contact)
+               (lambda (&optional _)
+                 (incf guess-calls)
+                 '(python-ts-mode project class ("pylsp") nil)))
+              ((symbol-function 'eglot-ensure)
+               (lambda () (incf eglot-calls))))
+      (my-eglot-ensure)
+      (should (= guess-calls 1))
+      (should (= eglot-calls 1)))))
+
+(ert-deftest my-test-format-on-save-has-one-owner ()
+  (with-temp-buffer
+    (prog-mode)
+    (my-enable-format-on-save)
+    (should (local-variable-p 'before-save-hook))
+    (should (= (cl-count #'my-format-buffer before-save-hook) 1))
+    (should-not (memq #'eglot-format-buffer before-save-hook))))
+
+(ert-deftest my-test-external-formatter-precedes-eglot ()
+  (let ((external-calls 0)
         (eglot-calls 0))
     (cl-letf (((symbol-function 'executable-find)
-               (lambda (executable)
-                 (push executable checked)
-                 (and (equal executable "pyright-langserver") executable)))
-              ((symbol-function 'eglot-ensure)
+               (lambda (program) (and (equal program "shfmt") program)))
+              ((symbol-function 'my-shfmt-buffer)
+               (lambda (&optional _) (incf external-calls)))
+              ((symbol-function 'my-eglot-can-format-p) (lambda () t))
+              ((symbol-function 'eglot-format-buffer)
                (lambda () (incf eglot-calls))))
-      (my-eglot-ensure)
-      (should (equal (nreverse checked)
-                     '("rass" "pylsp" "pyls" "basedpyright-langserver"
-                       "pyright-langserver")))
-      (should (= eglot-calls 1)))
-    (setq checked nil
-          eglot-calls 0)
-    (cl-letf (((symbol-function 'executable-find)
-               (lambda (executable)
-                 (push executable checked)
-                 nil))
-              ((symbol-function 'eglot-ensure)
-               (lambda () (incf eglot-calls))))
-      (my-eglot-ensure)
-      (should (= (length checked) 10))
-      (should (zerop eglot-calls)))))
-
-(ert-deftest my-test-python-eglot-candidates-match-emacs-31 ()
-  (should
-   (equal
-    (alist-get 'python-ts-mode my-eglot-server-executables)
-    '("rass" "pylsp" "pyls" "basedpyright-langserver"
-      "pyright-langserver" "pyrefly" "ty" "jedi-language-server"
-      "ruff" "ruff-lsp"))))
-
-(ert-deftest my-test-eglot-format-on-save-follows-server-capability ()
-  (let ((managed nil)
-        (formatting nil))
-    (cl-letf (((symbol-function 'eglot-managed-p) (lambda () managed))
-              ((symbol-function 'eglot-server-capable)
-               (lambda (_) formatting)))
       (with-temp-buffer
-        (my-eglot-format-on-save)
-        (should-not (memq #'eglot-format-buffer before-save-hook))
+        (setq major-mode 'sh-mode)
+        (my-format-buffer))
+      (should (= external-calls 1))
+      (should (zerop eglot-calls)))))
 
-        (setq managed t)
-        (my-eglot-format-on-save)
-        (should-not (memq #'eglot-format-buffer before-save-hook))
+(ert-deftest my-test-formatting-falls-back-to-eglot ()
+  (let ((eglot-calls 0))
+    (cl-letf (((symbol-function 'executable-find) (lambda (_) nil))
+              ((symbol-function 'my-eglot-can-format-p) (lambda () t))
+              ((symbol-function 'eglot-format-buffer)
+               (lambda () (incf eglot-calls))))
+      (with-temp-buffer
+        (setq major-mode 'fundamental-mode)
+        (my-format-buffer))
+      (should (= eglot-calls 1)))))
 
-        (setq formatting t)
-        (my-eglot-format-on-save)
-        (my-eglot-format-on-save)
-        (should (local-variable-p 'before-save-hook))
-        (should (= (cl-count #'eglot-format-buffer before-save-hook) 1))
+(ert-deftest my-test-language-formatters-do-not-compete ()
+  (require 'elm-mode)
+  (require 'zig-mode)
+  (should-not (memq #'elm-format-on-save-mode elm-mode-hook))
+  (should-not zig-format-on-save)
+  (should-not (memq #'eglot-format-buffer eglot-managed-mode-hook)))
 
-        (setq managed nil)
-        (my-eglot-format-on-save)
-        (should-not (memq #'eglot-format-buffer before-save-hook))))))
+(ert-deftest my-test-conventional-modes-retain-language-setup ()
+  (should (memq #'my-python-setup python-mode-hook))
+  (should (memq #'my-go-setup go-mode-hook))
+  (dolist (hook (list c-mode-hook sh-mode-hook ruby-mode-hook))
+    (should (memq #'my-eglot-ensure hook)))
+  (should (eq (assoc-default "/tmp/go.mod" auto-mode-alist #'string-match)
+              'go-dot-mod-mode))
+  (should (eq (assoc-default "/tmp/go.work" auto-mode-alist #'string-match)
+              'go-dot-work-mode))
+  (should (memq #'my-enable-format-on-save html-mode-hook))
+  (should (memq #'my-enable-format-on-save html-ts-mode-hook)))
 
 (ert-deftest my-test-flymake-uses-emacs-31-diagnostic-display ()
   (require 'flymake)
@@ -424,12 +490,20 @@
               (second (origin code oneliner)))))))
 
 (ert-deftest my-test-clojure-modes-use-clojure-lsp ()
-  (dolist (mode '(clojure-ts-mode
-                  clojure-ts-clojurescript-mode
-                  clojure-ts-clojurec-mode))
-    (should (equal (alist-get mode my-eglot-server-executables)
-                   '("clojure-lsp"))))
+  (require 'eglot)
+  (should
+   (equal
+    (cdr
+     (seq-find
+      (lambda (entry)
+        (equal (car entry)
+               '(clojure-ts-mode clojure-ts-clojurescript-mode
+                 clojure-ts-clojurec-mode)))
+      eglot-server-programs))
+    '("clojure-lsp"
+      :initializationOptions my-clojure-lsp-initialization-options)))
   (should (memq #'my-eglot-ensure clojure-ts-mode-hook))
+  (should (memq #'my-eglot-ensure clojure-mode-hook))
   (should (memq #'cider-mode clojure-ts-mode-hook)))
 
 (ert-deftest my-test-clojure-build-files-mark-project-roots ()
@@ -510,6 +584,67 @@
         (should (local-variable-p 'before-save-hook))
         (should (= (cl-count #'my-go-before-save before-save-hook) 1))
         (should (= eglot-calls 2))))))
+
+(ert-deftest my-test-compile-commands-follow-language-and-project ()
+  (let ((root (make-temp-file "emacs-compile-command-" t)))
+    (unwind-protect
+        (progn
+          (with-temp-buffer
+            (setq buffer-file-name
+                  (expand-file-name "Exercism/go/two-fer/two_fer.go" root)
+                  default-directory (file-name-directory buffer-file-name)
+                  major-mode 'go-mode)
+            (make-directory default-directory t)
+            (my-configure-compile-command)
+            (should (equal compile-command "go test -v .")))
+          (write-region "" nil (expand-file-name "build.zig" root))
+          (with-temp-buffer
+            (setq buffer-file-name (expand-file-name "src/main.zig" root)
+                  default-directory (file-name-directory buffer-file-name)
+                  major-mode 'zig-mode)
+            (make-directory default-directory t)
+            (my-configure-compile-command)
+            (should
+             (equal compile-command
+                    (my-command-in-directory root "zig build run")))))
+      (delete-directory root t))))
+
+(ert-deftest my-test-auto-insert-provides-neovim-file-templates ()
+  (dolist (spec '(("example.c" . "/*usr/bin/env gcc")
+                  ("main.go" . "package main")
+                  ("example.rb" . "#! /usr/bin/env ruby")))
+    (with-temp-buffer
+      (setq buffer-file-name (expand-file-name (car spec) temporary-file-directory))
+      (auto-insert)
+      (goto-char (point-min))
+      (should (looking-at-p (regexp-quote (cdr spec)))))))
+
+(ert-deftest my-test-navigation-and-structural-keys-are-configured ()
+  (should (eq (key-binding (kbd "M-g d")) #'consult-flymake))
+  (should (eq (key-binding (kbd "M-s m")) #'consult-man))
+  (should (eq (key-binding (kbd "C-c g b")) #'browse-at-remote))
+  (should (eq (key-binding (kbd "<f5>")) #'my-compile))
+  (should (eq (lookup-key evil-normal-state-map (kbd "ghx"))
+              #'browse-at-remote))
+  (should global-treesit-fold-mode)
+  (with-temp-buffer
+    (insert "(alpha beta)")
+    (goto-char (point-min))
+    (my-treesit-expand-selection)
+    (should mark-active)
+    (should (equal (buffer-substring (region-beginning) (region-end))
+                   "(alpha beta)"))))
+
+(ert-deftest my-test-treesit-selection-uses-syntax-node-ranges ()
+  (with-temp-buffer
+    (insert "abcdef")
+    (goto-char 3)
+    (cl-letf (((symbol-function 'treesit-node-at) (lambda (&rest _) 'node))
+              ((symbol-function 'treesit-node-start) (lambda (_) 2))
+              ((symbol-function 'treesit-node-end) (lambda (_) 5)))
+      (my-treesit-expand-selection))
+    (should (= (point) 2))
+    (should (= (mark) 5))))
 
 (ert-deftest my-test-python-setup-prefers-dot-venv ()
   (let ((root (make-temp-file "emacs-python-project-" t))
