@@ -11,6 +11,9 @@
 (defvar project-list-file)
 (defvar abbrev-file-name)
 (defvar bookmark-default-file)
+(defvar ibuffer-human-readable-size)
+(defvar icomplete-vertical-render-prefix-indicator)
+(defvar ielm-history-file-name)
 (defvar org-persist-directory)
 (defvar recentf-save-file)
 (defvar savehist-file)
@@ -40,6 +43,8 @@
 (setq custom-file (expand-file-name "custom.el" my-state-directory)
       abbrev-file-name (expand-file-name "abbrev_defs" my-state-directory)
       bookmark-default-file (expand-file-name "bookmarks" my-state-directory)
+      ielm-history-file-name
+      (expand-file-name "ielm-history.eld" my-state-directory)
       backup-directory-alist
       `(("." . ,(expand-file-name "backups/" my-state-directory)))
       auto-save-file-name-transforms
@@ -268,6 +273,8 @@
       '(read-only t cursor-intangible t face minibuffer-prompt)
        global-auto-revert-non-file-buffers t
        delete-by-moving-to-trash t
+      ibuffer-human-readable-size t
+      icomplete-vertical-render-prefix-indicator t
       scroll-conservatively 101
       scroll-preserve-screen-position t
       large-file-warning-threshold 100000000
@@ -530,6 +537,8 @@
   (evil-global-set-key 'normal (kbd "\\") my-leader-map)
   (evil-global-set-key 'normal (kbd "SPC") #'evil-forward-char)
   (evil-global-set-key 'normal (kbd "-") #'dired-jump)
+  (evil-global-set-key 'normal (kbd "TAB") #'evil-toggle-fold)
+  (evil-global-set-key 'normal (kbd "<tab>") #'evil-toggle-fold)
   (evil-global-set-key 'normal (kbd "ghx") #'browse-at-remote)
   (evil-global-set-key 'normal (kbd "]m") #'my-next-defun)
   (evil-global-set-key 'normal (kbd "[m") #'my-previous-defun)

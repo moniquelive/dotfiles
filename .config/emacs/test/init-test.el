@@ -45,6 +45,7 @@
     (set-file-modes python #o755)))
 
 (ert-deftest my-test-startup-keeps-state-out-of-the-config-root ()
+  (require 'ielm)
   (let ((state-directory
          (expand-file-name "state/emacs/" my-test-user-emacs-directory)))
     (should (equal my-state-directory state-directory))
@@ -58,6 +59,7 @@
     (should (file-in-directory-p tramp-persistency-file-name
                                  my-state-directory))
     (dolist (file (list abbrev-file-name bookmark-default-file
+                        ielm-history-file-name
                         server-auth-dir transient-history-file
                         transient-levels-file transient-values-file
                         url-configuration-directory))
@@ -82,9 +84,13 @@
       (delete-directory directory t))))
 
 (ert-deftest my-test-emacs-31-state-and-ui-options-are-enabled ()
+  (require 'ibuffer)
   (should (= recentf-autosave-interval 300))
   (should (= save-place-autosave-interval 300))
+  (should ibuffer-human-readable-size)
+  (should icomplete-vertical-render-prefix-indicator)
   (should (eq mode-line-collapse-minor-modes t))
+  (should-not native-comp-async-on-battery-power)
   (should (eq tab-bar-truncate t))
   (should (eq project-mode-line 'non-remote)))
 
@@ -626,6 +632,10 @@
   (should (eq (key-binding (kbd "<f5>")) #'my-compile))
   (should (eq (lookup-key evil-normal-state-map (kbd "ghx"))
               #'browse-at-remote))
+  (should (eq (lookup-key evil-normal-state-map (kbd "TAB"))
+              #'evil-toggle-fold))
+  (should (eq (lookup-key evil-normal-state-map (kbd "<tab>"))
+              #'evil-toggle-fold))
   (should global-treesit-fold-mode)
   (with-temp-buffer
     (insert "(alpha beta)")

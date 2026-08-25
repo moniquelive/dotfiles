@@ -2,6 +2,7 @@
 
 (defvar evil-want-integration)
 (defvar evil-want-keybinding)
+(defvar native-comp-async-on-battery-power)
 (defvar package-directory-list nil)
 (defvar package-gnupghome-dir nil)
 (defvar package-quickstart-file nil)
@@ -51,6 +52,7 @@
       inhibit-startup-screen t
       frame-inhibit-implied-resize t
       load-prefer-newer t
+      native-comp-async-on-battery-power nil
       evil-want-integration t
       evil-want-keybinding nil)
 
