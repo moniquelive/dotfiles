@@ -210,6 +210,14 @@
     (package-refresh-contents))
   (package-install-selected-packages t))
 
+(defun my-package-sync-if-needed ()
+  "Install any missing packages declared by this configuration."
+  (when (seq-some (lambda (package) (not (package-installed-p package)))
+                  my-packages)
+    (my-package-sync)))
+
+(my-package-sync-if-needed)
+
 ;;;; macOS
 
 (when (eq system-type 'darwin)
@@ -563,7 +571,7 @@
              '(elisp "https://github.com/Wilfred/tree-sitter-elisp" "1.6.1"))
 
 (setopt treesit-enabled-modes t
-        treesit-auto-install-grammar (if noninteractive 'never 'ask))
+        treesit-auto-install-grammar (if noninteractive 'never 'always))
 
 (defvar-local my-treesit-selection-history nil
   "Previous regions recorded while expanding a syntax selection.")
