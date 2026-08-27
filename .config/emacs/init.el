@@ -547,6 +547,9 @@
   (evil-global-set-key 'normal (kbd "-") #'dired-jump)
   (evil-global-set-key 'normal (kbd "TAB") #'evil-toggle-fold)
   (evil-global-set-key 'normal (kbd "<tab>") #'evil-toggle-fold)
+  (dolist (level (number-sequence 0 5))
+    (evil-global-set-key 'normal (kbd (format "z%d" level))
+                         #'my-treesit-fold-level))
   (evil-global-set-key 'normal (kbd "ghx") #'browse-at-remote)
   (evil-global-set-key 'normal (kbd "]m") #'my-next-defun)
   (evil-global-set-key 'normal (kbd "[m") #'my-previous-defun)
@@ -629,6 +632,34 @@
   (require 'treesit-fold))
 
 (global-treesit-fold-mode 1)
+
+(defun my-treesit-fold-level (level)
+  "Close Tree-sitter folds deeper than LEVEL in the current buffer."
+  (interactive
+   (list (if (and (integerp last-command-event)
+                  (<= ?0 last-command-event ?9))
+             (- last-command-event ?0)
+           (read-number "Fold level: "))))
+  (unless (natnump level)
+    (user-error "Fold level must be non-negative"))
+  (treesit-fold-open-all)
+  (let* ((root (treesit-buffer-root-node))
+         (fold-ranges (alist-get major-mode treesit-fold-range-alist))
+         (patterns
+          (seq-mapcat (lambda (fold-range) `((,(car fold-range)) @name))
+                      fold-ranges))
+         (query (treesit-query-compile
+                 (treesit-node-language root) patterns)))
+    (dolist (capture (treesit-query-capture root query))
+      (let ((depth 0)
+            (node (cdr capture)))
+        (while node
+          (when (and (alist-get (intern (treesit-node-type node)) fold-ranges)
+                     (not (treesit-fold--node-range-on-same-line node)))
+            (setq depth (1+ depth)))
+          (setq node (treesit-node-parent node)))
+        (when (> depth level)
+          (treesit-fold-close (cdr capture)))))))
 
 (defun my-emacs-lisp-fontify-setq-variable
     (node override start end &rest _)
