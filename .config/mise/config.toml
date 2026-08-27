@@ -5,10 +5,10 @@ python.uv_venv_auto = true
 disable_backends = ["asdf"]
 
 [tools]
-neovim = { version = "latest", os = ["linux"] }
-starship = { version = "latest", os = ["linux"] }
+neovim = { version = "latest", os = ["linux", "macos"] }
+starship = { version = "latest", os = ["linux", "macos"] }
 opencode = { version = "latest", os = ["linux"] }
-bat = { version = "latest", os = ["linux"] }
+bat = { version = "latest", os = ["linux", "macos"] }
 "aqua:fish-shell/fish-shell" = { version = "latest", os = ["linux"] }
 
 go = { version = "latest", os = ["linux", "macos"] }
@@ -44,3 +44,41 @@ carapace = "latest"
 fzf = "latest"
 duckdb = "latest"
 eza = "latest"
+
+amazon-ecs-cli = "latest"
+ansible = { version = "14.3.1", uvx = false, pipx_args = "--python=/Users/cyber/.local/share/mise/installs/python/3.12.14/bin/python3.12" }
+awscli = "latest"
+azure-cli = "latest"
+cmake = "latest"
+coreutils = "latest"
+cowsay = "latest"
+dasel = "latest"
+deno = "latest"
+dotnet = "latest"
+elm = "latest"
+ffmpeg = "latest"
+fastfetch = "latest"
+flyctl = "latest"
+fx = "latest"
+gh = "latest"
+git-lfs = "latest"
+hugo = "latest"
+imagemagick = "latest"
+jq = "latest"
+lnav = "latest"
+luajit = "latest"
+make = "latest"
+ninja = "latest"
+ollama = "latest"
+php = "latest"
+pipx = "latest"
+postgres = "16"
+powershell = "latest"
+python = ["3.10.21", "3.11.16", "3.12.14", "3.14.7"]
+resvg = "latest"
+ripgrep = "latest"
+sqlite = "latest"
+yarn = "1.22.22"
+yt-dlp = "latest"
+zoxide = "latest"
+codex = "latest"

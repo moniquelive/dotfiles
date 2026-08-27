@@ -62,6 +62,7 @@ if [[ -s "/opt/homebrew/bin/brew" ]]; then
 
   # On OSX edit /etc/paths to really change the order
   path=(
+    ${brew_prefix}/opt/bison/bin
     ${brew_prefix}/bin
     ${brew_prefix}/opt/node/bin
     ${brew_prefix}/opt/coreutils/bin
