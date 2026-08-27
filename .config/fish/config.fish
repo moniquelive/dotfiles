@@ -49,7 +49,18 @@ if status is-interactive
 
     command -q starship; and starship init fish --print-full-init | source; and enable_transience
     command -q mise; and mise activate fish | source
-    command -q zoxide; and zoxide init --cmd cd fish | source
+    if command -q zoxide
+        zoxide init --cmd cd fish | source
+
+        # Fish 4.8 uses `cd -- path` for implicit directory changes.
+        function cd --wraps=__zoxide_z --description 'zoxide-aware cd'
+            if test "$argv[1]" = --
+                __zoxide_cd_internal $argv[2..-1]
+            else
+                __zoxide_z $argv
+            end
+        end
+    end
     command -q carapace; and carapace _carapace fish | source
     if command -q tv
         for mode in default insert
