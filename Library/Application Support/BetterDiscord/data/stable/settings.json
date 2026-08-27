@@ -32,7 +32,8 @@
         "insertSpaces": false,
         "tabSize": 4,
         "fontSize": 14,
-        "renderWhitespace": "selection"
+        "renderWhitespace": "selection",
+        "alwaysOnTop": false
     },
     "window": {
         "transparency": false,
