@@ -31,8 +31,15 @@ delta = { version = "latest", os = ["linux", "macos"] }
 "aqua:golangci/golangci-lint" = "latest"
 babashka = { version = "latest", exe = "bb" }
 
+leiningen = "2.12"
+
 ghcup = "latest"
 lazygit = "latest"
 "aqua:spinel-coop/rv" = "latest"
 tree-sitter = "latest"
-leiningen = "2.12"
+yazi = "latest"
+television = "latest"
+vivid = "latest"
+carapace = "latest"
+fzf = "latest"
+duckdb = "latest"
