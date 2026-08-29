@@ -1,0 +1,3 @@
+{% if os() == "freebsd" %}
+env = ["freebsd"]
+{% endif %}
