@@ -323,6 +323,7 @@
 (file-name-shadow-mode 1)
 (global-auto-revert-mode 1)
 (global-completion-preview-mode 1)
+(setopt completion-preview-ignore-case completion-ignore-case)
 (global-hl-line-mode 1)
 (global-so-long-mode 1)
 (pixel-scroll-precision-mode 1)
@@ -519,6 +520,9 @@
   (evil-vsplit-window-right t)
   :config
   (evil-mode 1)
+
+  (evil-define-key 'insert 'completion-preview-active-mode
+    (kbd "<tab>") #'completion-preview-insert)
 
   (defvar-keymap my-leader-map
     "RET" #'evil-ex-nohighlight

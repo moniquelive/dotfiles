@@ -89,6 +89,7 @@
   (should (= save-place-autosave-interval 300))
   (should ibuffer-human-readable-size)
   (should icomplete-vertical-render-prefix-indicator)
+  (should (eq completion-preview-ignore-case completion-ignore-case))
   (should (eq mode-line-collapse-minor-modes t))
   (should-not native-comp-async-on-battery-power)
   (should (eq tab-bar-truncate t))
@@ -662,6 +663,17 @@
     (should mark-active)
     (should (equal (buffer-substring (region-beginning) (region-end))
                    "(alpha beta)"))))
+
+(ert-deftest my-test-completion-preview-tab-is-insert-only ()
+  (with-temp-buffer
+    (completion-preview-active-mode 1)
+    (evil-local-mode 1)
+    (evil-normal-state)
+    (should (eq (key-binding (kbd "TAB")) #'evil-toggle-fold))
+    (should (eq (key-binding (kbd "<tab>")) #'evil-toggle-fold))
+    (evil-insert-state)
+    (should (eq (key-binding (kbd "TAB")) #'completion-preview-insert))
+    (should (eq (key-binding (kbd "<tab>")) #'completion-preview-insert))))
 
 (ert-deftest my-test-treesit-selection-uses-syntax-node-ranges ()
   (with-temp-buffer
