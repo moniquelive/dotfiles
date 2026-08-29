@@ -53,9 +53,19 @@ carapace = { version = "latest", os = ["linux", "macos"] }
 fzf = { version = "latest", os = ["linux", "macos"] }
 duckdb = { version = "latest", os = ["linux", "macos"] }
 amazon-ecs-cli = { version = "latest", os = ["linux", "macos"] }
-ansible = { version = "latest", pipx_args = "--python={{ xdg_data_home }}/mise/installs/python/3.12.14/bin/python3.12 --include-deps", uvx = false, os = ["linux", "macos"] }
+ansible = { version = "latest", depends = [
+  "python@3.10.21",
+], pipx_args = "--python={{ xdg_data_home }}/mise/installs/python/3.12.14/bin/python3.12 --include-deps", uvx = false, os = [
+  "linux",
+  "macos",
+] }
 awscli = { version = "latest", os = ["linux", "macos"] }
-azure-cli = { version = "latest", os = ["linux", "macos"] }
+azure-cli = { version = "latest", depends = [
+  "python@3.10.21",
+], os = [
+  "linux",
+  "macos",
+] }
 cmake = { version = "latest", os = ["linux", "macos"] }
 coreutils = { version = "latest", os = ["linux", "macos"] }
 dasel = { version = "latest", os = ["linux", "macos"] }
