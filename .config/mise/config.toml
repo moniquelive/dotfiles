@@ -32,53 +32,53 @@ delta = { version = "latest", os = ["linux", "macos"] }
 babashka = { version = "latest", exe = "bb" }
 
 leiningen = "2.12"
-
-ghcup = "latest"
 lazygit = "latest"
-"aqua:spinel-coop/rv" = "latest"
-tree-sitter = "latest"
-yazi = "latest"
-television = "latest"
-vivid = "latest"
-carapace = "latest"
-fzf = "latest"
-duckdb = "latest"
 eza = "latest"
-
-amazon-ecs-cli = "latest"
-ansible = { version = "latest", pipx_args = "--python=/Users/cyber/.local/share/mise/installs/python/3.12.14/bin/python3.12 --include-deps", uvx = "false" }
-awscli = "latest"
-azure-cli = "latest"
-cmake = "latest"
-coreutils = "latest"
 cowsay = "latest"
-dasel = "latest"
-deno = "latest"
-dotnet = "latest"
-elm = "latest"
-ffmpeg = "latest"
-fastfetch = "latest"
-flyctl = "latest"
-fx = "latest"
-gh = "latest"
-git-lfs = "latest"
-hugo = "latest"
-imagemagick = "latest"
-jq = "latest"
-lnav = "latest"
-luajit = "latest"
-make = "latest"
-ninja = "latest"
-ollama = "latest"
-php = "latest"
-pipx = "latest"
-postgres = "18"
-powershell = "latest"
 python = ["3.10.21", "3.11.16", "3.12.14", "3.14.7"]
-resvg = "latest"
-ripgrep = "latest"
-sqlite = "latest"
 yarn = "4.18.0"
 yt-dlp = "latest"
-zoxide = "latest"
-codex = "latest"
+
+# Linux + macOS only
+ghcup = { version = "latest", os = ["linux", "macos"] }
+"aqua:spinel-coop/rv" = { version = "latest", os = ["linux", "macos"] }
+tree-sitter = { version = "latest", os = ["linux", "macos"] }
+yazi = { version = "latest", os = ["linux", "macos"] }
+television = { version = "latest", os = ["linux", "macos"] }
+vivid = { version = "latest", os = ["linux", "macos"] }
+carapace = { version = "latest", os = ["linux", "macos"] }
+fzf = { version = "latest", os = ["linux", "macos"] }
+duckdb = { version = "latest", os = ["linux", "macos"] }
+amazon-ecs-cli = { version = "latest", os = ["linux", "macos"] }
+ansible = { version = "latest", pipx_args = "--python={{ xdg_data_home }}/mise/installs/python/3.12.14/bin/python3.12 --include-deps", uvx = false, os = ["linux", "macos"] }
+awscli = { version = "latest", os = ["linux", "macos"] }
+azure-cli = { version = "latest", os = ["linux", "macos"] }
+cmake = { version = "latest", os = ["linux", "macos"] }
+coreutils = { version = "latest", os = ["linux", "macos"] }
+dasel = { version = "latest", os = ["linux", "macos"] }
+deno = { version = "latest", os = ["linux", "macos"] }
+dotnet = { version = "latest", os = ["linux", "macos"] }
+elm = { version = "latest", os = ["linux", "macos"] }
+ffmpeg = { version = "latest", os = ["linux", "macos"] }
+fastfetch = { version = "latest", os = ["linux", "macos"] }
+flyctl = { version = "latest", os = ["linux", "macos"] }
+fx = { version = "latest", os = ["linux", "macos"] }
+gh = { version = "latest", os = ["linux", "macos"] }
+git-lfs = { version = "latest", os = ["linux", "macos"] }
+hugo = { version = "latest", os = ["linux", "macos"] }
+imagemagick = { version = "latest", os = ["linux", "macos"] }
+jq = { version = "latest", os = ["linux", "macos"] }
+lnav = { version = "latest", os = ["linux", "macos"] }
+luajit = { version = "latest", os = ["linux", "macos"] }
+make = { version = "latest", os = ["linux", "macos"] }
+ninja = { version = "latest", os = ["linux", "macos"] }
+ollama = { version = "latest", os = ["linux", "macos"] }
+php = { version = "latest", os = ["linux", "macos"] }
+pipx = { version = "latest", os = ["linux", "macos"] }
+postgres = { version = "18", os = ["linux", "macos"] }
+powershell = { version = "latest", os = ["linux", "macos"] }
+resvg = { version = "latest", os = ["linux", "macos"] }
+ripgrep = { version = "latest", os = ["linux", "macos"] }
+sqlite = { version = "latest", os = ["linux", "macos"] }
+zoxide = { version = "latest", os = ["linux", "macos"] }
+codex = { version = "latest", os = ["linux", "macos"] }
