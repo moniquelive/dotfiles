@@ -7,7 +7,8 @@ SETUVAR Z_DATA_DIR:/Users/cyber/\x2elocal/share/z
 SETUVAR Z_EXCLUDE:\x5e/Users/cyber\x24
 SETUVAR __fish_initialized:4300
 SETUVAR _fisher_danhper_2F_fish_2D_ssh_2D_agent_files:\x7e/\x2econfig/fish/functions/__ssh_agent_is_started\x2efish\x1e\x7e/\x2econfig/fish/functions/__ssh_agent_start\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/fish\x2dssh\x2dagent\x2efish
+SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_nickeb96_2F_puffer_2D_fish_files:\x7e/\x2econfig/fish/functions/_puffer_fish_expand_bang\x2efish\x1e\x7e/\x2econfig/fish/functions/_puffer_fish_expand_buck\x2efish\x1e\x7e/\x2econfig/fish/functions/_puffer_fish_expand_dot\x2efish\x1e\x7e/\x2econfig/fish/functions/_puffer_fish_expand_star\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/puffer_fish_key_bindings\x2efish
-SETUVAR _fisher_plugins:danhper/fish\x2dssh\x2dagent\x1enickeb96/puffer\x2dfish
+SETUVAR _fisher_plugins:danhper/fish\x2dssh\x2dagent\x1enickeb96/puffer\x2dfish\x1ejorgebucaran/fisher
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_greeting:
