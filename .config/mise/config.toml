@@ -12,7 +12,7 @@ neovim = { version = "latest", os = ["linux", "macos"] }
 starship = { version = "latest", os = ["linux", "macos"] }
 opencode = { version = "latest", os = ["linux"] }
 bat = { version = "latest", os = ["linux", "macos"] }
-"aqua:fish-shell/fish-shell" = { version = "latest", os = ["linux"] }
+"aqua:fish-shell/fish-shell" = { version = "latest", os = ["linux", "macos"] }
 
 go = { version = "latest", os = ["linux", "macos"] }
 erlang = { version = "latest", os = ["linux", "macos"] }
