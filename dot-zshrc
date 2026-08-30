@@ -118,6 +118,11 @@ unset SCRIPT_NAME
 # unalias fd
 
 # set these after omz
+if [[ -n $brew_prefix ]]; then
+  path=(${path:#${brew_prefix}/opt/coreutils/libexec/gnubin})
+  path=(${brew_prefix}/opt/coreutils/libexec/gnubin $path)
+fi
+
 (( $+commands[bat] )) && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # export MANROFFOPT="-c"
 export BAT_THEME="Ef Cherie"

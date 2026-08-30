@@ -32,7 +32,6 @@ disable_tools = [
   "awscli",
   "azure-cli",
   "cmake",
-  "coreutils",
   "dasel",
   "deno",
   "dotnet",

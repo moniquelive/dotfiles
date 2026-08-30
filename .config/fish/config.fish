@@ -49,6 +49,7 @@ if status is-interactive
 
     command -q starship; and starship init fish --print-full-init | source; and enable_transience
     command -q mise; and mise activate fish | source
+    test -n "$brew_prefix"; and fish_add_path --global --move $brew_prefix/opt/coreutils/libexec/gnubin
     if command -q zoxide
         zoxide init --cmd cd fish | source
 

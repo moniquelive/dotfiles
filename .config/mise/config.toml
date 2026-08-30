@@ -67,7 +67,6 @@ azure-cli = { version = "latest", depends = [
   "macos",
 ] }
 cmake = { version = "latest", os = ["linux", "macos"] }
-coreutils = { version = "latest", os = ["linux", "macos"] }
 dasel = { version = "latest", os = ["linux", "macos"] }
 deno = { version = "latest", os = ["linux", "macos"] }
 dotnet = { version = "latest", os = ["linux", "macos"] }
