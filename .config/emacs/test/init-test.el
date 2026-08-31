@@ -119,10 +119,11 @@
     (should (equal (seq-take exec-path (length configured)) configured))))
 
 (ert-deftest my-test-packages-have-an-explicit-manifest ()
-  (dolist (package '(browse-at-remote cider evil-surround reformatter
+  (dolist (package '(browse-at-remote cider evil-surround ghostel reformatter
                      fish-mode powershell svelte-mode swift-mode
                      treesit-fold vue-mode))
     (should (memq package package-selected-packages)))
+  (should-not (memq 'vterm package-selected-packages))
   (should-not use-package-always-ensure))
 
 (ert-deftest my-test-missing-packages-are-synchronized-automatically ()
@@ -138,6 +139,16 @@
                (lambda () (incf sync-calls))))
       (my-package-sync-if-needed))
     (should (= sync-calls 1))))
+
+(ert-deftest my-test-package-sync-refreshes-stale-archive-metadata ()
+  (let ((package-archive-contents 'stale)
+        (calls nil))
+    (cl-letf (((symbol-function 'package-refresh-contents)
+               (lambda () (push 'refresh calls)))
+              ((symbol-function 'package-install-selected-packages)
+               (lambda (upgrade) (push (list 'install upgrade) calls))))
+      (my-package-sync))
+    (should (equal (nreverse calls) '(refresh (install t))))))
 
 (ert-deftest my-test-evil-normal-post-command-supports-emacs-31 ()
   (should evil-mode)
@@ -645,6 +656,7 @@
   (should (eq (key-binding (kbd "M-s m")) #'consult-man))
   (should (eq (key-binding (kbd "C-c g b")) #'browse-at-remote))
   (should (eq (key-binding (kbd "<f5>")) #'my-compile))
+  (should (eq (lookup-key my-leader-map (kbd "t")) #'ghostel))
   (should (eq (lookup-key evil-normal-state-map (kbd "ghx"))
               #'browse-at-remote))
   (should (eq (lookup-key evil-normal-state-map (kbd "TAB"))

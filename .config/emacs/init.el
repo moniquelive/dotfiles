@@ -196,8 +196,8 @@
 (defconst my-packages
   '(browse-at-remote cider clojure-ts-mode consult diff-hl ef-themes
     elm-mode evil evil-collection evil-surround fish-mode haskell-mode
-    magit marginalia markdown-mode powershell reformatter svelte-mode
-    swift-mode treesit-fold vterm vue-mode zig-mode)
+    ghostel magit marginalia markdown-mode powershell reformatter svelte-mode
+    swift-mode treesit-fold vue-mode zig-mode)
   "Packages provisioned by this configuration.")
 
 (setq package-selected-packages my-packages)
@@ -206,8 +206,7 @@
   "Install packages declared by this configuration."
   (interactive)
   (setq package-selected-packages my-packages)
-  (unless package-archive-contents
-    (package-refresh-contents))
+  (package-refresh-contents)
   (package-install-selected-packages t))
 
 (defun my-package-sync-if-needed ()
@@ -544,7 +543,7 @@
     "i d" #'my-toggle-flymake
     "i h" #'eglot-inlay-hints-mode
     "p" project-prefix-map
-    "t" #'vterm)
+    "t" #'ghostel)
 
   (evil-global-set-key 'normal (kbd "\\") my-leader-map)
   (evil-global-set-key 'normal (kbd "SPC") #'evil-forward-char)
@@ -1175,10 +1174,10 @@
   (diff-hl-flydiff-mode 1)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
-(use-package vterm
-  :commands vterm
+(use-package ghostel
+  :commands ghostel
   :custom
-  (vterm-kill-buffer-on-exit t))
+  (ghostel-kill-buffer-on-exit t))
 
 ;;;; Org
 
@@ -1199,24 +1198,6 @@
      (ruby . t)
      (sed . t)
      (shell . t))))
-
-;;;; Twitch IRC
-
-(use-package rcirc
-  :ensure nil
-  :custom
-  (rcirc-default-nick "moniquelive")
-  (rcirc-default-user-name "moniquelive")
-  (rcirc-default-full-name "MoniqueLive")
-  (rcirc-auto-authenticate-flag t)
-  (rcirc-reconnect-delay 5)
-  (rcirc-server-alist
-   '(("irc.chat.twitch.tv"
-      :port 6697
-      :encryption tls
-      :channels ("#moniquelive" "#theprimeagen"))))
-  :hook
-  (rcirc-mode . rcirc-track-minor-mode))
 
 (setq package-selected-packages my-packages)
 
