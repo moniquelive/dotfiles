@@ -724,7 +724,27 @@ function M.setup_mini(mini)
 
 	vim.iter({
 		{ "<c-p>", function() mini.pick.builtin.files() end, "Find Files" },
-		{ "<leader>fb", function() mini.pick.builtin.buffers() end, "List buffers" },
+		{
+			"<leader>fb",
+			function()
+				mini.pick.builtin.buffers({}, {
+					mappings = {
+						wipeout = {
+							char = "<C-d>",
+							func = function()
+								local current = mini.pick.get_picker_matches().current
+								local items = mini.pick.get_picker_items()
+								vim.api.nvim_buf_delete(current.bufnr, {})
+								mini.pick.set_picker_items(vim.tbl_filter(function(item)
+									return item.bufnr ~= current.bufnr
+								end, items))
+							end,
+						},
+					},
+				})
+			end,
+			"List buffers",
+		},
 		{ "<leader>fa", function() mini.pick.registry.man() end, "Search man pages" },
 		{ "<leader>fd", function() mini.extra.pickers.diagnostic({ scope = "current" }) end, "List diagnostics" },
 		{ "<leader>fl", function() mini.pick.builtin.grep_live() end, "Grep" },

@@ -16,7 +16,7 @@
 
 [delta]
   dark                       = true
-  features                   = ef-cherie side-by-side
+  features                   = ef-cherie
   hyperlinks                 = true
   line-numbers               = true
   line-numbers-left-style    = "#808898"
