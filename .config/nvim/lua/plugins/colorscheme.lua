@@ -5,6 +5,11 @@ return {
 		lazy = false,
 		opts = {
 			transparent = true,
+			on_highlights = function(_, colors)
+				return {
+					MatchParen = { fg = colors.fg_main, bg = colors.bg_paren_match },
+				}
+			end,
 			options = { compile = false },
 		},
 		config = function(_, opts)
