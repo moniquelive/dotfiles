@@ -1,6 +1,6 @@
 function __bubu_mise_update
     mise plugins update
-    and mise upgrade --bump
+    and mise upgrade --bump --exclude python
     and mise prune
 end
 
