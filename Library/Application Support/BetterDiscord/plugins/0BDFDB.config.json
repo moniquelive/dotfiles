@@ -19,12 +19,16 @@
 			"GuildIcon": "570001",
 			"GuildItem": "260727",
 			"GuildsWrapper": "987566",
+			"Heading": "408313",
 			"Input": "151167",
 			"ItemLayerContainer": "38112",
 			"Layers": "913420",
 			"Margins": "221851",
 			"Member": "590218",
 			"Menu": "798819",
+			"Message": "13673",
+			"MessageBody": "318626",
+			"MessageToolbarExtras": "798743",
 			"MessageToolbarItems": "738745",
 			"MessagesPopoutTabBar": "113164",
 			"MessagesWrap": "859803",
@@ -44,30 +48,35 @@
 			"PictureInPicture": "201181",
 			"PrivateChannel": "763097",
 			"Scroller": "6095",
+			"SearchBar": "358983",
+			"Select": "980148",
 			"SettingsItems": "715965",
 			"Slider": "192204",
+			"Text": "607226",
 			"Tooltip": "233680",
 			"TooltipGuild": "785332",
-			"Typing": "379285",
+			"Typing": "24504",
 			"UserHeaderUsername": "956495",
 			"UserPopoutBody": "211450",
 			"UserSummaryItem": "76145",
-			"UserTheme": "52020"
+			"UserTheme": "52020",
+			"VoiceChannel": "254849"
 		},
 		"ModuleIdCache": {
 			"AnalyticsContext": "820284",
 			"DiscordTag": "297413",
 			"EmojiPickerListRow": "267889",
 			"Menu": "980707",
+			"MessageUsername": "799162",
 			"PeopleListItem": "414711",
-			"PeopleListSectionedLazy": "571798",
-			"PeopleListSectionedNonLazy": "571798",
+			"PeopleListSectionedLazy": "502842",
+			"PeopleListSectionedNonLazy": "502842",
 			"TabBar": "761508",
 			"UnreadDMs": "24594",
 			"UserProfile": "939496"
 		},
 		"changeLogs": {
-			"BDFDB": "4.5.4",
+			"BDFDB": "4.5.6",
 			"BetterFriendList": "1.7.2",
 			"CharCounter": "1.7.1",
 			"LastMessageDate": "1.5.7",
@@ -86,7 +95,7 @@
 			"useChromium": false
 		},
 		"hashes": {
-			"0BDFDB.data.json": "e45424a6a8ed2c4d68e339dafb5b14e4949e1575",
+			"0BDFDB.data.json": "046bfe4f9dac9927852c94e49d33aeeb2038f3d5",
 			"0BDFDB.raw.css": "09d4361abbf6390a119b6d7fd069912fb115d966"
 		}
 	}

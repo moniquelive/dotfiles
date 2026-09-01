@@ -2,7 +2,7 @@
  * @name BDFDB
  * @author DevilBro
  * @authorId 278543574059057154
- * @version 4.5.4
+ * @version 4.5.6
  * @description Required Library for DevilBro's Plugins
  * @invite Jx3TjNS
  * @donate https://www.paypal.me/MircoWittrien
@@ -599,13 +599,6 @@ module.exports = (_ => {
 					PluginStores.updateData.plugins[url] = {name: plugin.name, raw: url, version: plugin.version};
 					
 					BDFDB.PluginUtils.checkUpdate(plugin.name, url);
-					
-					if (plugin.changeLog && !BDFDB.ObjectUtils.isEmpty(plugin.changeLog) && typeof plugin.getSettingsPanel != "function") plugin.getSettingsPanel = _ => BDFDB.PluginUtils.createSettingsPanel(plugin, {
-						children: BDFDB.ReactUtils.createElement(Internal.LibraryComponents.MessagesPopoutComponents.EmptyState, {
-							msg: "No Settings available for this Plugin",
-							image: BDFDB.DiscordUtils.getTheme() == BDFDB.disCN.themelight ? "/assets/9b0d90147f7fab54f00dd193fe7f85cd.svg" : "/assets/308e587f3a68412f137f7317206e92c2.svg"
-						})
-					});
 					
 					if (!PluginStores.updateData.interval) PluginStores.updateData.interval = BDFDB.TimeUtils.interval(_ => {
 						BDFDB.PluginUtils.checkAllUpdates();
@@ -1261,6 +1254,11 @@ module.exports = (_ => {
 					return [strings].flat(10).filter(n => typeof n == "string").map(config.ignoreCase ? (n => n.toLowerCase()) : (n => n)).every(string => module && ((typeof module == "function" || typeof module == "string") && (check(module, string) || typeof module.__originalFunction == "function" && check(module.__originalFunction, string)) || typeof module.type == "function" && check(module.type, string) || (typeof module == "function" || typeof module == "object") && module.prototype && Object.keys(module.prototype).filter(n => n.indexOf("render") == 0).some(n => check(module.prototype[n], string))));
 				};
 				Internal.checkModuleProps = function (module, properties, config = {}) {
+					// Discord ships catch-all Proxy exports (IntlMessagesProxy and friends) that answer every property name, so probe an impossible key first
+					if (!config.hasNot && module && (typeof module == "object" || typeof module == "function")) {
+						try {if (module.BDFDB_nonexistent_property_probe !== undefined) return false;}
+						catch (err) {return false;}
+					}
 					return [properties].flat(10).filter(n => typeof n == "string").every(prop => {
 						const value = module[prop];
 						return config.hasNot ? value === undefined : (value !== undefined && !(typeof value == "string" && !value));
@@ -2649,7 +2647,7 @@ module.exports = (_ => {
 				LibraryModules.LanguageStore = LibraryModules.LanguageStore.default || LibraryModules.LanguageStore;
 				
 				LibraryModules.React = BDFDB.ModuleUtils.findByProperties("createElement", "cloneElement");
-				LibraryModules.ReactDOM = BDFDB.ModuleUtils.findByProperties("render", "findDOMNode", {noWarnings: true}) || BDFDB.ModuleUtils.findByProperties("createRoot");
+				LibraryModules.ReactDOM = BDFDB.ModuleUtils.find(m => m && typeof m.render == "function" && typeof m.findDOMNode == "function", {noWarnings: true}) || (BdApi.ReactDOM && typeof BdApi.ReactDOM.createRoot == "function" && typeof BdApi.ReactDOM.flushSync == "function" ? BdApi.ReactDOM : null) || BDFDB.ModuleUtils.find(m => m && typeof m.createRoot == "function");
 				LibraryModules.ReactPortal = BDFDB.ModuleUtils.findByProperties("flushSync", "createPortal");
 				
 				Internal.LibraryModules = new Proxy(LibraryModules, {
@@ -2777,7 +2775,7 @@ module.exports = (_ => {
 				MyReact.findDOMNode = function (instance, onlyChildren) {
 					if (Node.prototype.isPrototypeOf(instance)) return instance;
 					if (!instance || !instance.updater) return null;
-					let node = Internal.LibraryModules.ReactDOM.findDOMNode && Internal.LibraryModules.ReactDOM.findDOMNode(instance);
+					let node = typeof Internal.LibraryModules.ReactDOM.findDOMNode == "function" ? Internal.LibraryModules.ReactDOM.findDOMNode(instance) : null;
 					for (let path of ["child.stateNode", "child.ref.current", !onlyChildren && "return.stateNode", !onlyChildren && "return.return.stateNode"]) if (!node && path) {
 						node = BDFDB.ObjectUtils.get(instance[BDFDB.ReactUtils.instanceKey] || instance, path);
 						node = Node.prototype.isPrototypeOf(node) ? node : null;
@@ -3117,7 +3115,7 @@ module.exports = (_ => {
 					if (!BDFDB.ReactUtils.isValidElement(component) || !Node.prototype.isPrototypeOf(node)) return;
 					try {
 						let root;
-						if (Internal.LibraryModules.ReactDOM.render) Internal.LibraryModules.ReactDOM.render(component, node);
+						if (typeof Internal.LibraryModules.ReactDOM.render == "function") Internal.LibraryModules.ReactDOM.render(component, node);
 						else {
 							root = BDFDB.ReactUtils.createRoot(node);
 							BDFDB.ReactUtils.flushSync(_ => root.render(component));
@@ -3147,7 +3145,7 @@ module.exports = (_ => {
 					return returnValue;
 				};
 				MyReact.unmountComponentAtNode = function (node) {
-					node && node.root && node.root.unmount ? node.root.unmount() : (Internal.LibraryModules.ReactDOM.unmountComponentAtNode && Internal.LibraryModules.ReactDOM.unmountComponentAtNode(node));
+					node && node.root && node.root.unmount ? node.root.unmount() : (typeof Internal.LibraryModules.ReactDOM.unmountComponentAtNode == "function" && Internal.LibraryModules.ReactDOM.unmountComponentAtNode(node));
 				};
 				BDFDB.ReactUtils = new Proxy({}, {
 					get: function (_, item) {
@@ -4642,7 +4640,7 @@ module.exports = (_ => {
 						else className = fallbackClassName;
 					}
 					if (selector) {
-						className = className.split(" ").filter(n => n.indexOf("da-") != 0).join(selector ? "." : " ");
+						className = className.split(" ").filter(n => n.indexOf("da-") != 0 && (!selector || n.indexOf("/") == -1)).join(selector ? "." : " ");
 						className = className || fallbackClassName;
 					}
 					return BDFDB.ArrayUtils.removeCopies(className.split(" ")).join(" ") || fallbackClassName;
@@ -5056,7 +5054,7 @@ module.exports = (_ => {
 					getBadgeCountString(e) {return e < 1e3 ? "" + e : Math.min(Math.floor(e/1e3), 9) + "k+"}
 					render() {
 						return BDFDB.ReactUtils.createElement("div", {
-							className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.badgenumberbadge, Internal.LibraryComponents.Badges && Internal.LibraryComponents.Badges.BadgeShapes && (this.props.shape && Internal.LibraryComponents.Badges.BadgeShapes[this.props.shape] || Internal.LibraryComponents.Badges.BadgeShapes.ROUND)),
+							className: BDFDB.DOMUtils.formatClassName(this.props.className, BDFDB.disCN.eyebrow, BDFDB.disCN.badgenumberbadge, Internal.LibraryComponents.Badges && Internal.LibraryComponents.Badges.BadgeShapes && (this.props.shape && Internal.LibraryComponents.Badges.BadgeShapes[this.props.shape] || Internal.LibraryComponents.Badges.BadgeShapes.ROUND)),
 							style: Object.assign({
 								backgroundColor: !this.props.disableColor && (this.props.color || BDFDB.DiscordConstants.ColorsCSS.STATUS_DANGER),
 								width: this.getBadgeWidthForValue(this.props.count)
@@ -6186,7 +6184,7 @@ module.exports = (_ => {
 							.replace(/\$agoAmount/g, daysAgo < 0 || daysAgo > 1 ? Internal.DiscordObjects.Timestamp(timeObj.getTime()).fromNow() : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
 							.replace(/\$agoWeekdayS/g, daysAgo < 0 || daysAgo > 1 ? timeObj.toLocaleDateString(language, {weekday: "short"}) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
 							.replace(/\$agoWeekday/g, daysAgo < 0 || daysAgo > 1 ? timeObj.toLocaleDateString(language, {weekday: "long"}) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
-							.replace(/\$agoDays/g, daysAgo < 0 ? "" : daysAgo > 1 ? BDFDB.LanguageUtils.LanguageStringsFormat(`LAST_PLAYED_PLACEHOLDER`, daysAgo) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
+							.replace(/\$agoDays/g, daysAgo < 0 ? "" : daysAgo > 1 ? BDFDB.LanguageUtils.LanguageStringsFormat(`PLACEHOLDER_D_AGO`, daysAgo) : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
 							.replace(/\$agoDate/g, daysAgo < 0 || daysAgo > 1 ? date : BDFDB.LanguageUtils.LanguageStrings[daysAgo == 1 ? "YESTERDAY" : "TODAY"])
 							.replace(/\(\)|\[\]/g, "").replace(/,\s*$|^\s*,/g, "").replace(/ +/g, " ").trim();
 					};
