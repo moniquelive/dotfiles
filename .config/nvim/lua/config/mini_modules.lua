@@ -128,7 +128,8 @@ function M.setup(mini)
 		function() mini.misc.setup_termbg_sync() end,
 		function() require("mini.visits").setup() end,
 		function()
-			require("mini.files").setup({
+			local files = require("mini.files")
+			files.setup({
 				mappings = {
 					close = "<S-Tab>",
 				},
@@ -136,6 +137,42 @@ function M.setup(mini)
 					permanent_delete = false,
 					use_as_default_explorer = false,
 				},
+			})
+
+			local function map_open(buf_id, lhs, split_command, desc)
+				vim.keymap.set("n", lhs, function()
+					local entry = files.get_fs_entry()
+					if entry == nil then return end
+					if entry.fs_type == "directory" then
+						files.go_in()
+						return
+					end
+
+					local state = files.get_explorer_state()
+					if state == nil then return end
+					local target_window = vim.api.nvim_win_call(state.target_window, function()
+						vim.cmd(split_command .. " split")
+						return vim.api.nvim_get_current_win()
+					end)
+					files.set_target_window(target_window)
+					files.go_in({ close_on_file = true })
+				end, { buffer = buf_id, desc = desc })
+			end
+
+			vim.api.nvim_create_autocmd("User", {
+				group = vim.api.nvim_create_augroup("UserMiniFilesMappings", { clear = true }),
+				pattern = "MiniFilesBufferCreate",
+				callback = function(event)
+					local buf_id = event.data.buf_id
+					vim.keymap.set("n", "<CR>", function() files.go_in({ close_on_file = true }) end, {
+						buffer = buf_id,
+						desc = "Open entry",
+					})
+					vim.keymap.set("n", "<Esc>", files.close, { buffer = buf_id, desc = "Close" })
+					map_open(buf_id, "<C-x>", "belowright", "Open in horizontal split")
+					map_open(buf_id, "<C-v>", "belowright vertical", "Open in vertical split")
+					map_open(buf_id, "<C-t>", "tab", "Open in tab")
+				end,
 			})
 		end,
 	}):each(function(setup) setup() end)
