@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ "$(id -u)" -ne 0 ]; then
+    exec sudo "$0" "$@"
+fi
+
+entry=$(efibootmgr | awk -F'*' '/Windows Boot Manager/ {sub(/^Boot/, "", $1); print $1; exit}')
+
+if [ -z "$entry" ]; then
+    echo "Error: no 'Windows Boot Manager' EFI boot entry found" >&2
+    exit 1
+fi
+
+efibootmgr --bootnext "$entry"
