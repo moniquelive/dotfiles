@@ -26,10 +26,10 @@ module.exports = (_ => {
 		
 		downloadLibrary () {
 			BdApi.Net.fetch("https://mwittrien.github.io/BetterDiscordAddons/Library/0BDFDB.plugin.js").then(r => {
-				if (!r || r.status != 200) throw new Error();
+				if (!r || r.status != 200 || !/^https:\/\/mwittrien\.github\.io\//.test(r.url || "")) throw new Error();
 				else return r.text();
 			}).then(b => {
-				if (!b) throw new Error();
+				if (!b || !/^\s*\/\*\*[\s\S]*@name\s+BDFDB[\s\S]*\*\//.test(b)) throw new Error("Integrity check failed: unexpected library content");
 				else return require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0BDFDB.plugin.js"), b, _ => BdApi.UI.showToast("Finished downloading BDFDB Library", {type: "success"}));
 			}).catch(error => {
 				BdApi.UI.alert("Error", "Could not download BDFDB Library Plugin. Try again later or download it manually from GitHub: https://mwittrien.github.io/downloader/?library");
