@@ -90,3 +90,10 @@ fi
 
 [[ -f ${HOME}/.awskeys.sh ]] && source ${HOME}/.awskeys.sh
 [[ -f $HOME/.cargo/env ]] && source $HOME/.cargo/env
+
+# Use 1Password even while its socket is unavailable; never start a fallback agent.
+case "$OSTYPE" in
+  darwin*) export SSH_AUTH_SOCK="$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock" ;;
+  linux*) export SSH_AUTH_SOCK="$HOME/.1password/agent.sock" ;;
+esac
+unset SSH_AGENT_PID

@@ -58,18 +58,11 @@ plugins=(
 )
 # plugins for binaries
 for p in aws emacs fzf gcloud docker docker-compose gem git \
-          gpg-agent mise mix pyenv rails redis-cli rsync \
+          mise mix pyenv rails redis-cli rsync \
                   stack starship tig tmux yum
 do
   (( $+commands[$p] )) && plugins+=($p)
 done
-
-# conditional plugins
-if (( $+commands[hostname] )); then
-  [[ `hostname` != "ip-172-31-37-67" ]] && plugins+=(ssh-agent)
-elif (( $+commands[hostnamectl] )); then
-  [[ `hostnamectl hostname` != "ip-172-31-37-67" ]] && plugins+=(ssh-agent)
-fi
 
 (( $+commands[brew] ))      && plugins+=(brew macos gnu-utils)
 (( $+commands[bundle] ))    && plugins+=(bundler)
@@ -88,15 +81,6 @@ zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 zstyle ':completion:*:functions' ignored-patterns '_*'
-
-# loadup ssh-agent (<3)
-if (( $+commands[ssh-agent] )); then
-  zstyle :omz:plugins:ssh-agent agent-forwarding yes
-  zstyle :omz:plugins:ssh-agent ssh-add-args --apple-load-keychain
-  zstyle :omz:plugins:ssh-agent identities id_ed25519 id_rsa github_rsa
-  zstyle :omz:plugins:ssh-agent lazy yes
-  zstyle :omz:plugins:ssh-agent quiet yes
-fi
 
 # .ssh/config FTW!
 if [[ -r ~/.ssh/config ]]; then
