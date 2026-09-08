@@ -1,7 +1,7 @@
 [user]
   name = Monique Oliveira
   email = lccro@msn.com
-  signingkey = ~/.ssh/id_ed25519.pub
+	signingkey = ~/.ssh/ed25519-2026.pub
 
 [core]
   quotepath    = false
