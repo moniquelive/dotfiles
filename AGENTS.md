@@ -1,15 +1,26 @@
 # AGENTS.md
 
-## Repo Shape (GNU Stow dotfiles)
-- This is a GNU Stow-managed dotfiles repo, not a single app/package.
+## Active Setup (mise)
+- The active configuration is in `$HOME`, primarily `~/.config/mise/config.toml`,
+  and is shared through the private `moniquelive/mise-setup` history repository.
+- Migrated home/config paths are real files and directories. Edit those live paths,
+  not their old copies in this checkout. In particular, Neovim now lives at
+  `$HOME/.config/nvim`; the relative Neovim paths below describe the archived layout.
+- Do not run `stow .`: it conflicts with materialized paths. `update-submodules.sh`
+  is now a compatibility entrypoint for `mise -C "$HOME" bootstrap`.
+- Keep the old checkout and backups until remaining account/state links have been
+  reviewed. Do not automatically track credentials, app databases, or conversations.
+
+## Archived Repo Shape
+- This was a GNU Stow-managed dotfiles repo, not a single app/package.
 - `.stowrc` enables `--dotfiles`: `dot-*` files map to hidden files in `$HOME` (for example `dot-zshrc` -> `~/.zshrc`).
-- Apply/sync changes from repo root with `stow .`.
 - Keep `.stow-local-ignore` patterns intact unless you explicitly want different stow behavior.
 
 ## Submodules
 - `.oh-my-zsh` and `.urxvt/perls` are git submodules (`.gitmodules`).
 - Treat submodule content as upstream-owned; avoid editing inside them unless explicitly requested.
-- Preferred update flow is `./update-submodules.sh` (pull root, update/init submodules, pull each submodule, then `stow .`).
+- Active Oh My Zsh is now an independent pinned repository declared in mise;
+  archived submodules remain untouched as rollback sources.
 
 ## Neovim Entrypoints
 - Main config entry: `.config/nvim/init.lua`.
